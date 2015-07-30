@@ -13,6 +13,8 @@ import org.springframework.security.web.savedrequest.NullRequestCache;
 import com.ssrolc.auth.MyCustomAuthenticationEntryPoint;
 import com.ssrolc.auth.MyCustomAuthenticationFailureHandler;
 import com.ssrolc.auth.MyCustomAuthenticationProvider;
+import com.ssrolc.auth.MyCustomAuthenticationSuccessHandler;
+import com.ssrolc.auth.MyCustomLogoutSuccessHandler;
 import com.ssrolc.auth.MyCustomSecurityContextRepository;
 
 
@@ -30,11 +32,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		private MyCustomAuthenticationProvider myCustomAuthenticationProvider;
 	
 		@Autowired
+		private MyCustomAuthenticationSuccessHandler myCustomAuthenticationSuccessHandler;
+		
+		@Autowired
 		private MyCustomAuthenticationFailureHandler myCustomAuthenticationFailureHandler;
 		
 		@Autowired
 		private MyCustomAuthenticationEntryPoint myCustomAuthenticationEntryPoint;
 		
+		@Autowired
+		private MyCustomLogoutSuccessHandler myCustomLogoutSuccessHandler;
 		
 		@Autowired
 		private MyCustomSecurityContextRepository myCustomSecurityContextRepository;
@@ -57,19 +64,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.and()
 					.csrf().disable()
 					.authorizeRequests()
-					.antMatchers("/login","/").permitAll()
-					.antMatchers("/adminManager/**").hasAuthority("SUPERADMIN")
-					.anyRequest().authenticated()
+					.antMatchers("/ssrolcmanager/login","/ssrolcmanager/loginCheck","/ssrolcmanager").permitAll()
+					.antMatchers("/ssrolcmanager/**").hasAuthority("SSROLCSUPERADMIN")
+					.anyRequest().permitAll()
 				.and()
 					.formLogin()
-						.usernameParameter("memberId")
-						.passwordParameter("memberPassword")
-						.loginProcessingUrl("/loginCheck")
+						.usernameParameter("userId")
+						.passwordParameter("userEncodeKey")
+						.loginProcessingUrl("/ssrolcmanager/loginCheck")
+						.successHandler(myCustomAuthenticationSuccessHandler)
+						.failureHandler(myCustomAuthenticationFailureHandler)
 						.permitAll()
 				.and()
 					.logout()
-						.logoutUrl("/logout")
-						.logoutSuccessUrl("/login")
+						.logoutUrl("/ssrolcmanager/logout")
+						.logoutSuccessUrl("/ssrolcmanager/login")
+						.logoutSuccessHandler(myCustomLogoutSuccessHandler)
 						.permitAll()
 				.and()
 					.httpBasic()

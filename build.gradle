@@ -43,6 +43,7 @@ dependencies {
     compile("org.mybatis:mybatis:3.3.0")
     compile("com.google.guava:guava:18.0")
     compile("org.projectlombok:lombok:1.16.4")
+    compile("org.apache.tomcat:tomcat-dbcp:7.0.59")
     runtime("mysql:mysql-connector-java")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile("org.springframework.boot:spring-boot-starter-test") 

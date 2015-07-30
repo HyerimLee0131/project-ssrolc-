@@ -26,7 +26,7 @@ public class MyCustomAuthenticationFailureHandler implements AuthenticationFailu
 			throws IOException, ServletException {
 		
 		if(loginFormPath == null || loginFormPath.isEmpty()){
-			setLoginFormPath("/login?error=true");
+			setLoginFormPath("/ssrolcmanager/login?error=true");
 		}
 		request.getRequestDispatcher(loginFormPath).forward(request,response);
 		

@@ -22,5 +22,19 @@ public class User {
 	private String userEncodeKey;
 	private Timestamp userRegDate;
 	private Timestamp userLeaveDate;
-	private boolean userEnable;
+	private Boolean userEnable;
+	
+	public User(String userId, String userPassword, String userName,
+			String userNick, String userEncodeKey, Timestamp userRegDate,
+			Timestamp userLeaveDate,Boolean userEnable) {
+		super();
+		this.userId = userId;
+		this.userPassword = userPassword;
+		this.userName = userName;
+		this.userNick = userNick;
+		this.userEncodeKey = userEncodeKey;
+		this.userRegDate = userRegDate;
+		this.userLeaveDate = userLeaveDate;
+		this.userEnable = userEnable;
+	}
 }

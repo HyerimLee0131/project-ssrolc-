@@ -24,13 +24,12 @@ public class MyCustomAuthenticationEntryPoint implements AuthenticationEntryPoin
 	public void commence(HttpServletRequest request,
 			HttpServletResponse response, AuthenticationException authException)
 			throws IOException, ServletException {
-		
 		if(loginFormPath == null || loginFormPath.isEmpty()){
-			setLoginFormPath("/login");
+			setLoginFormPath("/ssrolcmanager/login");
 		}
 		String redirectUrl = UrlUtils.buildRequestUrl(request);
 		String encodedUrl = response.encodeRedirectURL(redirectUrl);
-		if("/".equals(encodedUrl)){
+		if("/ssrolcmanager/".equals(encodedUrl)){
 			response.sendRedirect(request.getContextPath()+loginFormPath);
 		}else{
 			response.sendRedirect(request.getContextPath()+loginFormPath+"?returl="+encodedUrl);
