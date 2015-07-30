@@ -21,10 +21,11 @@ import com.ssrolc.repository.PrimaryRepositoryAnnoInterface;
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
 public class DataSourceConfig {
-
+	
 	@Bean
 	@Primary
 	public DataSource getPrimaryDataSource() {
+		
 //		final JndiDataSourceLookup basicDataSource = new JndiDataSourceLookup();
 //		basicDataSource.setResourceRef(true);
 //		return basicDataSource.getDataSource("java:comp/env/jdbc/myJeiGlobal");
@@ -50,6 +51,9 @@ public class DataSourceConfig {
 		basicDataSource.setTimeBetweenEvictionRunsMillis(30000);
 		basicDataSource.setNumTestsPerEvictionRun(-1);
 		return basicDataSource;
+//		return DataSourceBuilder
+//	            .create()
+//	            .build();
 	}
 	
 	@Bean
@@ -79,6 +83,9 @@ public class DataSourceConfig {
 		basicDataSource.setTimeBetweenEvictionRunsMillis(30000);
 		basicDataSource.setNumTestsPerEvictionRun(-1);
 		return basicDataSource;
+//		return DataSourceBuilder
+//	            .create()
+//	            .build();
 	}
 	/**
 	 * DB두대연결해보기위해 설정함
