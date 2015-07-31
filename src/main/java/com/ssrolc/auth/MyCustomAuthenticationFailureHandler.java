@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MyCustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
-
+	
 	private String loginFormPath;
 		
 	@Override
@@ -28,6 +28,7 @@ public class MyCustomAuthenticationFailureHandler implements AuthenticationFailu
 		if(loginFormPath == null || loginFormPath.isEmpty()){
 			setLoginFormPath("/ssrolcmanager/login?error=true");
 		}
+		
 		request.getRequestDispatcher(loginFormPath).forward(request,response);
 		
 	}

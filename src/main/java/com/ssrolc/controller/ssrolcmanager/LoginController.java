@@ -17,7 +17,8 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(value={"/ssrolcmanager/login","/ssrolcmanager"})
-	public String login(Model model,@RequestParam(value="returl",required=false) String returl){
+	public String login(Model model,@RequestParam(value="returl",required=false) String returl
+			,@RequestParam(value="error",required=false,defaultValue="") String error){
 //      로그찍을때
 //		logger.trace("trace");
 		logger.debug("login 들어옴");
@@ -26,7 +27,8 @@ public class LoginController {
 //		logger.error("error");
 		
 		model.addAttribute("title", "로그인페이지");
-		model.addAttribute("requrl",returl);
+		model.addAttribute("returl",returl);
+		model.addAttribute("error",error);
 	    return "ssrolcmanager/login";
 	}
 	
