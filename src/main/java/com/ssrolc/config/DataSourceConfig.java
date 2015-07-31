@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -21,11 +23,12 @@ import com.ssrolc.repository.PrimaryRepositoryAnnoInterface;
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
 public class DataSourceConfig {
+	private static final Logger logger = LoggerFactory.getLogger(DataSourceConfig.class);
 	
 	@Bean
 	@Primary
 	public DataSource getPrimaryDataSource() {
-		
+		logger.debug("======================DataSource=================초기화!");
 //		final JndiDataSourceLookup basicDataSource = new JndiDataSourceLookup();
 //		basicDataSource.setResourceRef(true);
 //		return basicDataSource.getDataSource("java:comp/env/jdbc/myJeiGlobal");

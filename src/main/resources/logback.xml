@@ -21,7 +21,6 @@
         </layout>
     </appender>
 
-    <logger name="example.logback.level.grandparents" level="TRACE"/>
     <root level="debug">
         <appender-ref ref="ROLLING"/>
         <appender-ref ref="STDOUT" />
