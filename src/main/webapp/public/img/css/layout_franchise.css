@@ -1,0 +1,25 @@
+﻿@charset "UTF-8";
+/* 페이지가 "euc-kr에서는 [ @charset "euc-kr"; ]를 정의해야한다 */
+/************************************************************************
+ * 설명         : 가맹안내 레이아웃
+************************************************************************/
+/*■■■■재정의■■■■*/
+
+/*■■■■정의■■■■*/
+
+/*가맹절차*/
+.process{padding:40px 50px;height:550px;background:url('/image/franchise/img_franchise3_bg.gif') no-repeat;line-height:17px;}
+	.process h3{font-weight:bold; color:#1b6f4f;}
+	.process p{padding-left:10px;font-size:11px; color:#444444;}
+	.process span{font-size:12px;color:#f00000;}
+
+/*가맹지사찾기*/
+.fildselect_a { background-color:#f4f4f4; padding:10px;}
+	.fildselect_a span.tit {background:url('/image/img_inc/bul_3x5_2.gif') no-repeat left 3px; padding-left:7px;}
+	.fildselect_a .noti { font-size:11px; margin-left:10px;}
+.flashmap_a { text-align:center; padding:10px 0;}
+
+/*가맹문의*/
+.privacy_agreement { border:1px solid #ccc; padding:20px; height:200px;}
+	.privacy_agreement h1 { font-weight:bold; margin-bottom:5px;}
+

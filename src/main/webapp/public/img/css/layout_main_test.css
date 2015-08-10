@@ -1,0 +1,46 @@
+﻿@charset "UTF-8";
+/* 페이지가 "euc-kr에서는 [ @charset "euc-kr"; ]를 정의해야한다 */
+/************************************************************************
+ * 설명         : 가맹안내 레이아웃
+************************************************************************/
+/*■■■■재정의■■■■*/
+body { background-image:none;}
+#wrap {background:url('/image/main/bg_body.jpg') no-repeat 50% top; background-color:#184634;}
+.wrap_in {background:url('/image/main/bg_body.jpg') no-repeat 50% top;}
+#head_a {background-image:none;}
+.breadc_a { display:none;}
+#foot_a { background-image:none; background-color:#fff;}
+/*■■■■공통정의■■■■*/
+#body_a { height:600px; position:relative}
+/*■■■■정의■■■■*/
+/*main visual*/
+.mainvisualimg { position:absolute;left:0; top:0;}
+	.mainvisualimg > div { position:absolute;}
+	.mainvisualimg > div > img {background: transparent;
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)";
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);}
+	.mainvisualimg .mv1 {left:720px; top:170px; z-index:10}
+	.mainvisualimg .mv2 {left:770px; top:48px;z-index:11}
+	.mainvisualimg .mv3 {left:290px; top:5px;z-index:12}
+	.mainvisualimg .mv4 {left:872px; top:365px;z-index:13}
+	.mainvisualimg .mv5 {left:818px; top:264px;z-index:14}
+	.mainvisualimg .mv6 {left:950px; top:250px;z-index:15}
+	.mainvisualimg .mv7 {left:935px; top:105px;z-index:16}
+	.mainvisualimg .mv8 {left:875px; top:160px;z-index:17}
+	.mainvisualimg .mv9 {height:94px;left:790px; top:130px;z-index:18}
+	.mainvisualimg .mv10 {height:277px;left:585px; top:45px;z-index:19}
+	.mainvisualimg .mv11 {height:116px;left:392px; top:20px;z-index:20}
+	.mainvisualimg .headcopy {left:0; top:150px; z-index:21}
+/*배너영역*/
+div.ban_a { position:absolute; left:0; top:315px; width:570px}
+div.ban_a > dl > dd { float:left; margin-right:10px; margin-bottom:10px;}
+
+/*배너영역*/
+div.ban_a { position:absolute; left:0; top:315px; width:570px}
+div.ban_a > dl > dd { float:left; margin-right:10px; margin-bottom:10px;}
+
+/*고객센터*/
+.customercenter {position:absolute; background-image:url('/image/main/ban_customercenter.png'); width:114px; height:300px;left:-140px; top:-120px; z-index:21}
+
+div { z-index:1000}
+.ex {background:url('/image/main/.png'); width:1023px; height:577px; left:0; top:0; position:absolute; z-index:0}

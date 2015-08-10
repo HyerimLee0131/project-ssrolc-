@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<moveTime>6</moveTime>
+	<image>
+		<imageURL>/flash/movie/main_banner1.swf</imageURL>
+		<subImageURL>subimage/thum_1.jpg</subImageURL>
+	</image>
+	<image>
+		<imageURL>/flash/movie/main_banner2.swf</imageURL>
+		<subImageURL>subimage/thum_2.jpg</subImageURL>
+	</image>
+	<image>
+		<imageURL>/flash/movie/main_banner3.swf</imageURL>
+		<subImageURL>subimage/thum_3.jpg</subImageURL>
+	</image>
+	<image>
+		<imageURL>/flash/movie/main_banner4.swf</imageURL>
+		<imageLink></imageLink>
+		<targetFrame></targetFrame>
+		<subImageURL>subimage/thum_4.jpg</subImageURL>
+	</image>
+</root>

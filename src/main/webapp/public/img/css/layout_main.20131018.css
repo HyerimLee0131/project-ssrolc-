@@ -1,0 +1,51 @@
+﻿@charset "UTF-8";
+/* 페이지가 "euc-kr에서는 [ @charset "euc-kr"; ]를 정의해야한다 */
+/************************************************************************
+ * 설명         : 가맹안내 레이아웃
+************************************************************************/
+/*■■■■재정의■■■■*/
+body { background-image:none;}
+#wrap {background:url('/image/main/bg_body.jpg') no-repeat 50% top; background-color:#184634;}
+.wrap_in {background:url('/image/main/bg_body.jpg') no-repeat 50% top;}
+#head_a {background-image:none;}
+.breadc_a { display:none;}
+#foot_a { background-image:none; background-color:#fff; padding-top:0;}
+#foot_a .foot_in { width:970px}
+#footer{ padding-top:15px !important;}
+/*■■■■공통정의■■■■*/
+#body_a { height:620px; position:relative}
+/*■■■■정의■■■■*/
+/*main visual*/
+.mainvisualimg { position:absolute;left:0; top:0;}
+	.mainvisualimg > div { position:absolute; background-position: left top; background-repeat:no-repeat;}
+	.mainvisualimg .mv1 {background-image:url('/image/main/img_mainv_01.png'); width:300px; height:380px; left:680px; top:170px; z-index:10}
+	.mainvisualimg .mv2 {background-image:url('/image/main/img_mainv_02.png'); width:117px; height:115px; left:730px; top:48px;z-index:11}
+	.mainvisualimg .mv3 {background-image:url('/image/main/img_mainv_03.png'); width:105px; height:68px; left:250px; top:5px;z-index:12}
+	.mainvisualimg .mv4 {background-image:url('/image/main/img_mainv_04.png'); width:85px; height:121px;left:832px; top:365px;z-index:13}
+	.mainvisualimg .mv5 {background-image:url('/image/main/img_mainv_05.png'); width:76px; height:59px;left:778px; top:264px;z-index:14}
+	.mainvisualimg .mv6 {background-image:url('/image/main/img_mainv_06.png'); width:35px; height:37px;left:910px; top:250px;z-index:15}
+	.mainvisualimg .mv7 {background-image:url('/image/main/img_mainv_07.png'); width:84px; height:100px;left:895px; top:105px;z-index:16}
+	.mainvisualimg .mv8 {background-image:url('/image/main/img_mainv_08.png'); width:57px; height:73px;left:835px; top:160px;z-index:17}
+	.mainvisualimg .mv9 {background-image:url('/image/main/img_mainv_09.png'); width:48px; height:94px;left:750px; top:130px;z-index:18}
+	.mainvisualimg .mv10 {background-image:url('/image/main/img_mainv_10.png'); width:194px; height:277px;left:545px; top:45px;z-index:19}
+	.mainvisualimg .mv11 {background-image:url('/image/main/img_mainv_11.png'); width:193px; height:116px;left:352px; top:20px;z-index:20}
+	.mainvisualimg .headcopy {background-image:url('/image/main/txt_maincopy.png'); width:414px; height:152px;left:0; top:150px; z-index:21}
+/*배너영역*/
+div.ban_a { position:absolute; left:0; top:315px; width:570px}
+div.ban_a > dl > dd { float:left; margin-right:10px; margin-bottom:10px;}
+
+/*배너영역*/
+div.ban_a { position:absolute; left:0; top:315px; width:570px}
+div.ban_a > dl > dd { float:left; margin-right:10px; margin-bottom:10px;}
+
+/*고객센터*/
+.customercenter {position:absolute; background-image:url('/image/main/ban_customercenter.png'); width:114px; height:320px;left:-140px; top:-115px; z-index:21}
+
+/*퀵메뉴*/
+.quickmenu {position:absolute; background:url('/image/main/quickmenu.png') no-repeat; width:110px; height:334px;left:-140px; top:205px;}
+.quickmenu > dl {position:absolute; top:70px; left:22px;}
+.quickmenu > dl > dd {padding-bottom:7px;}
+
+/*모달팝업*/
+.modal-overlay { position: fixed; top: 0px; right: 0px; bottom: 0px; left: 0px; height: 100%; width: 100%; margin: 0px; padding: 0px; background: #131313; opacity: .85; filter: alpha(opacity=85); z-index: 100001; }
+.modal-window { position: fixed; top: 0; left: 0; margin: 0; padding: 0px; z-index: 100002; }

@@ -1,0 +1,33 @@
+@charset "UTF-8";
+/* 페이지가 "euc-kr에서는 [ @charset "euc-kr"; ]를 정의해야한다 */
+/************************************************************************
+ * 설명         : 스스로러닝센터 컨텐츠영역 css
+************************************************************************/
+
+/* 홍보영상 */
+.cont_in{width:730px;}
+.tv_player{width:564px;height:409px;margin:0 auto; border:15px solid #e3e3e3; background-color:#000;}
+.board_total{margin:10px 0;color:#474747}
+.board_total strong{color:#ee3543;}
+.thumb_list{padding-top:20px; padding-bottom:140px;border-top:1px solid #e3e3e3;border-bottom:1px solid #e3e3e3;}
+
+.adTv_con{float:left;text-align:center; font-size:12px;padding-right:24px;}
+.adTv_con_last{padding-right:0;}
+.adTv_con p.txt{padding:8px 5px 0;font-weight:bold; color:#424345; letter-spacing:-1px;}
+.adTv_con p.date{padding:5px 5px; text-align:center; font-size:11px;color:#666666;}
+.adTv_con .thumb{width:120px; height:85px;border:1px solid #e5e5e5;background-color:#FFF;}
+
+.pagenavi{text-align:center;padding-top:20px;font-size:12px;clear:both;height:40px;}
+.pagenavi a, .pagenavi strong{background:url('/image/center/bg_pagenavi_h.gif') no-repeat 100% 5px;padding:6px;text-align:center;font-size:11px;color:#666666;vertical-align:top;}
+.pagenavi a.first,.pagenavi a.end{padding-top:2px;width:18px;background:none;}
+
+fieldset legend{visibility:hidden;}
+.ad_search{position:relative;width:297px;height:31px;margin:0 auto;}
+.ad_search select{height:19px;line-height:19px;padding:1px 4px;vertical-align:middle;}
+.ad_search input.input_search:hover{border-color:#20694e;}
+.ad_search input.input_search{color:#6f95d7;width:140px;height:18px;padding:0 4px;border:1px solid #d8d8d8;background:#fff;line-height:16px;vertical-align:middle;}
+.ad_search input.btn_search{vertical-align:middle;}
+
+/*우리동네 러닝센터찾기*/
+.flashmap_a {text-align:center;padding-bottom:40px;}
+.fildselect_a {background-color: #f4f4f4;padding: 10px;}

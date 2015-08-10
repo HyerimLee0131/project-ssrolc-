@@ -1,0 +1,52 @@
+﻿@charset "UTF-8";
+/* 페이지가 "euc-kr에서는 [ @charset "euc-kr"; ]를 정의해야한다 */
+/************************************************************************
+ * 설명         : 커뮤니티 레이아웃
+************************************************************************/
+/*■■■■재정의■■■■*/
+/* 정보공개서 열람 인증 */
+.input_box{width:865px; height:80px; background:url("/image/etc/box_bg.png") 0 0 no-repeat;}
+.input_box .name{vertical-align:middle;padding-top:16px; margin-left:40px; float:left;}
+.input_box .name input{margin-left:44px;}
+.input_box .email{vertical-align:middle;padding-top:16px; padding-left:250px;}
+.input_box .email input{margin-left:15px;}
+.input_box .email select{width:100px; height:19px;}
+.input_box .email span{font-size:12px; color:#1b704f; margin-left:15px;}
+.input_box .confirm{vertical-align:middle;margin:5px 0 0 40px; clear:both;}
+.input_box .confirm input{margin-left:21px;}
+.input_box input{border:1px solid #d7d7d7;width:100px; height:18px;}
+.input_box img{vertical-align:middle;padding-left:5px;}
+.btn_read{margin:260px;}
+
+/* 정보공개서 열람 Layer POPUP */
+.wrap{width:808px; height:855px; background:url("/image/etc/etc_pop_bg.gif") no-repeat 0 0; position:relative;font-size:12px;color:#919191;font-family:"돋움","dotum"; border:0; padding:0; margin:0;}
+.wrap h3{background:url("/image/etc/etc_pop_th_dot.gif") no-repeat 0 4px; padding-left:13px;border-bottom:1px solid #d0d0d0;padding-bottom:8px;}
+.wrap h4,h5{font-size:14px;}
+.wrap h6{font-size:12px;}
+
+.b{font-weight:bold;}
+.blind{display:none;}
+
+.btn_close{position:absolute; top:0; right:0;}
+.content{padding:60px 0 0 20px; width:768px;}
+.read01 p{padding:5px 0 0 20px;}
+.read02{padding-top:10px;}
+.read02 fieldset{border:none; padding:0; margin:0;}
+.read02 .box-policy{padding-top:10px; padding-left:10px; min-height:170px;height:170px;overflow-y:scroll; background-color:#f8f8f8; border:1px solid #dfdfdf;line-height:16px;}
+.read02 .select_agree{text-align:right; color:#777777;padding-top:10px;}
+.read03{padding-top:10px;position:relative;}
+.read03 .notice{position:absolute;top:15px; right:5px;}
+.read03 table{width:750px;height:197px;border-top:1px solid #9f9f9f;border-bottom:1px solid #9f9f9f;}
+.read03 table th{background-color:#f8f8f8;}
+.read03 table th,td{border-bottom:1px solid #e3e3e3; border-right:1px solid #e3e3e3;}
+.read03 table .td_last{border-right:none;}
+.read03 table .th_last{border-bottom:none;}
+.read03 table input,select{margin-left:10px;vertical-align:middle;border:1px solid #dddddd; font-size:12px; color:#727272;}
+.read03 table .check{border:0;}
+.read03 table .text-sub{margin-top:5px;}
+.read03 table .img_button{border:none;margin:0;}
+.read03 table .default_text{padding-left:10px;}
+
+.btn_read{margin-top:15px;}
+/*■■■■정의■■■■*/
+/*가맹문의*/

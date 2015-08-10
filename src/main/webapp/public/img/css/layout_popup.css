@@ -1,0 +1,38 @@
+﻿@charset "UTF-8";
+/* 페이지가 "euc-kr에서는 [ @charset "euc-kr"; ]를 정의해야한다 */
+/************************************************************************
+ * 설명         : 모든 팝업에 대한 레이아웃
+************************************************************************/
+/*■■■■재정의■■■■*/
+body, #wrap, .wrap_in, #head_a , #foot_a, #foot_a .foot_in { background-image:none; height:auto; width:auto;}
+
+/*■■■■공통정의■■■■*/
+#head_a { background-color:#1b7150; text-align:center; height:30px;}
+	.head_in {padding-top:4px;}
+#body_a { border-left:3px solid #1b7150; border-right:3px solid #1b7150; border-bottom:3px solid #1b7150; }
+/*■■■■popup페이지별정의■■■■*/
+/*비밀번호입력*/
+.passwordinput { text-align:center; padding-top:38px;}
+
+/*관리자로그인*/
+.idpasslogin { margin:0 auto; width:230px; position:relative; padding-top:25px;}
+	.idpasslogin > p > span.field { width:50px; display:inline-block; text-align:center}
+	.idpasslogin > p > span.field img {margin-bottom:-3px;}
+	.idpasslogin > input.btn { position:absolute; left:150px; top:25px;}
+	
+/*우편번호찾기*/
+.zipcode_a { text-align:center; padding:20px 20px 0;}
+	.zipcode_a > .noti { font-size:11px; font-weight:bold; margin-top:5px; }
+	.zipcode_a > .search_a { border:1px solid #ccc; background-color:#fafafa; margin-top:10px; padding:10px;}
+	.zipcode_a > .result_a { margin-top:20px; text-align:left;}
+	.zipcode_a > .result_a > div > .noti { padding-bottom:5px; font-size:11px;}
+	.zipcode_a > .result_a > div > .j_list_01 {height:250px;}
+	.zipcode_a > .result_a > div > .j_list_01 li > a:hover { text-decoration:none;}
+	.zipcode_a > .result_a > div > .j_list_01 li > a > .zipcode { width:70px; display:inline-block;}
+
+/*개인정보취급방침*/
+.privacy{height:410px; color:#666666; border:solid 1px #e6e6e6; padding:20px; margin:0 20px 20px 20px; letter-spacing:-1;}
+	.privacy h2{text-align:center;font-weight:bold; color:#1b7150;}
+	.privacy h3{font-size:15px; font-weight:bold; color:#1b7150;}
+	.privacy h4{font-weight:bold;}
+	

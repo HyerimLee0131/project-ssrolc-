@@ -1,0 +1,411 @@
+﻿@charset "UTF-8";
+/* 페이지가 "euc-kr에서는 [ @charset "euc-kr"; ]를 정의해야한다 */
+
+/************************************************************************
+ * 설명         : Freepangpang 사이트 공통[html5 에 표준화되어 있음]
+ * 최초작성일   : 120807
+ * 작성자       : 김영남
+************************************************************************/
+
+/*□□□□□□□□□□□□□ 기본적 element정의 □□□□□□□□□□□□*/
+/*□	전체공통CSS, Cannel공통 CSS, Layout CSS에 규칙에 적용		  □*/
+/*□																  □*/
+/*□	div: 영역설정에만 사용한다.									  □*/
+/*□	p: div밑에 있는 문단을 구분한다.							  □*/
+/*□	span : 개별적 text영역을 구분한다.							  □*/
+/*□	h1: title 글자체 - CI에만 사용한다.							  □*/
+/*□	h2: title 글자체 - BI에만 사용한다.							  □*/
+/*□	h3: title 글자체 - channel명에 사용한다.(GNB,CNB)			  □*/
+/*□	h4: title 글자체 - body안의 1depth Title에 사용	  			  □*/
+/*□	h5: title 글자체 - body안의 2depth이하 Title에 사용			  □*/
+/*□	h6: image 박스 	 - 라인과 이미지외곽 라인 삽입시에만 사용한다.□*/
+/*□					 - rounding-box삽입시에만 사용한다.			  □*/
+/*□																  □*/
+/*□	ID명정의: 		사용:de_명칭  								  □*/
+/*□					해석:design팀_명칭		 					  □*/
+/*□	Class명정의: 	사용.j_속성_명칭							  □*/
+/*□					해석:freepang공통정의class이름_속성값_명칭	  □*/
+/*□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□*/
+
+/*■■■■ 채널의 기본 element 정의 ■■■■*/
+/*IE,FF의 공통적용 */
+	* {margin:0;padding:0;}
+/*가운데정렬시 적용 [OP, IE8은 margin:0 auto;로 처리]
+	body {text-align:-moz-center; #text-align:center;}*/
+	img { border-width:0}
+		img.j_btn { cursor:pointer}
+/* IE6 PNG구동 */
+	*html .png24 {tmp:expression(setPNG24(this));}
+	/* IE6에서 일반적인 png 파일의 background image 사용법 */
+		/* PNG Background 적용 예시 - 원하는 곳에 해당 사항 적용하여 표현한다 */
+		/*.png_back { */
+		/*background:url(name.png) no-repeat top left;*/ /*일반적용*/
+		/*_background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/다른서버면 절대경로로/name.png', sizingMethod='crop');}*/ /* IE6적용*/
+			
+	li {list-style-type: none;}
+	table {border-collapse:collapse; empty-cells:show;}
+		table.j_t_fix8 {table-layout:fixed\9; #table-layout:auto;}/*ie8 100%오류막기*/
+		table.j_t_fix7 {#table-layout:fixed;}/*ie7 100%오류막기*/
+		table.j_t_fixa {table-layout:fixed;}/*all 100%오류막기*/
+		table.j_break {word-break:break-all; word-wrap:break-word} /*text뚫기막기*/
+	br.j_5px {line-height:5px} br.j_10px {line-height:10px} br.j_15px {line-height:15px} br.j_20px {line-height:20px} br.j_30px {line-height:30px} br.j_40px {line-height:40px}
+		
+/*font의 가장 기본형을 정의*/
+	/*body,h1,h2,h3,h4,h5,h6,form,input,select,textarea {font:12px/1.2 "나눔고딕", "NanumGothic", "NanumGothicWEB", "맑은 고딕", "Malgun Gothic", "돋움",  Dotum, "굴림",Gulim, sans-serif; color:#666666;}*/
+	body,h1,h2,h3,h4,h5,h6,form,input,select,textarea {font:12px/1.2 "돋움",  Dotum, "굴림",Gulim, sans-serif; color:#666666;}/*dtd선언시*/
+	/*body,p,h1,h2,h3,h4,h5,h6,ul,ol,div,dt,dd,form,dl,th,td,input,select,textarea{font:12px/1.2 "돋움",dotum,"굴림", gulim, AppleGothic, sans-serif ; color:#666666;} dtd 미선언시*/
+	h3,h4,h5,dt,th,caption {font-weight:bold;} /* 가장일반적인 title체 */
+	h6 {font-size:0px;}
+	ins {text-decoration:none;}
+/* From Style */
+	textarea	{}
+	select.j_01 {height:20px;}
+	input.j_01 {height:15px; padding-top:3px;} /*dtd 선언시*/
+/*input.j_01 {height:20px; padding-top:3px;} dtd 미선언시*/
+	input.j_align {margin:0 4px 0 0; #margin:0 1px 0 -4px; #height:14px; position:relative; top:-1px; vertical-align:middle} /*radio,check버튼의 valign맞추기 IE~OP적용*/
+/* curser */
+	.j_pointer { cursor:pointer}
+	
+/*■■■■ 채널의 공통영역 정의 ■■■■*/
+/*▼▼ 기본 링크 정의 ▼▼*/
+a.j_under {text-decoration:underline !important;}
+
+	/* color-anchor*/
+	a {color: #1a4065; text-decoration: none;}
+	a:link, a:visited {color: #1a4065; text-decoration: none;}
+	a:active, a:hover {color:#016edc; text-decoration: underline;}
+
+/*▼▼ 링크 정의 ▼▼*/
+	/* color-anchor*/
+	.j_l_red_01 , .j_l_red_01 a:link , .j_l_red_01 a:visited { color:#FF0000; font-weight:normal; text-decoration: none }
+	.j_l_red_01 a:active , .j_l_red_01 a:hover { color:#cb0034;font-weight:bold;text-decoration: underline }
+
+	.j_l_gray_01 , .j_l_gray_01 a:link , .j_l_gray_01 a:visited { color:#999999; font-weight:normal; text-decoration: none }
+	.j_l_gray_01 a:active , .j_l_gray_01 a:hover {text-decoration: underline }
+
+	/*breadcrumb정의*/
+	.j_l_breadcrumb { font-size:11px; font-weight:normal; color:#666666; background:url(/image/img_inc/bul_7x5.gif) no-repeat left 40%;; padding-left:10px;}
+	.j_l_breadcrumb a:link , .j_l_breadcrumb a:visited {color:#666666; text-decoration: none }
+	.j_l_breadcrumb a:active , .j_l_breadcrumb a:hover {color:#1382aa; text-decoration: underline }
+	
+	
+	
+/*▼▼ font 정의 ▼▼*/
+	/*font */ 
+	.j_f_bold { font-weight:bold;}
+	.j_f_normal { font-weight:normal;}
+	.j_f_under { text-decoration: underline;}
+
+	/*font-size */ 
+	.j_f_0px { font-size:0} .j_f_10px { font-size:10px} .j_f_11px { font-size:11px}	.j_f_12px { font-size:12px}	.j_f_13px { font-size:13px}	.j_f_14px { font-size:14px}
+
+	/*font-family */ 
+	.j_fset_01 {font-family:"돋움",dotum,"굴림", gulim, AppleGothic, sans-serif}
+	.j_fset_02 {font-family:tahoma, Verdana}
+	.j_fset_03 {font-family:tahoma, Verdana; font-size:11px}
+	
+	/* font-color */
+	.j_c_white_01 {color:#ffffff;}
+	.j_c_block_01 {color:#000000;}	
+	.j_c_gray_01 {color:#262626;} .j_c_gray_02 {color:#464646;}	.j_c_gray_03 {color:#efefef;} .j_c_gray_04 {color:#999999;}
+	.j_c_red_01 {color:#ff0000;}
+	
+	.j_c_orange_01 {color:#ff6600;}		
+	.j_c_yellow_01 {color:#ffff00;}	
+	.j_c_brown_01 {color:#d87500;}
+	.j_c_green_01 {color:#00ff00;}	
+	.j_c_blue_01 {color:#0066ff;}
+	.j_c_violet_01 {color:#6600ff;}
+	.j_c_pink_01 {color:#ff33cc;}
+
+/*▼▼ Background Color 정의 ▼▼*/
+	.j_bgc_white_01 {background-color:#ffffff;}
+	.j_bgc_block_01 {background-color:#000000;}	
+	.j_bgc_gray_01 {background-color:#262626;} .j_bgc_gray_02 {background-color:#464646;} .j_bgc_gray_03 {background-color:#efefef;}
+	
+	.j_bgc_red_01 {background-color:#ffeded;}
+	/* 예시
+	.j_bgc_orange_01 {}	.j_bgc_yellow_01 {}	.j_bgc_brown_01 {}.j_bgc_green_01 {}.j_bgc_blue_01 {}.j_bgc_violet_01 {}.j_bgc_pink_01 {}
+	*/
+	
+/*▼▼ Text 정의 ▼▼*/
+	/*text_align*/ 
+	.j_t_left {text-align:left !important; text-align:-moz-left !important; #text-align:left !important;} /*순대로 OP,FF,IE Text 적용*/
+	.j_t_right {text-align:right !important; text-align:-moz-right !important; #text-align:right !important;}/*순대로 OP,FF,IE Text 적용*/
+	.j_t_center {text-align:center !important; text-align:-moz-center !important; #text-align:center !important;}/*순대로 OP,FF,IE Text 적용*/
+	.j_t_center_in {margin-left:auto; margin-right:auto;}/*OP,FF,IE8을 위한 Block 가운데정렬*/
+
+	/*line-height*/ 
+	.j_lh_01 { line-height:1.4}
+	.j_lh_02 { line-height:1.55}
+	.j_lh_03 { line-height:1.75}
+
+/*▼▼ Vertical 정의 ▼▼*/
+	.j_v_top {vertical-align:top;}
+	.j_v_middle {vertical-align:middle;}
+	.j_v_bottom {vertical-align:bottom;}
+
+/*▼▼ border 정의 ▼▼*/
+	/*border_line*/ 
+	.j_b_1px {border:1px solid #cccccc;}
+	.j_b_t_1px {border-top:1px solid #cccccc;}
+	.j_b_b_1px {border-bottom:1px solid #cccccc;}
+	.j_b_l_1px {border-left:1px solid #cccccc;}
+	.j_b_r_1px {border-right:1px solid #cccccc;}
+
+/*▼▼ margin,padding 정의 ▼▼*/
+	/*margin_px*/ 
+	.j_mg_l_4px {margin-left:4px;}
+	/*padding_px*/ 
+	.j_pd_5px {padding:5px;}
+	.j_pd_h_5px {padding-left:5px; padding-right:5px;}
+	.j_pd_l_5px {padding-left:5px;}
+
+/*▼▼ Float 정의 ▼▼*/
+	/*float*/
+	.j_f_left { float:left;}
+	.j_f_right { float:right;}
+
+/*▼▼ position 정의 ▼▼*/
+	/*position*/
+	.j_p_rel { position:relative}
+	.j_p_abs { position:absolute}
+	.j_p_a_rt {position:absolute; top:0; right:0;}
+	
+/*▼▼ clear 정의 ▼▼*/
+	/*Css_Clear_All*/
+	.j_cca {font:12px "돋움",dotum,"굴림", gulim, AppleGothic, sans-serif  !important;
+			border-width:0 !important;
+			background-color:#FFFFFF !important;
+			background-image:none !important;
+			padding:0 !important;
+			margin:0 !important;
+			position:relative !important;}
+	/*border_line_Clear*/
+	.j_b_clear {border-width:0 !important;}
+	.j_b_l_clear {border-left-width:0 !important;}
+	.j_b_r_clear {border-right-width:0 !important;}
+	.j_b_t_clear {border-top-width:0 !important;}
+	.j_b_b_clear {border-bottom-width:0 !important;}
+	
+	/*font_Clear*/ 
+	.j_ft_clear {font: 12px "돋움",dotum,"굴림", gulim, AppleGothic, sans-serif  !important;}
+	/*background 관련*/
+	.j_bg_clear {background-image:none !important;}
+	/*padding관련*/
+	.j_pd_clear {padding:0 !important;}
+	.j_pd_l_clear {padding-left:0 !important;}
+	.j_pd_r_clear {padding-right:0 !important;}
+	.j_pd_v_clear {padding-top:0 !important; padding-bottom:0 !important;}
+	.j_pd_h_clear {padding-left:0 !important; padding-right:0 !important;}
+	/*margin관련*/
+	.j_mg_clear {margin:0 !important;}
+	.j_mg_v_clear {margin-top:0 !important; margin-bottom:0 !important;}
+	.j_mg_h_clear {margin-left:0 !important; margin-right:0 !important;}
+	/*float 관련*/
+	.clearfix:before,
+	.clearfix:after {content: "";display: table;} 
+	.clearfix:after {clear: both;}
+	.clearfix {zoom: 1; /* For IE 6/7 (trigger hasLayout) */}
+	.j_clear {height:1%; overflow:hidden;} /*%를 이용한 Float의 초기화시 브라우져 크기에 따라 떨어짐오류발생 주의바람*/
+	.j_f_clear {clear:both !important;}
+	.j_fl_clear {clear:left !important;}
+	.j_fr_clear {clear:right !important;}
+	/*overflow 관련*/
+	.j_ov_x_clear { overflow-x: hidden;}
+	.j_ov_y_clear { overflow-y: hidden;}
+	
+/*▼▼ Display 정의 ▼▼*/
+	/*안보이게 하기 관련*/
+	.j_t_out {text-indent:-5000px;}	
+	.j_d_none {display:none;}
+
+/*▼▼ 인쇄 잘리기 정의 ▼▼*/
+	.j_p_break_a {page-break-after:always;}	
+	.j_p_break_b {page-break-before:always;}
+
+/*■■■■ 채널 공통 템플릿 정의 ■■■■*/
+/*▼▼ 표 table or Div Style 정의 : Table안의 Table 사용가능하게 정의 ▼▼*/
+	.tb_1 { text-align:left; padding-left:10px;}
+	.no_pd { padding:0 !important;}
+	
+	.j_table_01 {text-align:left; border-top:2px solid #a6a6a6; border-bottom:2px solid #a6a6a6;}
+		/*border, padding정의*/
+		.j_table_01 thead>tr>th {padding-top:7px; padding-bottom:6px; border:1px solid #cccccc;}/*모든 th정의*/
+		.j_table_01 tbody>tr>td ,.j_table_01 tbody>tr>th {padding-top:9px; padding-bottom:7px; border-top:1px solid #dcdcdc;}/*모든 td정의*/
+		.j_table_01 tbody>tr:first-child>td ,.j_table_01 tbody>tr:first-child>th { border-top:none;}
+		/*각 구역별 정의*/
+		.j_table_01 thead>tr>th {background-color:#efefef; color:#262626;} /*head의 head체*/
+		.j_table_01 tbody>tr>th { text-align:center; background-color:#efefef; color:#262626;} /*body의 head체*/
+		.j_table_01 tbody>tr>td {background-color:#fff; color:#888888; font-size:12px;}
+		.j_table_01 tbody>tr>td>.cont_a { padding:10px; line-height:1.6}
+	
+		/*Write영역*/
+		.write .tb_1 { text-align:left; padding:5px 0 5px 10px;}
+		.j_table_01.write tbody>tr>td>.cont_a {}
+		.j_table_01.write tbody>tr>td ,.j_table_01.write tbody>tr>th {padding-top:9px; padding-bottom:7px; border-top:1px solid #dcdcdc;}/*모든 td정의*/
+		.j_table_01.write tbody>tr>td>.cont_a textarea { width:600px; height:400px; border:1px solid #ccc; padding:10px; resize:vertical}
+		.j_table_01.write tbody>tr>td { padding:0;}/*글쓰기 padding예외*/
+
+/*▼▼ 리스트 Table or Div Style 정의 : Table안의 Table 사용가능하게 정의 ▼▼*/
+	.list_top {background:url('/image/img_inc/bul_3x5.gif') no-repeat left 4px; font-size:11px; padding-left:8px; margin:20px 0 5px 0;} 
+		.list_top strong { color:#1b7150; font-weight:normal}
+		
+		.j_tablelist_01 {text-align:center; border-top:2px solid #a6a6a6; border-bottom:2px solid #a6a6a6; }
+			/*border, padding정의*/
+			.j_tablelist_01 thead>tr>th {padding-top:7px; padding-bottom:6px; }/*모든 th정의*/
+			.j_tablelist_01 tbody>tr>td {padding-top:9px; padding-bottom:8px; border-top:1px solid #dcdcdc;}/*모든 td정의*/
+			/*각 구역별 정의*/
+			.j_tablelist_01 thead>tr>th {background-color:#efefef; color:#262626;} /*head의 head체*/
+			.j_tablelist_01 tbody>tr>td {background-color:#fff; color:#888888; font-size:12px;}
+			.j_tablelist_01 tr.last td { border-bottom:none;}
+			.j_tablelist_01 a {color:#888888}
+		
+
+/*▼▼ table_top 정의 ▼▼*/
+	.j_table_t_01 {padding-top:20px;}
+
+	
+
+/*▼▼ box 정의 ▼▼*/
+
+/*▼▼ Title Style 정의 ▼▼*/
+		
+/*▼▼ list Style 정의 - Contents List영역(2~6줄)의 정의 ▼▼*/
+
+/*▼▼ Tab Style 정의 ▼▼*/
+	.j_tab_01 {}
+		.j_tab_01 > dl { height:1%; overflow:hidden;}
+		.j_tab_01 > dl > dd { float:left;}
+
+/*▼▼ Bullet(title용) 정의 ▼▼*/
+	
+/*▼▼ Bullet(list용) 정의 ▼▼*/
+
+/*▼▼ line 정의 ▼▼*/
+
+/*▼▼ box 정의 ▼▼*/
+
+/*▼▼ button Style 정의 ▼▼*/
+	button.imgbtn {border:none;background:none;cursor:pointer;overflow:visible;vertical-align:middle;font-size:0;line-height:0;#margin-left:5px;}
+	
+	.j_btn_01 { text-align:center; position:relative; min-height:25px;}
+		.j_btn_01 > div.left { position:absolute; left:0; top:5px;}
+		.j_btn_01 > div.center { padding-top:5px;}
+		.j_btn_01 > div.right { position:absolute; right:0; top:5px;}
+/*▼▼ pagination 정의 ▼▼*/
+	.j_pagination { text-align:center;}
+		.j_pagination a { display:inline-block; height:20px; padding:0 6px; line-height:1.8; vertical-align:middle; color:#888888; margin-left:-3px}
+		.j_pagination a.btn {width:2px; background:url('/image/img_inc/btn_pagination.gif') no-repeat left top; }
+		.j_pagination a.prevprev {background-position:50% 4px;}
+		.j_pagination a.prev {background-position:50% -36px;}
+		.j_pagination a.next {background-position:50% -76px;}
+		.j_pagination a.nextnext {background-position:50% -116px;}
+		/*action*/
+		.j_pagination a.on { color:#1a7150; font-weight:bold;}
+		.j_pagination a:hover { color:#1a7150; }
+/*▼▼ search 정의 ▼▼*/
+	.j_search_01 { border:1px solid #e2e2e2; background-color:#fafafa; text-align:center; padding:15px 0; margin-top:20px;}
+	.j_search_01 input,.j_search_01 select { vertical-align:middle}
+
+/*▼▼ Scroll 정의 ▼▼*/
+	.j_scroll_01{ overflow:auto;scrollbar-face-color: #F2F2F2;scrollbar-shadow-color: #999999;scrollbar-highlight-color: #999999;scrollbar-3dlight-color: #FFFFFF;scrollbar-darkshadow-color: #FFFFFF;scrollbar-track-color: #F2F2F2;scrollbar-arrow-color: #999999}
+	.j_scroll_02{ overflow:auto;scrollbar-face-color: #dddddd;scrollbar-shadow-color: #eeeeee;scrollbar-highlight-color: #ffffff;scrollbar-3dlight-color: #dddddd;scrollbar-darkshadow-color: #cccccc;scrollbar-track-color: #f6f6f6;scrollbar-arrow-color: #000000}
+	.j_scroll_03{ overflow:auto;scrollbar-face-color: #dddddd;scrollbar-shadow-color: #dddddd;scrollbar-highlight-color: #dddddd;scrollbar-3dlight-color: #cccccc;scrollbar-darkshadow-color: #cccccc;scrollbar-track-color: #fbfbfb;scrollbar-arrow-color: #ffffff;scrollbar-base-color:#DDDDDD;}
+	.j_scroll_04{ overflow:auto;scrollbar-face-color: #ffffff;scrollbar-shadow-color: #cccccc;scrollbar-highlight-color: #cccccc;scrollbar-3dlight-color: #FFFFFF;scrollbar-darkshadow-color: #FFFFFF;scrollbar-track-color: #fcfcfc;scrollbar-arrow-color: #cccccc}
+	.j_scroll_05{ overflow:auto;scrollbar-face-color: #999999;scrollbar-shadow-color: #333333;scrollbar-highlight-color: #333333;scrollbar-3dlight-color: #999999;scrollbar-darkshadow-color: #999999;scrollbar-track-color: #999999;scrollbar-arrow-color: #333333} /*dark버전*/
+
+/*■■■■ 채널 공통 레이아웃, 디자인 ID,Class,Element 정의 ■■■■*/
+body {background:url('/image/img/bg_header_pattern.jpg') repeat-x left 33px;}
+
+/*전체Page 영역*/
+/*globalMenu*/
+	#gm_a { z-index:1000; position:relative;}
+	
+	#wrap {background:url('/image/img/bg_header.jpg') no-repeat 50% top;  z-index:10;}
+		.wrap_in { width:980px; margin:0 auto; }
+	#page_a {}
+	#spage_a {}
+
+/*GNB or Header 영역*/
+	#head_a {position:relative; height:115px;background:url('/image/img/bg_header.jpg') no-repeat 50% top;}
+		#head_a h1 a {width:230px; height:46px; background:url('/image/img_inc/img_bi.png') no-repeat left top; display:block;text-indent:-100%; white-space:nowrap; overflow:hidden;
+			position:absolute; left:0; top:24px;}
+		
+		.gnb_a {position:absolute; right:18px; top:32px; width:715px; height:44px; background:url('/image/img/bg_gnb.png') no-repeat left top;}	
+			.gnb_a a { display:block; text-indent:-100%; white-space:nowrap; overflow:hidden;}
+			.gnb_a > dl > dd  { float:left; margin-left:2px; padding-top:12px;}
+			.gnb_a > dl > dd > a { height:20px; float:left;}
+			.gnb_a > dl > dd.gnb1 { margin-left:67px;}
+			.gnb_a > dl > dd.gnb1 a  { width:170px; background:url('/image/img_inc/menu_gnb1.png') no-repeat 50% 3px;}
+			.gnb_a > dl > dd.gnb2 a  { width:145px; background:url('/image/img_inc/menu_gnb2.png') no-repeat 50% 3px;}
+			.gnb_a > dl > dd.gnb3 a  { width:130px; background:url('/image/img_inc/menu_gnb3.png') no-repeat 50% 3px;}
+			.gnb_a > dl > dd.gnb4 a  { width:130px; background:url('/image/img_inc/menu_gnb4.png') no-repeat 50% 3px;}
+			.gnb_a > dl dd div > dl { display:none}
+			.gnb_a .admin a  { position:absolute; right:15px; top:9px; width:30px; height:30px; background:url('/image/img_inc/menu_admin.png') no-repeat 50% 3px;}
+		
+			/*action*/	
+			.gnb_a > dl > dd.on > a { background-position:50% -27px;}
+			
+/*body 영역*/
+	#body_a { }
+
+/*Left 영역*/
+	#left_a {float:left;}
+		/*LNB 영역*/
+		#lnb_a {width:170px; padding-top:40px; position:relative;}
+			#lnb_a h1 {background:url('/image/img_inc/tit_lnb.png') no-repeat left top; height:20px;text-indent:-100%; white-space:nowrap; overflow:hidden; margin-bottom:50px;}
+			#lnb_a.gnb1 h1 { background-position:10px 0;}/*40px 격차*/
+			#lnb_a.gnb2 h1 { background-position:10px -40px;}
+			#lnb_a.gnb3 h1 { background-position:10px -80px;}
+			#lnb_a.gnb4 h1 { background-position:10px -120px;}
+			#lnb_a.gnb5 h1 { background-position:10px -160px;}
+			
+			#lnb_a span.lnb_img {position:absolute; left:0; top:20px; width:170px; height:130px;background:url('/image/img/img_lnb.png') no-repeat left top; }
+				#lnb_a.gnb1 span.lnb_img {background-position:left -2px;}/*150px 격차*/	
+				#lnb_a.gnb2 span.lnb_img {background-position:left -151px;}			
+				#lnb_a.gnb3 span.lnb_img {background-position:left -302px;}			
+				#lnb_a.gnb4 span.lnb_img {background-position:left -450px;}
+				#lnb_a.gnb5 span.lnb_img {background-position:left -600px;} /*없음*/
+	
+			/*lnb box*/
+			#lnb_a .menu > dl.top {background:url('/image/img/box_lnb.png') no-repeat left top; height:30px;}
+			#lnb_a .menu > dl.md {background:url('/image/img/box_lnb.png') no-repeat left -30px; padding:6px 0 0 11px;}
+			#lnb_a .menu > dl.btm {background:url('/image/img/box_lnb.png') no-repeat left bottom; height:40px;}		
+			/*lnb 2depth menu*/
+			#lnb_a .menu > dl.md > dd {padding-bottom:8px;}
+			#lnb_a .menu > dl.md > dd image { display:block;}
+			/*lnb 3depth menu*/
+			#lnb_a .menu > dl.md > dd > div.menu { padding-top:5px;}
+			#lnb_a .menu > dl.md > dd > div.menu dl dd {background:url('/image/img_inc/line_lnb3depth.gif') no-repeat 27px 3px; padding-left:37px; padding-bottom:2px;}
+		
+/*content 영역*/
+	#cont_a { margin-left:200px; position:relative; min-height:700px;}
+		.breadc_a { position:absolute; right:10px; top:10px; font-size:11px;}
+		.breadc_a,.breadc_a a {color:#bdbab4;}
+		.breadc_a strong a {color:#77746f;}
+			.breadc_a span.home { width:9px; height:9px; display:inline-block; background:url('/image/img_inc/icon_home.gif') no-repeat left top; vertical-align:middle; padding-right:3px; margin-top:-1px;}
+		.bodytit_a {padding:35px 0 22px 20px;background:url('/image/img/bg_cotent_shodow_top.gif') no-repeat left bottom;}
+		#cont_a > .cont_in { padding:40px 30px 50px 20px; position:relative}
+/* footer 영역*/
+	#foot_a { background-color:#efefef;background:url('/image/img/bg_footer_line.gif') repeat-x left top; padding-top:40px;}
+		#foot_a .foot_in {width:990px; height:60px; margin:0 auto; background:url('/image/img/img_footersample.gif') no-repeat left top;}
+
+/*■■■■ ETC 레이아웃, 디자인 ID,Class,Element 정의 ■■■■*/
+/*body right shadow image*/
+	.body_shadow_r {background:url('/image/img/bg_cotent_shodow_right.png') no-repeat left top; width:12px; height:590px; position:absolute; right:-12px;top:0;}
+
+/*quickmenu*/
+	#quickmenu {width:100px;}
+		#quickmenu dd.top {padding:10px 0 0 6px;}
+		
+/*guide정의*/
+	textarea.guide {height:40px; width:100%; display:block; background-color:#efefef; border:1px solid #ccc;}
+	form.guide { margin-bottom:10px; margin-top:40px;}
+	form.guide:first-child {margin-top:0;}
+	h1>.guide { font:bold 26px/1.2 "나눔고딕", NanumGothic, "맑은 고딕", "Malgun Gothic", "돋움", Dotum, "굴림", Gulim, sans-serif}
+	.guide_tit { padding:10px; color:#fff; margin-bottom:10px; font:bold 14px/1.4 "나눔고딕", NanumGothic, "맑은 고딕", "Malgun Gothic", "돋움", Dotum, "굴림", Gulim, sans-serif;
+	background-color:#003d99; background-image: -webkit-linear-gradient(bottom, rgb(2,66,135) 5%, rgb(3,85,173) 53%); border-radius:10px; position:relative}
+		.guide_tit > .type { font-size:11px; padding-right:10px; color:#0CF}
+		.guide_tit > .btn { padding:3px; font-weight:bold; position:absolute; right:10px; top:7px;}
+		.guide_tit > .noti { font-size:10px; color:#0C3; padding-left:10px;}

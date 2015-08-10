@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="/public/css/common_admin.css" />
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <title>${title?default('러닝센터')}</title>
 
@@ -14,21 +15,50 @@
 	});
 </script>
 </#if>
+<script type="text/javascript">
+$(function(){
+	$('.fmTitle').click(function(e) {
+		var target = $(this).attr('href');
+		$(target).slideDown();
+		$(target).find('.btn-close').click(function() {
+			$(target).slideUp();
+		});
+	});
+});
+</script>
 </head>
-<body>
-<div>
-	<div>
+<body id="login">
+<div id="loginWrapper">
+	<div id="header">
+		<h1><a href="#"><img src="/public/img/admin/login/logo.gif" alt="재능스스로러닝센터" /></a></h1>
+	</div>
+	<div id="loginContainer">
+		<h2><img src="/public/img/admin/login/h2_login.gif" alt="로그인" /></h2>
 		<form name="loginFrm" id="loginFrm" method="post" action="https://devssl.ssro.com/jeislc/controller/loginchk_java.php">
-			<div>
-				<div>
-					<p><input type="text" placeholder="아이디" name="userId" maxlength="10" /></p>
-					<p><input type="password" placeholder="비밀번호"  name="userPassword" maxlength="100"/></p>
-					<span><input type="submit" value="로그인" style="cursor:pointer;"/></span>
-				</div>
+			<div class="login-box">
+				<dl>
+					<dt><img src="/public/img/admin/login/tit_fc_login.gif" alt="재능스스로러닝센터 관리시스템" /></dt>
+				</dl>
+				<fieldset>
+					<legend>재능 스스로 러닝센터</legend>
+					<div>
+						<p><input type="text" placeholder="아이디" name="userId" maxlength="10" /></p>
+						<p><input type="password" placeholder="비밀번호"  name="userPassword" maxlength="100"/></p>
+						<span class="button btn-login"><input type="submit" value="로그인" style="cursor:pointer;"/></span>
+					</div>
+					<p class="save-chk">
+						<input name="rememberId" type="checkbox" id="rememberId" title="아이디저장" value="ok" /><label for="reId">아이디 저장</label>
+					</p>
+					<ul>
+						<li>비밀번호가 기억이 안나신다구요? 본사 <em>02-2028-5612</em>로 연락주시기 바랍니다.</li>
+						<li>통합관리자 계정 정보를 입력해 주시고 관련 정보는 유출되지 않도록 보안사항을 지켜주세요.</li>
+					</ul>
+				</fieldset>
 			</div>
 			<input type="hidden" name="returl" value="${returl?default('')}" />
 		</form>
 	</div>
 </div>
+<#include "/ssrolcmanager/footer.ftl">
 </body>
 </html>

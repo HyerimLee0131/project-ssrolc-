@@ -1,0 +1,33 @@
+﻿@charset "UTF-8";
+/* 페이지가 "euc-kr에서는 [ @charset "euc-kr"; ]를 정의해야한다 */
+/************************************************************************
+ * 설명         : 학습시스템 컨텐츠영역 css
+************************************************************************/
+
+
+
+/*학습경쟁력*/
+.img_system1_1{margin:21px 0 0 122px;}
+
+
+/*하루학습프로그램*/
+.Timetable { position:relative}
+.Timetable .overnover { position:absolute; left:43px; top:34px; z-index:1000}
+.Timetable map{ z-index:1000;}
+.Timetable map area{ z-index:1000;}
+	.img_system2_1{padding:34px 0 0 43px}
+	.layer_over { z-index:10}
+	.layer_over > dd {display:none; position:absolute; left:0; top:0; z-index:10}	
+	.layer_over > dd > img {background: transparent;
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)";
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);}
+	.layer_over > dd.img_1 {left:304px; top:46px;}
+	.layer_over > dd.img_2 {left:353px; top:143px;}
+	.layer_over > dd.img_3 {left:353px; top:269px;}
+	.layer_over > dd.img_4 {left:84px; top:238px;}
+	.layer_over > dd.img_5 {left:93px; top:101px;}
+	.layer_over > dd.img_6 {left:160px; top:48px;}
+	
+/*센터학습프로그램*/
+
+
