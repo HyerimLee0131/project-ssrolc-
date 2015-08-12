@@ -8,7 +8,6 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -22,8 +21,6 @@ import com.ssrolc.repository.PrimaryRepositoryAnnoInterface;
 @EnableTransactionManagement(proxyTargetClass = true)
 public class DataSourceConfig {
 	
-	@Bean
-	@Primary
 	public DataSource getPrimaryDataSource() {
 //		final JndiDataSourceLookup basicDataSource = new JndiDataSourceLookup();
 //		basicDataSource.setResourceRef(true);
@@ -50,12 +47,8 @@ public class DataSourceConfig {
 		basicDataSource.setTimeBetweenEvictionRunsMillis(30000);
 		basicDataSource.setNumTestsPerEvictionRun(-1);
 		return basicDataSource;
-//		return DataSourceBuilder
-//	            .create()
-//	            .build();
 	}
 	
-	@Bean
 	public DataSource getAnotherDataSource() {
 //		final JndiDataSourceLookup basicDataSource = new JndiDataSourceLookup();
 //		basicDataSource.setResourceRef(true);
@@ -82,9 +75,6 @@ public class DataSourceConfig {
 		basicDataSource.setTimeBetweenEvictionRunsMillis(30000);
 		basicDataSource.setNumTestsPerEvictionRun(-1);
 		return basicDataSource;
-//		return DataSourceBuilder
-//	            .create()
-//	            .build();
 	}
 	/**
 	 * DB두대연결해보기위해 설정함
