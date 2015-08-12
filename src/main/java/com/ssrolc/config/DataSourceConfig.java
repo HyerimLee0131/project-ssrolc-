@@ -3,6 +3,7 @@ package com.ssrolc.config;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -25,31 +25,31 @@ public class DataSourceConfig {
 	@Bean
 	@Primary
 	public DataSource getPrimaryDataSource() {
-		final JndiDataSourceLookup basicDataSource = new JndiDataSourceLookup();
-		basicDataSource.setResourceRef(true);
-		return basicDataSource.getDataSource("java:comp/env/jdbc/ssrolc");
-//		final BasicDataSource basicDataSource = new BasicDataSource();
-//		basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-//		basicDataSource.setUsername("devadmin");
-//		basicDataSource.setPassword("smart2012)*@&mydb");
-//		basicDataSource.setUrl("jdbc:mysql://192.1.27.209:3306/ssrolc");
-//		
-//		basicDataSource.setMaxActive(10);
-//		basicDataSource.setMaxIdle(4);
-//		basicDataSource.setMinIdle(4);
-//		basicDataSource.setMaxWait(5000);
-//
-//		basicDataSource.setTestWhileIdle(true);
-//		basicDataSource.setValidationQuery("SELECT 1");
-//
-//		basicDataSource.setRemoveAbandoned(true);
-//		basicDataSource.setRemoveAbandonedTimeout(100);
-//		basicDataSource.setLogAbandoned(true);
-//
-//		basicDataSource.setTestOnBorrow(false);
-//		basicDataSource.setTimeBetweenEvictionRunsMillis(30000);
-//		basicDataSource.setNumTestsPerEvictionRun(-1);
-//		return basicDataSource;
+//		final JndiDataSourceLookup basicDataSource = new JndiDataSourceLookup();
+//		basicDataSource.setResourceRef(true);
+//		return basicDataSource.getDataSource("java:comp/env/jdbc/ssrolc");
+		final BasicDataSource basicDataSource = new BasicDataSource();
+		basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		basicDataSource.setUsername("devadmin");
+		basicDataSource.setPassword("smart2012)*@&mydb");
+		basicDataSource.setUrl("jdbc:mysql://192.1.27.209:3306/ssrolc");
+		
+		basicDataSource.setMaxActive(10);
+		basicDataSource.setMaxIdle(4);
+		basicDataSource.setMinIdle(4);
+		basicDataSource.setMaxWait(5000);
+
+		basicDataSource.setTestWhileIdle(true);
+		basicDataSource.setValidationQuery("SELECT 1");
+
+		basicDataSource.setRemoveAbandoned(true);
+		basicDataSource.setRemoveAbandonedTimeout(100);
+		basicDataSource.setLogAbandoned(true);
+
+		basicDataSource.setTestOnBorrow(false);
+		basicDataSource.setTimeBetweenEvictionRunsMillis(30000);
+		basicDataSource.setNumTestsPerEvictionRun(-1);
+		return basicDataSource;
 //		return DataSourceBuilder
 //	            .create()
 //	            .build();
@@ -57,31 +57,31 @@ public class DataSourceConfig {
 	
 	@Bean
 	public DataSource getAnotherDataSource() {
-		final JndiDataSourceLookup basicDataSource = new JndiDataSourceLookup();
-		basicDataSource.setResourceRef(true);
-		return basicDataSource.getDataSource("java:comp/env/jdbc/jeiMssql");
-//		final BasicDataSource basicDataSource = new BasicDataSource();
-//		basicDataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//		basicDataSource.setUsername("sa");
-//		basicDataSource.setPassword("16658202");
-//		basicDataSource.setUrl("jdbc:sqlserver://192.1.27.245:1433;DatabaseName=JEIGLOBAL;");
-//		
-//		basicDataSource.setMaxActive(10);
-//		basicDataSource.setMaxIdle(4);
-//		basicDataSource.setMinIdle(4);
-//		basicDataSource.setMaxWait(5000);
-//
-//		basicDataSource.setTestWhileIdle(true);
-//		basicDataSource.setValidationQuery("SELECT 1");
-//
-//		basicDataSource.setRemoveAbandoned(true);
-//		basicDataSource.setRemoveAbandonedTimeout(100);
-//		basicDataSource.setLogAbandoned(true);
-//
-//		basicDataSource.setTestOnBorrow(false);
-//		basicDataSource.setTimeBetweenEvictionRunsMillis(30000);
-//		basicDataSource.setNumTestsPerEvictionRun(-1);
-//		return basicDataSource;
+//		final JndiDataSourceLookup basicDataSource = new JndiDataSourceLookup();
+//		basicDataSource.setResourceRef(true);
+//		return basicDataSource.getDataSource("java:comp/env/jdbc/jeiMssql");
+		final BasicDataSource basicDataSource = new BasicDataSource();
+		basicDataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		basicDataSource.setUsername("sa");
+		basicDataSource.setPassword("16658202");
+		basicDataSource.setUrl("jdbc:sqlserver://192.1.27.245:1433;DatabaseName=JEIGLOBAL;");
+		
+		basicDataSource.setMaxActive(10);
+		basicDataSource.setMaxIdle(4);
+		basicDataSource.setMinIdle(4);
+		basicDataSource.setMaxWait(5000);
+
+		basicDataSource.setTestWhileIdle(true);
+		basicDataSource.setValidationQuery("SELECT 1");
+
+		basicDataSource.setRemoveAbandoned(true);
+		basicDataSource.setRemoveAbandonedTimeout(100);
+		basicDataSource.setLogAbandoned(true);
+
+		basicDataSource.setTestOnBorrow(false);
+		basicDataSource.setTimeBetweenEvictionRunsMillis(30000);
+		basicDataSource.setNumTestsPerEvictionRun(-1);
+		return basicDataSource;
 //		return DataSourceBuilder
 //	            .create()
 //	            .build();
