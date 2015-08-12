@@ -1,4 +1,4 @@
-package com.ssrolc.config;
+package com.ssrolc;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;

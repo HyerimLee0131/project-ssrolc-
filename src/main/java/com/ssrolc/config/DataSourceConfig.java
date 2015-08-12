@@ -21,15 +21,17 @@ import com.ssrolc.repository.PrimaryRepositoryAnnoInterface;
 @EnableTransactionManagement(proxyTargetClass = true)
 public class DataSourceConfig {
 	
+	//@Bean
+	//@Primary
 	public DataSource getPrimaryDataSource() {
 //		final JndiDataSourceLookup basicDataSource = new JndiDataSourceLookup();
 //		basicDataSource.setResourceRef(true);
 //		return basicDataSource.getDataSource("java:comp/env/jdbc/ssrolc");
 		final BasicDataSource basicDataSource = new BasicDataSource();
-		basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		basicDataSource.setUsername("devadmin");
-		basicDataSource.setPassword("smart2012)*@&mydb");
-		basicDataSource.setUrl("jdbc:mysql://192.1.27.209:3306/ssrolc");
+		basicDataSource.setDriverClassName(ConnectSetting.mysqlDriverClassName);
+		basicDataSource.setUsername(ConnectSetting.mysqlUsername);
+		basicDataSource.setPassword(ConnectSetting.mysqlPassword);
+		basicDataSource.setUrl(ConnectSetting.mysqlUrl);
 		
 		basicDataSource.setMaxActive(10);
 		basicDataSource.setMaxIdle(4);
@@ -49,15 +51,16 @@ public class DataSourceConfig {
 		return basicDataSource;
 	}
 	
+	//@Bean
 	public DataSource getAnotherDataSource() {
 //		final JndiDataSourceLookup basicDataSource = new JndiDataSourceLookup();
 //		basicDataSource.setResourceRef(true);
 //		return basicDataSource.getDataSource("java:comp/env/jdbc/jeiMssql");
 		final BasicDataSource basicDataSource = new BasicDataSource();
-		basicDataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		basicDataSource.setUsername("sa");
-		basicDataSource.setPassword("16658202");
-		basicDataSource.setUrl("jdbc:sqlserver://192.1.27.245:1433;DatabaseName=JEIGLOBAL;");
+		basicDataSource.setDriverClassName(ConnectSetting.mssqlDriverClassName);
+		basicDataSource.setUsername(ConnectSetting.mssqlUsername);
+		basicDataSource.setPassword(ConnectSetting.mssqlPassword);
+		basicDataSource.setUrl(ConnectSetting.mssqlUrl);
 		
 		basicDataSource.setMaxActive(10);
 		basicDataSource.setMaxIdle(4);

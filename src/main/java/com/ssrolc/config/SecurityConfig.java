@@ -1,7 +1,6 @@
 package com.ssrolc.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,7 +24,6 @@ import com.ssrolc.auth.MyCustomSecurityContextRepository;
  */
 @Configuration
 @EnableWebSecurity
-@ComponentScan("com.ssrolc")
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		@Autowired
