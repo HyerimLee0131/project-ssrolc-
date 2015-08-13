@@ -6,4 +6,4 @@ db:
     mssqlDriverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
     mssqlUrl: jdbc:sqlserver://192.1.27.245:1433;DatabaseName=COMMON;
     mssqlUsername: 2012A0055
-    mssqlPassword: jeiV0I8V2A3!
+    mssqlPassword: jeiV0I8V2A3!     

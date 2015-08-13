@@ -1,4 +1,4 @@
-<div id="footer">
+	<div id="footer">
 		<div class="foot-content">
 			<p class="logo"><img src="/public/img/admin/login/footer_logo.gif" alt="JEI 재능교육" /></p>
 			<ul class="util-link">

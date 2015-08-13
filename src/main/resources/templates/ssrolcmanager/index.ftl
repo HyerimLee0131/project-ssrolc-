@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-
-<body>
-	안녕
+<#include "/ssrolcmanager/header.ftl">
+<#include "/ssrolcmanager/left.ftl">
+			<div id="primary_content" class="primary-content">
+				<span>안녕</span>
+			</div>
+		</div>
+	</div>
+	<!-- //container -->
+<#include "/ssrolcmanager/footer.ftl">
+</div>
 </body>
 </html>
