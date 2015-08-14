@@ -22,7 +22,7 @@ public class ConnectSetting {
 	private ConnectSetting() {
 		super();
 		YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
-		yaml.setResources(new ClassPathResource("db.yml"));
+		yaml.setResources(new ClassPathResource("application.yml"));
 		Properties proper = yaml.getObject();
 		mysqlDriverClassName = proper.getProperty("db.mysqlDriverClassName");
 		mysqlUrl = proper.getProperty("db.mysqlUrl");

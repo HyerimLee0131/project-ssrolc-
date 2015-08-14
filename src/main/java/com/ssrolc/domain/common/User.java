@@ -2,8 +2,10 @@ package com.ssrolc.domain.common;
 
 import java.sql.Timestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /*
@@ -12,6 +14,8 @@ import lombok.ToString;
  * 일자:2015-07-28
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 @EqualsAndHashCode
 public class User {
@@ -23,18 +27,4 @@ public class User {
 	private Timestamp userRegDate;
 	private Timestamp userLeaveDate;
 	private Boolean userEnable;
-	
-	public User(String userId, String userPassword, String userName,
-			String userNick, String userEncodeKey, Timestamp userRegDate,
-			Timestamp userLeaveDate,Boolean userEnable) {
-		super();
-		this.userId = userId;
-		this.userPassword = userPassword;
-		this.userName = userName;
-		this.userNick = userNick;
-		this.userEncodeKey = userEncodeKey;
-		this.userRegDate = userRegDate;
-		this.userLeaveDate = userLeaveDate;
-		this.userEnable = userEnable;
-	}
 }
