@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssrolc.repository.BoardRepository">
+	<select id="findBoardById" parameterType="String" resultType="com.ssrolc.domain.board.Board">
+		SELECT * FROM ssrolc.board WHERE boardTable = #{boardTable}
+	</select>
+	
+	<select id="findBoardCategorys" parameterType="hashMap" resultType="com.ssrolc.domain.board.BoardCategory">
+		SELECT * FROM ssrolc.boardCategory
+		<where>
+			<if test="boardTable != null">
+				boardTable = #{boardTable}
+			</if>
+			<if test="categoryCode != null">
+				AND categoryCode = #{categoryCode}
+			</if>
+			<if test="categoryName != null">
+				AND categoryName = #{categoryName}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findArticles" parameterType="hashMap" resultType="com.ssrolc.domain.board.Article">
+		SELECT * FROM ssrolc.article 
+		<where>
+			<if test="boardTable != null">
+				boardTable = #{boardTable} AND useEnable = 1 AND deleteFlag = 0
+			</if>
+			<if test="searchField != null and searchField != '' and  searchValue != null and searchValue != '' ">
+				<if test="searchField == 'title' ">
+					AND title LIKE CONCAT('%',#{searchValue},'%')			
+				</if>
+				<if test="searchField == 'content' ">
+					AND content LIKE CONCAT('%',#{searchValue},'%')			
+				</if>
+				<if test="searchField == 'title+content' ">
+					AND (title LIKE CONCAT('%',#{searchValue},'%') OR content LIKE CONCAT('%',#{searchValue},'%') )		
+				</if>
+			</if>
+		</where>
+		ORDER BY regDate DESC
+		<if test="startLimit != null and endLimit != null">
+			LIMIT #{startLimit},#{endLimit}
+		</if>
+	</select>
+	
+	<select id="countArticle" parameterType="hashMap" resultType="int">
+		SELECT count(0) FROM ssrolc.article
+		<where>
+			<if test="boardTable != null">
+				boardTable = #{boardTable} AND useEnable = 1 AND deleteFlag = 0
+			</if>
+			<if test="searchField != null and searchField != '' and  searchValue != null and searchValue != '' ">
+				<if test="searchField == 'title' ">
+					AND title LIKE CONCAT('%',#{searchValue},'%')			
+				</if>
+				<if test="searchField == 'content' ">
+					AND content LIKE CONCAT('%',#{searchValue},'%')			
+				</if>
+				<if test="searchField == 'title+content' ">
+					AND (title LIKE CONCAT('%',#{searchValue},'%') OR content LIKE CONCAT('%',#{searchValue},'%') )	
+				</if>
+			</if>
+		</where>
+	</select>
+</mapper>
