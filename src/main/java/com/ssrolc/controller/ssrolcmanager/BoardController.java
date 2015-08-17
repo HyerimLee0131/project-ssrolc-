@@ -22,6 +22,7 @@ import com.ssrolc.domain.board.BoardCategory;
 import com.ssrolc.exception.BoardCategoryNotFoundException;
 import com.ssrolc.exception.BoardNotFoundException;
 import com.ssrolc.service.BoardService;
+import com.ssrolc.utils.PageUtil;
 
 @Controller
 public class BoardController {
@@ -67,12 +68,47 @@ public class BoardController {
 	}
 	
 	
-	@RequestMapping(value={"/ssrolcmanager/boards/{boardTable}/{page}"} ,
+	@RequestMapping(value={"/ssrolcmanager/boards/{boardTable}/{pageNum}"} ,
 			method = { RequestMethod.GET, RequestMethod.HEAD })
 	@ResponseBody
-	public ResponseEntity<Map<String,Object>> listJson(@PathVariable String boardTable,@PathVariable int page){
-		Map<String,Object> map = new HashMap<>();
-		map.put("articles",boardService.getArticles(boardTable, page));
-		return ResponseEntity.ok(map);
+	public ResponseEntity<Map<String,Object>> listJson(@PathVariable String boardTable,@PathVariable int pageNum){
+		Board boardInfo = boardService.getBoardInfo(boardTable);
+		if(boardInfo == null || boardInfo.equals(null)){
+			throw new BoardNotFoundException(boardTable);
+		}else{
+			int rowBlockSize = boardInfo.getPageBlockSize();
+			int pageBlockSize = boardInfo.getRowBlockSize();
+			int totalRowCnt = boardService.getArticleCnt(boardTable);
+			
+			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
+			
+			Map<String,Object> map = new HashMap<>();
+			map.put("pageInfo",pageUtil);
+			map.put("articles",boardService.getArticles(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
+			return ResponseEntity.ok(map);
+		}
+	}
+	
+	@RequestMapping(value={"/ssrolcmanager/boards/{boardTable}/{pageNum}/{searchField}/{searchValue}"} ,
+			method = { RequestMethod.GET, RequestMethod.HEAD })
+	@ResponseBody
+	public ResponseEntity<Map<String,Object>> searchListJson(@PathVariable String boardTable,@PathVariable int pageNum,
+			@PathVariable String searchField,@PathVariable String searchValue){
+		logger.debug("searchField:"+searchField+",searchValue:"+searchValue);
+		Board boardInfo = boardService.getBoardInfo(boardTable);
+		if(boardInfo == null || boardInfo.equals(null)){
+			throw new BoardNotFoundException(boardTable);
+		}else{
+			int rowBlockSize = boardInfo.getPageBlockSize();
+			int pageBlockSize = boardInfo.getRowBlockSize();
+			int totalRowCnt = boardService.getArticleCnt(boardTable,searchField,searchValue);
+			
+			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
+			
+			Map<String,Object> map = new HashMap<>();
+			map.put("pageInfo",pageUtil);
+			map.put("articles",boardService.getArticles(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
+			return ResponseEntity.ok(map);
+		}
 	}
 }

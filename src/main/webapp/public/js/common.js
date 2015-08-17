@@ -1,62 +1,49 @@
 $(function(){
 	$.extend({
-				paging : function(thisPage, pageNum, blockSize) {
-					var pageUnit = blockSize;// 블럭 단위
-					var totPages = pageNum; // 총페이지수
-					var thisBlock = Math.ceil(thisPage / pageUnit); // 현재 페이징블럭
-					var startPage, endPage; // 현재 페이징블럭 처음, 마지막 페지이
+				pageUtil : function(pageNum, totalPageCnt, rowBlockSize,startPageNum,endPageNum) {
+					var thisBlock = Math.ceil(pageNum / rowBlockSize); // 현재 페이징블럭
 					var preBlock, nextBlock; // 이전, 다음 페이징 블럭
 					var html = "";
 
-					if (pageNum > 0) {
+					if (totalPageCnt > 0) {
 						// 현재 페이지블럭의 시작페이지번호, 전페이지번호
 						if (thisBlock > 1) {
-							startPage = (thisBlock - 1) * pageUnit + 1;
-							preBlock = startPage - 1;
+							startPageNum = (thisBlock - 1) * rowBlockSize + 1;
+							preBlock = startPageNum - 1;
 						} else {
-							startPage = preBlock = 1;
+							startPageNum = preBlock = 1;
 						}
 
 						// 현재 페이지블럭의 끝페이지번호, 다음페이지번호
-						if ((thisBlock * pageUnit) >= totPages) {
-							endPage = totPages;
-							nextBlock = endPage;
+						if ((thisBlock * rowBlockSize) >= totalPageCnt) {
+							endPageNum = totalPageCnt;
+							nextBlock = endPageNum;
 						} else {
-							endPage = thisBlock * pageUnit;
-							nextBlock = endPage + 1
+							endPageNum = thisBlock * rowBlockSize;
+							nextBlock = endPageNum + 1
 						}
-
-						if (thisPage > 1) {
-							html += "<a href='javascript:;' pageNo='1' class='naviPage'>처음</a> "; // 맨처음으로
-							// 가기
+						
+						if(pageNum > 1){
+							html += "<a class='first naviPage' pageNo='1' href='javascript:;'><img alt='처음' src='/public/img/admin/board/btn_paging_first.gif'></a> "; // 맨처음으로 가기
+							
 							if (preBlock > 1) {
-								html += "<a href='javascript:;' pageNo='"
-										+ preBlock
-										+ "' class='naviPage'>이전</a> "; // 현재블럭의
-								// 전페이지
+								html += "<a class='prev naviPage' pageNo='"+preBlock+"' href='javascript:;'><img alt='이전' src='/public/img/admin/board/btn_paging_prev.gif'></a> "; // 현재블럭의 전페이지
 							}
 						}
 
-						for (i = startPage; i <= endPage; i++) {
-							if (i != thisPage) {
-								html += " <a href='javascript:;' pageNo='" + i
-										+ "' class='naviPage'>" + i + "</a> ";
+						for (i = startPageNum; i <= endPageNum; i++) {
+							if(i != pageNum){
+								html += " <a class='naviPage' href='javascript:;' pageNo='"+i+"'>"+i+"</a> ";
 							} else {
-								html += "<a href='javascript:;' pageNo='"
-										+ i
-										+ "' class='naviPage' style='color:red;'>"
-										+ i + "</a>";
+								html += "<a class='current' href='javascript:;' pageNo='"+i+"'>"+i+"</a>";
 							}
 						}
 
-						if (thisPage != totPages) {
-							html += "<a href='javascript:;' pageNo='"
-									+ nextBlock + "' class='naviPage'>다음</a> "; // 현재
-							// 블럭의
-							// 다음페이지
-							html += "<a href='javascript:;' pageNo='"
-									+ totPages + "' class='naviPage'>끝</a> "; // 맨끝으로
-							// 가기
+						if(pageNum != totalPageCnt){
+							if(nextBlock < totalPageCnt ){
+								html += "<a class='next naviPage' pageNo='"+nextBlock+"' href='javascript:;'><img alt='다음' src='/public/img/admin/board/btn_paging_next.gif'></a> "; // 현재 블럭의 다음페이지
+							}
+							html += "<a class='last naviPage' pageNo='"+totalPageCnt+"' href='javascript:;'><img alt='끝' src='/public/img/admin/board/btn_paging_last.gif'></a> "; // 맨끝으로 가기
 						}
 					}
 					return html;
@@ -89,4 +76,5 @@ $(function(){
 			$(target).slideUp();
 		});
 	});
+	
 });

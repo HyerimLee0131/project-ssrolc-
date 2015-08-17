@@ -4,18 +4,33 @@
 $(function() {
 	$.extend({
 		getBoardList:function(){
-			var page = $("#page").val();
+			var pageNum = $("#pageNum").val();
 			var boardTable = $("#boardTable").val();
+			var searchField = $("#searchField").val();
+			var searchValue = $.trim($("#searchValue").val());
+			var searchUrl = "/ssrolcmanager/boards/"+boardTable+"/"+pageNum;
+			
+			if(searchValue != ""){
+				searchUrl += "/"+searchField+"/"+encodeURIComponent(searchValue);
+			}
 			
 			$.ajax({
-				url:"/ssrolcmanager/boards/"+boardTable+"/"+page,
+				url:searchUrl,
 				type:"GET",
 				cache: false,
 				async: true,
 				dataType: "json",
 				success: function(jsonData, textStatus, XMLHttpRequest) {
+					var pageInfo = jsonData.pageInfo;
+					var totalRowCnt = pageInfo.totalRowCnt;
+					$("#totalCnt").html(totalRowCnt);
+					$("#pageNavi").html($.pageUtil(pageInfo.pageNum,pageInfo.totalPageCnt, 
+							pageInfo.rowBlockSize,pageInfo.startPageNum,pageInfo.endPageNum));	
 					var source = $("#boardsTemplate").html();
 					var template = Handlebars.compile(source);
+					Handlebars.registerHelper('inc', function (index) {
+						return totalRowCnt - pageInfo.startRow - index;
+					});
 					Handlebars.registerHelper('xIf', function (lvalue, operator, rvalue, options) {
 					    var operators, result;
 					    if (arguments.length < 3) {
@@ -60,4 +75,15 @@ $(function() {
 	});
 	
 	$.getBoardList();
+	
+	// paging 클릭
+	$(".paging").on("click","a.naviPage",function() {
+		var pageNum = $(this).attr('pageNo');	
+		$('#pageNum').val(pageNum);
+		$.getBoardList();
+	});	
+	
+	$("#searchBtn").on("click",function() {
+		$.getBoardList();
+	});
 });
