@@ -29,12 +29,39 @@ public class BoardService {
 		return boardRepository.findBoardCategorys(map);
 	}
 	
-	public List<Article> getArticles(String boardTable,int page){
+	public List<Article> getArticles(String boardTable,int startLimit,int endLimit){
 		Map<String,Object> map = new HashMap<>();
 		map.put("boardTable",boardTable);
-		map.put("startLimit",1);
-		map.put("endLimit",10);
+		map.put("startLimit",startLimit);
+		map.put("endLimit",endLimit);
 		
 		return boardRepository.findArticles(map);
+	}
+	
+	public List<Article> getArticles(String boardTable,int startLimit,int endLimit,String searchField,String searchValue){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("startLimit",startLimit);
+		map.put("endLimit",endLimit);
+		map.put("searchField",searchField);
+		map.put("searchValue",searchValue);
+		
+		return boardRepository.findArticles(map);
+	}
+	
+	public int getArticleCnt(String boardTable){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		
+		return boardRepository.countArticle(map);
+	}
+	
+	public int getArticleCnt(String boardTable,String searchField,String searchValue){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("searchField",searchField);
+		map.put("searchValue",searchValue);
+		
+		return boardRepository.countArticle(map);
 	}
 }
