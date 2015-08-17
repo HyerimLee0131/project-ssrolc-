@@ -10,7 +10,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "mail", locations = {"classpath:application.properties"})
+@ConfigurationProperties(prefix = "mail")
 public class MailSendConfig {
 	
 	private String host;
@@ -24,8 +24,6 @@ public class MailSendConfig {
 		mailSender.setHost(getHost());
 		mailSender.setUsername(getUsername());
 		mailSender.setPassword(getPassword());
-		System.out.println("======================");
-		System.out.println("host : "+getHost());;
 		return mailSender;
 	}
 }
