@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssrolc.repository.BoardRepository">
+	<select id="findBoardById" parameterType="String" resultType="com.ssrolc.domain.board.Board">
+		SELECT * FROM ssrolc.board WHERE boardTable = #{boardTable}
+	</select>
+	
+	<select id="findBoardCategorys" parameterType="hashMap" resultType="com.ssrolc.domain.board.BoardCategory">
+		SELECT * FROM ssrolc.boardCategory
+		<where>
+			<if test="boardTable != null">
+				boardTable = #{boardTable}
+			</if>
+			<if test="categoryCode != null">
+				AND categoryCode = #{categoryCode}
+			</if>
+			<if test="categoryName != null">
+				AND categoryName = #{categoryName}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findArticles" parameterType="hashMap" resultType="com.ssrolc.domain.board.Article">
+		SELECT * FROM ssrolc.article WHERE boardTable = #{boardTable}
+		<if test="startLimit != null and endLimit != null">
+			LIMIT #{startLimit},#{endLimit}
+		</if>
+	</select>
+</mapper>

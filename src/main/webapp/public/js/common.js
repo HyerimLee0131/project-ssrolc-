@@ -60,19 +60,7 @@ $(function(){
 						}
 					}
 					return html;
-				},
-				locationGubun:function(url, gubun) {
-					if ((url=='/memberCard/memberJindoInfo' && document.Qry2FormName.searchKwamok.value=='all'&&gubun=='2')||
-							(url=='/memberCard/jindoSearch'&& document.Qry2FormName.searchKwamok.value=='all'&&gubun=='2')) {
-						alert('진도는 전체를 선택할 수 없습니다.');
-						return;
-					}
-					if(gubun == '1'){
-						document.Qry2FormName.searchKwamok.value ='';
-					}
-					document.Qry2FormName.action = url;
-					document.Qry2FormName.submit();
-	    		}
+				}
 	});
 	$(".datePicker").datepicker(
 			{
