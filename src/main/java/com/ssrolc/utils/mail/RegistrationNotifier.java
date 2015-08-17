@@ -1,5 +1,5 @@
 package com.ssrolc.utils.mail;
 
 public interface RegistrationNotifier {
-	public void sendMail();
+	public void sendMail(String pEmailId,String pEmailAdd1,String pEmailAdd2);
 }

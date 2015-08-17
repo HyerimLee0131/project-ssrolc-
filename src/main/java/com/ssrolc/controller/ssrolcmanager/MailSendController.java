@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ssrolc.service.MailService;
@@ -15,10 +16,15 @@ public class MailSendController {
 	
 	@Autowired
 	private MailService mailService;
+
+	@RequestMapping(value={"/disclosure"})
+	public String disclosure(Model model){
+		return "disclosure/index";
+	}	
 	
-	@RequestMapping(value={"/ssrolcmanager/mail"})
-	public String main(){
-		mailService.sendMail();
-		return "ssrolcmanager/index";
-	}
+	@RequestMapping(value={"/disclosure/mail"})
+	public String main(String pEmailId, String pEmailAdd1,String pEmailAdd2){
+		mailService.sendMail(pEmailId,pEmailAdd1,pEmailAdd2);
+		return "ssrolcmanager/mail/mail";
+	}	
 }

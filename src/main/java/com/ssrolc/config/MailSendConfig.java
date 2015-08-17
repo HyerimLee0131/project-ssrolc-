@@ -24,8 +24,6 @@ public class MailSendConfig {
 		mailSender.setHost(getHost());
 		mailSender.setUsername(getUsername());
 		mailSender.setPassword(getPassword());
-		System.out.println("======================");
-		System.out.println("host : "+getHost());;
 		return mailSender;
 	}
 }
