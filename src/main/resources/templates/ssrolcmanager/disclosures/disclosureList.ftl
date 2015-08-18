@@ -40,8 +40,7 @@
 				<h1 class="mgt-20"></h1>
 				<p>* 총 <strong id="totalCnt">0</strong>건</p>
 				<div class="tbl-type-F">
-				<input name='rowBlockSize' id="rowBlockSize" type='hidden' value='10'/>
-				<input name='pageBlockSize' id="pageBlockSize" type='hidden' value='10'/>
+				
 				<input name='pageNum' id="pageNum" type='hidden' value='1'/>
 					<table width="100%" cellSpacing="0" summary="">
 						<colgroup>
@@ -84,7 +83,7 @@
 	{{#each disclosureInfo}}
 	<tr>
 		<td>{{inc @index}}</td>
-		<td>{{regdate}}</td>
+		<td>{{regDate}}</td>
 		<td>{{memName}}</td>
 		<td>{{deptArea1}}&nbsp;{{deptArea2}}</td>
 		<td>{{deptType}}</td>

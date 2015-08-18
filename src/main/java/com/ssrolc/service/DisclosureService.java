@@ -25,7 +25,7 @@ public class DisclosureService {
 	/*
 	 * 정보공개서 열람한 사람들의 리스트
 	 * */
-	public List<Disclosure> getDisclosureInfo(int startLimit,int endLimit){
+	public List<Disclosure> getDisclosures(int startLimit,int endLimit){
 		Map<String,Object> map = new HashMap<>();
 		map.put("startLimit",startLimit);
 		map.put("endLimit",endLimit);
@@ -47,14 +47,14 @@ public class DisclosureService {
 	 * 정보공개서 열람 총 건수 
 	 * */
 	public int getDisclosureCnt(){
-		return disclosureRepository.findDisclosureCnt();
+		return disclosureRepository.countDisclosure();
 	}
 	/*
 	 * 정보공개서를 검색한 총 건수
 	 * */
-	public int getSearchDisclosureCnt() {
-		
-		return disclosureRepository.findSearchDisclosureCnt();
-	}
+//	public int getSearchDisclosureCnt() {
+//		
+//		return disclosureRepository.findSearchDisclosureCnt();
+//	}
 
 }

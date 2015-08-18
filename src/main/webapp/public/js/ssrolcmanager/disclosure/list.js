@@ -5,18 +5,18 @@ $(function() {
 	$.extend({
 		getBoardList:function(){
 			var pageNum = $("#pageNum").val();
-			var searchUrl = "/ssrolcmanager/disclosure/disclosureList/"+pageNum;
-			
-			var inputData = {"hopeArea01":hopeArea01,"hopeArea02":hopeArea02,"deptType1":deptType1
-					,"deptType2":deptType2,"deptType3":deptType3,"startDate":startDate,"endDate":endDate
-					,"pMemName":pMemName};
+			var searchUrl = "/ssrolcmanager/disclosures/"+pageNum;
+//			
+//			var inputData = {"hopeArea01":hopeArea01,"hopeArea02":hopeArea02,"deptType1":deptType1
+//					,"deptType2":deptType2,"deptType3":deptType3,"startDate":startDate,"endDate":endDate
+//					,"pMemName":pMemName};
 			
 			$.ajax({
 				url:searchUrl,
 				type:"GET",
 				cache: false,
 				async: true,
-				data: inputdata,
+				//data: inputdata,
 				dataType: "json",
 				success: function(jsonData, textStatus, XMLHttpRequest) {
 					var pageInfo = jsonData.pageInfo;
@@ -73,7 +73,7 @@ $(function() {
 		
 		//열람증 클릭
 		openDisclosure:function(aidx){
-			window.open("/ssrolcmanager/disclosure/aidx="+aidx,"popDisclosure","width=730,height=530,resizable");
+			window.open("/ssrolcmanager/disclosure/"+aidx,"popDisclosure","width=730,height=530,resizable");
 		}
 	});
 	
@@ -104,6 +104,6 @@ $(function() {
 	});
 	//리셋 버튼
 	$('#resetBtn').on('click',function(){
-		location.href = "/ssrolcmanager/disclosure/disclosureList";
+		location.href = "/ssrolcmanager/disclosures";
 	});
 });

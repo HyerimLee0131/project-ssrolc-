@@ -21,9 +21,9 @@ public interface DisclosureRepository {
 	/*
 	 * 정보공개서 열람한 총 사람 수 
 	 * */
-	public int findDisclosureCnt();
+	public int countDisclosure();
 	/*
 	 * 정보공개서 열람한 총 사람 수(검색) 
 	 * */
-	public int findSearchDisclosureCnt();
+	//public int findSearchDisclosureCnt();
 }

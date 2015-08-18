@@ -30,7 +30,7 @@ public class DisclosureController {
 	@Autowired
 	private DisclosureService disclosureService;
 	
-	@RequestMapping(value="/ssrolcmanager/disclosure/aidx={aidx}",method={RequestMethod.GET,RequestMethod.HEAD})
+	@RequestMapping(value="/ssrolcmanager/disclosure/{aidx:[0-9]+}",method={RequestMethod.GET,RequestMethod.HEAD})
 	public String popDisclosure(Model model,@PathVariable int aidx){
 		//데이터읽어오기
 		Disclosure disclosure = disclosureService.getDisclosureByIdx(aidx);
@@ -41,11 +41,11 @@ public class DisclosureController {
 		model.addAttribute("headerScript",headerScript);
 		model.addAttribute("disclosure",disclosure);
 		System.out.println(disclosure);
-		return "ssrolcmanager/disclosure/popDisclosure";
+		return "ssrolcmanager/disclosures/popDisclosure";
 	}
 	
 	
-	@RequestMapping(value={"/ssrolcmanager/disclosure/disclosureList"} , method =  { RequestMethod.GET, RequestMethod.HEAD })
+	@RequestMapping(value={"/ssrolcmanager/disclosures"} , method =  { RequestMethod.GET, RequestMethod.HEAD })
 	public String list(Model model) {
 		
 			
@@ -55,10 +55,10 @@ public class DisclosureController {
 			
 			model.addAttribute("headerScript",headerScript);
 			
-			return "ssrolcmanager/disclosure/disclosureList";
+			return "ssrolcmanager/disclosures/disclosureList";
 		}
 	
-	@RequestMapping(value="/ssrolcmanager/disclosure/disclosureList/{pageNum}",method={RequestMethod.GET,RequestMethod.HEAD})
+	@RequestMapping(value="/ssrolcmanager/disclosures/{pageNum:[0-9]+}",method={RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> listJson(@PathVariable int pageNum){
 		int rowBlockSize = 10;
@@ -69,31 +69,31 @@ public class DisclosureController {
 
 		Map<String,Object> map = new HashMap<>();
 		map.put("pageInfo",pageUtil);
-		map.put("disclosureInfo",disclosureService.getDisclosureInfo(pageUtil.getStartRow(),pageUtil.getEndRow()));
+		map.put("disclosureInfo",disclosureService.getDisclosures(pageUtil.getStartRow(),pageUtil.getEndRow()));
 		return ResponseEntity.ok(map);
 
 	}
-	@RequestMapping(value="/ssrolcmanager/disclosure/disclosureList/{pageNum}",method={RequestMethod.GET,RequestMethod.HEAD})
-	@ResponseBody
-	public ResponseEntity<Map<String, Object>> searchListJson(@PathVariable int pageNum
-			,@RequestParam(value="hopeArea01")String hopeArea01
-			,@RequestParam(value="hopeArea02") String hopeArea02
-			,@RequestParam(value="deptType1") String deptType1
-			,@RequestParam(value="deptType2") String deptType2
-			,@RequestParam(value="deptType3") String deptType3
-			,@RequestParam(value="startDate") String startDate
-			,@RequestParam(value="endDate") String endDate
-			,@RequestParam(value="pMemName") String pMemName ){
-		int rowBlockSize = 10;
-		int pageBlockSize = 10;
-		int totalRowCnt = disclosureService.getSearchDisclosureCnt();
-		
-		PageUtil pageUtil = new PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
-
-		Map<String,Object> map = new HashMap<>();
-		map.put("pageInfo",pageUtil);
-		map.put("disclosureInfo", disclosureService.getDisclosureInfo(pageUtil.getStartRow(),pageUtil.getEndRow()));
-		return ResponseEntity.ok(map);
-	}
+//	@RequestMapping(value="/ssrolcmanager/disclosure/disclosureList/{pageNum}",method={RequestMethod.GET,RequestMethod.HEAD})
+//	@ResponseBody
+//	public ResponseEntity<Map<String, Object>> searchListJson(@PathVariable int pageNum
+//			,@RequestParam(value="hopeArea01")String hopeArea01
+//			,@RequestParam(value="hopeArea02") String hopeArea02
+//			,@RequestParam(value="deptType1") String deptType1
+//			,@RequestParam(value="deptType2") String deptType2
+//			,@RequestParam(value="deptType3") String deptType3
+//			,@RequestParam(value="startDate") String startDate
+//			,@RequestParam(value="endDate") String endDate
+//			,@RequestParam(value="pMemName") String pMemName ){
+//		int rowBlockSize = 10;
+//		int pageBlockSize = 10;
+//		int totalRowCnt = disclosureService.getSearchDisclosureCnt();
+//		
+//		PageUtil pageUtil = new PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
+//
+//		Map<String,Object> map = new HashMap<>();
+//		map.put("pageInfo",pageUtil);
+//		map.put("disclosureInfo", disclosureService.getDisclosureInfo(pageUtil.getStartRow(),pageUtil.getEndRow()));
+//		return ResponseEntity.ok(map);
+//	}
 	
 }
