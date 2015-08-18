@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.base.Strings;
+import com.ssrolc.domain.board.Article;
 import com.ssrolc.domain.board.Board;
 import com.ssrolc.domain.board.BoardCategory;
+import com.ssrolc.exception.ArticleNotFoundException;
 import com.ssrolc.exception.BoardCategoryNotFoundException;
 import com.ssrolc.exception.BoardNotFoundException;
 import com.ssrolc.service.BoardService;
@@ -109,6 +111,19 @@ public class BoardController {
 			map.put("pageInfo",pageUtil);
 			map.put("articles",boardService.getArticles(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
 			return ResponseEntity.ok(map);
+		}
+	}
+	
+	
+	@RequestMapping(value={"/ssrolcmanager/board/{boardTable}/{articleNo}"},method = { RequestMethod.GET, RequestMethod.HEAD })	
+	public String view(Model model,@PathVariable String boardTable,@PathVariable int articleNo){
+		Article article = boardService.getArticle(boardTable, articleNo);
+		if(article == null || article.equals(null)){
+			throw new ArticleNotFoundException(boardTable,articleNo);
+		}else{
+			model.addAttribute("article",article);
+			
+			return "ssrolcmanager/boards/"+boardTable+"view";
 		}
 	}
 }
