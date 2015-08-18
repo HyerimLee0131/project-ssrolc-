@@ -33,6 +33,8 @@ public class ConnectSetting {
 			dbActive = envActiveProfiles[0];
 		}
 		
+		context.close();
+		
 		YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
 		yaml.setResources(new ClassPathResource("db_"+dbActive+".yml"));
 		Properties proper = yaml.getObject();
