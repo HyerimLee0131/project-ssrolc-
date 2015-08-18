@@ -70,7 +70,7 @@ public class BoardController {
 	}
 	
 	
-	@RequestMapping(value={"/ssrolcmanager/boards/{boardTable}/{pageNum}"} ,
+	@RequestMapping(value={"/ssrolcmanager/boards/{boardTable}/{pageNum:[0-9]+}"} ,
 			method = { RequestMethod.GET, RequestMethod.HEAD })
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> listJson(@PathVariable String boardTable,@PathVariable int pageNum){
@@ -91,7 +91,7 @@ public class BoardController {
 		}
 	}
 	
-	@RequestMapping(value={"/ssrolcmanager/boards/{boardTable}/{pageNum}/{searchField}/{searchValue}"} ,
+	@RequestMapping(value={"/ssrolcmanager/boards/{boardTable}/{pageNum:[0-9]+}/{searchField}/{searchValue}"} ,
 			method = { RequestMethod.GET, RequestMethod.HEAD })
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> searchListJson(@PathVariable String boardTable,@PathVariable int pageNum,
@@ -115,7 +115,7 @@ public class BoardController {
 	}
 	
 	
-	@RequestMapping(value={"/ssrolcmanager/board/{boardTable}/{articleNo}"},method = { RequestMethod.GET, RequestMethod.HEAD })	
+	@RequestMapping(value={"/ssrolcmanager/board/{boardTable}/{articleNo:[0-9]+}"},method = { RequestMethod.GET, RequestMethod.HEAD })	
 	public String view(Model model,@PathVariable String boardTable,@PathVariable int articleNo){
 		Article article = boardService.getArticle(boardTable, articleNo);
 		if(article == null || article.equals(null)){
