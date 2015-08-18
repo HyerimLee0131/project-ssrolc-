@@ -14,10 +14,10 @@
 					<fieldset class="">
 						<legend></legend>
 						<p>
-							<select style="width:75px" title="">
-								<option>팝업명</option>
+							<select style="width:75px" title="" name='searchField' id="searchField">
+								<option value="name">팝업명</option>
 							</select>&nbsp;&nbsp;
-							<input name="pName" type="text" class="text" id="pName" style="width:100px" title="" />
+							<input name="searchValue" type="text" class="text" id="searchValue" style="width:100px" title="" />
 							&nbsp;<span class="button"><input type="button" id="searchBtn" title="" value="검색"></span>
 							&nbsp;<span class="button"><input type="button" id="resetBtn" title="" value="초기화"></span>
 						</p>
@@ -57,13 +57,35 @@
  				<div class="paging" >
 					<span id="pageNavi"></span>
 				</div>
-				<input name="page" type="hidden" id="page" title="" value="">
+				<input name='pageNum' id="pageNum" type='hidden' value='1'/>			
 			</div>
 		</div>
 	</div>
 	<!-- //container -->
 <#include "/ssrolcmanager/footer.ftl">
 </div>
+<script id="popupsTemplate" type="text/x-handlebars-template">
+	{{#each popups}}
+	<tr>
+		<td><input name="popupCheckBox" type="checkbox" title="" value="{{aidx}}"/></td>
+		<td>{{inc @index}}</td>
+		<td>
+			<p class="tb_1">
+				<a href='/ssrolcmanager/popups/{{aidx}}'>{{name}}</a>
+			</p>
+		</td>
+		<td>가로 : {{size_width}}, 세로 : {{size_height}}</td>
+		<td>{{fileName}}</td>
+		<td>{{startDate}} ~ {{endDate}}</td>
+		<td>{{#xIf state "==" 0}}비활성{{else}}활성{{/xIf}}</td>
+		<td>{{regDate}}</td>
+	</tr>
+	{{else}}
+	<tr>
+		<td colspan="8">데이터가 없습니다.</td>
+	</tr>
+	{{/each}}
+</script>
 </body>
 </html>
 
