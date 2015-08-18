@@ -2,6 +2,8 @@ package com.ssrolc.config;
 
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -10,6 +12,7 @@ import org.springframework.core.io.ClassPathResource;
 
 
 public class ConnectSetting {
+	private static final Logger logger = LoggerFactory.getLogger(ConnectSetting.class);
 	
 	static private ConnectSetting connectSetting = new ConnectSetting();
 	
@@ -24,10 +27,12 @@ public class ConnectSetting {
 	
 	private ConnectSetting() {
 		super();
-//		ConfigurableApplicationContext context = new GenericXmlApplicationContext();
-//		ConfigurableEnvironment env = context.getEnvironment();
-//		env.setActiveProfiles("develop");
-//		env.setActiveProfiles(sibal);
+		ConfigurableApplicationContext context = new GenericXmlApplicationContext();
+		ConfigurableEnvironment env = context.getEnvironment();
+		String [] aa = env.getActiveProfiles();
+		for (String dd : aa) {
+			logger.debug("==========="+dd);
+		}
 		YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
 		yaml.setResources(new ClassPathResource("application.yml"));
 		Properties proper = yaml.getObject();
