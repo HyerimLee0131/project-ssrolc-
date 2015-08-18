@@ -49,6 +49,14 @@ public class BoardService {
 		return boardRepository.findArticles(map);
 	}
 	
+	public Article getArticle(String boardTable,int articleNo){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("articleNo",articleNo);
+		
+		return boardRepository.findArticle(map);
+	}
+	
 	public int getArticleCnt(String boardTable){
 		Map<String,Object> map = new HashMap<>();
 		map.put("boardTable",boardTable);

@@ -1,6 +1,4 @@
-/**
- * 관리자 notice.js
- */
+
 $(function() {
 	$.extend({
 		getBoardList:function(){
@@ -84,6 +82,7 @@ $(function() {
 	});	
 	
 	$("#searchBtn").on("click",function() {
+		$("#pageNum").val("1");
 		$.getBoardList();
 	});
 });

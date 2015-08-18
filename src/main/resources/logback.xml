@@ -21,7 +21,7 @@
         </layout>
     </appender>
 
-    <root level="debug">
+    <root level="${LOGBACK_LEVEL}">
         <appender-ref ref="ROLLING"/>
         <appender-ref ref="STDOUT" />
     </root>

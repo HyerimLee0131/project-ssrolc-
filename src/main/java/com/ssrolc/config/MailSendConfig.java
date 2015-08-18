@@ -21,9 +21,9 @@ public class MailSendConfig {
 	@Bean
 	public JavaMailSender mailSender(){
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		mailSender.setHost(getHost());
-		mailSender.setUsername(getUsername());
-		mailSender.setPassword(getPassword());
+		mailSender.setHost(host);
+		mailSender.setUsername(username);
+		mailSender.setPassword(password);
 		return mailSender;
 	}
 }
