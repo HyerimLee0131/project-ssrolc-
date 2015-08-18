@@ -81,7 +81,7 @@ $(function() {
 		$('#pageNum').val(pageNum);
 		$.getPopupList();
 	});	
-	
+
 	// 검색 클릭
 	$("#searchBtn").on("click",function() {
 		$('#pageNum').val('1');
