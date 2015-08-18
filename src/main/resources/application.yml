@@ -11,4 +11,20 @@ mail:
     host: mail.jei.com
     port: 587
     username: sayhyerim
-    password: fladl1215!     
+    password: fladl1215!
+---
+spring.profiles: develop
+
+mail:
+    host: mail.jei.com
+    port: 587
+    username: ddddd
+    password: fladl1215!
+---
+spring.profiles: product
+
+mail:
+    host: mail.jei.com
+    port: 587
+    username: ioiiii
+    password: fladl1215!

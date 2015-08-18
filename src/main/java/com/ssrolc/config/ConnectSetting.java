@@ -3,6 +3,9 @@ package com.ssrolc.config;
 import java.util.Properties;
 
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.ClassPathResource;
 
 
@@ -21,6 +24,10 @@ public class ConnectSetting {
 	
 	private ConnectSetting() {
 		super();
+//		ConfigurableApplicationContext context = new GenericXmlApplicationContext();
+//		ConfigurableEnvironment env = context.getEnvironment();
+//		env.setActiveProfiles("develop");
+//		env.setActiveProfiles(sibal);
 		YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
 		yaml.setResources(new ClassPathResource("application.yml"));
 		Properties proper = yaml.getObject();
