@@ -3,6 +3,9 @@ package com.ssrolc.config;
 import java.util.Properties;
 
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.ClassPathResource;
 
 
@@ -21,8 +24,19 @@ public class ConnectSetting {
 	
 	private ConnectSetting() {
 		super();
+		ConfigurableApplicationContext context = new GenericXmlApplicationContext();
+		ConfigurableEnvironment env = context.getEnvironment();
+		String[] envActiveProfiles = env.getActiveProfiles();
+		String dbActive = "default";
+		
+		if(envActiveProfiles.length > 0){
+			dbActive = envActiveProfiles[0];
+		}
+		
+		context.close();
+		
 		YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
-		yaml.setResources(new ClassPathResource("application.yml"));
+		yaml.setResources(new ClassPathResource("db_"+dbActive+".yml"));
 		Properties proper = yaml.getObject();
 		mysqlDriverClassName = proper.getProperty("db.mysqlDriverClassName");
 		mysqlUrl = proper.getProperty("db.mysqlUrl");

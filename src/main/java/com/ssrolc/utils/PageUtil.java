@@ -1,14 +1,12 @@
 package com.ssrolc.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.ssrolc.controller.ssrolcmanager.BoardController;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @Data
@@ -16,7 +14,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class PageUtil {
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	private static final Logger logger = LoggerFactory.getLogger(PageUtil.class);
 	
 	private int pageNum;
 	private int startRow;

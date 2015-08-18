@@ -1,14 +1,33 @@
-db:
-    mysqlDriverClassName: com.mysql.jdbc.Driver
-    mysqlUrl: jdbc:mysql://192.1.27.209:3306/ssrolc
-    mysqlUsername: devadmin
-    mysqlPassword: smart2012)*@&mydb
-    mssqlDriverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    mssqlUrl: jdbc:sqlserver://192.1.27.245:1433;DatabaseName=COMMON;
-    mssqlUsername: 2012A0055
-    mssqlPassword: jeiV0I8V2A3!
 mail:
     host: mail.jei.com
     port: 587
     username: sayhyerim
-    password: fladl1215!     
+    password: fladl1215!
+    
+board:
+    https:
+        url: https://devssl.ssro.com/jeislc/controller/loginchk_default.php
+---
+spring.profiles: develop
+
+mail:
+    host: mail.jei.com
+    port: 587
+    username: sayhyerim
+    password: fladl1215!
+    
+board:
+    https:
+        url: https://devssl.ssro.com/jeislc/controller/loginchk_develop.php
+---
+spring.profiles: product
+
+mail:
+    host: mail.jei.com
+    port: 587
+    username: sayhyerim
+    password: fladl1215!
+    
+board:
+    https:
+        url: https://devssl.ssro.com/jeislc/controller/loginchk_product.php
