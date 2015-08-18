@@ -28,7 +28,7 @@ public class LoginController {
 //		logger.trace("trace");
 //		logger.debug("login 들어옴");
 //		logger.info("info");
-//		logger.warn("warn");
+		logger.warn("warn login 들어옴");
 //		logger.error("error");
 		
 		model.addAttribute("title", "로그인페이지");
