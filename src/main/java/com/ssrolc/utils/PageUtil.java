@@ -37,7 +37,7 @@ public class PageUtil {
 		//시작번호 구하기
 		startRow = (pageNum - 1) * rowBlockSize;
 		//끝행번호 구하기
-		endRow = startRow + rowBlockSize;
+		endRow = rowBlockSize;
 		//전체 페이지 개수 구하기
 		totalPageCnt = (int)Math.ceil(totalRowCnt/(double)rowBlockSize);
 		//시작 페이지 번호 구하기
