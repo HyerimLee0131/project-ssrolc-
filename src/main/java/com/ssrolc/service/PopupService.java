@@ -47,4 +47,11 @@ public class PopupService {
 
 		return popupRepository.countPopup(map);
 	}
+	
+	public Popup getPopup(int aidx){
+		Map<String,Object> map = new HashMap<>();
+		map.put("aidx",aidx);
+
+		return popupRepository.findPopup(map);
+	}
 }
