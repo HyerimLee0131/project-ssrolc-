@@ -16,7 +16,7 @@ import com.ssrolc.controller.ssrolcmanager.BoardController;
 @Configuration
 @ConfigurationProperties(prefix = "mail")
 public class MailSendConfig {
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MailSendConfig.class);
 	
 	private String host;
 	private int port;
