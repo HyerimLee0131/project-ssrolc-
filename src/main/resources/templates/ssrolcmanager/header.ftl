@@ -27,7 +27,7 @@
 		<div class="content">
 			<h1 class="logo"><a href="/ssrolcmanager/main"><img src="/public/img/admin/common/logo_header.gif" alt="재능스스로러닝센터" /></a></h1>
 			<ul class="lnb">
-				<li><a href="/ssrolcmanager/disclosures"><img src="/public/img/admin/common/lnb_01_off.gif" alt="일반관리" /></a></li>
+				<li><a href="/ssrolcmanager/disclosure/disclosureList"><img src="/public/img/admin/common/lnb_01_off.gif" alt="일반관리" /></a></li>
 				<li><a href="/ssrolcmanager/boards/notice"><img src="/public/img/admin/common/lnb_02_off.gif" alt="게시판관리" /></a></li>
 				<li><a href="/ssrolcmanager/popup"><img src="/public/img/admin/common/lnb_03_off.gif" alt="부가관리" /></a></li>
 			</ul>
