@@ -6,7 +6,7 @@
 
 /* -------------------pop layout------------------- */
 #popWrapper {position:absolute;z-index:1000;background-color:#FFF;}
-#popHeader{position:relative; width:100%; height:33px; background:url('/public/img/popup/bg_popHeader.gif') repeat-x}
+#popHeader{position:relative; width:100%; height:33px; background:url('/public/img/admin/popup/bg_popHeader.gif') repeat-x}
 #popHeader h1{float:left}
 #popHeader h2{float:left; padding-left:12px; font-size:12px; font-weight:normal; line-height:33px; color:#c5c5c5}
 #popHeader h2 strong {color:#cb1400;}
