@@ -2,8 +2,6 @@ package com.ssrolc.domain.board;
 
 import java.sql.Timestamp;
 
-import com.ssrolc.utils.CommonUtils;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import com.ssrolc.utils.CommonUtils;
 
 @Data
 @AllArgsConstructor
@@ -36,9 +36,14 @@ public class Article {
 	@Getter(value=AccessLevel.NONE)
 	private Timestamp regDate;
 	private Timestamp updateDate;
-	
+
 	public String getRegDate() {
-		
 		return CommonUtils.timestampToString(regDate,"yyyy-MM-dd");
 	}
+	
+	public String getRegDate(String format) {
+		
+		return CommonUtils.timestampToString(regDate,format);
+	}
+
 }
