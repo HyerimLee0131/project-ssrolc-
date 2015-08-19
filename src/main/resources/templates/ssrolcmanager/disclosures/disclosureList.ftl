@@ -29,7 +29,9 @@
 								</p>
 								<p>
 									<label for="">※ 정보공개서 확인일</label>
-									<input type="text" class="text" id="startDate" style="width:100px" title="" readonly='readonly' alt="검색시작일자" /><img src="/public/img/admin/common/icon_calendar.gif" alt="" class="vertical-m" id="startDate_img" /> ~ &nbsp;<input type="text" class="text" id="endDate" style="width:100px" title="" readonly='readonly' alt="검색끝난일자" /><img src="/public/img/admin/common/icon_calendar.gif" alt="" class="vertical-m" id="endDate_img" /> 
+									<input type="text" class="text datePicker" id="startDate" style="width:100px" title="" readonly='readonly' alt="검색시작일자" />
+									<img src="/public/img/admin/common/icon_calendar.gif" alt="" class="vertical-m " id="startDate_img" /> ~ &nbsp;<input type="text" class="text datePicker" id="endDate" style="width:100px" title="" readonly='readonly' alt="검색끝난일자" />
+									<img src="/public/img/admin/common/icon_calendar.gif" alt="" class="vertical-m" id="endDate_img" /> 
 									<label for="pMemName">※ 이름</label>
 									<input type="text" class="text" id="pMemName" style="width:100px" title="" maxlength="30" />
 									&nbsp;<span class="button"><input type="button" id="searchBtn" title="" value="검색"></span>

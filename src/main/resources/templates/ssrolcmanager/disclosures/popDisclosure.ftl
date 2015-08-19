@@ -46,7 +46,7 @@
 			</form>
 		</div>	
 		<div class="text-c mgt-20">
-			<p>위 사람은 ${disclosure.regDate?substring(0,4)}년 ${disclosure.regDate?substring(5,7)}월 ${disclosure.regDate?substring(8,10)}일 정보 공개서를 열람하였습니다.</p>
+			<p>위 사람은 ${disclosure.getRegDate("yyyy년 MM월 dd일")} 정보 공개서를 열람하였습니다.</p>
 		</div>
 		<div class="btn-box" id="printDiv">
 			<span class="button btn-type-I"><a onclick="$.selfPrint();">프린트</a></span>

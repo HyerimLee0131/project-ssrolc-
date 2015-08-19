@@ -6,17 +6,31 @@ $(function() {
 		getBoardList:function(){
 			var pageNum = $("#pageNum").val();
 			var searchUrl = "/ssrolcmanager/disclosures/"+pageNum;
-//			
-//			var inputData = {"hopeArea01":hopeArea01,"hopeArea02":hopeArea02,"deptType1":deptType1
-//					,"deptType2":deptType2,"deptType3":deptType3,"startDate":startDate,"endDate":endDate
-//					,"pMemName":pMemName};
+			
+			var hopeArea01 = $("#hopeArea01").val();
+			var hopeArea02 = $("#hopeArea02").val();
+			var startDate = $("#startDate").val();
+			var endDate = $("#endDate").val();
+			var pMemName = $("#pMemName").val();
+			var deptType = "";  
+		    $("input:checkbox:checked").each(function (index) {  
+		    	if(index != 0){
+		    		deptType += "," + $(this).val();  
+		    	}else{
+		    		deptType += $(this).val();  
+		    	}
+		    });  
+		    console.log("deptType : "+deptType);  
+			
+		    var inputData = {"deptArea1":hopeArea01,"deptArea2":hopeArea02,"deptType":deptType,"startDate":startDate,"endDate":endDate,"memName":pMemName};
+			console.log(inputData);
 			
 			$.ajax({
 				url:searchUrl,
 				type:"GET",
 				cache: false,
 				async: true,
-				//data: inputdata,
+				data: inputData,
 				dataType: "json",
 				success: function(jsonData, textStatus, XMLHttpRequest) {
 					var pageInfo = jsonData.pageInfo;
@@ -86,18 +100,19 @@ $(function() {
 		$.getBoardList();
 	});
 	
-	//정보공개서 확인날짜
+	//달력버튼
 	$("#startDate").datepicker();
+
 	$("#endDate").datepicker();
-	
+
 	$("#startDate_img").on('click',function() {
 		$("#startDate").datepicker( "show" );
 	});
-	
+
 	$("#endDate_img").on('click',function() { 
 		$("#endDate").datepicker( "show" );
 	});
-	
+
 	// 검색버튼눌렀을 때
 	$("#searchBtn").on("click",function() {
 		$.getBoardList();

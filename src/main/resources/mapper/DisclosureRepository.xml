@@ -6,15 +6,37 @@
 	</select>
 	
 	<select id="findDisclosures" parameterType="hashmap" resultType="com.ssrolc.domain.disclosure.Disclosure">
-		SELECT * FROM ssrolc.disclosure 
+		SELECT * FROM ssrolc.disclosure
+		<where>
+			<if test="deptArea1 !=null AND deptArea1 !=''">
+				deptArea1 = #{deptArea1}
+			</if>
+			<if test="deptArea2 !=null AND deptArea2 !=''">
+				And deptArea2 = #{deptArea2}
+			</if>
+			<if test="memName !=null AND memName !=''">
+				And memName = #{memName}
+			</if>
+		</where> 
 		ORDER BY regDate DESC
 		<if test="startLimit != null and endLimit != null">
 			LIMIT #{startLimit},#{endLimit}
 		</if>
 	</select>
 	
-	<select id="countDisclosure" resultType="int">
+	<select id="countSearchDisclosure" parameterType="hashmap" resultType="int">
 		SELECT count(0) FROM ssrolc.disclosure
+		<where>
+			<if test="deptArea1 !=null AND deptArea1 !=''">
+				deptArea1 = #{deptArea1}
+			</if>
+			<if test="deptArea2 !=null AND deptArea2 !=''">
+				And deptArea2 = #{deptArea2}
+			</if>
+			<if test="memName !=null AND memName !=''">
+				And memName = #{memName}
+			</if>
+		</where>
 	</select>
 	
 

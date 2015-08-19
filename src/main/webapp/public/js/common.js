@@ -49,8 +49,10 @@ $(function(){
 					return html;
 				}
 	});
-	$(".datePicker").datepicker(
-			{
+
+	
+	$.datepicker.regional['ko'] = {
+			
 				changeYear : true,
 				showAnim : "slide",
 				dateFormat : 'yy-mm-dd',
@@ -65,7 +67,8 @@ $(function(){
 				dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
 				showMonthAfterYear : true,
 				yearSuffix : '년'
-	});
+	};
+	$.datepicker.setDefaults($.datepicker.regional['ko']);
 	
 	
 	//family site

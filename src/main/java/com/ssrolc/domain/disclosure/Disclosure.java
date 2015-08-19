@@ -34,4 +34,9 @@ public class Disclosure {
 		return CommonUtils.timestampToString(regDate,"yyyy-MM-dd HH:mm:ss");
 	}
 	
+	public String getRegDate(String format) {
+		
+		return CommonUtils.timestampToString(regDate,format);
+	}
+	
 }
