@@ -77,4 +77,27 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="findAttachFiles" parameterType="hashMap" resultType="com.ssrolc.domain.board.AttachFile">
+		SELECT * FROM ssrolc.attachFile 
+		<where>
+			<if test="boardTable != null">
+				boardTable = #{boardTable}
+			</if>
+			<if test="articleNo != null and articleNo != 0">
+				AND articleNo = #{articleNo}
+			</if>
+			<if test="fileFormat != null">
+				AND fileFormat = #{fileFormat}
+			</if>
+		</where>
+		ORDER BY sort
+	</select>
+	
+	<update id="updateArticleHitUp" parameterType="hashMap">
+		UPDATE ssrolc.article 
+		SET hit = hit + 1 
+		WHERE boardTable = #{boardTable} AND articleNo = #{articleNo}
+	</update>
+	
 </mapper>
