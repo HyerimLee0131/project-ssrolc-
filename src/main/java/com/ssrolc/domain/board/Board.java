@@ -17,4 +17,5 @@ public class Board {
 	private int rowBlockSize;
 	private int pageBlockSize;
 	private Boolean boardCategoryEnable;
+	private Boolean boardFileUploadEnable;
 }

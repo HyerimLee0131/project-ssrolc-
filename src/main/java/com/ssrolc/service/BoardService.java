@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssrolc.domain.board.Article;
+import com.ssrolc.domain.board.AttachFile;
 import com.ssrolc.domain.board.Board;
 import com.ssrolc.domain.board.BoardCategory;
 import com.ssrolc.repository.BoardRepository;
@@ -72,4 +73,22 @@ public class BoardService {
 		
 		return boardRepository.countArticle(map);
 	}
+	
+	public List<AttachFile> getAttachFiles(String boardTable,int articleNo,String fileFormat){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("articleNo",articleNo);
+		map.put("fileFormat",fileFormat);
+		
+		return boardRepository.findAttachFiles(map);
+	}
+	
+	public void setArticleHitUp(String boardTable,int articleNo){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("articleNo",articleNo);
+		
+		boardRepository.updateArticleHitUp(map);
+	}
+	
 }

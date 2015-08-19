@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssrolc.domain.board.Article;
+import com.ssrolc.domain.board.AttachFile;
 import com.ssrolc.domain.board.Board;
 import com.ssrolc.domain.board.BoardCategory;
 
@@ -31,8 +32,11 @@ public interface BoardRepository {
 	 */
 	public Article findArticle(Map<String,Object> map);
 	/*
+	 * 글에 첨부파일 읽어오기
+	 */
+	public List<AttachFile> findAttachFiles(Map<String,Object> map);
+	/*
 	 * 조회수 증가
 	 */
-	public int updateHit(Map<String,Object> map);
-	
+	public void updateArticleHitUp(Map<String,Object> map);
 }
