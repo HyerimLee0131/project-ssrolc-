@@ -17,9 +17,9 @@
 									<label for="">※ 가맹희망지역</label>
 									<select id="hopeArea01" title="지역선택" style="width:100px">
 										<option value="select">지역선택</option>
-										<!--<?foreach ($sidoUnique as $key => $value) {?>
-											<option value="<?=$value?>"><?=$value?></option>
-										<?}?>-->
+										<#list cityList as city>
+											<option value = "${city}">${city}</option>
+										</#list>
 									</select>&nbsp;&nbsp;
 									<select id="hopeArea02" title="지역선택" style="width:100px">
 										<option value="select">지역선택</option>
@@ -96,7 +96,7 @@
 	</tr>
 	{{else}}
 	<tr>
-		<td colspan="4">데이터가 없습니다.</td>
+		<td colspan="9">데이터가 없습니다.</td>
 	</tr>
 	{{/each}}
 </script>

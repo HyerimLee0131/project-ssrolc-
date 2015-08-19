@@ -1,8 +1,6 @@
 package com.ssrolc.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,24 +21,22 @@ public class DisclosureService {
 		return disclosureRepository.findDisclosure(aidx);
 	}
 	/*
-	 * 정보공개서 열람한 사람들의 리스트
-	 * */
-//	public List<Disclosure> getDisclosures(int startLimit,int endLimit){
-//		Map<String,Object> map = new HashMap<>();
-//		map.put("startLimit",startLimit);
-//		map.put("endLimit",endLimit);
-//		
-//		return disclosureRepository.findDisclosures(map);
-//	}
-	/*
 	 * 정보공개서 열람한 사람들의 리스트(검색)
 	 * */
 	public List<Disclosure> getSearchDisclosures(String deptArea1, String deptArea2,String deptType,
 			String startDate,String endDate,String memName, int startLimit,int endLimit){
 		Map<String,Object> map = new HashMap<>();
+		String[] deptTypeArray = deptType.split(",");
+		List<String> deptTypeList = null;
+		if(!"".equals(deptType)){
+			deptTypeList = new ArrayList<String>();
+			for (int i = 0; i < deptTypeArray.length; i++) {
+				deptTypeList.add(deptTypeArray[i]);
+			}
+		}
+		map.put("deptTypeList", deptTypeList);
 		map.put("deptArea1", deptArea1);
 		map.put("deptArea2", deptArea2);
-		map.put("deptType", deptType);
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
 		map.put("memName", memName);
@@ -51,24 +47,41 @@ public class DisclosureService {
 		return disclosureRepository.findDisclosures(map);
 	}
 	/*
-	 * 정보공개서 열람 총 건수 
-	 * */
-//	public int getDisclosureCnt(){
-//		return disclosureRepository.countDisclosure();
-//	}
-	/*
 	 * 정보공개서를 검색한 총 건수
 	 * */
 	public int getSearchDisclosureCnt(String deptArea1,String deptArea2,String deptType,
 			String startDate,String endDate,String memName) {
 		Map<String,Object> map = new HashMap<>();
+		String[] deptTypeArray = deptType.split(",");
+		List<String> deptTypeList = null;
+		if(!"".equals(deptType)){
+			deptTypeList = new ArrayList<String>();
+			for (int i = 0; i < deptTypeArray.length; i++) {
+				deptTypeList.add(deptTypeArray[i]);
+			}
+		}
+		map.put("deptTypeList", deptTypeList);
 		map.put("deptArea1", deptArea1);
 		map.put("deptArea2", deptArea2);
-		map.put("deptType", deptType);
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
 		map.put("memName", memName);
+		
 		return disclosureRepository.countSearchDisclosure(map);
+	}
+	/*
+	 * 광역시 리스트가져오기
+	 * */
+	public List<String> getDisclosureCityList() {
+		
+		return disclosureRepository.findDisclosureCityList();
+	}
+	/*
+	 * 광역시에 따른 시,구 리스트 가져오기
+	 * */
+	public List<String> getDisclosureDeptAreaList(String deptArea1) {
+
+		return disclosureRepository.findDisclosureDeptAreaList(deptArea1);
 	}
 
 }

@@ -8,37 +8,61 @@
 	<select id="findDisclosures" parameterType="hashmap" resultType="com.ssrolc.domain.disclosure.Disclosure">
 		SELECT * FROM ssrolc.disclosure
 		<where>
-			<if test="deptArea1 !=null AND deptArea1 !=''">
-				deptArea1 = #{deptArea1}
+			<if test="deptTypeList != null">
+				deptType IN 
+				 <foreach item="item" index="index" collection="deptTypeList"
+				     open="(" separator="," close=")">
+				       #{item}
+				 </foreach>
 			</if>
-			<if test="deptArea2 !=null AND deptArea2 !=''">
-				And deptArea2 = #{deptArea2}
+			<if test="deptArea1 != null and deptArea1 != 'select'">
+				And deptArea1 = #{deptArea1}
+				<if test="deptArea2 != null and deptArea2 !='select'">
+					And deptArea2 = #{deptArea2}
+				</if>
 			</if>
-			<if test="memName !=null AND memName !=''">
+			<if test="memName != null and memName != ''">
 				And memName = #{memName}
 			</if>
-		</where> 
+			<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+				And regDate BETWEEN #{startDate} AND #{endDate}
+			</if>
+		</where>
 		ORDER BY regDate DESC
 		<if test="startLimit != null and endLimit != null">
 			LIMIT #{startLimit},#{endLimit}
 		</if>
 	</select>
 	
-	<select id="countSearchDisclosure" parameterType="hashmap" resultType="int">
+	<select id="countSearchDisclosure" parameterType="hashMap" resultType="int">
 		SELECT count(0) FROM ssrolc.disclosure
 		<where>
-			<if test="deptArea1 !=null AND deptArea1 !=''">
-				deptArea1 = #{deptArea1}
+			<if test="deptTypeList != null">
+				deptType IN 
+				 <foreach item="item" index="index" collection="deptTypeList"
+				     open="(" separator="," close=")">
+				       #{item}
+				 </foreach>
 			</if>
-			<if test="deptArea2 !=null AND deptArea2 !=''">
-				And deptArea2 = #{deptArea2}
+			<if test="deptArea1 != null and deptArea1 != 'select'">
+				And deptArea1 = #{deptArea1}
+				<if test="deptArea2 != null and deptArea2 !='select'">
+					And deptArea2 = #{deptArea2}
+				</if>
 			</if>
-			<if test="memName !=null AND memName !=''">
+			<if test="memName != null and memName != ''">
 				And memName = #{memName}
+			</if>
+			<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+				And regDate BETWEEN #{startDate} AND #{endDate}
 			</if>
 		</where>
 	</select>
-	
-
+	<select id="findDisclosureCityList" resultType="String">
+		SELECT city FROM ssrolc.postNumCity GROUP BY city ORDER BY city ASC
+	</select>
+	<select id="findDisclosureDeptAreaList" resultType="String">
+		SELECT COUNTRY FROM ssrolc.postNumCity WHERE city = #{deptArea1} ORDER BY COUNTRY ASC
+	</select>
 	
 </mapper>

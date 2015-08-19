@@ -101,10 +101,6 @@ $(function() {
 	});
 	
 	//달력버튼
-	$("#startDate").datepicker();
-
-	$("#endDate").datepicker();
-
 	$("#startDate_img").on('click',function() {
 		$("#startDate").datepicker( "show" );
 	});
@@ -117,8 +113,40 @@ $(function() {
 	$("#searchBtn").on("click",function() {
 		$.getBoardList();
 	});
-	//리셋 버튼
+	// 리셋 버튼
 	$('#resetBtn').on('click',function(){
 		location.href = "/ssrolcmanager/disclosures";
+	});
+	// 가맹희망지역 선택
+	$('#hopeArea01').on('change',function(){
+		var deptArea1 = $('#hopeArea01').val();
+		if(deptArea1 == 'select'){
+			$("#hopeArea02").find('option').each(function(){
+				$(this).remove();
+			});
+			$("#hopeArea02").append("<option value='select'>지역선택</option>");
+			return;
+			}
+		var inputData = {"deptArea1":deptArea1};
+		$.ajax({
+			url:"/ssrolcmanager/disclosures/deptArea",
+			type:"GET",
+			cache: false,
+			async: true,
+			data: inputData,
+			dataType: "json",
+			success: function(jsonData, textStatus, XMLHttpRequest) {
+				$("#hopeArea02").find('option').each(function(){
+					$(this).remove();
+				});
+				$("#hopeArea02").append("<option value='select'>지역선택</option>");
+				for(var i=0; i<jsonData.length; i++){
+					$("#hopeArea02").append("<option value='"+jsonData[i]+"'>"+jsonData[i]+"</option>");
+				}
+			},
+			error:function (xhr, ajaxOptions, thrownError){	
+				alert(thrownError);
+			}
+		});
 	});
 });

@@ -48,31 +48,16 @@ public class DisclosureController {
 	@RequestMapping(value={"/ssrolcmanager/disclosures"} , method =  { RequestMethod.GET, RequestMethod.HEAD })
 	public String list(Model model) {
 		
-			
+			List<String> cityList = disclosureService.getDisclosureCityList();
 			//해더에 스크립트 추가
 			List<String> headerScript = new ArrayList<>();
 			headerScript.add("ssrolcmanager/disclosure/list");
 			
 			model.addAttribute("headerScript",headerScript);
-			
+			model.addAttribute("cityList", cityList);
 			return "ssrolcmanager/disclosures/disclosureList";
 		}
 	
-//	@RequestMapping(value="/ssrolcmanager/disclosures/{pageNum:[0-9]+}",method={RequestMethod.GET,RequestMethod.HEAD})
-//	@ResponseBody
-//	public ResponseEntity<Map<String,Object>> listJson(@PathVariable int pageNum){
-//		int rowBlockSize = 10;
-//		int pageBlockSize = 10;
-//		int totalRowCnt = disclosureService.getDisclosureCnt();
-//		
-//		PageUtil pageUtil = new PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
-//
-//		Map<String,Object> map = new HashMap<>();
-//		map.put("pageInfo",pageUtil);
-//		map.put("disclosureInfo",disclosureService.getDisclosures(pageUtil.getStartRow(),pageUtil.getEndRow()));
-//		return ResponseEntity.ok(map);
-//
-//	}
 	@RequestMapping(value="/ssrolcmanager/disclosures/{pageNum:[0-9]+}",method={RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> searchListJson(@PathVariable int pageNum
@@ -85,7 +70,7 @@ public class DisclosureController {
 		int rowBlockSize = 10;
 		int pageBlockSize = 10;
 		int totalRowCnt = disclosureService.getSearchDisclosureCnt(deptArea1,deptArea2,deptType,startDate,endDate,memName);
-		
+		System.out.println("count : "+totalRowCnt);
 		System.out.println(deptArea1);
 		System.out.println(deptArea2);
 		System.out.println(deptType);
@@ -99,6 +84,13 @@ public class DisclosureController {
 		map.put("pageInfo",pageUtil);
 		map.put("disclosureInfo", disclosureService.getSearchDisclosures(deptArea1,deptArea2,deptType,startDate,endDate,memName,pageUtil.getStartRow(),pageUtil.getEndRow()));
 		return ResponseEntity.ok(map);
+	}
+	
+	@RequestMapping(value="/ssrolcmanager/disclosures/deptArea",method={RequestMethod.GET,RequestMethod.HEAD})
+	@ResponseBody
+	public ResponseEntity<List<String>> getDeptArea(@RequestParam(value="deptArea1")String deptArea1){
+		List<String> deptAreaList = disclosureService.getDisclosureDeptAreaList(deptArea1);
+		return ResponseEntity.ok(deptAreaList);
 	}
 	
 }
