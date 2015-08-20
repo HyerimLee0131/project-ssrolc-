@@ -16,11 +16,11 @@
 					<fieldset>
 						<legend></legend>
 						<p>
-							<select name="pSearchKey" id="pSearchKey" style="width:75px;" title="">
+							<select name="searchField" id="searchField" style="width:75px;" title="">
 								<option value="title">제목</option>
 								<option value="name">글쓴이</option>
 							</select>&nbsp;&nbsp;
-							<input name="pSearchValue" type="text" class="text" id="pSearchValue" style="width: 300px;" title="">
+							<input name="searchValue" type="text" class="text" id="searchValue" style="width: 300px;" title="">
 							&nbsp;<span class="button"><input type="button" id="searchBtn" title="" value="검색"></span>
 							&nbsp;<span class="button"><input type="button" id="resetBtn" title="" value="초기화"></span>
 							
@@ -67,7 +67,7 @@
 				<div class="paging" >
 					<span id="pageNavi"></span>
 				</div>
-				<input name="page" type="hidden" id="page" title="" value="1">
+				<input name="pageNum" type="hidden" id="pageNum" title="" value="1">
 			</div>	
 			
 			
@@ -77,6 +77,28 @@
 	<!-- //container -->
 <#include "/ssrolcmanager/footer.ftl">
 </div>
+<script id="prmediasTemplate" type="text/x-handlebars-template">
+	{{#each prmedia}}
+	<tr>
+		<td><input name="checkBox" type="checkbox" title="" value="{{aidx}}"/></td>
+		<td>{{inc @index}}</td>
+		<td>
+			<p class="tb_1">
+				<a href='/ssrolcmanager/prmedia/{{aidx}}'>{{prTitle}}</a>
+			</p>
+		</td>
+		<td>가로 : {{size_width}}, 세로 : {{size_height}}</td>
+		<td>{{fileName}}</td>
+		<td>{{startDate}} ~ {{endDate}}</td>
+		<td>{{#xIf state "==" 0}}비활성{{else}}활성{{/xIf}}</td>
+		<td>{{regDate}}</td>
+	</tr>
+	{{else}}
+	<tr>
+		<td colspan="8">데이터가 없습니다.</td>
+	</tr>
+	{{/each}}
+</script>
 </body>
 </html>
 

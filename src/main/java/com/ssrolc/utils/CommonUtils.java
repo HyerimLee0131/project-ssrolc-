@@ -1,7 +1,9 @@
 package com.ssrolc.utils;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import com.google.common.base.Strings;
 
@@ -130,5 +132,15 @@ public class CommonUtils {
 
 		
 		return day[0]+"-"+day[1]+"-"+cal.getActualMaximum(Calendar.DATE);
+	}
+	
+	/**
+	 * timestamp 를 원하는 format 으로 변경 예:yyyy-MM-dd (HH:mm:ss)형식으로 변경
+	 * @param time
+	 * @return
+	 */
+	public static String timestampToString(Timestamp time,String format) {
+		SimpleDateFormat formatter = new SimpleDateFormat(format, Locale.getDefault());
+		return formatter.format(time);
 	}
 }
