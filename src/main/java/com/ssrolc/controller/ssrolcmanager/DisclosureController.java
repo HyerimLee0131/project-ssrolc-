@@ -15,12 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.common.base.Strings;
-import com.ssrolc.domain.board.Board;
-import com.ssrolc.domain.board.BoardCategory;
 import com.ssrolc.domain.disclosure.Disclosure;
-import com.ssrolc.exception.BoardCategoryNotFoundException;
-import com.ssrolc.exception.BoardNotFoundException;
 import com.ssrolc.service.DisclosureService;
 import com.ssrolc.utils.PageUtil;
 

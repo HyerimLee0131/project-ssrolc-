@@ -1,28 +1,29 @@
 /**
- * 관리자 disclosure.js
+ * 관리자 franchise.js
  */
 $(function() {
 	$.extend({
 		getBoardList:function(){
 			var pageNum = $("#pageNum").val();
-			var searchUrl = "/ssrolcmanager/disclosures/"+pageNum;
+			var searchUrl = "/ssrolcmanager/franchise/"+pageNum;
 			
 			var hopeArea01 = $("#hopeArea01").val();
 			var hopeArea02 = $("#hopeArea02").val();
 			var startDate = $("#startDate").val();
 			var endDate = $("#endDate").val();
+			var jslcounseling = $("#counseling").val();
 			var pMemName = $("#pMemName").val();
-			var deptType = "";  
+			var jslcType = "";  
 		    $("input:checkbox:checked").each(function (index) {  
 		    	if(index != 0){
-		    		deptType += "," + $(this).val();  
+		    		jslcType += "," + $(this).val();  
 		    	}else{
-		    		deptType += $(this).val();  
+		    		jslcType += $(this).val();  
 		    	}
 		    });  
-		    console.log("deptType : "+deptType);  
+		    console.log("jslcType : "+jslcType);  
 			
-		    var inputData = {"deptArea1":hopeArea01,"deptArea2":hopeArea02,"deptType":deptType,"startDate":startDate,"endDate":endDate,"memName":pMemName};
+		    var inputData = {"jslcArea1":hopeArea01,"jslcArea2":hopeArea02,"jslcType":jslcType,"startDate":startDate,"endDate":endDate,"jslcounseling":jslcounseling,"memName":pMemName};
 			console.log(inputData);
 			
 			$.ajax({
@@ -33,12 +34,13 @@ $(function() {
 				data: inputData,
 				dataType: "json",
 				success: function(jsonData, textStatus, XMLHttpRequest) {
+					console.log(jsonData);
 					var pageInfo = jsonData.pageInfo;
 					var totalRowCnt = pageInfo.totalRowCnt;
 					$("#totalCnt").html(totalRowCnt);
 					$("#pageNavi").html($.pageUtil(pageInfo.pageNum,pageInfo.totalPageCnt, 
 							pageInfo.rowBlockSize,pageInfo.startPageNum,pageInfo.endPageNum));	
-					var source = $("#disclosureTemplate").html();
+					var source = $("#franchiseTemplate").html();
 					var template = Handlebars.compile(source);
 					Handlebars.registerHelper('inc', function (index) {
 						return totalRowCnt - pageInfo.startRow - index;
@@ -84,10 +86,47 @@ $(function() {
 				}
 			});
 		},
-		
-		//열람증 클릭
-		openDisclosure:function(aidx){
-			window.open("/ssrolcmanager/disclosure/"+aidx,"popDisclosure","width=730,height=530,resizable");
+		//레이어팝업 클릭
+		openFranchise:function(jslcId,joinState){
+			$('#layer_pop').show();
+			if(joinState == "0"){
+				$('#joinState0').attr("checked","checked");
+			}else if(joinState == "1"){
+				$('#joinState1').attr("checked","checked");
+			}else if(joinState == "2"){
+				$('#joinState2').attr("checked","checked");
+			}
+			$('#layerSubmitBtn').off('click');
+			$('#layerSubmitBtn').on('click',function(){
+				var changejoinState = $('input[name="joinState"]:checked').val();
+				if(changejoinState != joinState){
+					//변경되므로 DB에 저장
+					$.joinLayerSubmit(jslcId,changejoinState);
+					$('#layer_pop').hide();
+				}else{
+					//변경되는게 없으므로 레이어창 닫기
+					$('#layer_pop').hide();
+				}
+			});
+			
+		},
+		joinLayerSubmit:function(jslcId,changejoinState){
+			var inputData = {"jslcId":jslcId,"jslcounseling":changejoinState};
+				console.log(inputData);
+			$.ajax({
+				type :"POST",
+				url  :"/ssrolcmanager/franchise/changeJoinState",
+				data: inputData,
+				cache: false,
+				async: true,
+				dataType : "text",	
+				success: function(jsonData, textStatus, XMLHttpRequest) {
+					$.getBoardList();
+				},
+				error:function (xhr, ajaxOptions, thrownError){	
+					alert(thrownError);
+				}
+			});
 		}
 	});
 	
@@ -116,21 +155,21 @@ $(function() {
 	});
 	// 리셋 버튼
 	$('#resetBtn').on('click',function(){
-		location.href = "/ssrolcmanager/disclosures";
+		location.href = "/ssrolcmanager/franchise/faqs";
 	});
 	// 가맹희망지역 선택
 	$('#hopeArea01').on('change',function(){
-		var deptArea1 = $('#hopeArea01').val();
-		if(deptArea1 == 'select'){
+		var jslcArea1 = $('#hopeArea01').val();
+		if(jslcArea1 == 'select'){
 			$("#hopeArea02").find('option').each(function(){
 				$(this).remove();
 			});
 			$("#hopeArea02").append("<option value='select'>지역선택</option>");
 			return;
 			}
-		var inputData = {"deptArea1":deptArea1};
+		var inputData = {"jslcArea1":jslcArea1};
 		$.ajax({
-			url:"/ssrolcmanager/disclosures/deptArea",
+			url:"/ssrolcmanager/franchise/deptArea",
 			type:"GET",
 			cache: false,
 			async: true,

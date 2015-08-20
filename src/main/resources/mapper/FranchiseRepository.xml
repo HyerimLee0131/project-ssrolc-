@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssrolc.repository.FranchiseRepository">
+
+	<select id="findFranchises" parameterType="hashmap" resultType="com.ssrolc.domain.franchise.Franchise">
+		SELECT * FROM ssrolc.jeislc_write
+		<where>
+			<if test="jslTypeList != null">
+				jslcType IN 
+				 <foreach item="item" index="index" collection="jslTypeList"
+				     open="(" separator="," close=")">
+				       #{item}
+				 </foreach>
+			</if>
+			<if test="jslcArea1 != null and jslcArea1 != 'select'">
+				And jslcArea1 = #{jslcArea1}
+				<if test="jslcArea2 != null and jslcArea2 !='select'">
+					And jslcArea2 = #{jslcArea2}
+				</if>
+			</if>
+			<if test="jslcounseling != null and jslcounseling !='select'">
+				And jslcounseling = #{jslcounseling}
+			</if>
+			<if test="memName != null and memName != ''">
+				And memName = #{memName}
+			</if>
+			<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+				And jslipDatetime BETWEEN #{startDate} AND #{endDate}
+			</if>
+	
+		</where>
+		ORDER BY jslipDatetime DESC
+		<if test="startLimit != null and endLimit != null">
+			LIMIT #{startLimit},#{endLimit}
+		</if>
+	</select>
+	
+	<select id="countSearchFranchises" parameterType="hashMap" resultType="int">
+		SELECT count(0) FROM ssrolc.jeislc_write
+		<where>
+			<if test="jslTypeList != null">
+				jslcType IN 
+				 <foreach item="item" index="index" collection="jslTypeList"
+				     open="(" separator="," close=")">
+				       #{item}
+				 </foreach>
+			</if>
+			<if test="jslcArea1 != null and jslcArea1 != 'select'">
+				And jslcArea1 = #{jslcArea1}
+				<if test="jslcArea2 != null and jslcArea2 !='select'">
+					And jslcArea2 = #{jslcArea2}
+				</if>
+			</if>
+			<if test="jslcounseling != null and jslcounseling !='select'">
+				And jslcounseling = #{jslcounseling}
+			</if>
+			<if test="memName != null and memName != ''">
+				And memName = #{memName}
+			</if>
+			<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+				And jslipDatetime BETWEEN #{startDate} AND #{endDate}
+			</if>
+
+		</where>
+	</select>
+	<select id="findFranchiseCityList" resultType="String">
+		SELECT city FROM ssrolc.postNumCity GROUP BY city ORDER BY city ASC
+	</select>
+	<select id="findFranchiseDeptAreaList" resultType="String">
+		SELECT COUNTRY FROM ssrolc.postNumCity WHERE city = #{jslcArea1} ORDER BY COUNTRY ASC
+	</select>
+	
+	<update id="findchangeJoinState" parameterType="hashmap">
+		UPDATE jeislc_write SET jslcounseling=#{jslcounseling} WHERE jslcId=#{jslcId}
+	</update>
+	
+</mapper>
