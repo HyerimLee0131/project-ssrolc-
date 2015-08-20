@@ -112,4 +112,26 @@
 		SELECT * FROM ssrolc.attachFile
 		WHERE boardTable = #{boardTable} AND attachFileNo = #{attachFileNo}
 	</select>
+	
+	
+	<insert id="insertArticle" parameterType="com.ssrolc.domain.board.Article" useGeneratedKeys="true" keyProperty="articleNo">
+		INSERT INTO ssrolc.article(boardTable,categoryCode,title,content,hit,fileCnt,imageCnt,etc1,etc2,etc3
+		,useEnable,deleteFlag,regId,regIp,regDate,updateDate) 
+		VALUES(#{boardTable},#{categoryCode},#{title},#{content},#{hit},#{fileCnt},#{imageCnt},#{etc1},#{etc2},#{etc3}
+		,#{useEnable},#{deleteFlag},#{regId},#{regIp},#{regDate},#{updateDate})
+	</insert>
+	
+	<update id="updateArticleFileCnt" parameterType="hashMap">
+		UPDATE ssrolc.article
+		<set>
+			<if test="fileCnt != null">
+				fileCnt = #{fileCnt},
+			</if>
+			<if test="imageCnt != null">
+				imageCnt = #{imageCnt}
+			</if>
+		</set>
+		WHERE articleNo = #{articleNo}
+	</update>
+	
 </mapper>

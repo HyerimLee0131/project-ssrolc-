@@ -62,11 +62,13 @@ public class FileUploadUtil {
 				String uploadFileParamName = (String) uploadFileIterator.next();
 				MultipartFile multipartFile = mhsRequest.getFile(uploadFileParamName);
 				
-				if(!doUpload(multipartFile,sort)){
-					throw new FileCanNotUploadException();
+				if(!multipartFile.isEmpty()){
+					if(!doUpload(multipartFile,sort)){
+						throw new FileCanNotUploadException();
+					}
+					
+					sort++;
 				}
-				
-				sort++;
 			}
 		}
 		

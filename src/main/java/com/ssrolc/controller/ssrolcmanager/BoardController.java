@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -33,6 +34,7 @@ import com.ssrolc.domain.board.Article;
 import com.ssrolc.domain.board.AttachFile;
 import com.ssrolc.domain.board.Board;
 import com.ssrolc.domain.board.BoardCategory;
+import com.ssrolc.exception.ArticleNotAddException;
 import com.ssrolc.exception.ArticleNotFoundException;
 import com.ssrolc.exception.BoardCategoryNotFoundException;
 import com.ssrolc.exception.BoardNotFoundException;
@@ -171,12 +173,69 @@ public class BoardController {
 			//해더에 스크립트 추가
 			List<String> headerScript = new ArrayList<>();
 			headerScript.add("crosseditor30/js/namo_scripteditor");
+			headerScript.add("ssrolcmanager/boards/write");
 			
 			model.addAttribute("headerScript",headerScript);
 			
 			return "ssrolcmanager/boards/"+boardTable+"Write";
 		}
 	}
+	
+	@RequestMapping(value="/ssrolcmanager/boards/{boardTable}",method=RequestMethod.POST)
+	public String addArticle(Model model,@CookieValue(value="SSROLC_ID") String regId,@PathVariable String boardTable
+							,@RequestParam(value="boardCategoryCode",defaultValue="") String categoryCode
+							,@RequestParam(value="boardTitle") String title
+							,@RequestParam(value="boardContent") String content
+							,MultipartHttpServletRequest mhRequest){
+		
+		Board boardInfo = boardService.getBoardInfo(boardTable);
+		if(boardInfo == null || boardInfo.equals(null)){
+			throw new BoardNotFoundException(boardTable);
+		}else{
+			if(Strings.isNullOrEmpty(title) || Strings.isNullOrEmpty(content)){
+				throw new ArticleNotAddException(boardTable);
+			}
+			
+			Timestamp nowDate = new Timestamp(new Date().getTime());
+			
+			Article article = new Article(boardTable, categoryCode, title, content,0,0,0
+					, "","","",true, false, regId, mhRequest.getRemoteAddr(), nowDate, nowDate);
+			
+			boardService.addArticle(article);
+			
+			int lastArticleNo = article.getArticleNo();
+			
+			if(boardInfo.isBoardFileUploadEnable()){
+				
+				String uploadPath = boardUploadPath+File.separator+boardTable;
+				
+				FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, boardInfo.getBoardFileUploadType()
+						, uploadPath,new ArrayList<AttachFile>(),boardTable,lastArticleNo, true, "M"
+						, regId, mhRequest.getRemoteAddr(),nowDate);
+				
+				List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();
+				
+				int imageCnt = 0;
+				int fileCnt = 0;
+				
+				for (AttachFile attachFile : uploadedAttachFileList) {
+					boardService.addAttachFile(attachFile);
+					if("jpg".equals(attachFile.getFileType()) || "png".equals(attachFile.getFileType()) 
+							|| "gif".equals(attachFile.getFileType())){
+						imageCnt++;
+					}else{
+						fileCnt++;
+					}
+				}
+				
+				boardService.setArticleFileCnt(lastArticleNo, fileCnt, imageCnt);
+				
+			}
+			
+			return "redirect:/ssrolcmanager/boards/"+boardTable;
+		}
+	}
+	
 	
 	
 	@RequestMapping(value="/ssrolcmanager/boards/{boardTable}/imgfileupload",method=RequestMethod.POST)
@@ -199,7 +258,7 @@ public class BoardController {
 				int attachFileNo = 0;
 				
 				for (AttachFile attachFile : uploadedAttachFileList) {
-					boardService.addEditorImgAttachFile(attachFile);
+					boardService.addAttachFile(attachFile);
 					
 					attachFileNo = attachFile.getAttachFileNo();
 				}

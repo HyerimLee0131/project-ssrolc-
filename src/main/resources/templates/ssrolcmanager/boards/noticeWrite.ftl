@@ -12,7 +12,7 @@
 				<p class="page-title">${boardInfo.boardName}</p>
 				<h1 class="mgt-20"></h1>
 				<div class="tbl-type-F">
-					<form action="/ssrolcmanager/boards/${boardInfo.boardTable}" method="POST">
+					<form id="boardFrm" action="/ssrolcmanager/boards/${boardInfo.boardTable}" method="POST" enctype="multipart/form-data">
 					<table width="100%" cellSpacing="0" summary="">
 						<colgroup>
 							<col width="95">
