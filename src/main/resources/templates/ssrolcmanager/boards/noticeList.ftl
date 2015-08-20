@@ -38,8 +38,6 @@
 				<div class="board-searchBox">
 					<input name='boardTable' id="boardTable" type='hidden' value='${boardInfo.boardTable}'/>
 					<input name='pageNum' id="pageNum" type='hidden' value='1'/>
-					<input name='rowBlockSize' id="rowBlockSize" type='hidden' value='${boardInfo.rowBlockSize}'/>
-					<input name='pageBlockSize' id="pageBlockSize" type='hidden' value='${boardInfo.pageBlockSize}'/>
 					<fieldset class="board-search">
 					<select name='searchField' id="searchField" class="formSelect" title="검색조건선택">
 						<option  value='title'>제목</option>
@@ -66,7 +64,7 @@
 			</p>
 		</td>
 		<td>{{#xIf fileCnt ">" 0}}<img src="/public/img/img_inc/icon_file.gif" title="파일" alt="파일">{{/xIf}}</td>
-		<td>{{regDate}}</td>
+		<td>{{prettifyDate regDate}}</td>
 	</tr>
 	{{else}}
 	<tr>

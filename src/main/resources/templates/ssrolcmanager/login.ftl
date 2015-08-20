@@ -34,7 +34,7 @@ $(function(){
 	</div>
 	<div id="loginContainer">
 		<h2><img src="/public/img/admin/login/h2_login.gif" alt="로그인" /></h2>
-		<form name="loginFrm" id="loginFrm" method="post" action="https://devssl.ssro.com/jeislc/controller/loginchk_java.php">
+		<form name="loginFrm" id="loginFrm" method="post" action="${loginCheckUrl}">
 			<div class="login-box">
 				<dl>
 					<dt><img src="/public/img/admin/login/tit_fc_login.gif" alt="재능스스로러닝센터 관리시스템" /></dt>

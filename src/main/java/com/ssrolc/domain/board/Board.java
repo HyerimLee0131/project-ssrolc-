@@ -16,5 +16,7 @@ public class Board {
 	private String boardName;
 	private int rowBlockSize;
 	private int pageBlockSize;
-	private Boolean boardCategoryEnable;
+	private boolean boardCategoryEnable;
+	private boolean boardFileUploadEnable;
+	private String boardFileUploadType;
 }

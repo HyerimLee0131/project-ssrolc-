@@ -1,6 +1,4 @@
-/**
- * 관리자 notice.js
- */
+
 $(function() {
 	$.extend({
 		getBoardList:function(){
@@ -30,6 +28,14 @@ $(function() {
 					var template = Handlebars.compile(source);
 					Handlebars.registerHelper('inc', function (index) {
 						return totalRowCnt - pageInfo.startRow - index;
+					});
+					Handlebars.registerHelper("prettifyDate", function(timestamp) {
+						var d = new Date(timestamp);
+						var month = d.getMonth()+1;
+						var day = d.getDate();
+						var convertMonth = $.leadingZeros(month,2);
+						var convertDay = $.leadingZeros(day,2);
+					    return d.getFullYear()+"-"+convertMonth+"-"+convertDay;
 					});
 					Handlebars.registerHelper('xIf', function (lvalue, operator, rvalue, options) {
 					    var operators, result;
@@ -84,6 +90,7 @@ $(function() {
 	});	
 	
 	$("#searchBtn").on("click",function() {
+		$("#pageNum").val("1");
 		$.getBoardList();
 	});
 });
