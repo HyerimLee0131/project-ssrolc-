@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<licenseNumber>9503-0101-140027</licenseNumber>
+	<domainKey>55b2ac397072e643d33af0177a200ec0fabf8720ecb1ce0397cb8c2e138ce1ec8b82027d88445fc42421c2e95738e5dc6103bcf5f0025ada95072789c2bb1c692485c056fbf089bb050b625676c7f0612486974f83c1034e7a460200d64dcbc06e6a50c892cd230576cacf7e004cdda933652781741aea71dea0201b32cf1dd92c47b9905cc0d209501dbee09e27f1723903763df1d8f8dcfc6356d02fc0575e088d146c12c90eafaf586b66e110a0abce6c37e843f1718b89faee509ebc38f87754bf8f5b73ee67a2d1e92124d05d65717504cb2867bc87f436762d074aa61216e11a9d89e30ec9d007274a5bea5bf594ae8d6a9358dba3ab9ff82993a7d1844b85d44a8256d83b74d6a11fa18f94ad50d55ff4bcb3c2ea8b6a3fdff8c8982d31f2c36bb72673d8d09938038e17f87b1096410643285f538490e26365fb013839c11c1876dff6bea06f2c4f07079cdc</domainKey>
+	<maxImageNum>20</maxImageNum>
+	<maxImageWidth>1600</maxImageWidth>
+	<maxImageHeight>1600</maxImageHeight>
+	<maxImageBytes>10485760</maxImageBytes>
+	<checkImageTitle>off</checkImageTitle>
+	<locale>kor</locale>
+	<services>
+		<service>
+			<name>Editor</name>
+			<iconURL></iconURL>
+			<url>com/namo/Editor.swf</url>
+		</service>
+		<service>
+			<name>Slideshow</name>
+			<iconURL>assets/images/slideshow/slideshow_icon.png</iconURL>
+			<url>com/namo/Slideshow.swf</url>
+		</service>
+	</services>
+</config>
