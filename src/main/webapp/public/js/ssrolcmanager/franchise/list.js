@@ -21,10 +21,8 @@ $(function() {
 		    		jslcType += $(this).val();  
 		    	}
 		    });  
-		    console.log("jslcType : "+jslcType);  
 			
 		    var inputData = {"jslcArea1":hopeArea01,"jslcArea2":hopeArea02,"jslcType":jslcType,"startDate":startDate,"endDate":endDate,"jslcounseling":jslcounseling,"memName":pMemName};
-			console.log(inputData);
 			
 			$.ajax({
 				url:searchUrl,
@@ -34,7 +32,6 @@ $(function() {
 				data: inputData,
 				dataType: "json",
 				success: function(jsonData, textStatus, XMLHttpRequest) {
-					console.log(jsonData);
 					var pageInfo = jsonData.pageInfo;
 					var totalRowCnt = pageInfo.totalRowCnt;
 					$("#totalCnt").html(totalRowCnt);
@@ -89,12 +86,12 @@ $(function() {
 		//레이어팝업 클릭
 		openFranchise:function(jslcId,joinState){
 			$('#layer_pop').show();
-			if(joinState == "0"){
-				$('#joinState0').attr("checked","checked");
-			}else if(joinState == "1"){
-				$('#joinState1').attr("checked","checked");
-			}else if(joinState == "2"){
-				$('#joinState2').attr("checked","checked");
+			if(joinState == 0){
+				$('#joinState0').prop("checked",true);
+			}else if(joinState == 1){
+				$('#joinState1').prop("checked",true);
+			}else if(joinState == 2){
+				$('#joinState2').prop("checked",true);
 			}
 			$('#layerSubmitBtn').off('click');
 			$('#layerSubmitBtn').on('click',function(){
@@ -112,7 +109,6 @@ $(function() {
 		},
 		joinLayerSubmit:function(jslcId,changejoinState){
 			var inputData = {"jslcId":jslcId,"jslcounseling":changejoinState};
-				console.log(inputData);
 			$.ajax({
 				type :"POST",
 				url  :"/ssrolcmanager/franchise/changeJoinState",
