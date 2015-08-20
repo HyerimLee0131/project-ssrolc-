@@ -6,7 +6,7 @@ mail:
     
 board:
     https:
-        url: https://devssl.ssro.com/jeislc/controller/loginchk_local.php
+        url: https://devssl.ssro.com/jeislc/controller/loginchk_default.php
         
 multipart:
     maxFileSize: 2048KB
