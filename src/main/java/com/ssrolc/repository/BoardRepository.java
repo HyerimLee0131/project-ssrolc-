@@ -39,4 +39,15 @@ public interface BoardRepository {
 	 * 조회수 증가
 	 */
 	public void updateArticleHitUp(Map<String,Object> map);
+	/*
+	 *  db에 파일 정보 저장
+	 */
+	public void insertAttachFile(AttachFile attachFile);
+	/*
+	 * 첨부파일 읽어오기
+	 */
+	public AttachFile findAttachFile(Map<String,Object> map);
+	
+	
+	
 }

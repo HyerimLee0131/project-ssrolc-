@@ -100,4 +100,16 @@
 		WHERE boardTable = #{boardTable} AND articleNo = #{articleNo}
 	</update>
 	
+	<insert id="insertAttachFile" parameterType="com.ssrolc.domain.board.AttachFile" useGeneratedKeys="true" keyProperty="attachFileNo">
+		INSERT INTO ssrolc.attachFile(boardTable,articleNo,editFlag,sort,fileName,convertFileName
+		,downloadCnt,fileSize,fileWidth,fileHeight,fileType,fileFormat,regId,regIp,regDate)
+		VALUES(#{boardTable},#{articleNo},#{editFlag},#{sort},#{fileName},#{convertFileName}
+		,#{downloadCnt},#{fileSize},#{fileWidth},#{fileHeight},#{fileType},#{fileFormat}
+		,#{regId},#{regIp},#{regDate})
+	</insert>
+	
+	<select id="findAttachFile" parameterType="hashMap" resultType="com.ssrolc.domain.board.AttachFile">
+		SELECT * FROM ssrolc.attachFile
+		WHERE boardTable = #{boardTable} AND attachFileNo = #{attachFileNo}
+	</select>
 </mapper>

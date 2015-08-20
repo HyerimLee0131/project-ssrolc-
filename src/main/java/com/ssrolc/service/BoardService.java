@@ -91,4 +91,15 @@ public class BoardService {
 		boardRepository.updateArticleHitUp(map);
 	}
 	
+	public void addEditorImgAttachFile(AttachFile attachFile){
+		boardRepository.insertAttachFile(attachFile);
+	}
+	
+	public AttachFile getEditorAttachFile(String boardTable,int attachFileNo){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("attachFileNo",attachFileNo);
+		
+		return boardRepository.findAttachFile(map);
+	}
 }

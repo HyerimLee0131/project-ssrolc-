@@ -11,8 +11,6 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ssrolc.controller.ssrolcmanager.LoginController;
-
 
 /*
  * 
@@ -28,7 +26,7 @@ public class Thumbnail {
 	
 	public Map<String, Object> thumbnailMake(String path, String fileName, int thumbWidth) {
 		Map<String, Object> resultMap = new HashMap<>(); 
-		String thumbPath = path+"\\thumb";
+		String thumbPath = path+File.separator+"thumb";
 		
 		try {
 			//디렉토리 없으면 생성
@@ -38,7 +36,7 @@ public class Thumbnail {
 			}
 			
 			//원본파일
-			File originFile = new File(path+"\\"+fileName);
+			File originFile = new File(path+File.separator+fileName);
 			
 			//원본파일 버퍼 생성
 			BufferedImage originFileBuffer = ImageIO.read(originFile);
@@ -56,7 +54,7 @@ public class Thumbnail {
 			String fileExt = originFile.getName().substring(lastIndex + 1);
 			
 			//썸네일 파일 생성
-			File thumbFile = new File(thumbPath+"\\"+"thumb_"+fileName);
+			File thumbFile = new File(thumbPath+File.separator+"thumb_"+fileName);
 			Graphics2D graphic = thumbFileBuffer.createGraphics();
 			graphic.drawImage(originFileBuffer, 0, 0, thumbWidth, thumbHeight, null);
 			ImageIO.write(thumbFileBuffer, fileExt, thumbFile);

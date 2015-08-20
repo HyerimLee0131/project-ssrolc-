@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.savedrequest.NullRequestCache;
 
 import com.ssrolc.auth.MyCustomAuthenticationEntryPoint;
@@ -85,7 +86,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 					.exceptionHandling()
 						.authenticationEntryPoint(myCustomAuthenticationEntryPoint)
 				.and()
-					.requestCache().requestCache(new NullRequestCache());
+					.requestCache().requestCache(new NullRequestCache())
+				.and()
+					.headers()
+						.addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN));
+				//나모 웹에디터때문에 위에 sameorigin으로 설정
 		}
 		
 }
