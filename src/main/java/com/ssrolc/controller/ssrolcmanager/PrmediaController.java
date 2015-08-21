@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ssrolc.domain.board.Article;
+import com.ssrolc.domain.board.AttachFile;
+import com.ssrolc.domain.board.Board;
+import com.ssrolc.domain.prmedia.Prmedia;
+import com.ssrolc.exception.ArticleNotFoundException;
+import com.ssrolc.exception.BoardNotFoundException;
 import com.ssrolc.exception.PrmediaNotFoundException;
 import com.ssrolc.service.PrmediaService;
 import com.ssrolc.utils.PageUtil;
@@ -30,11 +36,11 @@ public class PrmediaController {
 	private PrmediaService prmediaService;
 	
 	//리스트
-	@RequestMapping(value={"/ssrolcmanager/prmedia"},method = {RequestMethod.GET,RequestMethod.HEAD})
+	@RequestMapping(value={"/ssrolcmanager/prmedias"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	public String prmediaList(Model model){
 		logger.debug("prmedia List");
 		
-		model.addAttribute("title","러닝센터관리자 팝업관리");
+		model.addAttribute("title","러닝센터관리자 홍보영상관리");
 		
 		//해더에 스크립트 추가
 		List<String> headerScript = new ArrayList<>();
@@ -46,7 +52,7 @@ public class PrmediaController {
 	}
 	
 	//리스트 paging 추가
-	@RequestMapping(value={"/ssrolcmanager/prmedia/{pageNum}"},method = {RequestMethod.GET,RequestMethod.HEAD})
+	@RequestMapping(value={"/ssrolcmanager/prmedias/{pageNum:[0-9]+}"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> prmediaListJson(@PathVariable int pageNum){
 		logger.debug("pageNum:"+pageNum);
@@ -70,7 +76,7 @@ public class PrmediaController {
 	}
 
 	//리스트 paging, 검색조건 추가
-	@RequestMapping(value={"/ssrolcmanager/prmedia/{pageNum}/{searchField}/{searchValue}"},method = {RequestMethod.GET,RequestMethod.HEAD})
+	@RequestMapping(value={"/ssrolcmanager/prmedias/{pageNum:[0-9]+}/{searchField}/{searchValue}"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> prmediaSearchListJson(@PathVariable int pageNum,@PathVariable String searchField,@PathVariable String searchValue){
 		logger.debug("searchField:"+searchField+",searchValue:"+searchValue);
@@ -88,27 +94,24 @@ public class PrmediaController {
 			
 			Map<String,Object> map = new HashMap<>();
 			map.put("pageInfo",pageUtil);
-			map.put("prmedias",prmediaService.getPrmedias(pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
+			map.put("prmedia",prmediaService.getPrmedias(pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
 			return ResponseEntity.ok(map);
 		}
 	}
 		
 	//쓰기
-	@RequestMapping(value={"/ssrolcmanager/prmedia/new"},method = {RequestMethod.GET,RequestMethod.HEAD})
+	@RequestMapping(value={"/ssrolcmanager/prmedias/new"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	public String prmediaWrite(Model model){
-		model.addAttribute("title","러닝센터관리자 팝업관리");
+		model.addAttribute("title","러닝센터관리자 홍보영상관리");
 
 		//해더에 css 추가
-		List<String> headerCss = new ArrayList<>();
-		headerCss.add("jquery-ui.1.11.4.min");
-
-		model.addAttribute("headerCss",headerCss);
+	/*	List<String> headerCss = new ArrayList<>();
+		model.addAttribute("headerCss",headerCss);*/
 
 		//해더에 스크립트 추가
 		List<String> headerScript = new ArrayList<>();
-		headerScript.add("jquery-ui.1.11.4.min");
-		headerScript.add("common");
-		headerScript.add("ssrolcmanager/boards/admin_write");
+		headerScript.add("ssrolcmanager/jdatepicker");
+		headerScript.add("ssrolcmanager/prmedia/admin_write");
 
 		model.addAttribute("headerScript",headerScript);
 
@@ -116,7 +119,23 @@ public class PrmediaController {
 	}
 	
 
+	//글보기
+	@RequestMapping(value={"/ssrolcmanager/prmedia/{aidx:[0-9]+}"},method = { RequestMethod.GET, RequestMethod.HEAD })	
+	public String view(Model model,@PathVariable int aidx){
 	
-
+			Prmedia prmedia = prmediaService.getPrmedia(aidx);
+			if(prmedia == null || prmedia.equals(null)){
+				throw new PrmediaNotFoundException();
+			}else{
+				model.addAttribute("prmedia",prmedia);
+				
+				prmediaService.setPrmediaHitUp(aidx);
+				
+				return "ssrolcmanager/prmedia/view";
+			}
+	
+	}
+	
+	
 }
 

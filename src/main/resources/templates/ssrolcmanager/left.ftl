@@ -13,7 +13,7 @@
 					<h3>부가관리</h3> 
  					<ul> 
  						<li  class="active"  ><a href="/ssrolcmanager/popups">팝업관리</a></li>
- 						<li   ><a href="/ssrolcmanager/prmedia">홍보영상관리</a></li>	
+ 						<li   ><a href="/ssrolcmanager/prmedias">홍보영상관리</a></li>	
 					</ul> 
  				</div> 
 			</div>

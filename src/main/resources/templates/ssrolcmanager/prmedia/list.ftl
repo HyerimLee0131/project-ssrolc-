@@ -17,8 +17,7 @@
 						<legend></legend>
 						<p>
 							<select name="searchField" id="searchField" style="width:75px;" title="">
-								<option value="title">제목</option>
-								<option value="name">글쓴이</option>
+								<option value="prTitle">제목</option>
 							</select>&nbsp;&nbsp;
 							<input name="searchValue" type="text" class="text" id="searchValue" style="width: 300px;" title="">
 							&nbsp;<span class="button"><input type="button" id="searchBtn" title="" value="검색"></span>
@@ -62,7 +61,7 @@
 					<span class="button btn-type-J"><a onclick="$.selectDelete();">선택삭제</a></span>						
 				</div>
 				<div class="btn-box float-r mgt-10">
-					<span class="button btn-type-I"><a href="/ssrolcmanager/prmedia">글쓰기</a></span>
+					<span class="button btn-type-I"><a href="/ssrolcmanager/prmedias/new">글쓰기</a></span>
 				</div>			
 				<div class="paging" >
 					<span id="pageNavi"></span>
@@ -83,15 +82,14 @@
 		<td><input name="checkBox" type="checkbox" title="" value="{{aidx}}"/></td>
 		<td>{{inc @index}}</td>
 		<td>
-			<p class="tb_1">
-				<a href='/ssrolcmanager/prmedia/{{aidx}}'>{{prTitle}}</a>
-			</p>
+			
 		</td>
-		<td>가로 : {{size_width}}, 세로 : {{size_height}}</td>
-		<td>{{fileName}}</td>
-		<td>{{startDate}} ~ {{endDate}}</td>
-		<td>{{#xIf state "==" 0}}비활성{{else}}활성{{/xIf}}</td>
-		<td>{{regDate}}</td>
+		<td><a href='/ssrolcmanager/prmedia/{{aidx}}'>{{prTitle}}</a></td>
+		<td>{{regId}}</td>
+		<td>{{mediaLocation}}</td>
+		<td>{{prettifyDate updateDate}}</td>
+		<td>{{prettifyDate regDate}}</td>
+		<td>{{hitCnt}}</td>
 	</tr>
 	{{else}}
 	<tr>

@@ -18,9 +18,10 @@ public interface PrmediaRepository {
 	/*
 	 * 글 읽어오기
 	 */
-	public Prmedia findPrmedia(Map<String,Object> map);
+	public Prmedia findPrmedia(int aidx);
 	/*
 	 * 조회수 증가
 	 */
-	public int updateHit(Map<String,Object> map);
+	public void updateHit(int aidx);
+	
 }

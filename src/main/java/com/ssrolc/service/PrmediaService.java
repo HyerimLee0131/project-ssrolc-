@@ -47,4 +47,13 @@ public class PrmediaService {
 
 		return prmediaRepository.countPrmedia(map);
 	}
+	
+	public Prmedia getPrmedia(int aidx){
+		return prmediaRepository.findPrmedia(aidx);
+	}
+
+	public void setPrmediaHitUp(int aidx) {
+		// TODO Auto-generated method stub
+		prmediaRepository.updateHit(aidx);
+	}
 }
