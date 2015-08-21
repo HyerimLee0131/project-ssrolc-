@@ -36,6 +36,25 @@ public class Prmedia {
 		
 		return CommonUtils.timestampToString(regDate,format);
 	}
+	
+	public Prmedia(String prTitle,
+			String makeTime, String thumnailName, String thumnailRealName, String thumnailSize, int hitCnt, String mediaLinkUrl, String mediaLocation, Timestamp updateDate
+			, String updateId, Timestamp regDate,String regId, String regIp) {
+		super();
+		
+		this.prTitle = prTitle;
+		this.makeTime = makeTime;
+		this.thumnailName = "";
+		this.thumnailRealName = "";
+		this.thumnailSize = "";
+		this.hitCnt = 0;
+		this.mediaLinkUrl = mediaLinkUrl;
+		this.mediaLocation = mediaLocation;
+		this.regId = regId;
+		this.regIp = regIp;
+		this.regDate = regDate;
+		this.updateDate = updateDate;
+	}
 }
 
 

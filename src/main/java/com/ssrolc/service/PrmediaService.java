@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssrolc.domain.board.Article;
 import com.ssrolc.domain.prmedia.Prmedia;
 import com.ssrolc.repository.PrmediaRepository;
 
@@ -56,4 +57,9 @@ public class PrmediaService {
 		// TODO Auto-generated method stub
 		prmediaRepository.updateHit(aidx);
 	}
+	
+	public void addPrmedia(Prmedia prmedia){
+		prmediaRepository.insertPrmedia(prmedia);
+	}
+	
 }

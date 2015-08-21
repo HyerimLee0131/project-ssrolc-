@@ -1,7 +1,10 @@
 package com.ssrolc.controller.ssrolcmanager;
 
 
+import java.io.File;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,19 +15,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.google.common.base.Strings;
 import com.ssrolc.domain.board.Article;
 import com.ssrolc.domain.board.AttachFile;
 import com.ssrolc.domain.board.Board;
 import com.ssrolc.domain.prmedia.Prmedia;
+import com.ssrolc.exception.ArticleNotAddException;
 import com.ssrolc.exception.ArticleNotFoundException;
 import com.ssrolc.exception.BoardNotFoundException;
 import com.ssrolc.exception.PrmediaNotFoundException;
 import com.ssrolc.service.PrmediaService;
+import com.ssrolc.utils.FileUploadUtil;
 import com.ssrolc.utils.PageUtil;
 
 
@@ -135,6 +144,59 @@ public class PrmediaController {
 			}
 	
 	}
+	
+	//글저장
+	@RequestMapping(value="/ssrolcmanager/prmedia/write",method=RequestMethod.POST)
+	public String addPrmedia(Model model,@CookieValue(value="SSROLC_ID") String regId
+							,@RequestParam(value="prTitle") String prTitle
+							,@RequestParam(value="makeTime") String makeTime
+							,@RequestParam(value="mediaLinkUrl") String mediaLinkUrl
+							,@RequestParam(value="mediaLocation") String mediaLocation
+							,MultipartHttpServletRequest mhRequest) {
+		
+		
+			if(Strings.isNullOrEmpty(prTitle) || Strings.isNullOrEmpty(mediaLinkUrl)){
+				throw new PrmediaNotFoundException();
+			}
+			
+			Timestamp nowDate = new Timestamp(new Date().getTime());
+			
+			Prmedia prmedia = new Prmedia(0,prTitle, makeTime,"","","",0,mediaLinkUrl,mediaLocation,nowDate,"",nowDate, regId, mhRequest.getRemoteAddr());
+			
+			prmediaService.addPrmedia(prmedia);
+			
+			/*
+			int lastArticleNo = prmedia.getArticleNo();
+			
+			if(boardInfo.isBoardFileUploadEnable()){
+				
+				String uploadPath = boardUploadPath+File.separator+boardTable;
+				
+				FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, boardInfo.getBoardFileUploadType()
+						, uploadPath,new ArrayList<AttachFile>(),boardTable,lastArticleNo, true, "M"
+						, regId, mhRequest.getRemoteAddr(),nowDate);
+				
+				List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();
+				
+				int imageCnt = 0;
+				int fileCnt = 0;
+				
+				for (AttachFile attachFile : uploadedAttachFileList) {
+					boardService.addAttachFile(attachFile);
+					if("jpg".equals(attachFile.getFileType()) || "png".equals(attachFile.getFileType()) 
+							|| "gif".equals(attachFile.getFileType())){
+						imageCnt++;
+					}else{
+						fileCnt++;
+					}
+				}*/
+				
+				//boardService.setArticleFileCnt(lastArticleNo, fileCnt, imageCnt);
+			
+				return "redirect:/ssrolcmanager/prmedia";
+			}
+	}
+	
 	
 	
 }

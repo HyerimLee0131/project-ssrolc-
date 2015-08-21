@@ -23,5 +23,9 @@ public interface PrmediaRepository {
 	 * 조회수 증가
 	 */
 	public void updateHit(int aidx);
+	/*
+	 *	글 등록 
+	 */
+	public void insertPrmedia(Prmedia prmedia);
 	
 }

@@ -36,4 +36,12 @@
 		UPDATE ssrolc.prmedia SET hitCnt = hitCnt + 1
 		WHERE aidx = #{aidx}
 	</update>
+	
+	<insert id="insertPrmedia" parameterType="com.ssrolc.domain.prmedia.Prmedia" useGeneratedKeys="true" keyProperty="aidx">
+		INSERT INTO ssrolc.prmedia(prTitle,makeTime,thumnailName,thumnailRealName,thumnailSize,hitCnt,mediaLinkUrl,mediaLocation,updateDate,updateId
+		,regDate,regId,regIp) 
+		VALUES(#{prTitle},#{makeTime},#{thumnailName},#{thumnailRealName},#{thumnailSize},#{hitCnt},#{mediaLinkUrl},#{mediaLocation}
+		,#{updateDate},#{updateId},#{regDate},#{regId},#{regIp})
+	</insert>
+	
 </mapper>

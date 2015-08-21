@@ -12,7 +12,7 @@
 				<p class="page-title">홍보영상관리</p>
 					 <p></p>
 					<div class="tbl-type-D">
-							<form id="prmediaFrm" name="prmediaFrm" action="/ssrolcmanager/prmedias/${boardInfo.boardTable}" action="/ssrolcmanager/prmediaswriteOk" method="post" enctype="multipart/form-data">
+							<form id="prmediaFrm" name="prmediaFrm" action="/ssrolcmanager/prmedias/write"  method="post" enctype="multipart/form-data">
 							  <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 								<colgroup>
 								<col width="15%">
