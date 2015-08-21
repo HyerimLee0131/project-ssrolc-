@@ -134,4 +134,13 @@
 		WHERE articleNo = #{articleNo}
 	</update>
 	
+	<select id="findAttachFileById" parameterType="int" resultType="com.ssrolc.domain.board.AttachFile">
+		SELECT * FROM ssrolc.attachFile WHERE attachFileNo = #{attachFileNo}
+	</select>
+	
+	<update id="updateAttachFileDownloadCntUp" parameterType="int">
+		UPDATE ssrolc.attachFile SET downloadCnt = downloadCnt + 1
+		WHERE attachFileNo = #{attachFileNo}
+	</update>
+	
 </mapper>

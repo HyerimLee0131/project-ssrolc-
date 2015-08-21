@@ -1,8 +1,15 @@
 package com.ssrolc.controller.ssrolcmanager;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -21,6 +29,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -210,7 +219,7 @@ public class BoardController {
 				String uploadPath = boardUploadPath+File.separator+boardTable;
 				
 				FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, boardInfo.getBoardFileUploadType()
-						, uploadPath,new ArrayList<AttachFile>(),boardTable,lastArticleNo, true, "M"
+						, uploadPath,new ArrayList<AttachFile>(),boardTable,lastArticleNo, false, "M"
 						, regId, mhRequest.getRemoteAddr(),nowDate);
 				
 				List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();
@@ -298,7 +307,7 @@ public class BoardController {
 	
 	@RequestMapping(value="/crosseditor/photos/{boardTable}/{attachFileNo:[0-9]+}",method={RequestMethod.GET} ,produces={MediaType.IMAGE_GIF_VALUE,MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
 	@ResponseBody
-	public ResponseEntity<InputStreamResource> downloadFile(HttpServletResponse res,@PathVariable String boardTable,@PathVariable int attachFileNo) throws FileNotFoundException{
+	public ResponseEntity<InputStreamResource> crosseditorPhotoStream(HttpServletResponse res,@PathVariable String boardTable,@PathVariable int attachFileNo) throws FileNotFoundException{
 		AttachFile attachFile = boardService.getEditorAttachFile(boardTable,attachFileNo);
 		
 		String imageFilePath = boardUploadPath+File.separator+boardTable+File.separator+attachFile.getConvertFileName();
@@ -311,5 +320,70 @@ public class BoardController {
 				.contentLength(attachFile.getFileSize())
 				.body(new InputStreamResource(fis));
 	}
+	
+	
+	@RequestMapping(value="/download/{attachFileNo:[0-9]+}",method={RequestMethod.GET})
+	public void downloadFile(HttpServletRequest request,HttpServletResponse response,@PathVariable int attachFileNo) throws IOException{
+		AttachFile attachFile = boardService.getAttachFile(attachFileNo);
+		
+		String filePath = boardUploadPath+File.separator+attachFile.getBoardTable()+File.separator+attachFile.getConvertFileName();
+		
+		File downloadFile = new File(filePath);
+		
+		if(!downloadFile.exists()){
+			//에러처리
+			return;
+		}
+		
+		Path source = Paths.get(filePath);
+		String downloadMimType = Files.probeContentType(source);
+		
+		if(Strings.isNullOrEmpty(downloadMimType)){
+			downloadMimType = "application/octet-stream";
+		}
+		
+		String fileName = attachFile.getFileName();
+		String browser = getBrowser(request);
+        if (browser.contains("MSIE")) {
+            fileName = URLEncoder.encode(fileName,"UTF-8").replaceAll("\\+", " ");
+        } else if (browser.contains("Firefox")) {
+               fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+        } else if (browser.contains("Opera")) {
+               fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+        } else if (browser.contains("Chrome")) {
+               fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+        }
+		
+		response.setContentType(downloadMimType);
+		response.setHeader("Content-Transfer-Encoding", "binary;");
+		response.setHeader("Pragma", "no-cache;");
+		response.setHeader("Expires", "-1;");
+		response.setHeader("Content-Disposition",String.format("attachment; filename=\"%s\";",fileName));
+		
+		response.setContentLength((int)downloadFile.length());
+		
+		InputStream inputStream = new BufferedInputStream(new FileInputStream(downloadFile));
+		
+		FileCopyUtils.copy(inputStream,response.getOutputStream());
+		
+		boardService.setAttachFileDownloadCntUp(attachFileNo);
+		
+	}
+	
+	/**
+	 * 브라우저 정보를 가져오는 메서드
+	 * @param request
+	 */
+	private String getBrowser(HttpServletRequest request) {
+        String header =request.getHeader("User-Agent");
+        if (header.contains("MSIE")||header.contains("Trident/7.0")) {
+               return "MSIE";
+        } else if(header.contains("Chrome")) {
+               return "Chrome";
+        } else if(header.contains("Opera")) {
+               return "Opera";
+        }
+        return "Firefox";
+  }
 	
 }

@@ -117,4 +117,12 @@ public class BoardService {
 		boardRepository.updateArticleFileCnt(map);
 	}
 	
+	public AttachFile getAttachFile(int attachFileNo){
+		return boardRepository.findAttachFileById(attachFileNo);
+	}
+	
+	public void setAttachFileDownloadCntUp(int attachFileNo){
+		boardRepository.updateAttachFileDownloadCntUp(attachFileNo);
+	}
+	
 }

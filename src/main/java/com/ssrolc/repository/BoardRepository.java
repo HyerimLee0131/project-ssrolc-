@@ -55,5 +55,13 @@ public interface BoardRepository {
 	 *	글에 파일개수 업데이트 글에 이미지 개수 업데이트
 	 */
 	public void updateArticleFileCnt(Map<String,Object> map);
+	/*
+	 * 파일 정보 읽어오기 
+	 */
+	public AttachFile findAttachFileById(int attachFileNo);
+	/*
+	 * 파일 다운로드 수 증가
+	 */
+	public void updateAttachFileDownloadCntUp(int attachFileNo);
 	
 }
