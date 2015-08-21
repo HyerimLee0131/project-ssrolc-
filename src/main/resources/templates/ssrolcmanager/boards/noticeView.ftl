@@ -56,7 +56,7 @@
 							<a href="/ssrolcmanager/boards/${boardInfo.boardTable}/edit/${article.articleNo}">수정</a>
 						</span>
 						<span class="button btn-type-J">
-							<a onclick='javascript:;'>삭제</a>
+							<a onclick="$.boardDelete('${boardInfo.boardTable}','${article.articleNo}');">삭제</a>
 						</span>
 						<span class="button float-r btn-type-I">
 							<a href="/ssrolcmanager/boards/${boardInfo.boardTable}">목록</a>

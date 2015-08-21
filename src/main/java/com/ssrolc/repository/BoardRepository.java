@@ -63,5 +63,13 @@ public interface BoardRepository {
 	 * 파일 다운로드 수 증가
 	 */
 	public void updateAttachFileDownloadCntUp(int attachFileNo);
+	/*
+	 * 글 삭제
+	 */
+	public void deleteArticle(Map<String,Object> map);
+	/*
+	 * 글에 첨부된 파일들 삭제
+	 */
+	public void deleteAttachFilesToArticle(Map<String, Object> map);
 	
 }

@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.common.base.Strings;
@@ -164,6 +166,12 @@ public class BoardController {
 				
 				boardService.setArticleHitUp(boardTable,articleNo);
 				
+				//해더에 스크립트 추가
+				List<String> headerScript = new ArrayList<>();
+				headerScript.add("ssrolcmanager/boards/view");
+				
+				model.addAttribute("headerScript",headerScript);
+				
 				return "ssrolcmanager/boards/"+boardTable+"View";
 			}
 		}
@@ -187,6 +195,28 @@ public class BoardController {
 			model.addAttribute("headerScript",headerScript);
 			
 			return "ssrolcmanager/boards/"+boardTable+"Write";
+		}
+	}
+	
+	@RequestMapping(value="/ssrolcmanager/boards/{boardTable}/{articleNo:[0-9]+}",method=RequestMethod.DELETE)
+	@ResponseStatus(value=HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable String boardTable,@PathVariable int articleNo){
+		List<AttachFile> attachFileList =  boardService.getAttachFiles(boardTable, articleNo,"");
+		
+		boardService.removeArticle(boardTable, articleNo);
+		boardService.removeAttachFilesToArticle(boardTable, articleNo);
+		
+		String uploadPath = boardUploadPath+File.separator+boardTable;
+		
+		for (AttachFile attachFile : attachFileList) {
+			String filePath = uploadPath+File.separator+attachFile.getConvertFileName();
+			
+			File file = new File(filePath);
+			
+			if(file.exists()){
+				logger.debug("delete File:"+filePath);
+				file.delete();
+			}
 		}
 	}
 	

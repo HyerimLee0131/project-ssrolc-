@@ -87,7 +87,7 @@
 			<if test="articleNo != null and articleNo != 0">
 				AND articleNo = #{articleNo}
 			</if>
-			<if test="fileFormat != null">
+			<if test="fileFormat != null and fileFormat != '' ">
 				AND fileFormat = #{fileFormat}
 			</if>
 		</where>
@@ -143,4 +143,11 @@
 		WHERE attachFileNo = #{attachFileNo}
 	</update>
 	
+	<delete id="deleteArticle" parameterType="hashMap">
+		DELETE FROM ssrolc.article WHERE articleNo = #{articleNo} AND boardTable = #{boardTable}
+	</delete>
+	
+	<delete id="deleteAttachFilesToArticle" parameterType="hashMap">
+		DELETE FROM ssrolc.attachFile WHERE articleNo = #{articleNo} AND boardTable = #{boardTable}
+	</delete>
 </mapper>

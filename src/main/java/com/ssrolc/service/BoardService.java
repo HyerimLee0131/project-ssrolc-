@@ -125,4 +125,19 @@ public class BoardService {
 		boardRepository.updateAttachFileDownloadCntUp(attachFileNo);
 	}
 	
+	public void removeArticle(String boardTable,int articleNo){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("articleNo",articleNo);
+		
+		boardRepository.deleteArticle(map);
+	}
+	
+	public void removeAttachFilesToArticle(String boardTable,int articleNo){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("articleNo",articleNo);
+		
+		boardRepository.deleteAttachFilesToArticle(map);
+	}
 }
