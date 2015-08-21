@@ -177,6 +177,128 @@ public class BoardController {
 		}
 	}
 	
+	@RequestMapping(value={"/ssrolcmanager/board/{boardTable}/edit/{articleNo:[0-9]+}"},method = { RequestMethod.GET, RequestMethod.HEAD })	
+	public String edit(Model model,@PathVariable String boardTable,@PathVariable int articleNo){
+		Board boardInfo = boardService.getBoardInfo(boardTable);
+		if(boardInfo == null || boardInfo.equals(null)){
+			throw new BoardNotFoundException(boardTable);
+		}else{
+			Article article = boardService.getArticle(boardTable, articleNo);
+			if(article == null || article.equals(null)){
+				throw new ArticleNotFoundException(boardTable,articleNo);
+			}else{
+				model.addAttribute("boardInfo",boardInfo);
+				model.addAttribute("article",article);
+				
+				if(boardInfo.isBoardFileUploadEnable()){
+					final String fileFormat = "M";
+
+					List<AttachFile> attachFiles = boardService.getAttachFiles(boardTable, articleNo, fileFormat);
+					
+					model.addAttribute("attachFiles",attachFiles);
+				}
+				
+				//해더에 스크립트 추가
+				List<String> headerScript = new ArrayList<>();
+				headerScript.add("crosseditor30/js/namo_scripteditor");
+				headerScript.add("ssrolcmanager/boards/edit");
+				
+				model.addAttribute("headerScript",headerScript);
+				
+				return "ssrolcmanager/boards/"+boardTable+"Edit";
+			}
+		}
+	}
+	
+	@RequestMapping(value={"/ssrolcmanager/board/{boardTable}/{articleNo:[0-9]+}"},method = { RequestMethod.POST })	
+	public String modify(Model model,@CookieValue(value="SSROLC_ID") String regId
+					,@PathVariable String boardTable
+					,@PathVariable int articleNo
+					,@RequestParam(value="boardCategoryCode",defaultValue="1") String categoryCode
+					,@RequestParam(value="boardTitle") String title
+					,@RequestParam(value="boardContent") String content
+					,@RequestParam(value="deleteAttachFileNo") int deleteAttachFileNo 
+					,MultipartHttpServletRequest mhRequest){
+		
+		Board boardInfo = boardService.getBoardInfo(boardTable);
+		if(boardInfo == null || boardInfo.equals(null)){
+			throw new BoardNotFoundException(boardTable);
+		}else{
+			Article article = boardService.getArticle(boardTable, articleNo);
+			if(article == null || article.equals(null)){
+				throw new ArticleNotFoundException(boardTable,articleNo);
+			}else{
+				
+				Timestamp nowTime = new Timestamp(new Date().getTime());
+				
+				boardService.setArticle(boardTable, articleNo, categoryCode
+						, title, content,nowTime);
+				
+				String uploadPath = boardUploadPath+File.separator+boardTable;
+				
+				if(deleteAttachFileNo > 0){
+					AttachFile attachFileInfo = boardService.getAttachFile(deleteAttachFileNo);					
+					
+					String filePath = uploadPath+File.separator+attachFileInfo.getConvertFileName();
+					
+					File file = new File(filePath);
+					
+					if(file.exists()){
+						file.delete();
+						boardService.removeAttachFile(deleteAttachFileNo);
+					}					
+					
+					FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, boardInfo.getBoardFileUploadType()
+							, uploadPath,new ArrayList<AttachFile>(),boardTable,articleNo, false, "M"
+							, regId, mhRequest.getRemoteAddr(),nowTime);
+					
+					List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();
+					
+					int imageCnt = 0;
+					int fileCnt = 0;
+					
+					for (AttachFile attachFile : uploadedAttachFileList) {
+						boardService.addAttachFile(attachFile);
+						if("jpg".equals(attachFile.getFileType()) || "png".equals(attachFile.getFileType()) 
+								|| "gif".equals(attachFile.getFileType())){
+							imageCnt++;
+						}else{
+							fileCnt++;
+						}
+					}
+					
+					boardService.setArticleFileCnt(articleNo, fileCnt, imageCnt);
+					
+				}else{
+					if(article.getFileCnt() == 0  && article.getImageCnt() == 0 ){
+						FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, boardInfo.getBoardFileUploadType()
+								, uploadPath,new ArrayList<AttachFile>(),boardTable,articleNo, false, "M"
+								, regId, mhRequest.getRemoteAddr(),nowTime);
+						
+						List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();
+						
+						int imageCnt = 0;
+						int fileCnt = 0;
+						
+						for (AttachFile attachFile : uploadedAttachFileList) {
+							boardService.addAttachFile(attachFile);
+							if("jpg".equals(attachFile.getFileType()) || "png".equals(attachFile.getFileType()) 
+									|| "gif".equals(attachFile.getFileType())){
+								imageCnt++;
+							}else{
+								fileCnt++;
+							}
+						}
+						
+						boardService.setArticleFileCnt(articleNo, fileCnt, imageCnt);
+					}
+				}
+								
+				return "redirect:/ssrolcmanager/boards/"+boardTable;
+			}
+		}
+	}
+	
 	
 	@RequestMapping(value="/ssrolcmanager/boards/{boardTable}/new",method={ RequestMethod.GET, RequestMethod.HEAD })
 	public String write(Model model,@PathVariable String boardTable){
@@ -214,7 +336,6 @@ public class BoardController {
 			File file = new File(filePath);
 			
 			if(file.exists()){
-				logger.debug("delete File:"+filePath);
 				file.delete();
 			}
 		}

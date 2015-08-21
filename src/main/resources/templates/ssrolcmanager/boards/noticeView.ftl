@@ -53,7 +53,7 @@
 					</table>
 					<div class="mgt-20">
 						<span class="button btn-type-J">
-							<a href="/ssrolcmanager/boards/${boardInfo.boardTable}/edit/${article.articleNo}">수정</a>
+							<a href="/ssrolcmanager/board/${boardInfo.boardTable}/edit/${article.articleNo}">수정</a>
 						</span>
 						<span class="button btn-type-J">
 							<a onclick="$.boardDelete('${boardInfo.boardTable}','${article.articleNo}');">삭제</a>

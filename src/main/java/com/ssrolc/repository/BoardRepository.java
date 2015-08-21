@@ -71,5 +71,12 @@ public interface BoardRepository {
 	 * 글에 첨부된 파일들 삭제
 	 */
 	public void deleteAttachFilesToArticle(Map<String, Object> map);
-	
+	/*
+	 * 글 수정
+	 */
+	public void updateArticle(Map<String,Object> map);
+	/*
+	 * 파일 정보 삭제
+	 */
+	public void deleteAttachFile(int attachFileNo);
 }

@@ -150,4 +150,27 @@
 	<delete id="deleteAttachFilesToArticle" parameterType="hashMap">
 		DELETE FROM ssrolc.attachFile WHERE articleNo = #{articleNo} AND boardTable = #{boardTable}
 	</delete>
+	
+	<update id="updateArticle" parameterType="hashMap">
+		UPDATE ssrolc.article 
+		<set>
+			<if test="categoryCode != null and categoryCode != '' ">
+				categoryCode = #{categoryCode},
+			</if>
+			<if test="title != null and title != '' ">
+				title = #{title},
+			</if>
+			<if test="content != null and content != '' ">
+				content = #{content},
+			</if>
+			<if test="updateDate != null">
+				updateDate = #{updateDate}
+			</if>
+		</set>
+		WHERE articleNo = #{articleNo} AND boardTable = #{boardTable} 
+	</update>
+	
+	<delete id="deleteAttachFile" parameterType="int">
+		DELETE FROM ssrolc.attachFile WHERE attachFileNo = #{attachFileNo}
+	</delete>
 </mapper>
