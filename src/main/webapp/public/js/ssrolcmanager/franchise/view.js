@@ -33,14 +33,14 @@ $(function() {
 				}
 			}
 
-			var jslcType = $('input[name="pDeptType"]:checked').val();
+			var jslcType = $('input[name="jslcType"]:checked').val();
 
 			if(typeof(jslcType) == "undefined" || jslcType == ""){
 				alert("가맹교실유형을 선택해주세요.");
 				return false;
 			}else{
 				if(jslcType == "교습소"){
-					if($('#pSubject').val()=="select"){
+					if($('#jslcSubject').val()=="select"){
 						alert("희망과목을 선택해주세요.");
 						return false;
 					}
@@ -71,13 +71,14 @@ $(function() {
 				alert('개인정보 항목 및 수집방법 설명 동의체크를 해주세요.');
 				return false;
 			}
+			$('#fwrite').submit();
 		},
 		checkDeptType:function(){
-			var pDeptType = $('input[name="pDeptType"]:checked').val();
-			if(pDeptType == "교습소"){
-				$('#pSubject').removeAttr('disabled');
+			var jslcType = $('input[name="jslcType"]:checked').val();
+			if(jslcType == "교습소"){
+				$('#jslcSubject').removeAttr('disabled');
 			}else{
-				$('#pSubject').attr('disabled','disabled');
+				$('#jslcSubject').attr('disabled','disabled');
 			}
 		},
 		numeric:function(str){
@@ -95,6 +96,13 @@ $(function() {
 		$("#joinHopeDate").datepicker( "show" );
 	});
 
+	$("#joinCheck").on('click',function(){
+		if($("#joinCheck").is(":checked")){
+			$("#jslcounseling").val("1");
+		}else {
+			$("#jslcounseling").val("0");
+		}
+	});
 	// 가맹희망지역 선택
 	$('#hopeArea01').on('change',function(){
 		var jslcArea1 = $('#hopeArea01').val();

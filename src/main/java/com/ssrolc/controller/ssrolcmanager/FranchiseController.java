@@ -1,9 +1,13 @@
 package com.ssrolc.controller.ssrolcmanager;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.ssrolc.domain.franchise.Franchise;
 import com.ssrolc.service.FranchiseService;
@@ -39,7 +45,7 @@ public class FranchiseController {
 			return "ssrolcmanager/franchise/faqList";
 		}
 	//등록 페이지
-	@RequestMapping(value={"/ssrolcmanager/franchise/faqs/new"}, method = {RequestMethod.GET, RequestMethod.HEAD})
+	@RequestMapping(value={"/ssrolcmanager/franchise/faq/new"}, method = {RequestMethod.GET, RequestMethod.HEAD})
 		public String write(Model model) {
 			
 			List<String> cityList = franchiseService.getFranchiseCityList();
@@ -51,11 +57,24 @@ public class FranchiseController {
 		
 			return "ssrolcmanager/franchise/faqWrite";
 		}
-	//등록 insert
-	@RequestMapping(value={"/ssrolcmanager/franchise/faqs"},method ={RequestMethod.POST})
-		public String insertFaq(Franchise franchise){
+	//가맹문의등록 insert
+	@RequestMapping(value={"/ssrolcmanager/franchise/faq"},method ={RequestMethod.POST})
+		public String insertFaq(Franchise franchise){	
+		System.out.println(franchise);
+		
+		//ip넣기
+			HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+			String jslIp = req.getHeader("X-FORWARDED-FOR");
+	        if (jslIp == null)
+	        	jslIp = req.getRemoteAddr();
+	        System.out.println(jslIp);
+	        franchise.setJslIp(jslIp);
+	        
+	        
+	        
+	       
 			franchiseService.insertFranchise(franchise);
-			return "ssrolcmanager/franchise/faqList"; 
+			return "redirect:/ssrolcmanager/franchise/faqs"; 
 		}
 	//정보공개서 리스트
 	@RequestMapping(value="/ssrolcmanager/franchise/{pageNum:[0-9]+}",method={RequestMethod.GET,RequestMethod.HEAD})

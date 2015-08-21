@@ -32,5 +32,5 @@ public interface FranchiseRepository {
 	/*
 	 * 가맹문의 등록
 	 * */
-	public String insertFranchises(Franchise franchise);
+	public void insertFranchises(Franchise franchise);
 }

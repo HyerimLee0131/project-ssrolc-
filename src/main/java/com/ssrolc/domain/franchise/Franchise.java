@@ -15,9 +15,14 @@ import com.ssrolc.utils.CommonUtils;
 
 @Data
 public class Franchise {
+	private String jslctable;
 	private int jslcId;
 	private String inType;
 	private String jslcName;
+	private String jslcZip1;
+	private String jslcZip2;
+	private String jslcAddr1;
+	private String jslcAddr2;
 	private String jslcArea1;
 	private String jslcArea2;
 	private String jslcType;
@@ -29,6 +34,8 @@ public class Franchise {
 	private String jslcCP2;
 	private String jslcCP3;
 	private String jslcounseling;
+	private String jslComments;
 	private Timestamp jslipDatetime;
+	private String jslIp;
 
 }

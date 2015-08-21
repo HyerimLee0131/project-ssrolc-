@@ -39,7 +39,8 @@ public class BoardService {
 		return boardRepository.findArticles(map);
 	}
 	
-	public List<Article> getArticles(String boardTable,int startLimit,int endLimit,String searchField,String searchValue){
+	public List<Article> getArticles(String boardTable,int startLimit,int endLimit
+									,String searchField,String searchValue){
 		Map<String,Object> map = new HashMap<>();
 		map.put("boardTable",boardTable);
 		map.put("startLimit",startLimit);
@@ -89,6 +90,31 @@ public class BoardService {
 		map.put("articleNo",articleNo);
 		
 		boardRepository.updateArticleHitUp(map);
+	}
+	
+	public void addAttachFile(AttachFile attachFile){
+		boardRepository.insertAttachFile(attachFile);
+	}
+	
+	public AttachFile getEditorAttachFile(String boardTable,int attachFileNo){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("attachFileNo",attachFileNo);
+		
+		return boardRepository.findAttachFile(map);
+	}
+	
+	public void addArticle(Article article){
+		boardRepository.insertArticle(article);
+	}
+	
+	public void setArticleFileCnt(int articleNo ,int fileCnt,int imageCnt){
+		Map<String,Object> map = new HashMap<>();
+		map.put("articleNo",articleNo);
+		map.put("fileCnt",fileCnt);
+		map.put("imageCnt",imageCnt);
+		
+		boardRepository.updateArticleFileCnt(map);
 	}
 	
 }

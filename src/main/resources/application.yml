@@ -7,6 +7,17 @@ mail:
 board:
     https:
         url: https://devssl.ssro.com/jeislc/controller/loginchk_default.php
+        
+multipart:
+    maxFileSize: 2048KB
+    maxRequestSize: 10240KB
+    
+uploadpath:
+        boards: C:/upload/ssrolc/boards
+        
+spring:
+    resources:
+        cache-period:31556926
 ---
 spring.profiles: develop
 
@@ -19,6 +30,17 @@ mail:
 board:
     https:
         url: https://devssl.ssro.com/jeislc/controller/loginchk_develop.php
+        
+multipart:
+    maxFileSize: 2048KB
+    maxRequestSize: 10240KB
+    
+uploadpath:
+        boards: /home/upload/ssrolc/boards
+        
+spring:
+    resources:
+        cache-period:31556926
 ---
 spring.profiles: product
 
@@ -31,3 +53,14 @@ mail:
 board:
     https:
         url: https://devssl.ssro.com/jeislc/controller/loginchk_product.php
+        
+multipart:
+    maxFileSize: 2048KB
+    maxRequestSize: 10240KB
+
+uploadpath:
+        boards: /home/upload/ssrolc/boards
+
+spring:
+    resources:
+        cache-period:31556926

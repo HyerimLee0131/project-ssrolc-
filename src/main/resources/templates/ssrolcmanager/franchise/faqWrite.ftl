@@ -12,7 +12,7 @@
 				<h1 class="mgt-20"></h1>
 				 <p class="page-title">유선 상담(상담 신청 정보 입력)</p>
 				<div class="tbl-type-E">
-				<form name="fwrite" id="fwrite" action="/ssrolcmanager/franchise/faqs" method="POST">
+				<form name="fwrite" id="fwrite" action="/ssrolcmanager/franchise/faq" method="POST">
 					<table width="100%" cellPadding="0" cellSpacing="0" summary="">
 						<colgroup>
 							<col width="14%">
@@ -22,7 +22,7 @@
 							<tr>
 								<th>이름</th>
 								<td>
-									<input name="pMemName" type="text" class="text" id="pMemName" style="width: 200px;" title="">
+									<input name="jslcName" type="text" class="text" id="pMemName" style="width: 200px;" title="">
 								</td>
 							</tr>
 							<tr>
@@ -30,18 +30,18 @@
 								<td>
 									<div class="input-box">
 										<span>
-											<input name="mb_zip1" type="text" class="text zipcode" id="mb_zip1" title="" readonly='readonly' value="111" > - <input name="mb_zip2" type="text" class="text zipcode" id="mb_zip2" title="" readonly='readonly' value="111" >
+											<input name="jslcZip1" type="text" class="text zipcode" id="mb_zip1" title="" readonly='readonly' value="111" > - <input name="jslcZip2" type="text" class="text zipcode" id="mb_zip2" title="" readonly='readonly' value="111" >
 											<span class="button"><a onclick="">우편번호 검색</a></span>
 										</span>
-										<span><input name="mb_addr1"  type="text" class="text"  id="mb_addr1" title="" readonly='readonly' value="경북 포항시"></span>
-										<span><input name="mb_addr2" type="text" class="text" id="mb_addr2" title=""></span>
+										<span><input name="jslcAddr1"  type="text" class="text"  id="mb_addr1" title="" readonly='readonly' value="경북 포항시"></span>
+										<span><input name="jslcAddr2" type="text" class="text" id="mb_addr2" title=""></span>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<th>휴대전화</th>
 								<td>
-									<select name="pPhone01" id="pPhone01" style="width: 80px;" title="">
+									<select name="jslcCP1" id="pPhone01" style="width: 80px;" title="">
 										<option value="select">선택</option>
 										<option value="010" selected>010</option>
 										<option value="011" >011</option>
@@ -50,19 +50,19 @@
 										<option value="018" >018</option>
 										<option value="019" >019</option>
 									</select>
-									<input name="pPhone02" type="text" class="text" id="pPhone02" style="width: 60px;" title="" maxlength="4"> - <input name="pPhone03" type="text" class="text"  id="pPhone03" style="width: 60px;" title="" maxlength="4">
+									<input name="jslcCP2" type="text" class="text" id="pPhone02" style="width: 60px;" title="" maxlength="4"> - <input name="jslcCP3" type="text" class="text"  id="pPhone03" style="width: 60px;" title="" maxlength="4">
 								</td>
 							</tr>
 							<tr>
 								<th>가맹교실유형</th>
 								<td>
-									<span><input name="pDeptType" type="radio" title="" onclick="$.checkDeptType();" value="공부방"/><label>공부방</label></span><span><input name="pDeptType" type="radio" title="" onclick="$.checkDeptType();" value="학원" /><label>학원</label></span><span><input name="pDeptType" type="radio" title="" onclick="$.checkDeptType();" value="교습소" /><label>교습소</label></span>
+									<span><input name="jslcType" type="radio" title="" onclick="$.checkDeptType();" value="공부방"/><label>공부방</label></span><span><input name="jslcType" type="radio" title="" onclick="$.checkDeptType();" value="학원" /><label>학원</label></span><span><input name="jslcType" type="radio" title="" onclick="$.checkDeptType();" value="교습소" /><label>교습소</label></span>
 								</td>
 							</tr>
 							<tr>
 								<th>희망과목</th>
 								<td>
-									<select name="pSubject" disabled id="pSubject" style="width: 80px;" title="">
+									<select name="jslcSubject" disabled id="jslcSubject" style="width: 80px;" title="">
 										<option value='select'>선택</option>
 										<option value='수학'>수학</option>
 										<option value='국어'>국어</option>
@@ -74,20 +74,21 @@
 										<option value='중국어'>중국어</option>
 										<option value='일본어'>일본어</option>
 									</select>
+									<input name="jslcSubject" id="jslcSubject" type="hidden" value="">
 								</td>
 							</tr>
 							<tr>
 								<th>가맹희망지역</th>
 								<td>
 									<label for="">시/도</label>
-									<select id="hopeArea01" name="hopeArea01" title="지역선택" style="width: 80px;">
+									<select id="hopeArea01" name="jslcArea1" title="지역선택" style="width: 80px;">
 										<option value="select">지역선택</option>
 										<#list cityList as city>
 											<option value = "${city}">${city}</option>
 										</#list>
 									</select>&nbsp;&nbsp;&nbsp;
 									<label for="">군/구</label>
-									<select id="hopeArea02" name="hopeArea02" title="지역선택" style="width:100px">
+									<select id="hopeArea02" name="jslcArea2" title="지역선택" style="width:100px">
 										<option value="select">지역선택</option>
 									</select>
 								</td>
@@ -95,19 +96,19 @@
 							<tr>
 								<th>가맹희망일</em></th>
 								<td>
-									<input name="joinHopeDate" type="text" class="text datePicker" id="joinHopeDate" style="width: 80px;" title=""  readonly='readonly'>
+									<input name="jslcDate" type="text" class="text datePicker" id="joinHopeDate" style="width: 80px;" title=""  readonly='readonly'>
 									<img src="/public/img/admin/common/icon_calendar.gif" alt="" id="joinHopeDate_img" style="cursor:pointer;">
 								</td>
 							</tr>
 							<tr>
 								<th>희망상담시간</th>
 								<td>
-									<select name="pTime01" id="pTime01" style="width: 80px;" title="">
+									<select name="jslcTime1" id="pTime01" style="width: 80px;" title="">
 										<option value="select">선택</option>
 										<option value="오전">오전</option>
 										<option value="오후" >오후</option>
 									</select>&nbsp;&nbsp;&nbsp;
-									<select name="pTime02" id="pTime02" style="width: 80px;" title="">
+									<select name="jslcTime2" id="pTime02" style="width: 80px;" title="">
 										<option value="select">선택</option>
 										<option value="1">1시</option>
 										<option value="2">2시</option>
@@ -127,7 +128,7 @@
 							<tr>
 								<th>상담내용작성</th>
 								<td>
-									<textarea id="pContents" name="pContents" cols="130" rows="15"></textarea>
+									<textarea id="pContents" name="jslComments" cols="130" rows="15"></textarea>
 								</td>
 							</tr>
 						</tbody>
@@ -135,6 +136,7 @@
 					<div>
 						<p class="mgt-10 text-r"><input name="pCheck" type="checkbox" id="pCheck" title=""/>&nbsp;<span class="vert-2">개인정보 항목 및 수집방법에 대하여 충분히 설명하고 동의를 받았습니까?</span></p>
 						<p class="mgt-10 text-r"><input name="joinCheck" type="checkbox" id="joinCheck" title="" value="1"/>&nbsp;<span class="vert-2">가맹 상담을 완료 하였습니까?(완료:체크,대기:미체크)</span></p>
+						<input name="jslcounseling" id="jslcounseling" type="hidden" value="0">
 					</div>
 					<div class="btn-box float-r">
 						<span class="button btn-type-I"><a href="javascript:$.joinWrite();" style="cursor:pointer;" >등록</a></span>
