@@ -1,5 +1,6 @@
 package com.ssrolc.service;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,4 +118,44 @@ public class BoardService {
 		boardRepository.updateArticleFileCnt(map);
 	}
 	
+	public AttachFile getAttachFile(int attachFileNo){
+		return boardRepository.findAttachFileById(attachFileNo);
+	}
+	
+	public void setAttachFileDownloadCntUp(int attachFileNo){
+		boardRepository.updateAttachFileDownloadCntUp(attachFileNo);
+	}
+	
+	public void removeArticle(String boardTable,int articleNo){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("articleNo",articleNo);
+		
+		boardRepository.deleteArticle(map);
+	}
+	
+	public void removeAttachFilesToArticle(String boardTable,int articleNo){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("articleNo",articleNo);
+		
+		boardRepository.deleteAttachFilesToArticle(map);
+	}
+	
+	public void setArticle(String boardTable,int articleNo,String categoryCode
+			,String title,String content,Timestamp updateDate){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("articleNo",articleNo);
+		map.put("categoryCode",categoryCode);
+		map.put("title",title);
+		map.put("content",content);
+		map.put("updateDate",updateDate);
+		
+		boardRepository.updateArticle(map);
+	}
+	
+	public void removeAttachFile(int attachFileNo){
+		boardRepository.deleteAttachFile(attachFileNo);
+	}
 }

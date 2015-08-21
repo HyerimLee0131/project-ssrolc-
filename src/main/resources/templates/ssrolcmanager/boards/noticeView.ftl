@@ -31,12 +31,16 @@
 							<tr>
 								<th>첨부파일</th>
 								<td colspan="3">
-									<p class="tb_1">
-										<a href="http://dev.ssrolc.com/board/notice/download/wr_id/29/no/0" class="j_line">
-										창업희망자를_위한_가맹사업(프랜차이즈)_계약_체결_안내서.pdf
-										</a>
-										<img src="/public/img/img_inc/icon_file.gif" alt="첨부파일">
-									</p>
+									<#if attachFiles?has_content>
+										<#list attachFiles as attachFile>
+											<p class="tb_1">
+												<a href="/download/${attachFile.attachFileNo}" class="j_line">
+												${attachFile.fileName}
+												</a>
+												<img src="/public/img/img_inc/icon_file.gif" alt="첨부파일">
+											</p>
+										</#list>
+									</#if>
 								</td>
 							</tr>
 							<tr>
@@ -49,10 +53,10 @@
 					</table>
 					<div class="mgt-20">
 						<span class="button btn-type-J">
-							<a href="/ssrolcmanager/boards/${boardInfo.boardTable}/edit/${article.articleNo}">수정</a>
+							<a href="/ssrolcmanager/board/${boardInfo.boardTable}/edit/${article.articleNo}">수정</a>
 						</span>
 						<span class="button btn-type-J">
-							<a onclick='javascript:;'>삭제</a>
+							<a onclick="$.boardDelete('${boardInfo.boardTable}','${article.articleNo}');">삭제</a>
 						</span>
 						<span class="button float-r btn-type-I">
 							<a href="/ssrolcmanager/boards/${boardInfo.boardTable}">목록</a>
