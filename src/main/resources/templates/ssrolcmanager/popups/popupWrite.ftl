@@ -28,43 +28,47 @@
 									<th>상태</th>
 									<td>
 										<select name="pState" id="pState" style="width: 80px;" title="" >
-											<option value="0" <#if popup??>checked</#if>>비활성</option>
-											<option value="1">활성</option>
+											<option value="0" <#if popup?? && popup.state == '0'>selected</#if>>비활성</option>
+											<option value="1" <#if popup?? && popup.state == '1'>selected</#if>>활성</option>
 										</select>
 									</td>
 								</tr>
 								<tr>
 									<th>게재기간</th>
 									<td>
-										<input name="startDate" type="text" class="text datePicker" id="startDate" style="width: 104px;" title="" value="" readonly='readonly' />&nbsp;~&nbsp;
-										<input name="endDate" type="text" class="text datePicker" id="endDate" style="width: 103px;" title="" value="" readonly='readonly' />
+										<input name="startDate" type="text" class="text datePicker" id="startDate" style="width: 104px;" title="" value="<#if popup??>${popup.startDate}</#if>" readonly='readonly' />&nbsp;~&nbsp;
+										<input name="endDate" type="text" class="text datePicker" id="endDate" style="width: 103px;" title="" value="<#if popup??>${popup.endDate}</#if>" readonly='readonly' />
 									</td>
 								</tr>
 								<tr>
 									<th>팝업 사이즈</th>
 									<td>
-	                                	<span style="width:0;">&nbsp;</span><label style="vertical-align: -3px;">width : </label><input name="pSize_width" type="text" class="text" id="pSize_width" style="width: 60px;" title="" value="" maxlength="4" />&nbsp;&nbsp;&nbsp;&nbsp;<label style="vertical-align: -3px;">height : </label><input name="pSize_height" type="text" class="text" id="pSize_height" style="width: 60px;" title="" value="" maxlength="4" />
+	                                	<span style="width:0;">&nbsp;</span>
+	                                	<label style="vertical-align: -3px;">width : </label><input name="pSize_width" type="text" class="text" id="pSize_width" style="width: 60px;" title="" value="<#if popup??>${popup.size_width}</#if>" maxlength="4" />&nbsp;&nbsp;&nbsp;&nbsp;
+	                                	<label style="vertical-align: -3px;">height : </label><input name="pSize_height" type="text" class="text" id="pSize_height" style="width: 60px;" title="" value="<#if popup??>${popup.size_height}</#if>" maxlength="4" />
 	                                </td>
 								</tr>
 								<tr>
 									<th>위치 조정</th>
 									<td>
 	                                	*두개이상 올라갈때 필요함 (하나일경우 생략)<br/>
-	                                	<span style="width:0;">&nbsp;</span><label style="vertical-align: -3px;">top : </label><input name="location_top" type="text" class="text" id="location_top" style="width: 60px;" title="" value="" maxlength="4" />&nbsp;&nbsp;&nbsp;&nbsp;<label style="vertical-align: -3px;">left : </label><input name="location_left" type="text" class="text" id="location_left" style="width: 60px;" title="" value="" maxlength="4" />
+	                                	<span style="width:0;">&nbsp;</span>
+	                                	<label style="vertical-align: -3px;">top : </label><input name="location_top" type="text" class="text" id="location_top" style="width: 60px;" title="" value="<#if popup??>${popup.location_top}</#if>" maxlength="4" />&nbsp;&nbsp;&nbsp;&nbsp;
+	                                	<label style="vertical-align: -3px;">left : </label><input name="location_left" type="text" class="text" id="location_left" style="width: 60px;" title="" value="<#if popup??>${popup.location_left}</#if>" maxlength="4" />
 									</td>
 								</tr>
 								<tr>
 									<th>팝업ID</th>
 									<td>
 										* 활성화중인 다른 팝업 아이디들과 중복되면 안됩니다.<br/>
-										<input name="pPopup_id" type="text" class="text" id="pPopup_id" style="width: 234px;" title="" value="" maxlength="100" />
+										<input name="pPopup_id" type="text" class="text" id="pPopup_id" style="width: 234px;" title="" value="<#if popup??>${popup.cookie_id}</#if>" maxlength="100" />
 									</td>
 								</tr>
 								<tr>
 									<th>팝업 파일명</em></th>
 									<td>
 	                               		* 확장자명 .ftl 까지 써주세요.<br/>
-	                                	<input name="pFileName" type="text" class="text" id="pFileName" style="width: 234px;" title="" value="" maxlength="255"/>
+	                                	<input name="pFileName" type="text" class="text" id="pFileName" style="width: 234px;" title="" value="<#if popup??>${popup.fileName}</#if>" maxlength="255"/>
 	                                </td>
 								</tr>
 							</tbody>

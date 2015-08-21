@@ -70,7 +70,7 @@ $(function() {
 					alert(thrownError);
 				}
 			});
-		},
+		}/*,
 
 		selectDelete:function(){
 			var aidxArry = new Array(); 
@@ -118,6 +118,7 @@ $(function() {
 
 
 		}
+		*/
 	});
 	
 	$.getPopupList();
@@ -125,7 +126,7 @@ $(function() {
 	// paging 클릭
 	$(".paging").on("click","a.naviPage",function() {
 		var pageNum = $(this).attr('pageNo');	
-		$('#pageNurem').val(pageNum);
+		$('#pageNum').val(pageNum);
 		$.getPopupList();
 	});	
 

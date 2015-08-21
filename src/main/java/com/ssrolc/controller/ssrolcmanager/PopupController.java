@@ -50,6 +50,7 @@ public class PopupController {
 	@RequestMapping(value={"/ssrolcmanager/popups/{pageNum:[0-9]+}"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> popupListJson(@PathVariable int pageNum){
+		logger.debug("===================================================");
 		logger.debug("pageNum:"+pageNum);
 
 		int popupCnt = popupService.getPopupCnt();
@@ -111,7 +112,7 @@ public class PopupController {
 
 		return "ssrolcmanager/popups/popupWrite";
 	}
-
+/*
 	//삭제
 	@RequestMapping(value="/ssrolcmanager/popups/delete", method=RequestMethod.DELETE)
 	@ResponseBody
@@ -126,7 +127,7 @@ public class PopupController {
 
 		
 	}
-
+*/
 	//쓰기
 	@RequestMapping(value={"/ssrolcmanager/popups/new"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	public String popupWrite(Model model){
