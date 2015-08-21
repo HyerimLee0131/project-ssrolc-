@@ -71,7 +71,7 @@
 		<td>{{inc @index}}</td>
 		<td>
 			<p class="tb_1">
-				<a href='/ssrolcmanager/popups/{{aidx}}'>{{name}}</a>
+				<a href='/ssrolcmanager/popup/{{aidx}}'>{{name}}</a>
 			</p>
 		</td>
 		<td>가로 : {{size_width}}, 세로 : {{size_height}}</td>

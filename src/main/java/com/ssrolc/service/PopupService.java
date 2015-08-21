@@ -49,9 +49,10 @@ public class PopupService {
 	}
 	
 	public Popup getPopup(int aidx){
-		Map<String,Object> map = new HashMap<>();
-		map.put("aidx",aidx);
+		return popupRepository.findPopup(aidx);
+	}
 
-		return popupRepository.findPopup(map);
+	public int setPopupsDel(String aidxs){
+		return popupRepository.deletePopups(aidxs);
 	}
 }

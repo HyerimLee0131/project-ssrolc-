@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssrolc.repository.PopupRepository">
+	<select id="findPopup" parameterType="int" resultType="com.ssrolc.domain.popup.Popup">
+		SELECT aidx,cookie_id,name,size_width,size_height,location_top,location_left,fileName,startDate,endDate,state,updateDate,updateId,regDate,regId,regIp FROM ssrolc.popup WHERE aidx = #{aidx}
+	</select>
+
 	<select id="findPopups" parameterType="hashMap" resultType="com.ssrolc.domain.popup.Popup">
 		SELECT aidx,cookie_id,name,size_width,size_height,location_top,location_left,fileName,startDate,endDate,state,updateDate,updateId,regDate,regId,regIp FROM ssrolc.popup
 		<where>
@@ -26,4 +30,8 @@
 			</if>
 		</where>
 	</select>
+
+	<delete id="deletePopups" parameterType="String">
+		DELETE FROM ssrolc.popup WHERE aidx in (#{aidxs})
+	</delete>
 </mapper>

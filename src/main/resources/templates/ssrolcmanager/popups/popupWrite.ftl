@@ -21,14 +21,14 @@
 								<tr>
 									<th>팝업명</th>
 									<td>
-										<input name="pName" type="text" class="text" id="pName" style="width: 234px;" title="" maxlength="100" >
+										<input name="pName" type="text" class="text" id="pName" style="width: 234px;" title="" maxlength="100" value="<#if popup??>${popup.name}</#if>" >
 									</td>
 								</tr>
 								<tr>
 									<th>상태</th>
 									<td>
 										<select name="pState" id="pState" style="width: 80px;" title="" >
-											<option value="0">비활성</option>
+											<option value="0" <#if popup??>checked</#if>>비활성</option>
 											<option value="1">활성</option>
 										</select>
 									</td>
@@ -63,7 +63,7 @@
 								<tr>
 									<th>팝업 파일명</em></th>
 									<td>
-	                               		* 확장자명 .html 까지 써주세요.<br/>
+	                               		* 확장자명 .ftl 까지 써주세요.<br/>
 	                                	<input name="pFileName" type="text" class="text" id="pFileName" style="width: 234px;" title="" value="" maxlength="255"/>
 	                                </td>
 								</tr>
