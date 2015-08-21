@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ssrolc.domain.franchise.Franchise;
 import com.ssrolc.service.FranchiseService;
 import com.ssrolc.utils.PageUtil;
 
@@ -24,7 +25,7 @@ public class FranchiseController {
 	@Autowired
 	private FranchiseService franchiseService;
 	
-	
+	//가맹사업 리스트 불러오기
 	@RequestMapping(value={"/ssrolcmanager/franchise/faqs"} , method =  { RequestMethod.GET, RequestMethod.HEAD })
 	public String list(Model model) {
 		
@@ -37,7 +38,26 @@ public class FranchiseController {
 			model.addAttribute("cityList", cityList);
 			return "ssrolcmanager/franchise/faqList";
 		}
-	
+	//등록 페이지
+	@RequestMapping(value={"/ssrolcmanager/franchise/faqs/new"}, method = {RequestMethod.GET, RequestMethod.HEAD})
+		public String write(Model model) {
+			
+			List<String> cityList = franchiseService.getFranchiseCityList();
+			//해더에 스크립트 추가
+			List<String> headerScript = new ArrayList<>();
+			headerScript.add("ssrolcmanager/franchise/view");
+			model.addAttribute("headerScript",headerScript);
+			model.addAttribute("cityList", cityList);
+		
+			return "ssrolcmanager/franchise/faqWrite";
+		}
+	//등록 insert
+	@RequestMapping(value={"/ssrolcmanager/franchise/faqs"},method ={RequestMethod.POST})
+		public String insertFaq(Franchise franchise){
+			franchiseService.insertFranchise(franchise);
+			return "ssrolcmanager/franchise/faqList"; 
+		}
+	//정보공개서 리스트
 	@RequestMapping(value="/ssrolcmanager/franchise/{pageNum:[0-9]+}",method={RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> searchListJson(@PathVariable int pageNum
@@ -75,7 +95,7 @@ public class FranchiseController {
 		return ResponseEntity.ok(deptAreaList);
 	}
 	
-	
+	//접수상태 수정
 	@RequestMapping(value="/ssrolcmanager/franchise/changeJoinState",method={RequestMethod.POST})
 	@ResponseBody
 	public String getFranchiseschangeJoinState(@RequestParam(value="jslcId")String jslcId,

@@ -29,12 +29,6 @@ public class Franchise {
 	private String jslcCP2;
 	private String jslcCP3;
 	private String jslcounseling;
-	@Getter(value=AccessLevel.NONE)
 	private Timestamp jslipDatetime;
-	
-	public String getJslipDatetime() {
-		
-		return CommonUtils.timestampToString(jslipDatetime,"yyyy-MM-dd");
-	}
-	
+
 }

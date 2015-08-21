@@ -74,4 +74,8 @@
 		UPDATE jeislc_write SET jslcounseling=#{jslcounseling} WHERE jslcId=#{jslcId}
 	</update>
 	
+	<insert id="insertFranchises" parameterType="com.ssrolc.domain.franchise.Franchise">
+	
+	</insert>
+	
 </mapper>

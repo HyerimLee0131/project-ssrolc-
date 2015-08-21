@@ -118,6 +118,7 @@
 						</thead>
 						<tbody id="dataList"></tbody>					
 					</table>
+					<span class="float-r mgt-10 button btn-type-I"><a href="/ssrolcmanager/franchise/faqs/new">가맹문의등록</a></span>
 				</div>
 				
 				<div class="paging">

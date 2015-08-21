@@ -26,13 +26,7 @@ public class Disclosure {
 	private int zip2;
 	private String addressDtl01;
 	private String addressDtl02;
-	@Getter(value=AccessLevel.NONE)
 	private Timestamp regDate;
-	
-	public String getRegDate() {
-		
-		return CommonUtils.timestampToString(regDate,"yyyy-MM-dd HH:mm:ss");
-	}
 	
 	public String getRegDate(String format) {
 		

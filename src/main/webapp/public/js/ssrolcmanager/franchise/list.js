@@ -45,6 +45,14 @@ $(function() {
 					Handlebars.registerHelper('inc', function (index) {
 						return totalRowCnt - pageInfo.startRow - index;
 					});
+					Handlebars.registerHelper("prettifyDate", function(timestamp) {
+						var d = new Date(timestamp);
+						var month = d.getMonth()+1;
+						var day = d.getDate();
+						var convertMonth = $.leadingZeros(month,2);
+						var convertDay = $.leadingZeros(day,2);
+						    return d.getFullYear()+"-"+convertMonth+"-"+convertDay;
+					});
 					Handlebars.registerHelper('xIf', function (lvalue, operator, rvalue, options) {
 					    var operators, result;
 					    if (arguments.length < 3) {
@@ -90,11 +98,11 @@ $(function() {
 		openFranchise:function(jslcId,joinState){
 			$('#layer_pop').show();
 			if(joinState == "0"){
-				$('#joinState0').attr("checked","checked");
+				$('#joinState0').prop("checked",true);
 			}else if(joinState == "1"){
-				$('#joinState1').attr("checked","checked");
+				$('#joinState1').prop("checked",true);
 			}else if(joinState == "2"){
-				$('#joinState2').attr("checked","checked");
+				$('#joinState2').prop("checked",true);
 			}
 			$('#layerSubmitBtn').off('click');
 			$('#layerSubmitBtn').on('click',function(){
@@ -127,7 +135,8 @@ $(function() {
 					alert(thrownError);
 				}
 			});
-		}
+		},
+		
 	});
 	
 	$.getBoardList();
@@ -147,6 +156,7 @@ $(function() {
 	$("#endDate_img").on('click',function() { 
 		$("#endDate").datepicker( "show" );
 	});
+
 
 	// 검색버튼눌렀을 때
 	$("#searchBtn").on("click",function() {
