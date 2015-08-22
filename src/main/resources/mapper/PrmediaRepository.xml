@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssrolc.repository.PrmediaRepository">
+	<select id="findPrmedias" parameterType="hashMap" resultType="com.ssrolc.domain.prmedia.Prmedia">
+		SELECT  * FROM ssrolc.prmedia
+		<where>
+			<if test="searchField != null and searchField != '' and  searchValue != null and searchValue != '' ">
+				<if test="searchField == 'prTitle' ">
+					AND prTitle LIKE CONCAT('%',#{searchValue},'%')			
+				</if>
+			</if>
+		</where>
+		ORDER BY regDate DESC
+		<if test="startLimit != null and endLimit != null">
+			LIMIT #{startLimit},#{endLimit}
+		</if>
+	</select>
+	
+	<select id="countPrmedia" parameterType="hashMap" resultType="int">
+		SELECT count(0) FROM ssrolc.prmedia
+		<where>
+			<if test="searchField != null and searchField != '' and  searchValue != null and searchValue != '' ">
+				<if test="searchField == 'prTitle' ">
+					AND prTitle LIKE CONCAT('%',#{searchValue},'%')			
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	<select id="findPrmedia" parameterType="int" resultType="com.ssrolc.domain.prmedia.Prmedia">
+		SELECT * FROM ssrolc.prmedia
+		WHERE aidx = #{aidx}
+	</select>
+	
+	<update id="updateHit" parameterType="int">
+		UPDATE ssrolc.prmedia SET hitCnt = hitCnt + 1
+		WHERE aidx = #{aidx}
+	</update>
+	
+	<insert id="insertPrmedia" parameterType="com.ssrolc.domain.prmedia.Prmedia" useGeneratedKeys="true" keyProperty="aidx">
+		INSERT INTO ssrolc.prmedia(prTitle,makeTime,thumnailName,thumnailRealName,thumnailSize,hitCnt,mediaLinkUrl,mediaLocation,updateDate,updateId
+		,regDate,regId,regIp) 
+		VALUES(#{prTitle},#{makeTime},#{thumnailName},#{thumnailRealName},#{thumnailSize},#{hitCnt},#{mediaLinkUrl},#{mediaLocation}
+		,#{updateDate},#{updateId},#{regDate},#{regId},#{regIp})
+	</insert>
+	
+	<update id="updatePrmedia" parameterType="com.ssrolc.domain.prmedia.Prmedia">
+		UPDATE ssrolc.prmedia
+		SET prTitle=#{prTitle} ,  makeTime = #{makeTime} , thumnailName =#{thumnailName} , thumnailRealName =  #{thumnailRealName}
+		, thumnailSize = #{thumnailSize} , mediaLinkUrl = #{mediaLinkUrl} ,  mediaLocation = #{mediaLocation} , updateDate = #{updateDate} , updateId = #{updateId}
+		WHERE aidx = #{aidx} 
+	</update>
+	
+	<update id="updateThumbPrmedia" parameterType="hashMap">
+		UPDATE ssrolc.prmedia
+		SET  thumnailName =#{thumbName} , thumnailRealName =  #{thumbRealName}, thumnailSize = #{thumbSize}
+		WHERE aidx = #{aidx} 
+	</update>
+	
+</mapper>
