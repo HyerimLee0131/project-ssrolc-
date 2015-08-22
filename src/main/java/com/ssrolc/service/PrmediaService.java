@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssrolc.domain.board.AttachFile;
 import com.ssrolc.domain.prmedia.Prmedia;
 import com.ssrolc.repository.PrmediaRepository;
 
@@ -76,6 +77,10 @@ public class PrmediaService {
 		
 		prmediaRepository.updateThumbPrmedia(map);
 		
+	}
+	
+	public void removePrmedia(int aidx){
+		prmediaRepository.deletePrmedia(aidx);
 	}
 	
 }

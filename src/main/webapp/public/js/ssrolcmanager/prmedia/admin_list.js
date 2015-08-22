@@ -99,7 +99,7 @@ $(function() {
 
 	// 검색 리셋 클릭
 	$('#resetBtn').on('click',function(){
-		location.href = "/ssrolcmanager/prmedia";
+		location.href = "/ssrolcmanager/prmedias";
 	});
 
 	// 전체 선택

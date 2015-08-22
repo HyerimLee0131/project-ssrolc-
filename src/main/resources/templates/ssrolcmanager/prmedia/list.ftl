@@ -1,7 +1,6 @@
 <#include "/ssrolcmanager/header.ftl">
 <#include "/ssrolcmanager/left.ftl">
-
-			
+		
 			
 			<div id="primary_content" class="primary-content">
 				<div class="page-path">
@@ -31,7 +30,7 @@
 				<div class="tbl-type-D">
 					<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 							<colgroup>
-							<col width="5%">
+							
 							<col width="5%">
 							<col width="15%">
 							<col width="20%">
@@ -43,7 +42,7 @@
 							</colgroup>
 							<tbody>
 							  <tr>
-								<th><input type="checkbox" id="allCheckBtn" title=""></th>
+								
 								<th>NO</th>
 								<th>썸네일</th>
 								<th>제목</th>
@@ -57,9 +56,10 @@
 							<tbody id="dataList"></tbody>
 					</table>
 				</div>
+				<!--
 				<div class="btn-box float-l mgt-10">
 					<span class="button btn-type-J"><a onclick="$.selectDelete();">선택삭제</a></span>						
-				</div>
+				</div>-->
 				<div class="btn-box float-r mgt-10">
 					<span class="button btn-type-I"><a href="/ssrolcmanager/prmedias/new">글쓰기</a></span>
 				</div>			
@@ -79,7 +79,6 @@
 <script id="prmediasTemplate" type="text/x-handlebars-template">
 	{{#each prmedia}}
 	<tr>
-		<td><input name="checkBox" type="checkbox" title="" value="{{aidx}}"/></td>
 		<td>{{inc @index}}</td>
 		<td>
 			<img src="/ssrolcmanager/prmedias/thumbview/{{thumnailRealName}}/{{thumnailSize}}">
@@ -93,7 +92,7 @@
 	</tr>
 	{{else}}
 	<tr>
-		<td colspan="8">데이터가 없습니다.</td>
+		<td colspan="7">데이터가 없습니다.</td>
 	</tr>
 	{{/each}}
 </script>

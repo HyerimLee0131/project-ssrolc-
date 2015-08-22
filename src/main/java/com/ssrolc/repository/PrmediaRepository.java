@@ -35,5 +35,10 @@ public interface PrmediaRepository {
 	 * 썸네일 등록
 	 */
 	public void updateThumbPrmedia(Map<String,Object> map);
+	/*
+	 * 글 삭제
+	 */
+	public void deletePrmedia(int aidx);
+	
 	
 }

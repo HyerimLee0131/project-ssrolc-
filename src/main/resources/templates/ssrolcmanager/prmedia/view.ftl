@@ -41,7 +41,13 @@
 								  </tr>
 								  <tr>
 									<th>썸네일</th>
-									<td colspan="5"><div class="td-left">${prmedia.thumnailName} (${prmedia.thumnailSize}KB)</div></td>
+									<td colspan="5">
+										<#if prmedia.thumnailName?has_content>
+										<div class="td-left">
+											${prmedia.thumnailName} (${prmedia.thumnailSize}KB)
+										</div>
+										</#if>
+									</td>
 								  </tr>
 								  <tr>
 									<th>링크</th>
@@ -55,11 +61,19 @@
 							  </table>
 							</form>
 					 </div>
-					<div class="mgt-20 float-r">
-						<span class="button btn-type-I"><a class="w-65" href="/ssrolcmanager/prmedias">목록</a></span>
-						<span class="button btn-type-J"><a class="w-65" href="/ssrolcmanager/prmedias/edit/${prmedia.aidx}">수정</a></span>
-						<span class="button btn-type-J"><a class="w-65" onclick='$.prmediaDelete("6");' >삭제</a></span>
+					 <div class="mgt-20">
+						<span class="button btn-type-J">
+							<a href="/ssrolcmanager/prmedias/edit/${prmedia.aidx}">수정</a>
+						</span>
+						<span class="button btn-type-J">
+							<a onclick='$.prmediaDelete("${prmedia.aidx}");' >삭제</a>
+						</span>
+						<span class="button float-r btn-type-I">
+							<a href="/ssrolcmanager/prmedias">목록</a>
+						</span>
 					</div>
+					
+				
 			</div>
 		
 		</div>

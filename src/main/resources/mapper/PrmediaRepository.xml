@@ -46,8 +46,35 @@
 	
 	<update id="updatePrmedia" parameterType="com.ssrolc.domain.prmedia.Prmedia">
 		UPDATE ssrolc.prmedia
-		SET prTitle=#{prTitle} ,  makeTime = #{makeTime} , thumnailName =#{thumnailName} , thumnailRealName =  #{thumnailRealName}
-		, thumnailSize = #{thumnailSize} , mediaLinkUrl = #{mediaLinkUrl} ,  mediaLocation = #{mediaLocation} , updateDate = #{updateDate} , updateId = #{updateId}
+		<set>
+			<if test="prTitle != null">
+				prTitle = #{prTitle},
+			</if>
+			<if test="makeTime != null">
+				makeTime = #{makeTime},
+			</if>
+			<if test="thumnailName != null">
+				thumnailName = #{thumnailName},
+			</if>
+			<if test="thumnailRealName != null">
+				thumnailRealName = #{thumnailRealName},
+			</if>
+			<if test="thumnailSize != null">
+				thumnailSize = #{thumnailSize},
+			</if>
+			<if test="mediaLinkUrl != null">
+				mediaLinkUrl = #{mediaLinkUrl},
+			</if>
+			<if test="mediaLocation != null">
+				mediaLocation = #{mediaLocation},
+			</if>
+			<if test="updateDate != null">
+				updateDate = #{updateDate},
+			</if>
+			<if test="updateId != null">
+				updateId = #{updateId}
+			</if>
+		</set>
 		WHERE aidx = #{aidx} 
 	</update>
 	
@@ -56,5 +83,9 @@
 		SET  thumnailName =#{thumbName} , thumnailRealName =  #{thumbRealName}, thumnailSize = #{thumbSize}
 		WHERE aidx = #{aidx} 
 	</update>
+	
+	<delete id="deletePrmedia" parameterType="hashMap">
+		DELETE FROM ssrolc.prmedia WHERE aidx = #{aidx}
+	</delete>
 	
 </mapper>

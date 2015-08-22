@@ -51,11 +51,11 @@
 							  </table>
 							</form>
 					 </div>
-					<div class="mgt-20 float-r">
-						<span class="button btn-type-I"><a class="w-65" href="/ssrolcmanager/prmedias">목록</a></span>
-						<span class="button btn-type-J"><a class="w-65" onclick="$.prmediaWrite();" style="cursor:pointer;" >등록</a></span>
-						<span class="button btn-type-J"><a class="w-65" href="/ssrolcmanager/prmedias">취소</a></span>
+					 <div class="btn-box float-r">
+						<span class="button btn-type-I"><a onclick="$.prmediaWrite();" style="cursor:pointer;"  >등록</a></span>
+						<span class="button btn-type-J"><a href="/ssrolcmanager/prmedias">취소</a></span>
 					</div>
+					
 				</div>
 			</div>
 		</div>
