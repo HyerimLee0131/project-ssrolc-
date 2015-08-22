@@ -18,8 +18,8 @@
 								<option value="name">팝업명</option>
 							</select>&nbsp;&nbsp;
 							<input name="searchValue" type="text" class="text" id="searchValue" style="width:100px" title="" />
-							&nbsp;<span class="button"><input type="button" id="searchBtn" title="" value="검색"></span>
-							&nbsp;<span class="button"><input type="button" id="resetBtn" title="" value="초기화"></span>
+							&nbsp;<span class="button"><input type="button" id="searchBtn" title="검색버튼" value="검색"></span>
+							&nbsp;<span class="button"><input type="button" id="resetBtn" title="초기화버튼" value="초기화"></span>
 						</p>
 					</fieldset>
 				</div>

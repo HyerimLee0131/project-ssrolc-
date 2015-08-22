@@ -112,7 +112,7 @@ public class PopupController {
 
 		return "ssrolcmanager/popups/popupWrite";
 	}
-/*
+
 	//삭제
 	@RequestMapping(value="/ssrolcmanager/popups/delete", method=RequestMethod.DELETE)
 	@ResponseBody
@@ -127,7 +127,7 @@ public class PopupController {
 
 		
 	}
-*/
+
 	//쓰기
 	@RequestMapping(value={"/ssrolcmanager/popups/new"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	public String popupWrite(Model model){
