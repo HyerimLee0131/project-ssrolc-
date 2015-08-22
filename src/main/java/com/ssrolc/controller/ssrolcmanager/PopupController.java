@@ -9,14 +9,17 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.ssrolc.domain.popup.Popup;
 import com.ssrolc.exception.PopupNotFoundException;
@@ -40,7 +43,7 @@ public class PopupController {
 
 		//해더에 스크립트 추가
 		List<String> headerScript = new ArrayList<>();
-		headerScript.add("ssrolcmanager/popups/admin_list");
+		headerScript.add("ssrolcmanager/popups/list");
 		model.addAttribute("headerScript",headerScript);
 
 		return "ssrolcmanager/popups/popupList";
@@ -50,7 +53,6 @@ public class PopupController {
 	@RequestMapping(value={"/ssrolcmanager/popups/{pageNum:[0-9]+}"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> popupListJson(@PathVariable int pageNum){
-		logger.debug("===================================================");
 		logger.debug("pageNum:"+pageNum);
 
 		int popupCnt = popupService.getPopupCnt();
@@ -105,7 +107,7 @@ public class PopupController {
 
 		//해더에 스크립트 추가
 		List<String> headerScript = new ArrayList<>();
-		headerScript.add("ssrolcmanager/popups/admin_write");
+		headerScript.add("ssrolcmanager/popups/write");
 
 		model.addAttribute("headerScript",headerScript);
 		model.addAttribute("popup",popup);
@@ -114,18 +116,16 @@ public class PopupController {
 	}
 
 	//삭제
-	@RequestMapping(value="/ssrolcmanager/popups/delete", method=RequestMethod.DELETE)
-	@ResponseBody
-	public void popupDeleteJson(@RequestParam(value="aidxs") String aidxs){
-		logger.debug("popup Delete"+aidxs);
+	@RequestMapping(value="/ssrolcmanager/popups/delete", method=RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void popupDeleteJson(@RequestParam(value="aidxs[]", required = false) String[] aidxs){
+		logger.debug("=============================================");
+		logger.debug("popup Delete : "+aidxs);
 
 		
-		
-		
-		//데이터 삭제
-		//popupService.setPopupsDel(aidxs);
-
-		
+		for (String aidx: aidxs) {
+			popupService.setPopupsDel(aidx);
+		}
 	}
 
 	//쓰기
@@ -143,7 +143,7 @@ public class PopupController {
 		List<String> headerScript = new ArrayList<>();
 		headerScript.add("jquery-ui.1.11.4.min");
 		headerScript.add("common");
-		headerScript.add("ssrolcmanager/boards/admin_write");
+		headerScript.add("ssrolcmanager/boards/write");
 
 		model.addAttribute("headerScript",headerScript);
 

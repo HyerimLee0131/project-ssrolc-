@@ -32,6 +32,6 @@
 	</select>
 
 	<delete id="deletePopups" parameterType="String">
-		DELETE FROM ssrolc.popup WHERE aidx in (#{aidxs})
+		DELETE FROM ssrolc.popup WHERE aidx = (#{aidxs})
 	</delete>
 </mapper>

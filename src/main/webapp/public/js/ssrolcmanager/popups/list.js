@@ -70,7 +70,7 @@ $(function() {
 					alert(thrownError);
 				}
 			});
-		}/*,
+		},
 
 		selectDelete:function(){
 			var aidxArry = new Array(); 
@@ -88,19 +88,26 @@ $(function() {
 				return;
 			}
 
+			//게시물번호 문자열 조합
+			/*var aidxs="";
+			for(var i=0; i<aidxArry.length; i++) {
+				aidxs += aidxArry[i];
+				aidxs += ",";
+			}
+
+			aidxs = aidxs.substr(0,aidxs.length-1);
+*/
 			var delUrl = "/ssrolcmanager/popups/delete";
-			var sendData = {'aidxs':'23'};
-			console.log(sendData);
+			var sendData = {'aidxs':aidxArry};
 			$.ajax({
 				url : delUrl,
-				type : 'DELETE',
-//				data: {'aidxs':'23'},
-				data: "aidxs=23",
+				type : 'POST',
+				data: sendData,
 				cache: false,
 				async: true,
 				dataType : "json",
 				success: function(jsonData, textStatus, XMLHttpRequest) {
-					alert(jsonData.rs);
+					alert(1);
 					return;
 						if(jsonData.rs){
 							alert('삭제되었습니다.');
@@ -118,7 +125,7 @@ $(function() {
 
 
 		}
-		*/
+		
 	});
 	
 	$.getPopupList();
