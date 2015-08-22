@@ -1,7 +1,10 @@
 package com.ssrolc.controller.ssrolcmanager;
 
 
+import java.io.File;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,21 +12,25 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.google.common.base.Strings;
+import com.ssrolc.domain.board.AttachFile;
 import com.ssrolc.domain.popup.Popup;
+import com.ssrolc.exception.PopupNotAddException;
 import com.ssrolc.exception.PopupNotFoundException;
 import com.ssrolc.service.PopupService;
+import com.ssrolc.utils.FileUploadUtil;
 import com.ssrolc.utils.PageUtil;
 
 
@@ -33,6 +40,9 @@ public class PopupController {
 	
 	@Autowired
 	private PopupService popupService;
+
+	@Value("${uploadpath.boards}")
+	private String popupUploadPath;
 	
 	//리스트
 	@RequestMapping(value={"/ssrolcmanager/popups"},method = {RequestMethod.GET,RequestMethod.HEAD})
@@ -117,15 +127,18 @@ public class PopupController {
 
 	//삭제
 	@RequestMapping(value="/ssrolcmanager/popups/delete", method=RequestMethod.POST)
-	@ResponseStatus(HttpStatus.OK)
-	public void popupDeleteJson(@RequestParam(value="aidxs[]", required = false) String[] aidxs){
-		logger.debug("=============================================");
+	@ResponseBody
+	public ResponseEntity<Map<String,Object>> popupDeleteJson(@RequestParam(value="aidxs[]", required = false) String[] aidxs){
 		logger.debug("popup Delete : "+aidxs);
 
-		
 		for (String aidx: aidxs) {
 			popupService.setPopupsDel(aidx);
 		}
+
+		Map<String,Object> map = new HashMap<>();
+		map.put("rs", "ok");
+
+		return ResponseEntity.ok(map);
 	}
 
 	//쓰기
@@ -142,15 +155,73 @@ public class PopupController {
 		//해더에 스크립트 추가
 		List<String> headerScript = new ArrayList<>();
 		headerScript.add("jquery-ui.1.11.4.min");
-		headerScript.add("common");
-		headerScript.add("ssrolcmanager/boards/write");
+		headerScript.add("ssrolcmanager/popups/write");
 
 		model.addAttribute("headerScript",headerScript);
 
 		return "ssrolcmanager/popups/popupWrite";
 	}
 
+	//등록
+	@RequestMapping(value="/ssrolcmanager/popups",method=RequestMethod.POST)
+	public String addPopup(Model model,@CookieValue(value="SSROLC_ID") String regId
+							,@RequestParam(value="pName") String pName
+							,@RequestParam(value="pState") String pState
+							,@RequestParam(value="startDate") Timestamp startDate
+							,@RequestParam(value="endDate") Timestamp endDate
+							,@RequestParam(value="pSize_width") String pSize_width
+							,@RequestParam(value="pSize_height") String pSize_height
+							,@RequestParam(value="location_top") String location_top
+							,@RequestParam(value="location_left") String location_left
+							,@RequestParam(value="pPopup_id") String pPopup_id
+							,MultipartHttpServletRequest mhRequest){
+		logger.debug("====================================");
+		logger.debug("popup Add");
+		
+		if(Strings.isNullOrEmpty(pName) || Strings.isNullOrEmpty(pPopup_id)){
+			throw new PopupNotAddException();
+		}
 
-	
-	
+		Timestamp nowDate = new Timestamp(new Date().getTime());
+
+/*
+		startDate = startDate + " 00:00:00";
+		java.sql.Timestamp pStartDate = java.sql.Timestamp.valueOf(startDate);
+		endDate = endDate + " 00:00:00";
+		java.sql.Timestamp pEndDate = java.sql.Timestamp.valueOf(endDate);
+*/		
+		logger.debug("pStartDate : "+startDate);
+		
+		Popup popup = new Popup(pPopup_id, pName, pSize_width, pSize_height, location_top, location_left
+				, "", startDate, endDate, pState, null, "", nowDate, regId, mhRequest.getRemoteAddr());
+
+		popupService.addPopup(popup);
+/*		
+		int lastPopupNo = popup.getAidx();
+
+		String uploadPath = popupUploadPath+File.separator+"popups";
+		
+		FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, "all"
+				, uploadPath,new ArrayList<AttachFile>(),"popups",lastPopupNo, false, "M"
+				, regId, mhRequest.getRemoteAddr(),nowDate);
+		
+		List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();
+		
+		int imageCnt = 0;
+		int fileCnt = 0;
+		
+		for (AttachFile attachFile : uploadedAttachFileList) {
+			boardService.addAttachFile(attachFile);
+			if("jpg".equals(attachFile.getFileType()) || "png".equals(attachFile.getFileType()) 
+					|| "gif".equals(attachFile.getFileType())){
+				imageCnt++;
+			}else{
+				fileCnt++;
+			}
+		}
+		
+		boardService.setArticleFileCnt(lastArticleNo, fileCnt, imageCnt);
+*/
+		return "redirect:/ssrolcmanager/popups/popupList";
+	}
 }

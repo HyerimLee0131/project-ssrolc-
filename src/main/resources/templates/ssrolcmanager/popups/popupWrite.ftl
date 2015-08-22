@@ -11,7 +11,7 @@
 				</div>
 				<h1 class="mgt-20">* 팝업 파일 위치 : 서버주소(xxx.xxx.xxx.xxx)\jslslc\public_html\popup</h1>
 				<div class="tbl-type-E">
-					<form id="popupFrm" name="popupFrm" action="" method="POST">
+					<form id="popupFrm" name="popupFrm" action="/ssrolcmanager/popups" method="POST">
 						<table width="100%" cellPadding="0" cellSpacing="0" summary="">
 							<colgroup>
 								<col width="14%">
@@ -36,8 +36,8 @@
 								<tr>
 									<th>게재기간</th>
 									<td>
-										<input name="startDate" type="text" class="text datePicker" id="startDate" style="width: 104px;" title="" value="<#if popup??>${popup.startDate}</#if>" readonly='readonly' />&nbsp;~&nbsp;
-										<input name="endDate" type="text" class="text datePicker" id="endDate" style="width: 103px;" title="" value="<#if popup??>${popup.endDate}</#if>" readonly='readonly' />
+										<input name="startDate" type="text" class="text datePicker" id="startDate" style="width: 104px;" title="" value="<#if popup??>${popup.getStartDate("yyyy-MM-dd")}</#if>" readonly='readonly' />&nbsp;~&nbsp;
+										<input name="endDate" type="text" class="text datePicker" id="endDate" style="width: 103px;" title="" value="<#if popup??>${popup.getEndDate("yyyy-MM-dd")}</#if>" readonly='readonly' />
 									</td>
 								</tr>
 								<tr>
@@ -68,7 +68,8 @@
 									<th>팝업 파일명</em></th>
 									<td>
 	                               		* 확장자명 .ftl 까지 써주세요.<br/>
-	                                	<input name="pFileName" type="text" class="text" id="pFileName" style="width: 234px;" title="" value="<#if popup??>${popup.fileName}</#if>" maxlength="255"/>
+	                                	<input name="pFileName" id="pFileName" type="file" class="text" id="pFileName" style="width: 234px;" title="" value="" maxlength="255"/>
+	                                	<#if popup??>${popup.fileName}</#if>
 	                                </td>
 								</tr>
 							</tbody>
@@ -77,7 +78,7 @@
 
 					<div class="mgt-20 float-r">
                 		<span class="button btn-type-I"><a href="/ssrolcmanager/popups">목록</a></span>
-						<span class="button btn-type-J"><a onclick="$.popupWrite();" style="cursor:pointer;">등록</a></span>
+						<span class="button btn-type-J"><a href="javascript:$.popupWrite();" style="cursor:pointer;">등록</a></span>
 						<span class="button btn-type-J"><a href="/ssrolcmanager/popups">취소</a></span>
 					</div>
 				</div>

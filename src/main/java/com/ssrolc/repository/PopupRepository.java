@@ -27,4 +27,8 @@ public interface PopupRepository {
 	 * 선택 삭제
 	 */
 	public int deletePopups(String aidxs);
+	/*
+	 * 글 등록
+	 */
+	public void insertPopup(Popup popup);
 }

@@ -30,6 +30,14 @@ $(function() {
 					Handlebars.registerHelper('inc', function (index) {
 						return totalRowCnt - pageInfo.startRow - index;
 					});
+					Handlebars.registerHelper("prettifyDate", function(timestamp) {
+						var d = new Date(timestamp);
+						var month = d.getMonth()+1;
+						var day = d.getDate();
+						var convertMonth = $.leadingZeros(month,2);
+						var convertDay = $.leadingZeros(day,2);
+					    return d.getFullYear()+"-"+convertMonth+"-"+convertDay;
+					});
 					Handlebars.registerHelper('xIf', function (lvalue, operator, rvalue, options) {
 					    var operators, result;
 					    if (arguments.length < 3) {
@@ -89,7 +97,7 @@ $(function() {
 			}
 
 			//게시물번호 문자열 조합
-			/*var aidxs="";
+/*			var aidxs="";
 			for(var i=0; i<aidxArry.length; i++) {
 				aidxs += aidxArry[i];
 				aidxs += ",";
@@ -107,9 +115,7 @@ $(function() {
 				async: true,
 				dataType : "json",
 				success: function(jsonData, textStatus, XMLHttpRequest) {
-					alert(1);
-					return;
-						if(jsonData.rs){
+						if(jsonData.rs == "ok"){
 							alert('삭제되었습니다.');
 						}else{
 							alert('삭제에 실패하였습니다.');

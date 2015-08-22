@@ -2,15 +2,13 @@ package com.ssrolc.domain.popup;
 
 import java.sql.Timestamp;
 
-import com.ssrolc.utils.CommonUtils;
-
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import com.ssrolc.utils.CommonUtils;
 
 @Data
 @AllArgsConstructor
@@ -26,27 +24,46 @@ public class Popup {
 	private String location_top;
 	private String location_left;
 	private String fileName;
-	@Getter(value=AccessLevel.NONE)
 	private Timestamp startDate;
-	@Getter(value=AccessLevel.NONE)
 	private Timestamp endDate;
 	private String state;
 	private Timestamp updateDate;
 	private String updateId;
-	@Getter(value=AccessLevel.NONE)
 	private Timestamp regDate;	
 	private String regId;
 	private String regIp;
 
-	public String getStartDate() {
-		return CommonUtils.timestampToString(startDate,"yyyy-MM-dd");
+	public String getStartDate(String format) {
+		return CommonUtils.timestampToString(startDate,format);
 	}
 
-	public String getEndDate() {
-		return CommonUtils.timestampToString(endDate,"yyyy-MM-dd");
+	public String getEndDate(String format) {
+		return CommonUtils.timestampToString(endDate,format);
 	}
 
-	public String getRegDate() {
-		return CommonUtils.timestampToString(regDate,"yyyy-MM-dd");
+	public String getRegDate(String format) {
+		return CommonUtils.timestampToString(regDate,format);
+	}
+
+	public Popup(String cookie_id, String name, String size_width,
+			String size_height, String location_top, String location_left, String fileName, Timestamp startDate,
+			Timestamp endDate, String state, Timestamp updateDate, String updateId,
+			Timestamp regDate, String regId, String regIp) {
+		super();
+		this.cookie_id = cookie_id;
+		this.name = name;
+		this.size_width = size_width;
+		this.size_height = size_height;
+		this.location_top = location_top;
+		this.location_left = location_left;
+		this.fileName = fileName;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.state = state;
+		this.updateDate = updateDate;
+		this.updateId = updateId;
+		this.regDate = regDate;
+		this.regId = regId;
+		this.regIp = regIp;
 	}
 }

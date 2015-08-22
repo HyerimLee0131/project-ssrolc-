@@ -76,9 +76,9 @@
 		</td>
 		<td>가로 : {{size_width}}, 세로 : {{size_height}}</td>
 		<td>{{fileName}}</td>
-		<td>{{startDate}} ~ {{endDate}}</td>
+		<td>{{prettifyDate startDate}} ~ {{prettifyDate endDate}}</td>
 		<td>{{#xIf state "==" 0}}비활성{{else}}활성{{/xIf}}</td>
-		<td>{{regDate}}</td>
+		<td>{{prettifyDate regDate}}</td>
 	</tr>
 	{{else}}
 	<tr>

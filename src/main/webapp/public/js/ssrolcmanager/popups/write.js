@@ -56,15 +56,13 @@ $(function(){
 				alert("팝업ID를 입력해주세요.");
 				return;
 			}
-
+/*
 			if(pFileName == ""){
 				alert("팝업 파일명을 입력해주세요.");
 				return;
 			}
-
-			alert('ok');
-			return;
-			//$('#popupFrm').submit();
+*/
+			$('#popupFrm').submit();
 		},
 
 		//숫자인지검사

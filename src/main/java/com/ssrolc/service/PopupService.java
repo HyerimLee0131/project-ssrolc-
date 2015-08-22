@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssrolc.domain.board.Article;
 import com.ssrolc.domain.popup.Popup;
 import com.ssrolc.repository.PopupRepository;
 
@@ -54,5 +55,9 @@ public class PopupService {
 
 	public int setPopupsDel(String aidxs){
 		return popupRepository.deletePopups(aidxs);
+	}
+	
+	public void addPopup(Popup popup){
+		popupRepository.insertPopup(popup);
 	}
 }
