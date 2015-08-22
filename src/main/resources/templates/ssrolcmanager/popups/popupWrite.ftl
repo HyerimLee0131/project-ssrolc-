@@ -36,8 +36,8 @@
 								<tr>
 									<th>게재기간</th>
 									<td>
-										<input name="startDate" type="text" class="text datePicker" id="startDate" style="width: 104px;" title="" value="<#if popup??>${popup.getStartDate("yyyy-MM-dd")}</#if>" readonly='readonly' />&nbsp;~&nbsp;
-										<input name="endDate" type="text" class="text datePicker" id="endDate" style="width: 103px;" title="" value="<#if popup??>${popup.getEndDate("yyyy-MM-dd")}</#if>" readonly='readonly' />
+										<input name="startDate" type="text" class="text datePicker" id="startDate" style="width: 104px;" title="" value="<#if popup??>${popup.startDate}</#if>" readonly='readonly' />&nbsp;~&nbsp;
+										<input name="endDate" type="text" class="text datePicker" id="endDate" style="width: 103px;" title="" value="<#if popup??>${popup.endDate}</#if>" readonly='readonly' />
 									</td>
 								</tr>
 								<tr>

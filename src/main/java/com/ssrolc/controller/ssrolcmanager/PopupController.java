@@ -167,14 +167,14 @@ public class PopupController {
 	public String addPopup(Model model,@CookieValue(value="SSROLC_ID") String regId
 							,@RequestParam(value="pName") String pName
 							,@RequestParam(value="pState") String pState
-							,@RequestParam(value="startDate") Timestamp startDate
-							,@RequestParam(value="endDate") Timestamp endDate
+							,@RequestParam(value="startDate") String startDate
+							,@RequestParam(value="endDate") String endDate
 							,@RequestParam(value="pSize_width") String pSize_width
 							,@RequestParam(value="pSize_height") String pSize_height
 							,@RequestParam(value="location_top") String location_top
 							,@RequestParam(value="location_left") String location_left
-							,@RequestParam(value="pPopup_id") String pPopup_id
-							,MultipartHttpServletRequest mhRequest){
+							,@RequestParam(value="pPopup_id") String pPopup_id){
+							//,MultipartHttpServletRequest mhRequest){
 		logger.debug("====================================");
 		logger.debug("popup Add");
 		
@@ -182,7 +182,7 @@ public class PopupController {
 			throw new PopupNotAddException();
 		}
 
-		Timestamp nowDate = new Timestamp(new Date().getTime());
+//		Timestamp nowDate = new Timestamp(new Date().getTime());
 
 /*
 		startDate = startDate + " 00:00:00";
@@ -193,8 +193,8 @@ public class PopupController {
 		logger.debug("pStartDate : "+startDate);
 		
 		Popup popup = new Popup(pPopup_id, pName, pSize_width, pSize_height, location_top, location_left
-				, "", startDate, endDate, pState, null, "", nowDate, regId, mhRequest.getRemoteAddr());
-
+				, "", startDate, endDate, pState, null, regId, "");
+//mhRequest.getRemoteAddr()
 		popupService.addPopup(popup);
 /*		
 		int lastPopupNo = popup.getAidx();
@@ -222,6 +222,6 @@ public class PopupController {
 		
 		boardService.setArticleFileCnt(lastArticleNo, fileCnt, imageCnt);
 */
-		return "redirect:/ssrolcmanager/popups/popupList";
+		return "redirect:/ssrolcmanager/popups";
 	}
 }

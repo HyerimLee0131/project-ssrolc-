@@ -37,8 +37,8 @@
 
 	<insert id="insertPopup" parameterType="com.ssrolc.domain.popup.Popup" useGeneratedKeys="true" keyProperty="aidx">
 		INSERT INTO ssrolc.popup(cookie_id,name,size_width,size_height,location_top,location_left,fileName,startDate,endDate
-			,state,updateDate,updateId,regDate,regId,regIp) 
+			,state,regDate,regId,regIp) 
 		VALUES(#{cookie_id},#{name},#{size_width},#{size_height},#{location_top},#{location_left},#{fileName},#{startDate},#{endDate}
-		,#{state},#{updateDate},#{updateId},#{regDate},#{regId},#{regIp})
+		,#{state},SYSDATE(),#{regId},#{regIp})
 	</insert>
 </mapper>

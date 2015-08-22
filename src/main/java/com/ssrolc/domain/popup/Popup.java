@@ -24,8 +24,8 @@ public class Popup {
 	private String location_top;
 	private String location_left;
 	private String fileName;
-	private Timestamp startDate;
-	private Timestamp endDate;
+	private String startDate;
+	private String endDate;
 	private String state;
 	private Timestamp updateDate;
 	private String updateId;
@@ -33,21 +33,21 @@ public class Popup {
 	private String regId;
 	private String regIp;
 
-	public String getStartDate(String format) {
+/*	public String getStartDate(String format) {
 		return CommonUtils.timestampToString(startDate,format);
 	}
 
 	public String getEndDate(String format) {
 		return CommonUtils.timestampToString(endDate,format);
 	}
-
+*/
 	public String getRegDate(String format) {
 		return CommonUtils.timestampToString(regDate,format);
 	}
 
 	public Popup(String cookie_id, String name, String size_width,
-			String size_height, String location_top, String location_left, String fileName, Timestamp startDate,
-			Timestamp endDate, String state, Timestamp updateDate, String updateId,
+			String size_height, String location_top, String location_left, String fileName, String startDate,
+			String endDate, String state, //Timestamp updateDate, String updateId,
 			Timestamp regDate, String regId, String regIp) {
 		super();
 		this.cookie_id = cookie_id;
@@ -60,8 +60,8 @@ public class Popup {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.state = state;
-		this.updateDate = updateDate;
-		this.updateId = updateId;
+		//this.updateDate = updateDate;
+		//this.updateId = updateId;
 		this.regDate = regDate;
 		this.regId = regId;
 		this.regIp = regIp;
