@@ -70,9 +70,6 @@ public class FranchiseController {
 	        System.out.println(jslIp);
 	        franchise.setJslIp(jslIp);
 	        
-	        
-	        
-	       
 			franchiseService.insertFranchise(franchise);
 			return "redirect:/ssrolcmanager/franchise/faqs"; 
 		}

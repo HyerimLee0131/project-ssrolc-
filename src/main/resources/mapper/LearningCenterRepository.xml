@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssrolc.repository.LearningCenterRepository">
+
+	<select id="findCentersUrl" resultType="hashMap">
+		SELECT deptId, homeUrl FROM ssrolc.jeislc_center
+	</select>
+	
+	<select id="findHomeUrl" parameterType="String" resultType="String">
+		SELECT homeUrl FROM ssrolc.jeislc_center where deptId=#{deptId1}
+	</select>
+	<insert id="insertUrl">
+		INSERT INTO ssrolc.jeislc_center(deptId,deptName,homeUrl) VALUES(#{deptId1},#{deptName},#{homeUrl})
+	</insert>
+	<update id="updateUrl">
+		UPDATE ssrolc.jeislc_center SET homeUrl=#{homeUrl} WHERE deptId=#{deptId1}
+	</update>
+	
+	
+</mapper>
