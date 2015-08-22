@@ -108,7 +108,7 @@ public class PrmediaController {
 		}
 	}
 		
-	//쓰기
+	//쓰기 페이지
 	@RequestMapping(value={"/ssrolcmanager/prmedias/new"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	public String prmediaWrite(Model model){
 		model.addAttribute("title","러닝센터관리자 홍보영상관리");
@@ -123,12 +123,20 @@ public class PrmediaController {
 		headerScript.add("ssrolcmanager/prmedia/admin_write");
 
 		model.addAttribute("headerScript",headerScript);
-
+		
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("aidx","");
+		map.put("aidx","");
+		map.put("aidx","");
+		map.put("aidx","");
+		map.put("aidx","");
+		
 		return "ssrolcmanager/prmedia/write";
 	}
 	
 
-	//글보기
+	//상세 페이지
 	@RequestMapping(value={"/ssrolcmanager/prmedia/{aidx:[0-9]+}"},method = { RequestMethod.GET, RequestMethod.HEAD })	
 	public String view(Model model,@PathVariable int aidx){
 	
@@ -142,11 +150,10 @@ public class PrmediaController {
 				
 				return "ssrolcmanager/prmedia/view";
 			}
-	
 	}
 	
-	//글저장
-	@RequestMapping(value="/ssrolcmanager/prmedia/write",method=RequestMethod.POST)
+	//글저장 처리
+	@RequestMapping(value="/ssrolcmanager/prmedias/write",method=RequestMethod.POST)
 	public String addPrmedia(Model model,@CookieValue(value="SSROLC_ID") String regId
 							,@RequestParam(value="prTitle") String prTitle
 							,@RequestParam(value="makeTime") String makeTime
@@ -193,11 +200,86 @@ public class PrmediaController {
 				
 				//boardService.setArticleFileCnt(lastArticleNo, fileCnt, imageCnt);
 			
-				return "redirect:/ssrolcmanager/prmedia";
+				return "redirect:/ssrolcmanager/prmedias";
+		}
+	
+	
+		//글수정 페이지
+		@RequestMapping(value={"/ssrolcmanager/prmedias/edit/{aidx:[0-9]+}"},method = { RequestMethod.GET, RequestMethod.HEAD })	
+		public String edit(Model model,@PathVariable int aidx){
+		
+				Prmedia prmedia = prmediaService.getPrmedia(aidx);
+				if(prmedia == null || prmedia.equals(null)){
+					throw new PrmediaNotFoundException();
+				}else{
+					model.addAttribute("prmedia",prmedia);
+					
+					List<String> headerScript = new ArrayList<>();
+					headerScript.add("ssrolcmanager/jdatepicker");
+					headerScript.add("ssrolcmanager/prmedia/admin_write");
+
+					model.addAttribute("headerScript",headerScript);
+					
+					Map<String,Object> map = new HashMap<>();
+					map.put("aidx",aidx);
+					
+					return "ssrolcmanager/prmedia/edit";
+				}
+		
+		}
+		
+		//글수정 처리
+		@RequestMapping(value="/ssrolcmanager/prmedias/edit",method=RequestMethod.POST)
+		public String editPrmedia(Model model,@CookieValue(value="SSROLC_ID") String regId
+								,@RequestParam(value="aidx") int aidx
+								,@RequestParam(value="prTitle") String prTitle
+								,@RequestParam(value="makeTime") String makeTime
+								,@RequestParam(value="mediaLinkUrl") String mediaLinkUrl
+								,@RequestParam(value="mediaLocation") String mediaLocation
+								,MultipartHttpServletRequest mhRequest) {
+			
+			
+				if(Strings.isNullOrEmpty(prTitle) || Strings.isNullOrEmpty(mediaLinkUrl)){
+					throw new PrmediaNotFoundException();
+				}
+				
+				Timestamp nowDate = new Timestamp(new Date().getTime());
+				
+				Prmedia prmedia = new Prmedia(0,prTitle, makeTime,"","","",0,mediaLinkUrl,mediaLocation,nowDate,regId,nowDate, regId, mhRequest.getRemoteAddr());
+				
+				prmediaService.editPrmedia(prmedia);
+				
+				/*
+				int lastArticleNo = prmedia.getArticleNo();
+				
+				if(boardInfo.isBoardFileUploadEnable()){
+					
+					String uploadPath = boardUploadPath+File.separator+boardTable;
+					
+					FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, boardInfo.getBoardFileUploadType()
+							, uploadPath,new ArrayList<AttachFile>(),boardTable,lastArticleNo, true, "M"
+							, regId, mhRequest.getRemoteAddr(),nowDate);
+					
+					List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();
+					
+					int imageCnt = 0;
+					int fileCnt = 0;
+					
+					for (AttachFile attachFile : uploadedAttachFileList) {
+						boardService.addAttachFile(attachFile);
+						if("jpg".equals(attachFile.getFileType()) || "png".equals(attachFile.getFileType()) 
+								|| "gif".equals(attachFile.getFileType())){
+							imageCnt++;
+						}else{
+							fileCnt++;
+						}
+					}*/
+					
+					//boardService.setArticleFileCnt(lastArticleNo, fileCnt, imageCnt);
+				
+					return "redirect:/ssrolcmanager/prmedias";
 			}
+		
+	
 	}
 	
-	
-	
-}
-

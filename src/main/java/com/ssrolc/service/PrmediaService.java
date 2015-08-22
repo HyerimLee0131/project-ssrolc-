@@ -62,4 +62,8 @@ public class PrmediaService {
 		prmediaRepository.insertPrmedia(prmedia);
 	}
 	
+	public void editPrmedia(Prmedia prmedia){
+		prmediaRepository.updatePrmedia(prmedia);
+	}
+	
 }

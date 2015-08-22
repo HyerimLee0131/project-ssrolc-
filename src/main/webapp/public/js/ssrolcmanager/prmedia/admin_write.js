@@ -12,7 +12,7 @@ $(document).ready(function() {
 					alert('제작년월을 입력해주세요.');
 					return false;
 				}
-				
+				/*
 				if($.trim($('#thumnailName').val()) == "" ){
 					alert('썸네일을 등록해주세요.');
 					return false;
@@ -27,7 +27,8 @@ $(document).ready(function() {
 						return false;
 					}
 				}
-
+*/
+				
 				if($.trim($('#mediaLinkUrl').val()) == "" ){
 					alert('링크를 입력해주세요.');
 					return false;

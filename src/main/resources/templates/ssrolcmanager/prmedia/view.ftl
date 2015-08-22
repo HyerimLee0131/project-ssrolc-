@@ -57,7 +57,7 @@
 					 </div>
 					<div class="mgt-20 float-r">
 						<span class="button btn-type-I"><a class="w-65" href="/ssrolcmanager/prmedias">목록</a></span>
-						<span class="button btn-type-J"><a class="w-65" href="/ssrolcmanager/prmedias/edit">수정</a></span>
+						<span class="button btn-type-J"><a class="w-65" href="/ssrolcmanager/prmedias/edit/${prmedia.aidx}">수정</a></span>
 						<span class="button btn-type-J"><a class="w-65" onclick='$.prmediaDelete("6");' >삭제</a></span>
 					</div>
 			</div>

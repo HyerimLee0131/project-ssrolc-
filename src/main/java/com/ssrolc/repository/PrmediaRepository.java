@@ -27,5 +27,9 @@ public interface PrmediaRepository {
 	 *	글 등록 
 	 */
 	public void insertPrmedia(Prmedia prmedia);
+	/*
+	 *	글 수정
+	 */
+	public void updatePrmedia(Prmedia prmedia);
 	
 }
