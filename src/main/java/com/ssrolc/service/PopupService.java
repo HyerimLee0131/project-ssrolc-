@@ -47,4 +47,12 @@ public class PopupService {
 
 		return popupRepository.countPopup(map);
 	}
+	
+	public Popup getPopup(int aidx){
+		return popupRepository.findPopup(aidx);
+	}
+
+	public int setPopupsDel(String aidxs){
+		return popupRepository.deletePopups(aidxs);
+	}
 }

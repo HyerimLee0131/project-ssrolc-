@@ -18,9 +18,13 @@ public interface PopupRepository {
 	/*
 	 * 글 읽어오기
 	 */
-	public Popup findPopup(Map<String,Object> map);
+	public Popup findPopup(int aidx);
 	/*
 	 * 조회수 증가
 	 */
 	public int updateHit(Map<String,Object> map);
+	/*
+	 * 선택 삭제
+	 */
+	public int deletePopups(String aidxs);
 }

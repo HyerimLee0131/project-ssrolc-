@@ -18,8 +18,8 @@
 								<option value="name">팝업명</option>
 							</select>&nbsp;&nbsp;
 							<input name="searchValue" type="text" class="text" id="searchValue" style="width:100px" title="" />
-							&nbsp;<span class="button"><input type="button" id="searchBtn" title="" value="검색"></span>
-							&nbsp;<span class="button"><input type="button" id="resetBtn" title="" value="초기화"></span>
+							&nbsp;<span class="button"><input type="button" id="searchBtn" title="검색버튼" value="검색"></span>
+							&nbsp;<span class="button"><input type="button" id="resetBtn" title="초기화버튼" value="초기화"></span>
 						</p>
 					</fieldset>
 				</div>
@@ -71,7 +71,7 @@
 		<td>{{inc @index}}</td>
 		<td>
 			<p class="tb_1">
-				<a href='/ssrolcmanager/popups/{{aidx}}'>{{name}}</a>
+				<a href='/ssrolcmanager/popup/{{aidx}}'>{{name}}</a>
 			</p>
 		</td>
 		<td>가로 : {{size_width}}, 세로 : {{size_height}}</td>

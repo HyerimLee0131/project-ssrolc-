@@ -70,7 +70,55 @@ $(function() {
 					alert(thrownError);
 				}
 			});
+		}/*,
+
+		selectDelete:function(){
+			var aidxArry = new Array(); 
+
+			$('input[name="popupCheckBox"]:checked').each(function(){
+				aidxArry.push($(this).val());
+			});
+
+			if(aidxArry.length == 0){
+				alert("게시물을 선택해주세요.");
+				return;
+			}
+
+			if(!confirm("정말 삭제 하시겠습니까?")){
+				return;
+			}
+
+			var delUrl = "/ssrolcmanager/popups/delete";
+			var sendData = {'aidxs':'23'};
+			console.log(sendData);
+			$.ajax({
+				url : delUrl,
+				type : 'DELETE',
+//				data: {'aidxs':'23'},
+				data: "aidxs=23",
+				cache: false,
+				async: true,
+				dataType : "json",
+				success: function(jsonData, textStatus, XMLHttpRequest) {
+					alert(jsonData.rs);
+					return;
+						if(jsonData.rs){
+							alert('삭제되었습니다.');
+						}else{
+							alert('삭제에 실패하였습니다.');
+						}
+
+						$('#pageNum').val("1");
+						$.getPopupList();
+				},
+				error:function (xhr, ajaxOptions, thrownError){	
+					alert(thrownError);
+				}
+			});
+
+
 		}
+		*/
 	});
 	
 	$.getPopupList();
@@ -81,7 +129,7 @@ $(function() {
 		$('#pageNum').val(pageNum);
 		$.getPopupList();
 	});	
-	
+
 	// 검색 클릭
 	$("#searchBtn").on("click",function() {
 		$('#pageNum').val('1');
