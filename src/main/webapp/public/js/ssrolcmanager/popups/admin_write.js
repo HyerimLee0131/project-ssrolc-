@@ -77,9 +77,4 @@ $(function(){
 		}
 		
 	});
-
-	//리스트 검색 리셋 버튼
-	$('#resetBtn').on('click',function(){
-		location.href = "/ssrolcmanager/popups";
-	});
 });
