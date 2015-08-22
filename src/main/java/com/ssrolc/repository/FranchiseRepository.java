@@ -29,4 +29,8 @@ public interface FranchiseRepository {
 	 * 접수상태 변경하기
 	 * */
 	public void findchangeJoinState(Map<String,Object> map);
+	/*
+	 * 가맹문의 등록
+	 * */
+	public void insertFranchises(Franchise franchise);
 }

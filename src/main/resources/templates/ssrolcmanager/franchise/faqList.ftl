@@ -118,6 +118,7 @@
 						</thead>
 						<tbody id="dataList"></tbody>					
 					</table>
+					<span class="float-r mgt-10 button btn-type-I"><a href="/ssrolcmanager/franchise/faq/new">가맹문의등록</a></span>
 				</div>
 				
 				<div class="paging">
@@ -133,7 +134,7 @@
 	{{#each franchiseInfo}}
 	<tr>
 		<td>{{inc @index}}</td>
-		<td>{{jslipDatetime}}</td>
+		<td>{{prettifyDate jslipDatetime}}</td>
 		<td>{{inType}}</td>
 		<td>{{jslcName}}</td>
 		<td>{{jslcArea1}}&nbsp;{{jslcArea2}}</td>

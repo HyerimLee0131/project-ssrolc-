@@ -55,5 +55,28 @@ public interface BoardRepository {
 	 *	글에 파일개수 업데이트 글에 이미지 개수 업데이트
 	 */
 	public void updateArticleFileCnt(Map<String,Object> map);
-	
+	/*
+	 * 파일 정보 읽어오기 
+	 */
+	public AttachFile findAttachFileById(int attachFileNo);
+	/*
+	 * 파일 다운로드 수 증가
+	 */
+	public void updateAttachFileDownloadCntUp(int attachFileNo);
+	/*
+	 * 글 삭제
+	 */
+	public void deleteArticle(Map<String,Object> map);
+	/*
+	 * 글에 첨부된 파일들 삭제
+	 */
+	public void deleteAttachFilesToArticle(Map<String, Object> map);
+	/*
+	 * 글 수정
+	 */
+	public void updateArticle(Map<String,Object> map);
+	/*
+	 * 파일 정보 삭제
+	 */
+	public void deleteAttachFile(int attachFileNo);
 }

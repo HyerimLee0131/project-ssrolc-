@@ -44,6 +44,13 @@ public class FranchiseService {
 		
 		return franchiseRepository.findFranchises(map);
 	}
+	
+	/*
+	 * 가맹문의 등록하기
+	 * */
+	public void insertFranchise(Franchise franchise){
+		 franchiseRepository.insertFranchises(franchise);
+	}
 	/*
 	 * 정보공개서를 검색한 총 건수
 	 * */

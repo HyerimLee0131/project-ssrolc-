@@ -42,6 +42,14 @@ $(function() {
 					Handlebars.registerHelper('inc', function (index) {
 						return totalRowCnt - pageInfo.startRow - index;
 					});
+					Handlebars.registerHelper("prettifyDate", function(timestamp) {
+						var d = new Date(timestamp);
+						var month = d.getMonth()+1;
+						var day = d.getDate();
+						var convertMonth = $.leadingZeros(month,2);
+						var convertDay = $.leadingZeros(day,2);
+						    return d.getFullYear()+"-"+convertMonth+"-"+convertDay;
+					});
 					Handlebars.registerHelper('xIf', function (lvalue, operator, rvalue, options) {
 					    var operators, result;
 					    if (arguments.length < 3) {
@@ -123,7 +131,8 @@ $(function() {
 					alert(thrownError);
 				}
 			});
-		}
+		},
+		
 	});
 	
 	$.getBoardList();
@@ -143,6 +152,7 @@ $(function() {
 	$("#endDate_img").on('click',function() { 
 		$("#endDate").datepicker( "show" );
 	});
+
 
 	// 검색버튼눌렀을 때
 	$("#searchBtn").on("click",function() {

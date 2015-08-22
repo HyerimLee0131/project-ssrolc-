@@ -87,7 +87,7 @@
 			<if test="articleNo != null and articleNo != 0">
 				AND articleNo = #{articleNo}
 			</if>
-			<if test="fileFormat != null">
+			<if test="fileFormat != null and fileFormat != '' ">
 				AND fileFormat = #{fileFormat}
 			</if>
 		</where>
@@ -134,4 +134,43 @@
 		WHERE articleNo = #{articleNo}
 	</update>
 	
+	<select id="findAttachFileById" parameterType="int" resultType="com.ssrolc.domain.board.AttachFile">
+		SELECT * FROM ssrolc.attachFile WHERE attachFileNo = #{attachFileNo}
+	</select>
+	
+	<update id="updateAttachFileDownloadCntUp" parameterType="int">
+		UPDATE ssrolc.attachFile SET downloadCnt = downloadCnt + 1
+		WHERE attachFileNo = #{attachFileNo}
+	</update>
+	
+	<delete id="deleteArticle" parameterType="hashMap">
+		DELETE FROM ssrolc.article WHERE articleNo = #{articleNo} AND boardTable = #{boardTable}
+	</delete>
+	
+	<delete id="deleteAttachFilesToArticle" parameterType="hashMap">
+		DELETE FROM ssrolc.attachFile WHERE articleNo = #{articleNo} AND boardTable = #{boardTable}
+	</delete>
+	
+	<update id="updateArticle" parameterType="hashMap">
+		UPDATE ssrolc.article 
+		<set>
+			<if test="categoryCode != null and categoryCode != '' ">
+				categoryCode = #{categoryCode},
+			</if>
+			<if test="title != null and title != '' ">
+				title = #{title},
+			</if>
+			<if test="content != null and content != '' ">
+				content = #{content},
+			</if>
+			<if test="updateDate != null">
+				updateDate = #{updateDate}
+			</if>
+		</set>
+		WHERE articleNo = #{articleNo} AND boardTable = #{boardTable} 
+	</update>
+	
+	<delete id="deleteAttachFile" parameterType="int">
+		DELETE FROM ssrolc.attachFile WHERE attachFileNo = #{attachFileNo}
+	</delete>
 </mapper>

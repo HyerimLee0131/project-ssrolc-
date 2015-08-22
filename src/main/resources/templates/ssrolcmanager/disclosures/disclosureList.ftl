@@ -85,7 +85,7 @@
 	{{#each disclosureInfo}}
 	<tr>
 		<td>{{inc @index}}</td>
-		<td>{{regDate}}</td>
+		<td>{{prettifyDate regDate}}</td>
 		<td>{{memName}}</td>
 		<td>{{deptArea1}}&nbsp;{{deptArea2}}</td>
 		<td>{{deptType}}</td>

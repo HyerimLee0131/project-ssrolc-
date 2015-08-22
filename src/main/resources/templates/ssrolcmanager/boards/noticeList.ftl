@@ -63,7 +63,20 @@
 				<a href='/ssrolcmanager/board/{{boardTable}}/{{articleNo}}'>{{title}}</a>
 			</p>
 		</td>
-		<td>{{#xIf fileCnt ">" 0}}<img src="/public/img/img_inc/icon_file.gif" title="파일" alt="파일">{{/xIf}}</td>
+		<td>{{#xIf fileCnt ">" 0}}
+				{{#xIf imageCnt ">" 0}}
+					<img src="/public/img/img_inc/icon_file.gif" title="파일" alt="파일">
+				{{/xIf}}
+				{{#xIf imageCnt "==" 0}}
+					<img src="/public/img/img_inc/icon_file.gif" title="파일" alt="파일">
+				{{/xIf}}
+			{{/xIf}}
+			{{#xIf fileCnt "==" 0}}
+				{{#xIf imageCnt ">" 0}}
+					<img src="/public/img/img_inc/icon_file.gif" title="파일" alt="파일">
+				{{/xIf}}
+			{{/xIf}}
+		</td>
 		<td>{{prettifyDate regDate}}</td>
 	</tr>
 	{{else}}
