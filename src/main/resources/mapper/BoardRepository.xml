@@ -37,6 +37,9 @@
 					AND (title LIKE CONCAT('%',#{searchValue},'%') OR content LIKE CONCAT('%',#{searchValue},'%') )		
 				</if>
 			</if>
+			<if test="categoryCode != null and categoryCode != 'all' ">
+				AND categoryCode = #{categoryCode}
+			</if>
 		</where>
 		ORDER BY regDate DESC
 		<if test="startLimit != null and endLimit != null">
@@ -74,6 +77,9 @@
 				<if test="searchField == 'title+content' ">
 					AND (title LIKE CONCAT('%',#{searchValue},'%') OR content LIKE CONCAT('%',#{searchValue},'%') )	
 				</if>
+			</if>
+			<if test="categoryCode != null and categoryCode != 'all' ">
+				AND categoryCode = #{categoryCode}
 			</if>
 		</where>
 	</select>
@@ -173,4 +179,9 @@
 	<delete id="deleteAttachFile" parameterType="int">
 		DELETE FROM ssrolc.attachFile WHERE attachFileNo = #{attachFileNo}
 	</delete>
+	
+	<select id="findBoardCategoryName" parameterType="hashMap" resultType="String">
+		SELECT categoryName FROM ssrolc.boardCategory 
+		WHERE boardTable = #{boardTable} AND categoryCode = #{categoryCode}
+	</select>
 </mapper>
