@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssrolc.repository.MssqlRepository">
-	<select id="selectTest" resultType="int">
-		SELECT 1
+	<select id="findCenters" statementType="CALLABLE" parameterType="String" resultType="com.ssrolc.domain.learningcenter.LearningCenter">
+		{ CALL JLCENTER.dbo.JEISLC_CENTERSEARCH_LIST(#{area}) }
 	</select>
+	
+	<select id="findCenter" parameterType="String" resultType="String">
+		<![CDATA[ 
+		SELECT deptName FROM JLCENTER.dbo.Depart AS A 
+		WHERE A.DEPTID1 LIKE 'LC%' 
+		AND A.UseMD='1' 
+		AND A.OpenYMD<=CONVERT(DATE, GETDATE()) 
+		AND A.deptid1=#{deptId1}
+		ORDER BY A.DeptNAME ASC
+		]]>
+	</select>
+	
 </mapper>
