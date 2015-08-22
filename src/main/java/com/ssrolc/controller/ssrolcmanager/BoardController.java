@@ -90,7 +90,7 @@ public class BoardController {
 			
 			//해더에 스크립트 추가
 			List<String> headerScript = new ArrayList<>();
-			headerScript.add("ssrolcmanager/boards/list");
+			headerScript.add("ssrolcmanager/boards/"+boardTable+"List");
 			
 			model.addAttribute("headerScript",headerScript);
 			
@@ -143,6 +143,66 @@ public class BoardController {
 	}
 	
 	
+	@RequestMapping(value={"/ssrolcmanager/boards/{boardTable}/{categoryCode}/{pageNum:[0-9]+}"} ,
+			method = { RequestMethod.GET, RequestMethod.HEAD })
+	@ResponseBody
+	public ResponseEntity<Map<String,Object>> listWithCategoryJson(@PathVariable String boardTable,@PathVariable String categoryCode,@PathVariable int pageNum){
+		Board boardInfo = boardService.getBoardInfo(boardTable);
+		if(boardInfo == null || boardInfo.equals(null)){
+			throw new BoardNotFoundException(boardTable);
+		}else{
+			int rowBlockSize = boardInfo.getPageBlockSize();
+			int pageBlockSize = boardInfo.getRowBlockSize();
+			int totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode);
+			
+			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
+			
+			Map<String,Object> map = new HashMap<>();
+			map.put("pageInfo",pageUtil);
+			map.put("articles",boardService.getArticles(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow()));
+			
+			if(boardInfo.isBoardCategoryEnable()){
+				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
+				
+				if(boardCategoryList == null || boardCategoryList.equals(null)){
+					throw new BoardCategoryNotFoundException(boardTable);
+				}
+				
+				Map<String,Object> cateMap = new HashMap<>();
+				
+				for (BoardCategory boardCategory : boardCategoryList) {
+					cateMap.put(boardCategory.getCategoryCode(),boardCategory.getCategoryName());
+				}
+				
+				map.put("boardCategoryMap",cateMap);
+			}
+			return ResponseEntity.ok(map);
+		}
+	}
+	
+	@RequestMapping(value={"/ssrolcmanager/boards/{boardTable}/{categoryCode}/{pageNum:[0-9]+}/{searchField}/{searchValue}"} ,
+			method = { RequestMethod.GET, RequestMethod.HEAD })
+	@ResponseBody
+	public ResponseEntity<Map<String,Object>> searchListWithCategoryJson(@PathVariable String boardTable,@PathVariable String categoryCode
+			,@PathVariable int pageNum,@PathVariable String searchField,@PathVariable String searchValue){
+		Board boardInfo = boardService.getBoardInfo(boardTable);
+		if(boardInfo == null || boardInfo.equals(null)){
+			throw new BoardNotFoundException(boardTable);
+		}else{
+			int rowBlockSize = boardInfo.getPageBlockSize();
+			int pageBlockSize = boardInfo.getRowBlockSize();
+			int totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode,searchField,searchValue);
+			
+			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
+			
+			Map<String,Object> map = new HashMap<>();
+			map.put("pageInfo",pageUtil);
+			map.put("articles",boardService.getArticles(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
+			return ResponseEntity.ok(map);
+		}
+	}
+	
+	
 	@RequestMapping(value={"/ssrolcmanager/board/{boardTable}/{articleNo:[0-9]+}"},method = { RequestMethod.GET, RequestMethod.HEAD })	
 	public String view(Model model,@PathVariable String boardTable,@PathVariable int articleNo){
 		Board boardInfo = boardService.getBoardInfo(boardTable);
@@ -164,11 +224,16 @@ public class BoardController {
 					model.addAttribute("attachFiles",attachFiles);
 				}
 				
+				if(boardInfo.isBoardCategoryEnable()){
+					model.addAttribute("boardCategoryName",boardService.getBoardCategoryName(boardTable,article.getCategoryCode()));
+				}
+				
+				
 				boardService.setArticleHitUp(boardTable,articleNo);
 				
 				//해더에 스크립트 추가
 				List<String> headerScript = new ArrayList<>();
-				headerScript.add("ssrolcmanager/boards/view");
+				headerScript.add("ssrolcmanager/boards/"+boardTable+"View");
 				
 				model.addAttribute("headerScript",headerScript);
 				
@@ -198,10 +263,21 @@ public class BoardController {
 					model.addAttribute("attachFiles",attachFiles);
 				}
 				
+				if(boardInfo.isBoardCategoryEnable()){
+					List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
+					
+					if(boardCategoryList == null || boardCategoryList.equals(null)){
+						throw new BoardCategoryNotFoundException(boardTable);
+					}else{
+						model.addAttribute("boardCategoryList",boardCategoryList);
+					}
+				}
+				
+				
 				//해더에 스크립트 추가
 				List<String> headerScript = new ArrayList<>();
 				headerScript.add("crosseditor30/js/namo_scripteditor");
-				headerScript.add("ssrolcmanager/boards/edit");
+				headerScript.add("ssrolcmanager/boards/"+boardTable+"Edit");
 				
 				model.addAttribute("headerScript",headerScript);
 				
@@ -308,11 +384,20 @@ public class BoardController {
 		}else{
 			model.addAttribute("boardInfo",boardInfo);
 			
+			if(boardInfo.isBoardCategoryEnable()){
+				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
+				
+				if(boardCategoryList == null || boardCategoryList.equals(null)){
+					throw new BoardCategoryNotFoundException(boardTable);
+				}else{
+					model.addAttribute("boardCategoryList",boardCategoryList);
+				}
+			}
 
 			//해더에 스크립트 추가
 			List<String> headerScript = new ArrayList<>();
 			headerScript.add("crosseditor30/js/namo_scripteditor");
-			headerScript.add("ssrolcmanager/boards/write");
+			headerScript.add("ssrolcmanager/boards/"+boardTable+"Write");
 			
 			model.addAttribute("headerScript",headerScript);
 			
@@ -343,7 +428,7 @@ public class BoardController {
 	
 	@RequestMapping(value="/ssrolcmanager/boards/{boardTable}",method=RequestMethod.POST)
 	public String addArticle(Model model,@CookieValue(value="SSROLC_ID") String regId,@PathVariable String boardTable
-							,@RequestParam(value="boardCategoryCode",defaultValue="") String categoryCode
+							,@RequestParam(value="boardCategoryCode",defaultValue="1") String categoryCode
 							,@RequestParam(value="boardTitle") String title
 							,@RequestParam(value="boardContent") String content
 							,MultipartHttpServletRequest mhRequest){

@@ -158,4 +158,57 @@ public class BoardService {
 	public void removeAttachFile(int attachFileNo){
 		boardRepository.deleteAttachFile(attachFileNo);
 	}
+
+	public int getArticleCnt(String boardTable, String categoryCode) {
+
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("categoryCode",categoryCode);
+		return boardRepository.countArticle(map);
+	}
+
+	public List<Article> getArticles(String boardTable, String categoryCode,
+			int startLimit,int endLimit) {
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("categoryCode",categoryCode);
+		map.put("startLimit",startLimit);
+		map.put("endLimit",endLimit);
+		
+		return boardRepository.findArticles(map);
+	}
+
+	public int getArticleCnt(String boardTable, String categoryCode,
+			String searchField, String searchValue) {
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("categoryCode",categoryCode);
+		map.put("searchField",searchField);
+		map.put("searchValue",searchValue);
+		
+		return boardRepository.countArticle(map);
+	}
+
+	public List<Article> getArticles(String boardTable, String categoryCode,
+			int startLimit, int endLimit, String searchField, String searchValue) {
+
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("categoryCode",categoryCode);
+		map.put("startLimit",startLimit);
+		map.put("endLimit",endLimit);
+		map.put("searchField",searchField);
+		map.put("searchValue",searchValue);
+		
+		return boardRepository.findArticles(map);
+	}
+
+	public String getBoardCategoryName(String boardTable, String categoryCode) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("categoryCode",categoryCode);
+		return boardRepository.findBoardCategoryName(map);
+	}
 }

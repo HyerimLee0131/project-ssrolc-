@@ -79,4 +79,8 @@ public interface BoardRepository {
 	 * 파일 정보 삭제
 	 */
 	public void deleteAttachFile(int attachFileNo);
+	/*
+	 * 카테고리명 읽기
+	 */
+	public String findBoardCategoryName(Map<String, Object> map);
 }
