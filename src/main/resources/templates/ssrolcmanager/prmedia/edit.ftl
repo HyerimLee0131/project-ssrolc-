@@ -12,8 +12,8 @@
 				<p class="page-title">홍보영상관리</p>
 					 <p></p>
 					<div class="tbl-type-D">
-							<form id="prmediaFrm" name="prmediaFrm" action="/ssrolcmanager/prmedias/edit"  method="post" enctype="multipart/form-data">
-							<input type="hidden" name="aidx" id="faIdx" value="${aidx}" />
+							<form id="prmediaFrm" name="prmediaFrm" action="/ssrolcmanager/prmedias/edit/${prmedia.aidx}"  method="post" enctype="multipart/form-data">
+							
 							  <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 								<colgroup>
 								<col width="15%">

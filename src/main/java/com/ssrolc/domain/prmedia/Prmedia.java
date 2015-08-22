@@ -21,7 +21,7 @@ public class Prmedia {
 	private String makeTime;
 	private String thumnailName;
 	private String thumnailRealName;
-	private String thumnailSize;
+	private int thumnailSize;
 	private int hitCnt;
 	private String mediaLinkUrl;
 	private String mediaLocation;
@@ -46,7 +46,7 @@ public class Prmedia {
 		this.makeTime = makeTime;
 		this.thumnailName = "";
 		this.thumnailRealName = "";
-		this.thumnailSize = "";
+		this.thumnailSize = 0;
 		this.hitCnt = 0;
 		this.mediaLinkUrl = mediaLinkUrl;
 		this.mediaLocation = mediaLocation;

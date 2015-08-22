@@ -25,7 +25,7 @@
 								  </tr>	
 								   <tr>
 									<th>제작년월</th>
-									<td><div class="td-left"><input name="makeTime" type="text" class="text" id="makeTime" style="width:80px;" title="" readonly='readonly' /><img src="/public/img/admin/common/icon_calendar.gif" alt="" class="vertical-m" id="makeTime_img" /></div></td>
+									<td><div class="td-left"><input name="makeTime" type="text" class="text datePicker" id="makeTime" style="width:80px;" title="" readonly='readonly' /><img src="/public/img/admin/common/icon_calendar.gif" alt="" class="vertical-m" id="makeTime_img" /></div></td>
 								  </tr>
 								  <tr>
 									<th>썸네일</th>

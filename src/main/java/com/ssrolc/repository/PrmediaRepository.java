@@ -31,5 +31,9 @@ public interface PrmediaRepository {
 	 *	글 수정
 	 */
 	public void updatePrmedia(Prmedia prmedia);
+	/*
+	 * 썸네일 등록
+	 */
+	public void updateThumbPrmedia(Map<String,Object> map);
 	
 }

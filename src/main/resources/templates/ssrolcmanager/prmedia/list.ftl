@@ -82,7 +82,7 @@
 		<td><input name="checkBox" type="checkbox" title="" value="{{aidx}}"/></td>
 		<td>{{inc @index}}</td>
 		<td>
-			
+			<img src="/ssrolcmanager/prmedias/thumbview/{{thumnailRealName}}/{{thumnailSize}}">
 		</td>
 		<td><a href='/ssrolcmanager/prmedia/{{aidx}}'>{{prTitle}}</a></td>
 		<td>{{regId}}</td>

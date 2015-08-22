@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ssrolc.domain.board.Article;
 import com.ssrolc.domain.prmedia.Prmedia;
 import com.ssrolc.repository.PrmediaRepository;
 
@@ -62,8 +61,21 @@ public class PrmediaService {
 		prmediaRepository.insertPrmedia(prmedia);
 	}
 	
-	public void editPrmedia(Prmedia prmedia){
+	public void setPrmedia(Prmedia prmedia){
 		prmediaRepository.updatePrmedia(prmedia);
+	}
+
+	public void setThumbUpdatePrmedia(int lastAidx, String thumnailName,
+			String thumnailRealName, int thumnailSize) {
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("aidx",lastAidx);
+		map.put("thumbName",thumnailName);
+		map.put("thumbRealName",thumnailRealName);
+		map.put("thumbSize",thumnailSize);
+		
+		prmediaRepository.updateThumbPrmedia(map);
+		
 	}
 	
 }

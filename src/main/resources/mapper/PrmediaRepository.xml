@@ -44,10 +44,16 @@
 		,#{updateDate},#{updateId},#{regDate},#{regId},#{regIp})
 	</insert>
 	
-	<update id="updatePrmedia" parameterType="com.ssrolc.domain.prmedia.Prmedia" useGeneratedKeys="true" keyProperty="aidx">
+	<update id="updatePrmedia" parameterType="com.ssrolc.domain.prmedia.Prmedia">
 		UPDATE ssrolc.prmedia
 		SET prTitle=#{prTitle} ,  makeTime = #{makeTime} , thumnailName =#{thumnailName} , thumnailRealName =  #{thumnailRealName}
 		, thumnailSize = #{thumnailSize} , mediaLinkUrl = #{mediaLinkUrl} ,  mediaLocation = #{mediaLocation} , updateDate = #{updateDate} , updateId = #{updateId}
+		WHERE aidx = #{aidx} 
+	</update>
+	
+	<update id="updateThumbPrmedia" parameterType="hashMap">
+		UPDATE ssrolc.prmedia
+		SET  thumnailName =#{thumbName} , thumnailRealName =  #{thumbRealName}, thumnailSize = #{thumbSize}
 		WHERE aidx = #{aidx} 
 	</update>
 	

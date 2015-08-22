@@ -49,12 +49,5 @@ $(document).ready(function() {
 		});
 
 
-		//달력 입력
-		$("#makeTime").datepicker();
-
-		$("#makeTime_img").on('click',function() { 
-			$("#makeTime").datepicker( "show" );
-		});
-
 	});
 });
