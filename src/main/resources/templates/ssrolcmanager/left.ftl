@@ -9,12 +9,12 @@
 						<a href="/ssrolcmanager/logout"><img src="/public/img/admin/common/btn_gnb_logout.gif" alt="로그아웃" /></a>
 					</p>
 				</div>		
-<!-- 				<div class="snb"> -->
-<!-- 					<h3>부가관리</h3> -->
-<!-- 					<ul> -->
-<!-- 						<li  class="active"  ><a href="/adm/optional/popuplist">팝업관리</a></li> -->
-<!-- 						<li   ><a href="/adm/prmedia/lists">홍보영상관리</a></li>	 -->
-<!-- 					</ul> -->
-<!-- 				</div> -->
+ 				<div class="snb"> 
+					<h3>부가관리</h3> 
+ 					<ul> 
+ 						<li  class="active"  ><a href="/ssrolcmanager/popups">팝업관리</a></li>
+ 						<li   ><a href="/ssrolcmanager/prmedias">홍보영상관리</a></li>	
+					</ul> 
+ 				</div> 
 			</div>
 <!-- left -->

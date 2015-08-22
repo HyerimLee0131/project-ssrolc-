@@ -14,6 +14,7 @@ multipart:
     
 uploadpath:
         boards: C:/upload/ssrolc/boards
+        prmedia: C:/upload/ssrolc/prmedia
         
 spring:
     resources:
@@ -37,6 +38,7 @@ multipart:
     
 uploadpath:
         boards: /home/upload/ssrolc/boards
+        prmedia: /home/upload/ssrolc/prmedia
         
 spring:
     resources:
@@ -60,6 +62,7 @@ multipart:
 
 uploadpath:
         boards: /home/upload/ssrolc/boards
+        prmedia: /home/upload/ssrolc/prmedia
 
 spring:
     resources:
