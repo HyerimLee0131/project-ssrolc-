@@ -74,11 +74,13 @@
 								</tr>
 							</tbody>
 						</table>
+						<input type="hidden" name="aidx" value="<#if popup?exists>${popup.aidx}</#if>" title="aidx" >
+						<input type="hidden" name="writeType" value="<#if popup?exists>1<#else>0</#if>" title="구분값" >
 					</form>
 
 					<div class="mgt-20 float-r">
                 		<span class="button btn-type-I"><a href="/ssrolcmanager/popups">목록</a></span>
-						<span class="button btn-type-J"><a href="javascript:$.popupWrite();" style="cursor:pointer;">등록</a></span>
+						<span class="button btn-type-J"><a href="javascript:$.popupWrite();" style="cursor:pointer;"><#if popup?exists>수정<#else>등록</#if></a></span>
 						<span class="button btn-type-J"><a href="/ssrolcmanager/popups">취소</a></span>
 					</div>
 				</div>

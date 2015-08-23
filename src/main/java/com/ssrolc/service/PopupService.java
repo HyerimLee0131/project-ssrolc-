@@ -57,7 +57,12 @@ public class PopupService {
 		return popupRepository.deletePopups(aidxs);
 	}
 	
-	public void addPopup(Popup popup){
-		popupRepository.insertPopup(popup);
+	public void addPopup(Popup popup, String writeType){
+		
+		if (writeType.equals("0")){
+			popupRepository.insertPopup(popup);
+		}else{
+			popupRepository.updatePopup(popup);
+		}
 	}
 }

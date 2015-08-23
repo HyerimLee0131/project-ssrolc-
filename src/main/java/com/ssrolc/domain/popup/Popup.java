@@ -44,12 +44,13 @@ public class Popup {
 	public String getRegDate(String format) {
 		return CommonUtils.timestampToString(regDate,format);
 	}
-
-	public Popup(String cookie_id, String name, String size_width,
+/*
+	public Popup(int aidx, String cookie_id, String name, String size_width,
 			String size_height, String location_top, String location_left, String fileName, String startDate,
-			String endDate, String state, //Timestamp updateDate, String updateId,
+			String endDate, String state, Timestamp updateDate, String updateId,
 			Timestamp regDate, String regId, String regIp) {
 		super();
+		this.aidx = aidx;
 		this.cookie_id = cookie_id;
 		this.name = name;
 		this.size_width = size_width;
@@ -60,10 +61,10 @@ public class Popup {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.state = state;
-		//this.updateDate = updateDate;
-		//this.updateId = updateId;
+		this.updateDate = updateDate;
+		this.updateId = updateId;
 		this.regDate = regDate;
 		this.regId = regId;
 		this.regIp = regIp;
-	}
+	}*/
 }

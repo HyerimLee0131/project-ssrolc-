@@ -31,4 +31,8 @@ public interface PopupRepository {
 	 * 글 등록
 	 */
 	public void insertPopup(Popup popup);
+	/*
+	 * 글 수정
+	 */
+	public void updatePopup(Popup popup);
 }

@@ -165,6 +165,7 @@ public class PopupController {
 	//등록
 	@RequestMapping(value="/ssrolcmanager/popups",method=RequestMethod.POST)
 	public String addPopup(Model model,@CookieValue(value="SSROLC_ID") String regId
+							,@RequestParam(value="aidx") int pAidx
 							,@RequestParam(value="pName") String pName
 							,@RequestParam(value="pState") String pState
 							,@RequestParam(value="startDate") String startDate
@@ -173,7 +174,8 @@ public class PopupController {
 							,@RequestParam(value="pSize_height") String pSize_height
 							,@RequestParam(value="location_top") String location_top
 							,@RequestParam(value="location_left") String location_left
-							,@RequestParam(value="pPopup_id") String pPopup_id){
+							,@RequestParam(value="pPopup_id") String pPopup_id
+							,@RequestParam(value="writeType", defaultValue="") String writeType){
 							//,MultipartHttpServletRequest mhRequest){
 		logger.debug("====================================");
 		logger.debug("popup Add");
@@ -192,10 +194,10 @@ public class PopupController {
 */		
 		logger.debug("pStartDate : "+startDate);
 		
-		Popup popup = new Popup(pPopup_id, pName, pSize_width, pSize_height, location_top, location_left
-				, "", startDate, endDate, pState, null, regId, "");
+		Popup popup = new Popup(pAidx, pPopup_id, pName, pSize_width, pSize_height, location_top, location_left
+				, "", startDate, endDate, pState, null, regId, null, regId, "");
 //mhRequest.getRemoteAddr()
-		popupService.addPopup(popup);
+		popupService.addPopup(popup, writeType);
 /*		
 		int lastPopupNo = popup.getAidx();
 

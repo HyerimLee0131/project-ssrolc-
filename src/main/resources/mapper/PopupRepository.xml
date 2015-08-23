@@ -41,4 +41,10 @@
 		VALUES(#{cookie_id},#{name},#{size_width},#{size_height},#{location_top},#{location_left},#{fileName},#{startDate},#{endDate}
 		,#{state},SYSDATE(),#{regId},#{regIp})
 	</insert>
+	
+	<update id="updatePopup">
+		UPDATE ssrolc.popup SET cookie_id=#{cookie_id},name=#{name},size_width=#{size_width},size_height=#{size_height}
+			,location_top=#{location_top},location_left=#{location_left},fileName=#{fileName},startDate=#{startDate}
+			,endDate=#{endDate},state=#{state},updateId=#{updateId},updateDate=SYSDATE() WHERE aidx=#{aidx}
+	</update>
 </mapper>
