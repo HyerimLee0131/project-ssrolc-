@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.common.base.Strings;
@@ -154,8 +156,13 @@ public class PrmediaController {
 			if(prmedia == null || prmedia.equals(null)){
 				throw new PrmediaNotFoundException();
 			}else{
-				model.addAttribute("prmedia",prmedia);
+				//해더에 스크립트 추가
+				List<String> headerScript = new ArrayList<>();
+				headerScript.add("ssrolcmanager/prmedia/admin_view");
+				model.addAttribute("headerScript",headerScript);
 				
+				model.addAttribute("prmedia",prmedia);
+							
 				prmediaService.setPrmediaHitUp(aidx);
 				
 				return "ssrolcmanager/prmedia/view";
@@ -233,6 +240,11 @@ public class PrmediaController {
 								,@PathVariable int aidx
 								,@RequestParam(value="prTitle") String prTitle
 								,@RequestParam(value="makeTime") String makeTime
+								/*
+								,@RequestParam(value="thumnailName") String thumnailName
+								,@RequestParam(value="thumnailRealName") String thumnailRealName
+								,@RequestParam(value="thumnailSize") int thumnailSize*/
+								
 								,@RequestParam(value="mediaLinkUrl") String mediaLinkUrl
 								,@RequestParam(value="mediaLocation") String mediaLocation
 								,MultipartHttpServletRequest mhRequest) {
@@ -248,44 +260,30 @@ public class PrmediaController {
 				
 				prmediaService.setPrmedia(prmedia);
 				
-				/*
-				int lastArticleNo = prmedia.getArticleNo();
 				
-				if(boardInfo.isBoardFileUploadEnable()){
-					
-					String uploadPath = boardUploadPath+File.separator+boardTable;
-					
-					FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, boardInfo.getBoardFileUploadType()
-							, uploadPath,new ArrayList<AttachFile>(),boardTable,lastArticleNo, true, "M"
-							, regId, mhRequest.getRemoteAddr(),nowDate);
-					
-					List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();
-					
-					int imageCnt = 0;
-					int fileCnt = 0;
-					
-					for (AttachFile attachFile : uploadedAttachFileList) {
-						boardService.addAttachFile(attachFile);
-						if("jpg".equals(attachFile.getFileType()) || "png".equals(attachFile.getFileType()) 
-								|| "gif".equals(attachFile.getFileType())){
-							imageCnt++;
-						}else{
-							fileCnt++;
-						}
-					}*/
-					
-					//boardService.setArticleFileCnt(lastArticleNo, fileCnt, imageCnt);
+				String uploadPath = prmediaUploadPath;
 				
-					return "redirect:/ssrolcmanager/prmedias";
+				ThumbFileUploadUtil thumbFileUploadUtil = new ThumbFileUploadUtil(mhRequest, uploadPath, new ArrayList<ThumbUpdateInfo>(), 120);
+				
+				List<ThumbUpdateInfo> uploadedThumbFileList = thumbFileUploadUtil.doFileUpload();
+				
+				for (ThumbUpdateInfo thumbUpdateInfo : uploadedThumbFileList) {
+					logger.debug(thumbUpdateInfo.getFileName()+","+thumbUpdateInfo.getThumnailName()+":"+thumbUpdateInfo.getThumnailSize());
+					
+					prmediaService.setThumbUpdatePrmedia(aidx,thumbUpdateInfo.getFileName(),thumbUpdateInfo.getThumnailName(),thumbUpdateInfo.getThumnailSize());
+					
+				}
+				
+				return "redirect:/ssrolcmanager/prmedias";
 			}
 		
-		
+		//파일정보 
 		@RequestMapping(value="/ssrolcmanager/prmedias/thumbview/{thumnailRealName}/{thumnailSize}",method={RequestMethod.GET} ,produces={MediaType.IMAGE_GIF_VALUE,MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
 		@ResponseBody
 		public ResponseEntity<InputStreamResource> thumbStream(HttpServletResponse res ,@PathVariable String thumnailRealName,@PathVariable int thumnailSize) throws FileNotFoundException{
 			
 			String imageFilePath = prmediaUploadPath+File.separator+"thumb"+File.separator+thumnailRealName;
-			
+			System.out.println();
 			File imageFile = new File(imageFilePath);
 			
 			FileInputStream fis = new FileInputStream(imageFile);
@@ -294,6 +292,22 @@ public class PrmediaController {
 					.contentLength(thumnailSize)
 					.body(new InputStreamResource(fis));
 		}
-	
+		
+		// 글 삭제
+		@RequestMapping(value="/ssrolcmanager/prmedias/delete/{aidx:[0-9]+}",method=RequestMethod.DELETE)
+		@ResponseStatus(value=HttpStatus.NO_CONTENT)
+		public void delete(@PathVariable int aidx){
+			String uploadPath = prmediaUploadPath;
+			
+			Prmedia prmedia = prmediaService.getPrmedia(aidx);
+			String filePath = uploadPath+File.separator+prmedia.getThumnailRealName();
+			File file = new File(filePath);
+			if(file.exists()){
+				file.delete();
+			}
+			
+			prmediaService.removePrmedia(aidx);
+		}
+		
 	}
 	

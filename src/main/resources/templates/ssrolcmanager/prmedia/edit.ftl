@@ -13,7 +13,7 @@
 					 <p></p>
 					<div class="tbl-type-D">
 							<form id="prmediaFrm" name="prmediaFrm" action="/ssrolcmanager/prmedias/edit/${prmedia.aidx}"  method="post" enctype="multipart/form-data">
-							
+							<input name="deleteAttachFileNo" id="deleteAttachFileNo" type="hidden" value="0">
 							  <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 								<colgroup>
 								<col width="15%">
@@ -30,7 +30,22 @@
 								  </tr>
 								  <tr>
 									<th>썸네일</th>
-									<td><div class="td-left"><input name="thumnailName" type="file"  id="thumnailName" title="" value="${prmedia.thumnailName}" /></div></td>
+									<td>
+										
+										
+										<#if prmedia.thumnailName?has_content>
+											<div class="td-left" id="fileDiv">
+												<span id="fileSpan">${prmedia.thumnailName}</span>
+												&nbsp;
+												<input type="button" onclick='$.deleteFile("${prmedia.thumnailRealName}");' value="삭제">
+											</div>
+										<#else>
+										<div class="td-left">
+											<input name="thumnailName" type="file"  id="thumnailName" title="" />
+										</div>
+										</#if>
+										
+									</td>
 								  </tr>
 								   <tr>
 									<th>링크#1, mp4파일</th>
@@ -52,11 +67,12 @@
 							  </table>
 							</form>
 					 </div>
-					<div class="mgt-20 float-r">
-						<span class="button btn-type-I"><a class="w-65" href="/ssrolcmanager/prmedias">목록</a></span>
-						<span class="button btn-type-J"><a class="w-65" onclick="$.prmediaWrite();" style="cursor:pointer;" >등록</a></span>
-						<span class="button btn-type-J"><a class="w-65" href="/ssrolcmanager/prmedias">취소</a></span>
+					
+					<div class="btn-box float-r">
+						<span class="button btn-type-I"><a onclick="$.prmediaWrite();" style="cursor:pointer;" >수정</a></span>
+						<span class="button btn-type-J"><a href="/ssrolcmanager/prmedias">취소</a></span>
 					</div>
+					
 				</div>
 			</div>
 		</div>

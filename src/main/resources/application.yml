@@ -14,7 +14,7 @@ multipart:
     
 uploadpath:
         boards: C:/upload/ssrolc/boards
-        prmedia: C:/upload/ssrolc/prmedia
+        prmedia: C:\upload\ssrolc\prmedia
         
 spring:
     resources:
