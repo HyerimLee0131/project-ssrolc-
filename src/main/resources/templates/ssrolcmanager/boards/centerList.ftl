@@ -31,7 +31,7 @@
 				<div class="tbl-type-D">
 					<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 						<colgroup>
-							<col width="5%">
+							<!--col width="5%"-->
 							<col width="5%">
 							<col width="5%">
 							<col width="10%">
@@ -41,7 +41,7 @@
 						</colgroup>
 						<thead>
 							<tr>
-								<th><input type="checkbox" id='allcheck' title="" /></th>
+								<!--th><input type="checkbox" id='allcheck' title="" /></th-->
 								<th>NO</th>
 								<th>상태</th>
 								<th>썸네일</th>
@@ -57,7 +57,7 @@
 					<span id="pageNavi"></span>
 				</div>
 				<div class="btn-box float-l">
-					<span class="button btn-type-J"><a href="javascript:;" onclick="javascript:select_delete();">선택삭제</a></span>
+					<!--span class="button btn-type-J"><a href="javascript:;" onclick="javascript:select_delete();">선택삭제</a></span-->
 					<span class="button btn-type-I"><a href="/ssrolcmanager/boards/center/new">글쓰기</a></span>
 				</div>
 			</div>
@@ -69,7 +69,7 @@
 	<script id="boardsTemplate" type="text/x-handlebars-template">
 		{{#each articles}}
 		<tr>
-			<td><input name='boardCheckBox' type='checkbox' title="" value='{{articleNo}}'/></td>
+			<!--td><input name='boardCheckBox' type='checkbox' title="" value='{{articleNo}}'/></td-->
 			<td>{{inc @index}}</td>
 			<td>{{#xIf useEnable "==" 0}}비활성{{else}}활성{{/xIf}}</td>
 			<td><img src='/data/file/center/8d850e56e103ba27db8ded9f679d97cf.JPG' alt='ssangdong_thum_20141125.JPG' width='50' height='50' /></td>

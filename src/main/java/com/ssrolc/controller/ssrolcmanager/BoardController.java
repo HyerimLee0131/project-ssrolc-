@@ -293,6 +293,8 @@ public class BoardController {
 					,@RequestParam(value="boardCategoryCode",defaultValue="1") String categoryCode
 					,@RequestParam(value="boardTitle") String title
 					,@RequestParam(value="boardContent") String content
+					,@RequestParam(value="etc1", required=false) String etc1
+					,@RequestParam(value="etc2", required=false) String etc2
 					,@RequestParam(value="deleteAttachFileNo") int deleteAttachFileNo 
 					,MultipartHttpServletRequest mhRequest){
 		
@@ -308,7 +310,7 @@ public class BoardController {
 				Timestamp nowTime = new Timestamp(new Date().getTime());
 				
 				boardService.setArticle(boardTable, articleNo, categoryCode
-						, title, content,nowTime);
+						, title, content, etc1, etc2, nowTime);
 				
 				String uploadPath = boardUploadPath+File.separator+boardTable;
 				
@@ -431,8 +433,10 @@ public class BoardController {
 							,@RequestParam(value="boardCategoryCode",defaultValue="1") String categoryCode
 							,@RequestParam(value="boardTitle") String title
 							,@RequestParam(value="boardContent") String content
+							,@RequestParam(value="etc1", required=false) String etc1
+							,@RequestParam(value="etc2", required=false) String etc2
 							,MultipartHttpServletRequest mhRequest){
-		
+
 		Board boardInfo = boardService.getBoardInfo(boardTable);
 		if(boardInfo == null || boardInfo.equals(null)){
 			throw new BoardNotFoundException(boardTable);
@@ -444,7 +448,8 @@ public class BoardController {
 			Timestamp nowDate = new Timestamp(new Date().getTime());
 			
 			Article article = new Article(boardTable, categoryCode, title, content,0,0,0
-					, "","","",true, false, regId, mhRequest.getRemoteAddr(), nowDate, nowDate);
+					, etc1, etc2,"",true, false, regId, mhRequest.getRemoteAddr(), nowDate, nowDate);
+			//,"","","",true, false, regId, mhRequest.getRemoteAddr(), nowDate, nowDate);
 			
 			boardService.addArticle(article);
 			

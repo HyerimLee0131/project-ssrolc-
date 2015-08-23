@@ -169,6 +169,12 @@
 			<if test="content != null and content != '' ">
 				content = #{content},
 			</if>
+			<if test="etc1 != null and etc1 != '' ">
+				etc1 = #{etc1},
+			</if>
+			<if test="etc2 != null and etc2 != '' ">
+				etc2 = #{etc2},
+			</if>
 			<if test="updateDate != null">
 				updateDate = #{updateDate}
 			</if>
