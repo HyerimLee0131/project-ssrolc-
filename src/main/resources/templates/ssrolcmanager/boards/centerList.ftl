@@ -72,7 +72,7 @@
 			<!--td><input name='boardCheckBox' type='checkbox' title="" value='{{articleNo}}'/></td-->
 			<td>{{inc @index}}</td>
 			<td>{{#xIf useEnable "==" 0}}비활성{{else}}활성{{/xIf}}</td>
-			<td><img src='/data/file/center/8d850e56e103ba27db8ded9f679d97cf.JPG' alt='ssangdong_thum_20141125.JPG' width='50' height='50' /></td>
+			<td></td>
 			<td>
 				<a href='/ssrolcmanager/board/{{boardTable}}/{{articleNo}}'>{{title}}</a>
 				<img src='/public/img/img_inc/icon_file.gif' title='파일' alt='파일'/>  <img src='/public/img/img_inc/ico_hot.gif' title='이슈' alt='이슈'/>

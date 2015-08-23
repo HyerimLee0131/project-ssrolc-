@@ -175,6 +175,9 @@
 			<if test="etc2 != null and etc2 != '' ">
 				etc2 = #{etc2},
 			</if>
+			<if test="etc3 != null and etc3 != '' ">
+				etc3 = #{etc3},
+			</if>
 			<if test="updateDate != null">
 				updateDate = #{updateDate}
 			</if>

@@ -66,8 +66,6 @@
 								<th>내용</th>
 								<td colspan="3">
 									<div class="td-left" id="boardContents">
-										<img src="/data/file/student/f3dd763253c54b85cbd2a5daf6c17718.jpg" alt="" />
-										<br />
 										${article.content}
 									</div>
 								</td>								

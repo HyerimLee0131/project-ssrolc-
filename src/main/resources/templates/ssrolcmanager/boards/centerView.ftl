@@ -6,8 +6,7 @@
 					<ul>
 						<li class="home"><a href="/ssrolcmanager/main">홈</a> &gt; </li>
 						<li><a href="/ssrolcmanager/boards/center">게시판관리</a> &gt; </li>
-						<li class="current"><a
-							href="/ssrolcmanager/boards/${boardInfo.boardTable}">${boardInfo.boardName}</a></li>
+						<li class="current"><a href="/ssrolcmanager/boards/${boardInfo.boardTable}">${boardInfo.boardName}</a></li>
 					</ul>
 				</div>
 				<p class="page-title">${boardInfo.boardName}</p>				
@@ -62,8 +61,6 @@
 								<th>내용</th>
 								<td colspan="3">
 									<div class="td-left" id="boardContents">
-										<img src="/data/file/center/f3dd763253c54b85cbd2a5daf6c17718.jpg" alt="" />
-										<br />
 										${article.content}
 									</div>
 								</td>								
