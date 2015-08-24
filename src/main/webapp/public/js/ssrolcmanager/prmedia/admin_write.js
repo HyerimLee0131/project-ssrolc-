@@ -51,7 +51,7 @@ $(document).ready(function() {
 			deleteFile:function(thumbFileName){
 				if(confirm("해당 파일을 정말 삭제하시겠습니까?")){
 					$("#fileDiv").empty();
-					$("#fileDiv").append('<input name="thumnailName" type="file"  id="thumnailName" title="" />');
+					$("#fileDiv").append('<input name="thumbAttachFile" type="file"  id="thumnailName" title="" />');
 					$("#deleteAttachFileNo").val(thumbFileName);
 				}
 			}

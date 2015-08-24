@@ -13,7 +13,7 @@
 				<p class="page-title">${boardInfo.boardName}</p>
 				<div class="tbl-type-F">
 					<form id="boardFrm" action="/ssrolcmanager/board/${boardInfo.boardTable}/${article.articleNo}" method="POST" enctype="multipart/form-data">
-						<input name="deleteAttachFileNo" id="deleteAttachFileNo" type="hidden" value="0">
+						<input name="deleteAttachFiles" id="deleteAttachFiles" type="hidden" value="">
 						<table width="100%" cellSpacing="0" summary="">
 							<colgroup>
 								<col width="95">
@@ -31,22 +31,22 @@
 										</div>
 									</td>
 								</tr>
-								<!--tr>
+								<tr>
 									<th>부제목</th>
 									<td colspan="3">
 										<div class="td-left">
-											<input name='boardSubTitle' id='boardSubTitle' type="text" class="text"  style="width: 820px;" title="부제목" value='' />
+											<input name='etc4' id='etc4' type="text" class="text"  style="width: 820px;" title="부제목" value='${article.etc4}' />
 										</div>
 									</td>
-								</tr-->
+								</tr>
 								<tr>
 									<th>상태</th>
 									<td colspan="3">
 										<div class="td-left">
 											<select name="useEnable" id="useEnable" title="상태">
 												<option value="">선택하세요</option>
-												<option value="1" <#if useEnable?exists && article.useEnable == '1'>selected</#if>>활성</option>
-												<option value="0" <#if useEnable?exists && article.useEnable == '0'>selected</#if>>비활성</option>
+												<option value="1" <#if useEnable?exists && article.useEnable == true>selected</#if>>활성</option>
+												<option value="0" <#if useEnable?exists && article.useEnable == false>selected</#if>>비활성</option>
 											</select>
 										</div>
 									</td>
@@ -71,26 +71,25 @@
 										</script>
 									</td>
 								</tr>
-								<!--tr>
+								<tr>
 									<th>썸네일 이미지</th>
 									<td colspan="3">
-										<div class="td-left">
-											<input name="userfile[]" type="file" required title="" size="20" fname="썸네일 이미지" />
-											<input name="file_format[]" type="hidden" title="" value="T" /><br />
-											<input name="userfile[]" type="file" required title="" size="20" fname="썸네일 이미지" />
-											<input name="file_format[]" type="hidden" title="" value="T" />
-										</div>
+										<#if attachFiles?has_content>
+											<#list attachFiles as attachFile>
+												<div class="td-left" id="fileDiv${attachFile_index}">
+													<span id="fileSpan${attachFile_index}">${attachFile.fileName}</span>
+													&nbsp;
+													<input type="button" onclick='$.deleteFile("${attachFile_index}","${attachFile.attachFileNo}");' value="삭제">
+												</div>
+											</#list>
+										<#else>
+											<div class="td-left">
+												<input name="thumbAttachFile0" type="file" title="썸네일 이미지" size="20"  />
+												<input name="thumbAttachFile1" type="file" title="썸네일 이미지" size="20"  />
+											</div>
+										</#if>
 									</td>
 								</tr>
-								<tr>
-									<th>메인 이미지</th>
-									<td colspan="3">
-										<div class="td-left">
-											<input name="userfile[]" type="file" required title="" size="20" fname="메인 이미지" />
-											<input name="file_format[]" type="hidden" title="" value="M" /><br />
-										</div>
-									</td>
-								</tr-->
 								<tr>
 									<th>센터명</th>
 									<td colspan="3">

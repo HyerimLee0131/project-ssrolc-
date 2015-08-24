@@ -60,24 +60,14 @@
 										</script>
 									</td>
 								</tr>
-								<!-- tr>
+								<tr>
 									<th>썸네일 이미지</th>
 									<td colspan="3">
 										<div class="td-left">
-											<input name="userfile[]" type="file" class='thumbfile' title="썸네일 이미지" size="20" />
-											<input name="file_format[]" type="hidden" title="" value="T" /><br />
+											<input name="thumbAttachFile" type="file" class='thumbfile' title="썸네일 이미지" size="20" />
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<th>메인 이미지</th>
-									<td colspan="3">
-										<div class="td-left">
-											<input name="userfile[]" type="file" class='mainfile' title="메인 이미지" size="20" />
-											<input name="file_format[]" type="hidden" title="" value="M" /><br />
-										</div>
-									</td>
-								</tr -->
 								<tr>
 									<th>센터명</th>
 									<td colspan="3">

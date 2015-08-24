@@ -26,7 +26,7 @@ public class AttachFile {
 	private int fileWidth;
 	private int fileHeight;
 	private String fileType;
-	private String fileFormat;
+	private boolean fileThumbFlag;
 	private String regId;
 	private String regIp;
 	private Timestamp regDate;
@@ -34,7 +34,7 @@ public class AttachFile {
 	public AttachFile(String boardTable, int articleNo, boolean editFlag,
 			int sort, String fileName, String convertFileName, int downloadCnt,
 			int fileSize, int fileWidth, int fileHeight, String fileType,
-			String fileFormat, String regId, String regIp, Timestamp regDate) {
+			boolean fileThumbFlag, String regId, String regIp, Timestamp regDate) {
 		super();
 		this.boardTable = boardTable;
 		this.articleNo = articleNo;
@@ -47,7 +47,7 @@ public class AttachFile {
 		this.fileWidth = fileWidth;
 		this.fileHeight = fileHeight;
 		this.fileType = fileType;
-		this.fileFormat = fileFormat;
+		this.fileThumbFlag = fileThumbFlag;
 		this.regId = regId;
 		this.regIp = regIp;
 		this.regDate = regDate;

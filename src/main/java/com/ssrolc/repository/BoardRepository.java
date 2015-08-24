@@ -83,4 +83,8 @@ public interface BoardRepository {
 	 * 카테고리명 읽기
 	 */
 	public String findBoardCategoryName(Map<String, Object> map);
+	/*
+	 * 	파일 최종sort 가져오기
+	 */
+	public Integer findAttachFileMaxSort(int articleNo);
 }

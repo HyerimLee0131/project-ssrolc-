@@ -1,11 +1,10 @@
 package com.ssrolc.utils;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.ssrolc.domain.board.AttachFile;
+import com.google.common.primitives.Ints;
+import com.ssrolc.domain.common.UploadFileInfo;
 import com.ssrolc.exception.FileCanNotUploadException;
 
 @Data
@@ -37,45 +37,43 @@ public class FileUploadUtil {
 	private static final String IMAGETYPEMODE = "image";
 	private static final String DOCTYPEMODE = "doc";
 	
-	private MultipartHttpServletRequest mhsRequest;
+	private MultipartHttpServletRequest mhRequest;
 	private String uploadFileTypeMode;
+	/*
+	 * 업로드될 path   /home/upload/boards/notice 여기까지 받아와야함
+	 */
 	private String uploadPath;
-	private List<AttachFile> attachFileList;
-	private String boardTable;
-	private int articleNo;
-	private boolean editFlag;
-	private String fileFormat;
-	private String regId;
-	private String regIp;
-	private Timestamp regDate;
+	private int thumbWidth;
+	private List<UploadFileInfo> UploadFileInfoList;
 	
 	
-	
-	public List<AttachFile> doFileUpload(){
-		Map<String,MultipartFile>  mhsMap = mhsRequest.getFileMap();	
+	public List<UploadFileInfo> doFileUpload(){
+		Map<String,MultipartFile>  mhsMap = mhRequest.getFileMap();	
 		if(!mhsMap.isEmpty()){
 			Iterator<String> uploadFileIterator = mhsMap.keySet().iterator();
 			
-			int sort = 1;
-			
 			while (uploadFileIterator.hasNext()) {
 				String uploadFileParamName = (String) uploadFileIterator.next();
-				MultipartFile multipartFile = mhsRequest.getFile(uploadFileParamName);
+				MultipartFile multipartFile = mhRequest.getFile(uploadFileParamName);
 				
 				if(!multipartFile.isEmpty()){
-					if(!doUpload(multipartFile,sort)){
+					boolean thumbType = false;
+					if(uploadFileParamName.startsWith("thumb")){
+						thumbType = true;
+					}					
+					
+					if(!doUpload(multipartFile,thumbType)){
 						throw new FileCanNotUploadException();
 					}
 					
-					sort++;
 				}
 			}
 		}
 		
-		return attachFileList;
+		return UploadFileInfoList;
 	}
 	
-	private boolean doUpload(MultipartFile uploadFile,int sort){
+	private boolean doUpload(MultipartFile uploadFile,boolean thumbType){
 		
 		String fileContentType =  uploadFile.getContentType();
 
@@ -94,11 +92,12 @@ public class FileUploadUtil {
 			try {
 				File saveFilePath = new File(filePath);
 				uploadFile.transferTo(saveFilePath);
-				Map<String,Object> fileInfoMap = fileInfo(saveFilePath,fileContentType);
-				attachFileList.add(new AttachFile(boardTable, articleNo, editFlag, sort
-						, originalFilename, newFileName,0,Integer.parseInt(fileInfoMap.get("fileSize").toString())
-						,Integer.parseInt(fileInfoMap.get("fileWidth").toString())
-						,Integer.parseInt(fileInfoMap.get("fileHeight").toString()),ext,fileFormat, regId, regIp,regDate));
+				if(saveFilePath.canRead()){
+	
+					UploadFileInfo uploadFileInfo = getFileInfo(uploadPath,originalFilename,newFileName,fileContentType,thumbWidth,thumbType);
+					UploadFileInfoList.add(uploadFileInfo);
+				}
+				
 			} catch (IllegalStateException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -108,29 +107,84 @@ public class FileUploadUtil {
 		}
 	}
 	
-	private Map<String,Object> fileInfo(File saveFilePath,String fileContentType){
-		Map<String,Object> fileInfoMap = new HashMap<>();
-		if(saveFilePath.canRead()){
-			fileInfoMap.put("fileSize",saveFilePath.length());
+	private UploadFileInfo getFileInfo(String path,String originalFilename, String newFileName
+										,String fileContentType, int thumbWidth,boolean thumbType) {
+		
+		UploadFileInfo uploadFileInfo = new UploadFileInfo();
+		uploadFileInfo.setOriginalFilename(originalFilename);
+		
+		if(thumbType && Arrays.asList(mineTypeImages()).contains(fileContentType)){
 			
-			if(Arrays.asList(mineTypeImages()).contains(fileContentType)){
+			String thumbPath = path+File.separator+"thumb";
+			
+			try {
+				//디렉토리 없으면 생성
+				addDir(thumbPath);
+				
+				//원본파일
+				File originFile = new File(path+File.separator+newFileName);
+				
+				//원본파일 버퍼 생성
+				BufferedImage originFileBuffer = ImageIO.read(originFile);
+				
+				//썸네일 높이 계산
+				int originWidth = originFileBuffer.getWidth();
+				int originHeight = originFileBuffer.getHeight();
+				int thumbHeight = originHeight * thumbWidth / originWidth;
+				
+				//썸네일파일 버퍼 생성
+				BufferedImage thumbFileBuffer = new BufferedImage(thumbWidth, thumbHeight, BufferedImage.TYPE_3BYTE_BGR); 
+				
+				//확장자 체크 및 원본 경로
+				int lastIndex = originFile.getName().lastIndexOf(".");
+				String fileExt = originFile.getName().substring(lastIndex + 1);
+				
+				//썸네일 파일명
+				String thumFileName = "thumb_"+newFileName;
+								
+				//썸네일 파일 생성	
+				File thumbFile = new File(thumbPath+File.separator+thumFileName);
+				Graphics2D graphic = thumbFileBuffer.createGraphics();
+				graphic.drawImage(originFileBuffer, 0, 0, thumbWidth, thumbHeight, null);
+				ImageIO.write(thumbFileBuffer, fileExt, thumbFile);
+				
+				//썸네일파일 정보 맵에 입력
+				uploadFileInfo.setConvertFileName(thumFileName);
+				uploadFileInfo.setWidth(thumbWidth);
+				uploadFileInfo.setHeight(thumbHeight);
+				uploadFileInfo.setSize(Ints.checkedCast(thumbFile.length()));
+				uploadFileInfo.setFileType(IMAGETYPEMODE);
+				uploadFileInfo.setThumbType(thumbType);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else{
+			File saveFile = new File(path+File.separator+newFileName);
+
+			uploadFileInfo.setSize(Ints.checkedCast(saveFile.length()));
+			uploadFileInfo.setConvertFileName(newFileName);
+
+			if (Arrays.asList(mineTypeImages()).contains(fileContentType)) {
 				try {
-					BufferedImage saveFileBuffer = ImageIO.read(saveFilePath);
+					BufferedImage saveFileBuffer = ImageIO.read(saveFile);
 					
-					fileInfoMap.put("fileWidth",saveFileBuffer.getWidth());
-					fileInfoMap.put("fileHeight",saveFileBuffer.getWidth());
-					
+					uploadFileInfo.setWidth(saveFileBuffer.getWidth());
+					uploadFileInfo.setHeight(saveFileBuffer.getHeight());
+					uploadFileInfo.setFileType(IMAGETYPEMODE);
+					uploadFileInfo.setThumbType(thumbType);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}else{
-				fileInfoMap.put("fileWidth",0);
-				fileInfoMap.put("fileHeight",0);
+			} else {
+				uploadFileInfo.setWidth(0);
+				uploadFileInfo.setHeight(0);
+				uploadFileInfo.setFileType(DOCTYPEMODE);
+				uploadFileInfo.setThumbType(thumbType);
 			}
 		}
 		
-		return fileInfoMap;
+		return uploadFileInfo;
 	}
 	
 	private String getNewFileName(){

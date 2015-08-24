@@ -24,7 +24,7 @@
 		SELECT * FROM ssrolc.article 
 		<where>
 			<if test="boardTable != null">
-				boardTable = #{boardTable} AND useEnable = 1 AND deleteFlag = 0
+				boardTable = #{boardTable}
 			</if>
 			<if test="searchField != null and searchField != '' and  searchValue != null and searchValue != '' ">
 				<if test="searchField == 'title' ">
@@ -51,7 +51,7 @@
 		SELECT * FROM ssrolc.article 
 		<where>
 			<if test="boardTable != null">
-				boardTable = #{boardTable} AND useEnable = 1 AND deleteFlag = 0
+				boardTable = #{boardTable}
 			</if>
 			<if test="articleNo != null and articleNo != 0">
 				AND articleNo = #{articleNo}
@@ -65,7 +65,7 @@
 		SELECT count(0) FROM ssrolc.article
 		<where>
 			<if test="boardTable != null">
-				boardTable = #{boardTable} AND useEnable = 1 AND deleteFlag = 0
+				boardTable = #{boardTable}
 			</if>
 			<if test="searchField != null and searchField != '' and  searchValue != null and searchValue != '' ">
 				<if test="searchField == 'title' ">
@@ -93,8 +93,8 @@
 			<if test="articleNo != null and articleNo != 0">
 				AND articleNo = #{articleNo}
 			</if>
-			<if test="fileFormat != null and fileFormat != '' ">
-				AND fileFormat = #{fileFormat}
+			<if test="fileType != null and fileType != 'all' ">
+				AND fileType = #{fileType}
 			</if>
 		</where>
 		ORDER BY sort
@@ -108,9 +108,9 @@
 	
 	<insert id="insertAttachFile" parameterType="com.ssrolc.domain.board.AttachFile" useGeneratedKeys="true" keyProperty="attachFileNo">
 		INSERT INTO ssrolc.attachFile(boardTable,articleNo,editFlag,sort,fileName,convertFileName
-		,downloadCnt,fileSize,fileWidth,fileHeight,fileType,fileFormat,regId,regIp,regDate)
+		,downloadCnt,fileSize,fileWidth,fileHeight,fileType,fileThumbFlag,regId,regIp,regDate)
 		VALUES(#{boardTable},#{articleNo},#{editFlag},#{sort},#{fileName},#{convertFileName}
-		,#{downloadCnt},#{fileSize},#{fileWidth},#{fileHeight},#{fileType},#{fileFormat}
+		,#{downloadCnt},#{fileSize},#{fileWidth},#{fileHeight},#{fileType},#{fileThumbFlag}
 		,#{regId},#{regIp},#{regDate})
 	</insert>
 	
@@ -121,9 +121,9 @@
 	
 	
 	<insert id="insertArticle" parameterType="com.ssrolc.domain.board.Article" useGeneratedKeys="true" keyProperty="articleNo">
-		INSERT INTO ssrolc.article(boardTable,categoryCode,title,content,hit,fileCnt,imageCnt,etc1,etc2,etc3
+		INSERT INTO ssrolc.article(boardTable,categoryCode,title,content,hit,fileCnt,imageCnt,etc1,etc2,etc3,etc4
 		,useEnable,deleteFlag,regId,regIp,regDate,updateDate) 
-		VALUES(#{boardTable},#{categoryCode},#{title},#{content},#{hit},#{fileCnt},#{imageCnt},#{etc1},#{etc2},#{etc3}
+		VALUES(#{boardTable},#{categoryCode},#{title},#{content},#{hit},#{fileCnt},#{imageCnt},#{etc1},#{etc2},#{etc3},#{etc4}
 		,#{useEnable},#{deleteFlag},#{regId},#{regIp},#{regDate},#{updateDate})
 	</insert>
 	
@@ -178,6 +178,9 @@
 			<if test="etc3 != null and etc3 != '' ">
 				etc3 = #{etc3},
 			</if>
+			<if test="etc4 != null and etc4 != '' ">
+				etc4 = #{etc4},
+			</if>
 			<if test="updateDate != null">
 				updateDate = #{updateDate}
 			</if>
@@ -192,5 +195,9 @@
 	<select id="findBoardCategoryName" parameterType="hashMap" resultType="String">
 		SELECT categoryName FROM ssrolc.boardCategory 
 		WHERE boardTable = #{boardTable} AND categoryCode = #{categoryCode}
+	</select>
+	
+	<select id="findAttachFileMaxSort" parameterType="Integer" resultType="int">
+		SELECT MAX(sort) FROM ssrolc.attachFile WHERE articleNo =#{articleNo} GROUP BY sort;
 	</select>
 </mapper>

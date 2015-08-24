@@ -13,7 +13,7 @@
 				<h1 class="mgt-20"></h1>
 				<div class="tbl-type-F">
 					<form id="boardFrm" action="/ssrolcmanager/board/${boardInfo.boardTable}/${article.articleNo}" method="post" enctype="multipart/form-data">
-					<input name="deleteAttachFileNo" id="deleteAttachFileNo" type="hidden" value="0">
+					<input name="deleteAttachFiles" id="deleteAttachFiles" type="hidden" value="">
 					<table width="100%" cellSpacing="0" summary="">
 						<colgroup>
 							<col width="95">

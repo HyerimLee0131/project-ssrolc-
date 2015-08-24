@@ -13,7 +13,7 @@
 				<p class="page-title">${boardInfo.boardName}</p>
 				<div class="tbl-type-F">
 					<form id="boardFrm" action="/ssrolcmanager/board/${boardInfo.boardTable}/${article.articleNo}" method="POST" enctype="multipart/form-data">
-						<input name="deleteAttachFileNo" id="deleteAttachFileNo" type="hidden" value="0">
+						<input name="deleteAttachFiles" id="deleteAttachFiles" type="hidden" value="">
 						<table width="100%" cellSpacing="0" summary="">
 							<colgroup>
 								<col width="95">
@@ -63,24 +63,24 @@
 										</script>
 									</td>
 								</tr>
-								<!-- tr>
-									<th>썸네일 이미지</th>
+								<tr>
+								<th>썸네일 이미지</th>
 									<td colspan="3">
-										<div class="td-left">
-											<input name="userfile[]" type="file" class='thumbfile' title="썸네일 이미지" size="20" />
-											<input name="file_format[]" type="hidden" title="" value="T" /><br />
-										</div>
+											<#if attachFiles?has_content>
+												<#list attachFiles as attachFile>
+													<div class="td-left" id="fileDiv${attachFile_index}">
+														<span id="fileSpan${attachFile_index}">${attachFile.fileName}</span>
+														&nbsp;
+														<input type="button" onclick='$.deleteFile("${attachFile_index}","${attachFile.attachFileNo}");' value="삭제">
+													</div>
+												</#list>
+											<#else>
+												<div class="td-left">
+													<input name="thumbAttachFile" type="file" class='attachFile' size="20"/>
+												</div>
+											</#if>
 									</td>
 								</tr>
-								<tr>
-									<th>메인 이미지</th>
-									<td colspan="3">
-										<div class="td-left">
-											<input name="userfile[]" type="file" class='mainfile' title="메인 이미지" size="20" />
-											<input name="file_format[]" type="hidden" title="" value="M" /><br />
-										</div>
-									</td>
-								</tr -->
 								<tr>
 									<th>센터명</th>
 									<td colspan="3">

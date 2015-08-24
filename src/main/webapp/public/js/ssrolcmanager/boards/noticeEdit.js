@@ -6,7 +6,7 @@ $(function() {
 			if(confirm("해당 파일을 정말 삭제하시겠습니까?")){
 				$("#fileDiv"+index).empty();
 				$("#fileDiv"+index).append('<input name="attachFile" type="file" class="attachFile" size="20"/>');
-				$("#deleteAttachFileNo").val(atticleFileNo);
+				$("#deleteAttachFiles").val(atticleFileNo);
 			}
 		}
 		

@@ -27,6 +27,7 @@ public class Article {
 	private String etc1;
 	private String etc2;
 	private String etc3;
+	private String etc4;
 	private boolean useEnable;
 	private boolean deleteFlag;
 	private String regId;
@@ -41,8 +42,9 @@ public class Article {
 
 	public Article(String boardTable, String categoryCode, String title,
 			String content, int hit, int fileCnt, int imageCnt, String etc1,
-			String etc2, String etc3, boolean useEnable, boolean deleteFlag,
-			String regId, String regIp, Timestamp regDate, Timestamp updateDate) {
+			String etc2, String etc3, String etc4, boolean useEnable,
+			boolean deleteFlag, String regId, String regIp, Timestamp regDate,
+			Timestamp updateDate) {
 		super();
 		this.boardTable = boardTable;
 		this.categoryCode = categoryCode;
@@ -54,6 +56,7 @@ public class Article {
 		this.etc1 = etc1;
 		this.etc2 = etc2;
 		this.etc3 = etc3;
+		this.etc4 = etc4;
 		this.useEnable = useEnable;
 		this.deleteFlag = deleteFlag;
 		this.regId = regId;

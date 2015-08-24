@@ -33,19 +33,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.common.base.Strings;
-import com.ssrolc.domain.board.Article;
-import com.ssrolc.domain.board.AttachFile;
-import com.ssrolc.domain.board.Board;
+import com.ssrolc.domain.common.UploadFileInfo;
 import com.ssrolc.domain.prmedia.Prmedia;
-import com.ssrolc.domain.prmedia.ThumbUpdateInfo;
-import com.ssrolc.exception.ArticleNotAddException;
-import com.ssrolc.exception.ArticleNotFoundException;
-import com.ssrolc.exception.BoardNotFoundException;
 import com.ssrolc.exception.PrmediaNotFoundException;
 import com.ssrolc.service.PrmediaService;
 import com.ssrolc.utils.FileUploadUtil;
 import com.ssrolc.utils.PageUtil;
-import com.ssrolc.utils.ThumbFileUploadUtil;
 
 
 @Controller
@@ -86,7 +79,7 @@ public class PrmediaController {
 			int rowBlockSize = 10;
 			int pageBlockSize = 10;
 			int totalRowCnt = prmediaCnt;
-			//System.out.println("totalRowCnt========================================================"+totalRowCnt);
+
 			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
 			
 			
@@ -192,20 +185,19 @@ public class PrmediaController {
 			
 			int lastAidx = prmedia.getAidx();
 			
+			
+			final String uploadFileTypeMode = "image";
+			
+			FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, uploadFileTypeMode
+													, prmediaUploadPath, 120, new ArrayList<UploadFileInfo>());
+			
+			List<UploadFileInfo> uploadedThumbFileList = fileUploadUtil.doFileUpload();
+			
+			for (UploadFileInfo uploadFileInfo : uploadedThumbFileList) {
 				
-			String uploadPath = prmediaUploadPath;
-			
-			ThumbFileUploadUtil thumbFileUploadUtil = new ThumbFileUploadUtil(mhRequest, uploadPath, new ArrayList<ThumbUpdateInfo>(), 120);
-			
-			List<ThumbUpdateInfo> uploadedThumbFileList = thumbFileUploadUtil.doFileUpload();
-			
-			for (ThumbUpdateInfo thumbUpdateInfo : uploadedThumbFileList) {
-				logger.debug(thumbUpdateInfo.getFileName()+","+thumbUpdateInfo.getThumnailName()+":"+thumbUpdateInfo.getThumnailSize());
-				
-				prmediaService.setThumbUpdatePrmedia(lastAidx,thumbUpdateInfo.getFileName(),thumbUpdateInfo.getThumnailName(),thumbUpdateInfo.getThumnailSize());
+				prmediaService.setThumbUpdatePrmedia(lastAidx,uploadFileInfo.getOriginalFilename(),uploadFileInfo.getConvertFileName(),uploadFileInfo.getSize());
 				
 			}
-			
 			
 			return "redirect:/ssrolcmanager/prmedias";
 		}
@@ -263,14 +255,16 @@ public class PrmediaController {
 				
 				String uploadPath = prmediaUploadPath;
 				
-				ThumbFileUploadUtil thumbFileUploadUtil = new ThumbFileUploadUtil(mhRequest, uploadPath, new ArrayList<ThumbUpdateInfo>(), 120);
+				final String uploadFileTypeMode = "image";
 				
-				List<ThumbUpdateInfo> uploadedThumbFileList = thumbFileUploadUtil.doFileUpload();
+				FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, uploadFileTypeMode
+														, prmediaUploadPath, 120, new ArrayList<UploadFileInfo>());
 				
-				for (ThumbUpdateInfo thumbUpdateInfo : uploadedThumbFileList) {
-					logger.debug(thumbUpdateInfo.getFileName()+","+thumbUpdateInfo.getThumnailName()+":"+thumbUpdateInfo.getThumnailSize());
+				List<UploadFileInfo> uploadedThumbFileList = fileUploadUtil.doFileUpload();
+				
+				for (UploadFileInfo uploadFileInfo : uploadedThumbFileList) {
 					
-					prmediaService.setThumbUpdatePrmedia(aidx,thumbUpdateInfo.getFileName(),thumbUpdateInfo.getThumnailName(),thumbUpdateInfo.getThumnailSize());
+					prmediaService.setThumbUpdatePrmedia(aidx,uploadFileInfo.getOriginalFilename(),uploadFileInfo.getConvertFileName(),uploadFileInfo.getSize());
 					
 				}
 				
@@ -283,7 +277,7 @@ public class PrmediaController {
 		public ResponseEntity<InputStreamResource> thumbStream(HttpServletResponse res ,@PathVariable String thumnailRealName,@PathVariable int thumnailSize) throws FileNotFoundException{
 			
 			String imageFilePath = prmediaUploadPath+File.separator+"thumb"+File.separator+thumnailRealName;
-			System.out.println();
+
 			File imageFile = new File(imageFilePath);
 			
 			FileInputStream fis = new FileInputStream(imageFile);

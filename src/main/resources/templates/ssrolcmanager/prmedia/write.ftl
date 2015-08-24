@@ -29,7 +29,7 @@
 								  </tr>
 								  <tr>
 									<th>썸네일</th>
-									<td><div class="td-left"><input name="thumnailName" type="file"  id="thumnailName" title="" /></div></td>
+									<td><div class="td-left"><input name="thumbAttachFile" type="file"  id="thumnailName" title="" /></div></td>
 								  </tr>
 								   <tr>
 									<th>링크#1, mp4파일</th>

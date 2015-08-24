@@ -30,14 +30,14 @@
 										</div>
 									</td>
 								</tr>
-								<!--tr>
+								<tr>
 									<th>부제목</th>
 									<td colspan="3">
 										<div class="td-left">
-											<input name='boardSubTitle' id='boardSubTitle' type="text" class="text"  style="width: 820px;" title="부제목" value='' />
+											<input name='etc4' id='etc4' type="text" class="text"  style="width: 820px;" title="부제목" value='' />
 										</div>
 									</td>
-								</tr-->
+								</tr>
 								<tr>
 									<th>상태</th>
 									<td colspan="3">
@@ -68,26 +68,15 @@
 										</script>
 									</td>
 								</tr>
-								<!--tr>
+								<tr>
 									<th>썸네일 이미지</th>
 									<td colspan="3">
 										<div class="td-left">
-											<input name="userfile[]" type="file" required title="" size="20" fname="썸네일 이미지" />
-											<input name="file_format[]" type="hidden" title="" value="T" /><br />
-											<input name="userfile[]" type="file" required title="" size="20" fname="썸네일 이미지" />
-											<input name="file_format[]" type="hidden" title="" value="T" />
+											<input name="thumbAttachFile0" type="file" title="썸네일 이미지" size="20"  />
+											<input name="thumbAttachFile1" type="file" title="썸네일 이미지" size="20"  />
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<th>메인 이미지</th>
-									<td colspan="3">
-										<div class="td-left">
-											<input name="userfile[]" type="file" required title="" size="20" fname="메인 이미지" />
-											<input name="file_format[]" type="hidden" title="" value="M" /><br />
-										</div>
-									</td>
-								</tr-->
 								<tr>
 									<th>센터명</th>
 									<td colspan="3">

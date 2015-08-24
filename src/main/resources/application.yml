@@ -13,7 +13,7 @@ multipart:
     maxRequestSize: 10240KB
     
 uploadpath:
-        boards: C:/upload/ssrolc/boards
+        boards: C:\upload\ssrolc\boards
         prmedia: C:\upload\ssrolc\prmedia
         
 spring:

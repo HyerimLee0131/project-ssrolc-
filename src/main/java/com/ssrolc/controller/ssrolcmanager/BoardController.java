@@ -45,6 +45,7 @@ import com.ssrolc.domain.board.Article;
 import com.ssrolc.domain.board.AttachFile;
 import com.ssrolc.domain.board.Board;
 import com.ssrolc.domain.board.BoardCategory;
+import com.ssrolc.domain.common.UploadFileInfo;
 import com.ssrolc.exception.ArticleNotAddException;
 import com.ssrolc.exception.ArticleNotFoundException;
 import com.ssrolc.exception.BoardCategoryNotFoundException;
@@ -217,9 +218,9 @@ public class BoardController {
 				model.addAttribute("article",article);
 				
 				if(boardInfo.isBoardFileUploadEnable()){
-					final String fileFormat = "M";
+					final String fileType = "all";
 
-					List<AttachFile> attachFiles = boardService.getAttachFiles(boardTable, articleNo, fileFormat);
+					List<AttachFile> attachFiles = boardService.getAttachFiles(boardTable, articleNo, fileType);
 					
 					model.addAttribute("attachFiles",attachFiles);
 				}
@@ -256,9 +257,9 @@ public class BoardController {
 				model.addAttribute("article",article);
 				
 				if(boardInfo.isBoardFileUploadEnable()){
-					final String fileFormat = "M";
+					final String fileType = "all";
 
-					List<AttachFile> attachFiles = boardService.getAttachFiles(boardTable, articleNo, fileFormat);
+					List<AttachFile> attachFiles = boardService.getAttachFiles(boardTable, articleNo, fileType);
 					
 					model.addAttribute("attachFiles",attachFiles);
 				}
@@ -293,10 +294,11 @@ public class BoardController {
 					,@RequestParam(value="boardCategoryCode",defaultValue="1") String categoryCode
 					,@RequestParam(value="boardTitle") String title
 					,@RequestParam(value="boardContent") String content
-					,@RequestParam(value="etc1", required=false) String etc1
-					,@RequestParam(value="etc2", required=false) String etc2
-					,@RequestParam(value="etc3", required=false) String etc3
-					,@RequestParam(value="deleteAttachFileNo") int deleteAttachFileNo 
+					,@RequestParam(value="etc1", required=false,defaultValue="") String etc1
+					,@RequestParam(value="etc2", required=false,defaultValue="") String etc2
+					,@RequestParam(value="etc3", required=false,defaultValue="") String etc3
+					,@RequestParam(value="etc4", required=false,defaultValue="") String etc4
+					,@RequestParam(value="deleteAttachFiles",required=false,defaultValue="") String deleteAttachFiles 
 					,MultipartHttpServletRequest mhRequest){
 		
 		Board boardInfo = boardService.getBoardInfo(boardTable);
@@ -311,66 +313,87 @@ public class BoardController {
 				Timestamp nowTime = new Timestamp(new Date().getTime());
 				
 				boardService.setArticle(boardTable, articleNo, categoryCode
-						, title, content, etc1, etc2, etc3, nowTime);
+						, title, content, etc1, etc2, etc3,etc4, nowTime);
 				
 				String uploadPath = boardUploadPath+File.separator+boardTable;
 				
-				if(deleteAttachFileNo > 0){
-					AttachFile attachFileInfo = boardService.getAttachFile(deleteAttachFileNo);					
+				
+				
+				if(boardInfo.isBoardFileUploadEnable()){
+				
+					int imageCnt = article.getImageCnt();
+					int fileCnt = article.getFileCnt();
+					final String imageFileType = "image";
 					
-					String filePath = uploadPath+File.separator+attachFileInfo.getConvertFileName();
-					
-					File file = new File(filePath);
-					
-					if(file.exists()){
-						file.delete();
-						boardService.removeAttachFile(deleteAttachFileNo);
-					}					
-					
+					if(!Strings.isNullOrEmpty(deleteAttachFiles)){
+						String[] deleteFileNoArray = deleteAttachFiles.split(",");
+						
+						for (String deleteFileNoStr : deleteFileNoArray) {
+							
+							int deleteAttachFileNo = Integer.parseInt(deleteFileNoStr);
+							
+							if(deleteAttachFileNo > 0){
+								AttachFile attachFileInfo = boardService.getAttachFile(deleteAttachFileNo);					
+								
+								String filePath = uploadPath+File.separator;
+								
+								//썸네일파일인가
+								if(attachFileInfo.isFileThumbFlag()){
+									
+									filePath += "thumb"
+														+File.separator+attachFileInfo.getConvertFileName();
+								}else{
+									filePath += attachFileInfo.getConvertFileName();
+								}
+								
+								File file = new File(filePath);
+								if(file.exists()){
+									file.delete();
+									boardService.removeAttachFile(deleteAttachFileNo);
+								}
+								
+								if(imageFileType.equals(attachFileInfo.getFileType())){
+									imageCnt--;
+								}else{
+									fileCnt--;
+								}
+								
+							}
+						}
+					}
 					FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, boardInfo.getBoardFileUploadType()
-							, uploadPath,new ArrayList<AttachFile>(),boardTable,articleNo, false, "M"
-							, regId, mhRequest.getRemoteAddr(),nowTime);
+							, uploadPath,boardInfo.getThumnailWidth(),new ArrayList<UploadFileInfo>());
 					
-					List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();
+					List<UploadFileInfo> uploadFileInfoList = fileUploadUtil.doFileUpload();
+
+					int sort = 1;
 					
-					int imageCnt = 0;
-					int fileCnt = 0;
+					Integer maxSort =boardService.getAttachFileMaxSort(articleNo);
 					
-					for (AttachFile attachFile : uploadedAttachFileList) {
+					if(maxSort != null){
+						sort += maxSort.intValue();
+					}
+					
+					for (UploadFileInfo uploadFileInfo : uploadFileInfoList) {
+						String uploadFileType = uploadFileInfo.getFileType();					
+						
+						AttachFile attachFile = new AttachFile(boardTable,articleNo,false,sort,uploadFileInfo.getOriginalFilename()
+								, uploadFileInfo.getConvertFileName(),0,uploadFileInfo.getSize()
+								,uploadFileInfo.getWidth(),uploadFileInfo.getHeight()
+								,uploadFileType,uploadFileInfo.isThumbType(), regId
+								,mhRequest.getRemoteAddr(),nowTime);
+						
 						boardService.addAttachFile(attachFile);
-						if("jpg".equals(attachFile.getFileType()) || "png".equals(attachFile.getFileType()) 
-								|| "gif".equals(attachFile.getFileType())){
+						
+						if(imageFileType.equals(uploadFileType)){
 							imageCnt++;
 						}else{
 							fileCnt++;
 						}
+						sort++;
 					}
 					
 					boardService.setArticleFileCnt(articleNo, fileCnt, imageCnt);
-					
-				}else{
-					if(article.getFileCnt() == 0  && article.getImageCnt() == 0 ){
-						FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, boardInfo.getBoardFileUploadType()
-								, uploadPath,new ArrayList<AttachFile>(),boardTable,articleNo, false, "M"
-								, regId, mhRequest.getRemoteAddr(),nowTime);
-						
-						List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();
-						
-						int imageCnt = 0;
-						int fileCnt = 0;
-						
-						for (AttachFile attachFile : uploadedAttachFileList) {
-							boardService.addAttachFile(attachFile);
-							if("jpg".equals(attachFile.getFileType()) || "png".equals(attachFile.getFileType()) 
-									|| "gif".equals(attachFile.getFileType())){
-								imageCnt++;
-							}else{
-								fileCnt++;
-							}
-						}
-						
-						boardService.setArticleFileCnt(articleNo, fileCnt, imageCnt);
-					}
 				}
 								
 				return "redirect:/ssrolcmanager/boards/"+boardTable;
@@ -411,7 +434,9 @@ public class BoardController {
 	@RequestMapping(value="/ssrolcmanager/boards/{boardTable}/{articleNo:[0-9]+}",method=RequestMethod.DELETE)
 	@ResponseStatus(value=HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable String boardTable,@PathVariable int articleNo){
-		List<AttachFile> attachFileList =  boardService.getAttachFiles(boardTable, articleNo,"");
+		final String fileType = "all";
+		
+		List<AttachFile> attachFileList =  boardService.getAttachFiles(boardTable, articleNo,fileType);
 		
 		boardService.removeArticle(boardTable, articleNo);
 		boardService.removeAttachFilesToArticle(boardTable, articleNo);
@@ -419,7 +444,13 @@ public class BoardController {
 		String uploadPath = boardUploadPath+File.separator+boardTable;
 		
 		for (AttachFile attachFile : attachFileList) {
-			String filePath = uploadPath+File.separator+attachFile.getConvertFileName();
+			String filePath = uploadPath+File.separator;
+			
+			if(attachFile.isFileThumbFlag()){
+				filePath += "thumb"+File.separator;
+			}
+			
+			filePath += attachFile.getConvertFileName();
 			
 			File file = new File(filePath);
 			
@@ -434,9 +465,10 @@ public class BoardController {
 							,@RequestParam(value="boardCategoryCode",defaultValue="1") String categoryCode
 							,@RequestParam(value="boardTitle") String title
 							,@RequestParam(value="boardContent") String content
-							,@RequestParam(value="etc1", required=false) String etc1
-							,@RequestParam(value="etc2", required=false) String etc2
-							,@RequestParam(value="etc3", required=false) String etc3
+							,@RequestParam(value="etc1", required=false,defaultValue="") String etc1
+							,@RequestParam(value="etc2", required=false,defaultValue="") String etc2
+							,@RequestParam(value="etc3", required=false,defaultValue="") String etc3
+							,@RequestParam(value="etc4", required=false,defaultValue="") String etc4
 							,MultipartHttpServletRequest mhRequest){
 
 		Board boardInfo = boardService.getBoardInfo(boardTable);
@@ -450,8 +482,7 @@ public class BoardController {
 			Timestamp nowDate = new Timestamp(new Date().getTime());
 			
 			Article article = new Article(boardTable, categoryCode, title, content,0,0,0
-					, etc1, etc2, etc3, true, false, regId, mhRequest.getRemoteAddr(), nowDate, nowDate);
-			//,"","","",true, false, regId, mhRequest.getRemoteAddr(), nowDate, nowDate);
+					, etc1, etc2, etc3, etc4, true, false, regId, mhRequest.getRemoteAddr(), nowDate,null);
 			
 			boardService.addArticle(article);
 			
@@ -462,22 +493,33 @@ public class BoardController {
 				String uploadPath = boardUploadPath+File.separator+boardTable;
 				
 				FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, boardInfo.getBoardFileUploadType()
-						, uploadPath,new ArrayList<AttachFile>(),boardTable,lastArticleNo, false, "M"
-						, regId, mhRequest.getRemoteAddr(),nowDate);
+						, uploadPath,boardInfo.getThumnailWidth(),new ArrayList<UploadFileInfo>());
 				
-				List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();
+				List<UploadFileInfo> uploadFileInfoList = fileUploadUtil.doFileUpload();
 				
 				int imageCnt = 0;
 				int fileCnt = 0;
+				int sort = 1;
+				final String imageFileType = "image";
 				
-				for (AttachFile attachFile : uploadedAttachFileList) {
+				for (UploadFileInfo uploadFileInfo : uploadFileInfoList) {
+					String uploadFileType = uploadFileInfo.getFileType();					
+					
+					AttachFile attachFile = new AttachFile(boardTable,lastArticleNo,false,sort,uploadFileInfo.getOriginalFilename()
+							, uploadFileInfo.getConvertFileName(),0,uploadFileInfo.getSize()
+							,uploadFileInfo.getWidth(),uploadFileInfo.getHeight()
+							,uploadFileType,uploadFileInfo.isThumbType(), regId
+							,mhRequest.getRemoteAddr(),nowDate);
+					
 					boardService.addAttachFile(attachFile);
-					if("jpg".equals(attachFile.getFileType()) || "png".equals(attachFile.getFileType()) 
-							|| "gif".equals(attachFile.getFileType())){
+					
+					if(imageFileType.equals(uploadFileType)){
 						imageCnt++;
 					}else{
 						fileCnt++;
 					}
+					sort++;
+					
 				}
 				
 				boardService.setArticleFileCnt(lastArticleNo, fileCnt, imageCnt);
@@ -496,25 +538,33 @@ public class BoardController {
 		if(boardInfo == null || boardInfo.equals(null)){
 			throw new BoardNotFoundException(boardTable);
 		}else{
-			if(!boardInfo.isBoardFileUploadEnable()){
+			if(!boardInfo.isEditorImageUploadEnable()){
+				//수정해야함
 				throw new BoardNotUploadException(boardTable);
 			}else{
-					String uploadPath = boardUploadPath+File.separator+boardTable;
-					
-					FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, "image"
-							, uploadPath,new ArrayList<AttachFile>(),boardTable, 0, true, "M"
-							, regId, mhRequest.getRemoteAddr(),new Timestamp(new Date().getTime()));
-					
-				List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();	
+				final String imageFileType = "image";
+				
+				String uploadPath = boardUploadPath+File.separator+boardTable+File.separator+"editor";
+				
+				FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, imageFileType
+						, uploadPath, 0,new ArrayList<UploadFileInfo>());
+				
+				List<UploadFileInfo> uploadFileInfoList = fileUploadUtil.doFileUpload();
 				
 				int attachFileNo = 0;
 				
-				for (AttachFile attachFile : uploadedAttachFileList) {
+				for (UploadFileInfo uploadFileInfo : uploadFileInfoList) {
+					AttachFile attachFile = new AttachFile(boardTable,0,true,1,uploadFileInfo.getOriginalFilename()
+							, uploadFileInfo.getConvertFileName(),0,uploadFileInfo.getSize()
+							,uploadFileInfo.getWidth(),uploadFileInfo.getHeight()
+							,uploadFileInfo.getFileType(),uploadFileInfo.isThumbType(), regId
+							,mhRequest.getRemoteAddr(),new Timestamp(new Date().getTime()));
+					
 					boardService.addAttachFile(attachFile);
 					
 					attachFileNo = attachFile.getAttachFileNo();
 				}
-
+					
 				String url = "?callback_result=";
 				
 				if(attachFileNo == 0){
@@ -553,7 +603,7 @@ public class BoardController {
 	public ResponseEntity<InputStreamResource> crosseditorPhotoStream(HttpServletResponse res,@PathVariable String boardTable,@PathVariable int attachFileNo) throws FileNotFoundException{
 		AttachFile attachFile = boardService.getEditorAttachFile(boardTable,attachFileNo);
 		
-		String imageFilePath = boardUploadPath+File.separator+boardTable+File.separator+attachFile.getConvertFileName();
+		String imageFilePath = boardUploadPath+File.separator+boardTable+File.separator+"editor"+File.separator+attachFile.getConvertFileName();
 		
 		File imageFile = new File(imageFilePath);
 		
@@ -569,7 +619,15 @@ public class BoardController {
 	public void downloadFile(HttpServletRequest request,HttpServletResponse response,@PathVariable int attachFileNo) throws IOException{
 		AttachFile attachFile = boardService.getAttachFile(attachFileNo);
 		
-		String filePath = boardUploadPath+File.separator+attachFile.getBoardTable()+File.separator+attachFile.getConvertFileName();
+		final String fileType = "image";
+
+		String filePath = boardUploadPath+File.separator+attachFile.getBoardTable()+File.separator;
+		
+		if(attachFile.isFileThumbFlag() && fileType.equals(attachFile.getFileType())){
+			filePath += attachFile.getConvertFileName().replaceAll("thumb_","");
+		}else{
+			filePath += attachFile.getConvertFileName();
+		}
 		
 		File downloadFile = new File(filePath);
 		
@@ -628,5 +686,23 @@ public class BoardController {
         }
         return "Firefox";
   }
+	
+	
+	//파일정보 
+	@RequestMapping(value="/ssrolcmanager/thumbview/{boardTable}/{thumnailRealName}/{thumnailSize}",method={RequestMethod.GET} ,produces={MediaType.IMAGE_GIF_VALUE,MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
+	@ResponseBody
+	public ResponseEntity<InputStreamResource> thumbStream(HttpServletResponse res,@PathVariable String boardTable ,@PathVariable String thumnailRealName,@PathVariable int thumnailSize) throws FileNotFoundException{
+		
+		String imageFilePath = boardUploadPath+File.separator+boardTable+File.separator+"thumb"+File.separator+thumnailRealName;
+
+		File imageFile = new File(imageFilePath);
+		
+		FileInputStream fis = new FileInputStream(imageFile);
+		
+		return ResponseEntity.ok()
+				.contentLength(thumnailSize)
+				.body(new InputStreamResource(fis));
+	}
+	
 	
 }

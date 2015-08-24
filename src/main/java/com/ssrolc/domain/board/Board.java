@@ -19,4 +19,6 @@ public class Board {
 	private boolean boardCategoryEnable;
 	private boolean boardFileUploadEnable;
 	private String boardFileUploadType;
+	private int thumnailWidth;
+	private boolean editorImageUploadEnable;
 }
