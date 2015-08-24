@@ -11,6 +11,9 @@ $(function() {
 			
 			if(searchValue != ""){
 				searchUrl += "/"+searchField+"/"+encodeURIComponent(searchValue);
+				$("#resetBtn").show();
+			} else {
+				$("#resetBtn").hide();
 			}
 
 			$.ajax({

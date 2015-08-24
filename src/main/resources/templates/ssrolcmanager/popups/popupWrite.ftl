@@ -36,8 +36,8 @@
 								<tr>
 									<th>게재기간</th>
 									<td>
-										<input name="startDate" type="text" class="text datePicker" id="startDate" style="width: 104px;" title="" value="<#if popup??>${popup.startDate}</#if>" readonly='readonly' />&nbsp;~&nbsp;
-										<input name="endDate" type="text" class="text datePicker" id="endDate" style="width: 103px;" title="" value="<#if popup??>${popup.endDate}</#if>" readonly='readonly' />
+										<input name="pStartDate" type="text" class="text datePicker" id="pStartDate" style="width: 104px;" title="" value="<#if popup??>${popup.startDate}</#if>" readonly='readonly' />&nbsp;~&nbsp;
+										<input name="pEndDate" type="text" class="text datePicker" id="pEndDate" style="width: 103px;" title="" value="<#if popup??>${popup.endDate}</#if>" readonly='readonly' />
 									</td>
 								</tr>
 								<tr>
@@ -53,8 +53,8 @@
 									<td>
 	                                	*두개이상 올라갈때 필요함 (하나일경우 생략)<br/>
 	                                	<span style="width:0;">&nbsp;</span>
-	                                	<label style="vertical-align: -3px;">top : </label><input name="location_top" type="text" class="text" id="location_top" style="width: 60px;" title="" value="<#if popup??>${popup.location_top}</#if>" maxlength="4" />&nbsp;&nbsp;&nbsp;&nbsp;
-	                                	<label style="vertical-align: -3px;">left : </label><input name="location_left" type="text" class="text" id="location_left" style="width: 60px;" title="" value="<#if popup??>${popup.location_left}</#if>" maxlength="4" />
+	                                	<label style="vertical-align: -3px;">top : </label><input name="pLocation_top" type="text" class="text" id="pLocation_top" style="width: 60px;" title="" value="<#if popup??>${popup.location_top}</#if>" maxlength="4" />&nbsp;&nbsp;&nbsp;&nbsp;
+	                                	<label style="vertical-align: -3px;">left : </label><input name="pLocation_left" type="text" class="text" id="pLocation_left" style="width: 60px;" title="" value="<#if popup??>${popup.location_left}</#if>" maxlength="4" />
 									</td>
 								</tr>
 								<tr>
@@ -64,17 +64,36 @@
 										<input name="pPopup_id" type="text" class="text" id="pPopup_id" style="width: 234px;" title="" value="<#if popup??>${popup.cookie_id}</#if>" maxlength="100" />
 									</td>
 								</tr>
-								<tr>
-									<th>팝업 파일명</em></th>
+								<!--tr>
+									<th>팝업 파일명</th>
 									<td>
 	                               		* 확장자명 .ftl 까지 써주세요.<br/>
 	                                	<input name="pFileName" id="pFileName" type="file" class="text" id="pFileName" style="width: 234px;" title="" value="" maxlength="255"/>
 	                                	<#if popup??>${popup.fileName}</#if>
 	                                </td>
+								</tr-->
+								<tr>
+									<th>팝업 내용</th>
+									<td>
+										<textarea id='pContent' name='pContent' class='ed' cols='94' rows='15'>
+											<#if popup?? && popup.content??>${popup.content}</#if>
+										</textarea>
+										<script type="text/javascript">
+											var CrossEditor = new NamoSE('pContent');
+											CrossEditor.params.Width = "100%";
+											CrossEditor.params.UserLang = "auto";
+											CrossEditor.params.FullScreen = false;
+											CrossEditor.params.UploadFileExecutePath = "/ssrolcmanager/popups/imgfileupload";
+											CrossEditor.EditorStart();
+											function OnInitCompleted(e) {
+												e.editorTarget.SetBodyValue(document.getElementById("pContent").value);
+											}
+										</script>
+									</td>
 								</tr>
 							</tbody>
 						</table>
-						<input type="hidden" name="aidx" value="<#if popup?exists>${popup.aidx}</#if>" title="aidx" >
+						<input type="hidden" name="pAidx" value="<#if popup?exists>${popup.aidx}</#if>" title="aidx" >
 						<input type="hidden" name="writeType" value="<#if popup?exists>1<#else>0</#if>" title="구분값" >
 					</form>
 
