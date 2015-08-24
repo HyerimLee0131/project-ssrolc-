@@ -26,10 +26,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.common.base.Strings;
 import com.ssrolc.domain.board.AttachFile;
-import com.ssrolc.domain.board.Board;
+import com.ssrolc.domain.common.UploadFileInfo;
 import com.ssrolc.domain.popup.Popup;
-import com.ssrolc.exception.BoardNotFoundException;
-import com.ssrolc.exception.BoardNotUploadException;
 import com.ssrolc.exception.PopupNotAddException;
 import com.ssrolc.exception.PopupNotFoundException;
 import com.ssrolc.service.BoardService;
@@ -230,19 +228,26 @@ public class PopupController {
 	public String imgFileUpload(Model model,@CookieValue(value="SSROLC_ID") String regId,MultipartHttpServletRequest mhRequest){
 		
 		final String boardTable = "popup";
-		String uploadPath = boardUploadPath+File.separator+boardTable;
-
-		FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, "image"
-				, uploadPath,new ArrayList<AttachFile>(),boardTable, 0, true, "M"
-				, regId, mhRequest.getRemoteAddr(),new Timestamp(new Date().getTime()));
-
-		List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();	
-
+		String uploadPath = boardUploadPath+File.separator+boardTable+File.separator+"editor";
+		
+		final String imageFileType = "image";
+		
+		FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, imageFileType
+				, uploadPath, 0,new ArrayList<UploadFileInfo>());
+		
+		List<UploadFileInfo> uploadFileInfoList = fileUploadUtil.doFileUpload();
+		
 		int attachFileNo = 0;
-
-		for (AttachFile attachFile : uploadedAttachFileList) {
+		
+		for (UploadFileInfo uploadFileInfo : uploadFileInfoList) {
+			AttachFile attachFile = new AttachFile(boardTable,0,true,1,uploadFileInfo.getOriginalFilename()
+					, uploadFileInfo.getConvertFileName(),0,uploadFileInfo.getSize()
+					,uploadFileInfo.getWidth(),uploadFileInfo.getHeight()
+					,uploadFileInfo.getFileType(),uploadFileInfo.isThumbType(), regId
+					,mhRequest.getRemoteAddr(),new Timestamp(new Date().getTime()));
+			
 			boardService.addAttachFile(attachFile);
-
+			
 			attachFileNo = attachFile.getAttachFileNo();
 		}
 
