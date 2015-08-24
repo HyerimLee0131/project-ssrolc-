@@ -23,6 +23,7 @@ public class Popup {
 	private String size_height;
 	private String location_top;
 	private String location_left;
+	private String content;
 	private String fileName;
 	private String startDate;
 	private String endDate;

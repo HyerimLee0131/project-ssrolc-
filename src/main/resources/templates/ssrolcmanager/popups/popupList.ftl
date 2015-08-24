@@ -19,7 +19,7 @@
 							</select>&nbsp;&nbsp;
 							<input name="searchValue" type="text" class="text" id="searchValue" style="width:100px" title="" />
 							&nbsp;<span class="button"><input type="button" id="searchBtn" title="검색버튼" value="검색"></span>
-							&nbsp;<span class="button"><input type="button" id="resetBtn" title="초기화버튼" value="초기화"></span>
+							&nbsp;<span class="button"><input type="button" id="resetBtn" title="초기화버튼" value="초기화" style="display:none;"></span>
 						</p>
 					</fieldset>
 				</div>
@@ -43,7 +43,7 @@
 								<th>NO</th>
 								<th>팝업명</th>
 								<th>팝업사이즈</th>
-								<th>팝업파일명</th>
+								<th>팝업ID</th>
 								<th>게재기간</th>
 								<th>상태</th>
 								<th>등록일</th>
@@ -75,7 +75,7 @@
 			</p>
 		</td>
 		<td>가로 : {{size_width}}, 세로 : {{size_height}}</td>
-		<td>{{fileName}}</td>
+		<td>{{cookie_id}}</td>
 		<td>{{startDate}} ~ {{endDate}}</td>
 		<td>{{#xIf state "==" 0}}비활성{{else}}활성{{/xIf}}</td>
 		<td>{{prettifyDate regDate}}</td>

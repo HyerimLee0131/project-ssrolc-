@@ -26,9 +26,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.common.base.Strings;
 import com.ssrolc.domain.board.AttachFile;
+import com.ssrolc.domain.board.Board;
 import com.ssrolc.domain.popup.Popup;
+import com.ssrolc.exception.BoardNotFoundException;
+import com.ssrolc.exception.BoardNotUploadException;
 import com.ssrolc.exception.PopupNotAddException;
 import com.ssrolc.exception.PopupNotFoundException;
+import com.ssrolc.service.BoardService;
 import com.ssrolc.service.PopupService;
 import com.ssrolc.utils.FileUploadUtil;
 import com.ssrolc.utils.PageUtil;
@@ -40,14 +44,15 @@ public class PopupController {
 	
 	@Autowired
 	private PopupService popupService;
+	@Autowired
+	private BoardService boardService;
 
 	@Value("${uploadpath.boards}")
-	private String popupUploadPath;
-	
+	private String boardUploadPath;
 	//리스트
 	@RequestMapping(value={"/ssrolcmanager/popups"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	public String popupList(Model model){
-		logger.debug("popup List");
+		logger.debug("====================================popup List");
 
 		model.addAttribute("title","러닝센터관리자 팝업관리");
 
@@ -63,7 +68,7 @@ public class PopupController {
 	@RequestMapping(value={"/ssrolcmanager/popups/{pageNum:[0-9]+}"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> popupListJson(@PathVariable int pageNum){
-		logger.debug("pageNum:"+pageNum);
+		logger.debug("====================================popup List pageNum:"+pageNum);
 
 		int popupCnt = popupService.getPopupCnt();
 		if(popupCnt == 0){
@@ -86,7 +91,7 @@ public class PopupController {
 	@RequestMapping(value={"/ssrolcmanager/popups/{pageNum:[0-9]+}/{searchField}/{searchValue}"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> popupSearchListJson(@PathVariable int pageNum,@PathVariable String searchField,@PathVariable String searchValue){
-		logger.debug("searchField:"+searchField+",searchValue:"+searchValue);
+		logger.debug("====================================popup List searchField:"+searchField+",searchValue:"+searchValue);
 
 		int popupCnt = popupService.getPopupCnt();
 		if(popupCnt == 0){
@@ -108,7 +113,7 @@ public class PopupController {
 	//조회
 	@RequestMapping(value={"/ssrolcmanager/popup/{aidx:[0-9]+}"},method={RequestMethod.GET,RequestMethod.HEAD})
 	public String popupView(Model model,@PathVariable int aidx){
-		logger.debug("popup View");
+		logger.debug("====================================popup View");
 
 		model.addAttribute("title","러닝센터관리자 팝업관리");
 
@@ -117,6 +122,7 @@ public class PopupController {
 
 		//해더에 스크립트 추가
 		List<String> headerScript = new ArrayList<>();
+		headerScript.add("crosseditor30/js/namo_scripteditor");
 		headerScript.add("ssrolcmanager/popups/write");
 
 		model.addAttribute("headerScript",headerScript);
@@ -129,7 +135,7 @@ public class PopupController {
 	@RequestMapping(value="/ssrolcmanager/popups/delete", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> popupDeleteJson(@RequestParam(value="aidxs[]", required = false) String[] aidxs){
-		logger.debug("popup Delete : "+aidxs);
+		logger.debug("====================================popup Delete : "+aidxs);
 
 		for (String aidx: aidxs) {
 			popupService.setPopupsDel(aidx);
@@ -146,15 +152,9 @@ public class PopupController {
 	public String popupWrite(Model model){
 		model.addAttribute("title","러닝센터관리자 팝업관리");
 
-		//해더에 css 추가
-		List<String> headerCss = new ArrayList<>();
-		headerCss.add("jquery-ui.1.11.4.min");
-
-		model.addAttribute("headerCss",headerCss);
-
 		//해더에 스크립트 추가
 		List<String> headerScript = new ArrayList<>();
-		headerScript.add("jquery-ui.1.11.4.min");
+		headerScript.add("crosseditor30/js/namo_scripteditor");
 		headerScript.add("ssrolcmanager/popups/write");
 
 		model.addAttribute("headerScript",headerScript);
@@ -164,21 +164,21 @@ public class PopupController {
 
 	//등록
 	@RequestMapping(value="/ssrolcmanager/popups",method=RequestMethod.POST)
-	public String addPopup(Model model,@CookieValue(value="SSROLC_ID") String regId
-							,@RequestParam(value="aidx") int pAidx
+	public String addPopup(Model model,@CookieValue(value="SSROLC_ID") String pRegId
+							,@RequestParam(value="pAidx") int pAidx
 							,@RequestParam(value="pName") String pName
 							,@RequestParam(value="pState") String pState
-							,@RequestParam(value="startDate") String startDate
-							,@RequestParam(value="endDate") String endDate
+							,@RequestParam(value="pContent") String pContent
+							,@RequestParam(value="pStartDate") String pStartDate
+							,@RequestParam(value="pEndDate") String pEndDate
 							,@RequestParam(value="pSize_width") String pSize_width
 							,@RequestParam(value="pSize_height") String pSize_height
-							,@RequestParam(value="location_top") String location_top
-							,@RequestParam(value="location_left") String location_left
+							,@RequestParam(value="pLocation_top") String pLocation_top
+							,@RequestParam(value="pLocation_left") String pLocation_left
 							,@RequestParam(value="pPopup_id") String pPopup_id
 							,@RequestParam(value="writeType", defaultValue="") String writeType){
 							//,MultipartHttpServletRequest mhRequest){
-		logger.debug("====================================");
-		logger.debug("popup Add");
+		logger.debug("====================================popup Add");
 		
 		if(Strings.isNullOrEmpty(pName) || Strings.isNullOrEmpty(pPopup_id)){
 			throw new PopupNotAddException();
@@ -192,10 +192,8 @@ public class PopupController {
 		endDate = endDate + " 00:00:00";
 		java.sql.Timestamp pEndDate = java.sql.Timestamp.valueOf(endDate);
 */		
-		logger.debug("pStartDate : "+startDate);
-		
-		Popup popup = new Popup(pAidx, pPopup_id, pName, pSize_width, pSize_height, location_top, location_left
-				, "", startDate, endDate, pState, null, regId, null, regId, "");
+		Popup popup = new Popup(pAidx, pPopup_id, pName, pSize_width, pSize_height, pLocation_top, pLocation_left
+				, pContent, "", pStartDate, pEndDate, pState, null, pRegId, null, pRegId, "");
 //mhRequest.getRemoteAddr()
 		popupService.addPopup(popup, writeType);
 /*		
@@ -226,4 +224,68 @@ public class PopupController {
 */
 		return "redirect:/ssrolcmanager/popups";
 	}
+	
+	
+	@RequestMapping(value="/ssrolcmanager/popups/imgfileupload",method=RequestMethod.POST)
+	public String imgFileUpload(Model model,@CookieValue(value="SSROLC_ID") String regId,MultipartHttpServletRequest mhRequest){
+		
+		final String boardTable = "popup";
+		String uploadPath = boardUploadPath+File.separator+boardTable;
+
+		FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, "image"
+				, uploadPath,new ArrayList<AttachFile>(),boardTable, 0, true, "M"
+				, regId, mhRequest.getRemoteAddr(),new Timestamp(new Date().getTime()));
+
+		List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();	
+
+		int attachFileNo = 0;
+
+		for (AttachFile attachFile : uploadedAttachFileList) {
+			boardService.addAttachFile(attachFile);
+
+			attachFileNo = attachFile.getAttachFileNo();
+		}
+
+		String url = "?callback_result=";
+
+		if(attachFileNo == 0){
+			url += "error&errstr=yes";
+		}else{
+			url += "success";
+			url += "&errstr=";
+			url += "&imageURL=/crosseditor/photos/"+boardTable+"/"+attachFileNo;
+			url += "&imageTitle="+mhRequest.getParameter("imageTitle");
+			url += "&imageAlt="+mhRequest.getParameter("imageAlt");
+			url += "&imageWidth="+mhRequest.getParameter("imageWidth");
+			url += "&imageWidthUnit="+mhRequest.getParameter("imageWidthUnit");
+			url += "&imageHeight="+mhRequest.getParameter("imageHeight");
+			url += "&imageHeightUnit="+mhRequest.getParameter("imageHeightUnit");
+			url += "&imageAlign="+mhRequest.getParameter("imageAlign");
+			url += "&imageBorder="+mhRequest.getParameter("imageBorder");
+			url += "&imageKind="+mhRequest.getParameter("imageKind");
+			url += "&imageOrgPath="+mhRequest.getParameter("imageOrgPath");
+			url += "&imageOrgWidth="+mhRequest.getParameter("imageOrgWidth");
+			url += "&imageOrgHeight="+mhRequest.getParameter("imageOrgHeight");
+			url += "&editorFrame="+mhRequest.getParameter("editorFrame");
+		}
+
+		return "redirect:/ssrolcmanager/crosseditor/callback"+url;
+	}
+
+
+
+
+	//###################################################################################################
+	//팝업 테스트 - 프론트 사용 예정
+	@RequestMapping(value={"/ssrolcmanager/popup/test/{aidx:[0-9]+}"},method={RequestMethod.GET,RequestMethod.HEAD})
+	public String popupTest(Model model,@PathVariable int aidx){
+		logger.debug("====================================popup Test");
+
+		//데이터읽어오기
+		Popup popup = popupService.getPopup(aidx);
+		model.addAttribute("popup",popup);
+
+		return "ssrolcmanager/popups/popupTest";
+	}
+	//###################################################################################################
 }
