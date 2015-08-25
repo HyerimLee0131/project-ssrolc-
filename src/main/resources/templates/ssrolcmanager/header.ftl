@@ -29,9 +29,11 @@
 		<div class="content">
 			<h1 class="logo"><a href="/ssrolcmanager/main"><img src="/public/img/admin/common/logo_header.gif" alt="재능스스로러닝센터" /></a></h1>
 			<ul class="lnb">
-				<li><a href="/ssrolcmanager/disclosures"><img src="/public/img/admin/common/lnb_01_off.gif" alt="일반관리" /></a></li>
-				<li><a href="/ssrolcmanager/boards/notice"><img src="/public/img/admin/common/lnb_02_off.gif" alt="게시판관리" /></a></li>
-				<li><a href="/ssrolcmanager/popups"><img src="/public/img/admin/common/lnb_03_off.gif" alt="부가관리" /></a></li>
+				<li <#if currentMenu == "disclosure" || currentMenu == "franchise" || currentMenu == "center"> class="on" </#if> > <a href="/ssrolcmanager/disclosures"><img src="/public/img/admin/common/lnb_01_<#if currentMenu == "disclosure" || currentMenu == "franchise" || currentMenu == "center">on<#else>off</#if>.gif" alt="일반관리" /></a></li>
+				<li <#if currentMenu == "boardCenter" || currentMenu == "boardFaq" || currentMenu == "boardNotice" || currentMenu == "boardStudent"> class="on" </#if> >
+				<a href="/ssrolcmanager/boards/notice">
+				<img src="/public/img/admin/common/lnb_02_<#if currentMenu == "boardCenter" || currentMenu == "boardFaq" || currentMenu == "boardNotice" || currentMenu == "boardStudent">on<#else>off</#if>.gif" alt="게시판관리" /></a></li>
+				<li <#if currentMenu == "popup" || currentMenu == "prmedia"> class="on" </#if> ><a href="/ssrolcmanager/popups"><img src="/public/img/admin/common/lnb_03_<#if currentMenu == "popup" || currentMenu == "prmedia">on<#else>off</#if>.gif" alt="부가관리" /></a></li>
 			</ul>
 		</div>
 	</div>

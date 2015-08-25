@@ -9,6 +9,9 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.filter.HttpPutFormContentFilter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+
+import com.ssrolc.intercepter.MenuIntercepter;
 
 @Configuration
 public class webConfig extends WebMvcAutoConfigurationAdapter {
@@ -42,6 +45,17 @@ public class webConfig extends WebMvcAutoConfigurationAdapter {
 		registrationBean.setFilter(hiddenHttpMethodFilter);
 		registrationBean.setFilter(httpPutFormContentFilter);
 		return registrationBean;
+	}
+	
+	@Bean
+	public MenuIntercepter menuIntercepter(){
+		return new MenuIntercepter();
+	}
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		// TODO Auto-generated method stub
+		registry.addInterceptor(menuIntercepter()).addPathPatterns("/**").excludePathPatterns("/ssrolcmanager","/ssrolcmanager/login");
 	}
 	
 }

@@ -1,7 +1,6 @@
 package com.ssrolc.controller.ssrolcmanager;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ssrolc.domain.franchise.Franchise;
 import com.ssrolc.domain.learningcenter.LearningCenter;
 import com.ssrolc.service.LearningCenterService;
 
