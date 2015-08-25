@@ -21,7 +21,7 @@
 	</select>
 	
 	<select id="findArticles" parameterType="hashMap" resultType="com.ssrolc.domain.board.Article">
-		SELECT * FROM ssrolc.article 
+		SELECT * FROM ssrolc.article
 		<where>
 			<if test="boardTable != null">
 				boardTable = #{boardTable}
@@ -39,6 +39,41 @@
 			</if>
 			<if test="categoryCode != null and categoryCode != 'all' ">
 				AND categoryCode = #{categoryCode}
+			</if>
+		</where>
+		ORDER BY regDate DESC
+		<if test="startLimit != null and endLimit != null">
+			LIMIT #{startLimit},#{endLimit}
+		</if>
+	</select>
+	
+	<select id="findArticlesWithThumb" parameterType="hashMap" resultType="com.ssrolc.domain.board.ArticleWithThumb">
+		SELECT a.*, b.convertFileName, b.fileSize 
+		FROM ssrolc.article AS a
+		LEFT JOIN (
+			SELECT attachFileNo, boardTable, articleNo, convertFileName, fileSize
+			FROM ssrolc.attachFile 
+			WHERE fileThumbFlag = '1'
+			GROUP BY attachFileNo, boardTable, articleNo, fileName, fileSize
+		) AS b
+			ON(a.boardTable = b.boardTable AND a.articleNo = b.articleNo)
+		<where>
+			<if test="boardTable != null">
+				a.boardTable = #{boardTable}
+			</if>
+			<if test="searchField != null and searchField != '' and  searchValue != null and searchValue != '' ">
+				<if test="searchField == 'title' ">
+					AND a.title LIKE CONCAT('%',#{searchValue},'%')			
+				</if>
+				<if test="searchField == 'content' ">
+					AND a.content LIKE CONCAT('%',#{searchValue},'%')			
+				</if>
+				<if test="searchField == 'title+content' ">
+					AND (a.title LIKE CONCAT('%',#{searchValue},'%') OR a.content LIKE CONCAT('%',#{searchValue},'%') )		
+				</if>
+			</if>
+			<if test="categoryCode != null and categoryCode != 'all' ">
+				AND a.categoryCode = #{categoryCode}
 			</if>
 		</where>
 		ORDER BY regDate DESC

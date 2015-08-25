@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssrolc.domain.board.Article;
+import com.ssrolc.domain.board.ArticleWithThumb;
 import com.ssrolc.domain.board.AttachFile;
 import com.ssrolc.domain.board.Board;
 import com.ssrolc.domain.board.BoardCategory;
@@ -27,6 +28,10 @@ public interface BoardRepository {
 	 * 글 리스트 읽어오기
 	 */
 	public List<Article> findArticles(Map<String,Object> map);
+	/*
+	 * 글 리스트+썸네일 읽어오기
+	 */
+	public List<ArticleWithThumb> findArticlesWithThumb(Map<String,Object> map);
 	/*
 	 * 글 읽어오기
 	 */

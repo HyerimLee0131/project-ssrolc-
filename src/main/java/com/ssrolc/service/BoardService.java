@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssrolc.domain.board.Article;
+import com.ssrolc.domain.board.ArticleWithThumb;
 import com.ssrolc.domain.board.AttachFile;
 import com.ssrolc.domain.board.Board;
 import com.ssrolc.domain.board.BoardCategory;
@@ -38,6 +39,15 @@ public class BoardService {
 		map.put("endLimit",endLimit);
 		
 		return boardRepository.findArticles(map);
+	}
+
+	public List<ArticleWithThumb> getArticlesWithThumb(String boardTable,int startLimit,int endLimit){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("startLimit",startLimit);
+		map.put("endLimit",endLimit);
+		
+		return boardRepository.findArticlesWithThumb(map);
 	}
 	
 	public List<Article> getArticles(String boardTable,int startLimit,int endLimit

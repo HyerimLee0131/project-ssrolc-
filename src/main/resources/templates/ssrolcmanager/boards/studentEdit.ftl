@@ -35,7 +35,7 @@
 									<th>부제목</th>
 									<td colspan="3">
 										<div class="td-left">
-											<input name='etc4' id='etc4' type="text" class="text"  style="width: 820px;" title="부제목" value='${article.etc4}' />
+											<input name='etc4' id='etc4' type="text" class="text"  style="width: 820px;" title="부제목" value='<#if article.etc4?exists>${article.etc4}</#if>' />
 										</div>
 									</td>
 								</tr>
@@ -45,8 +45,8 @@
 										<div class="td-left">
 											<select name="useEnable" id="useEnable" title="상태">
 												<option value="">선택하세요</option>
-												<option value="1" <#if useEnable?exists && article.useEnable == true>selected</#if>>활성</option>
-												<option value="0" <#if useEnable?exists && article.useEnable == false>selected</#if>>비활성</option>
+												<option value="1" <#if article.useEnable?exists && article.useEnable == true>selected</#if>>활성</option>
+												<option value="0" <#if article.useEnable?exists && article.useEnable == false>selected</#if>>비활성</option>
 											</select>
 										</div>
 									</td>

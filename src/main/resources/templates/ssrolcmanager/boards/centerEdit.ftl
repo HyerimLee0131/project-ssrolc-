@@ -37,8 +37,8 @@
 										<div class="td-left">
 											<select name="useEnable" id="useEnable" title="상태">
 												<option value="">선택하세요</option>
-												<option value="1" <#if useEnable?exists && article.useEnable == '1'>selected</#if>>활성</option>
-												<option value="0" <#if useEnable?exists && article.useEnable == '0'>selected</#if>>비활성</option>
+												<option value="1" <#if article.useEnable?exists && article.useEnable == true>selected</#if>>활성</option>
+												<option value="0" <#if article.useEnable?exists && article.useEnable == false>selected</#if>>비활성</option>
 											</select>
 										</div>
 									</td>
