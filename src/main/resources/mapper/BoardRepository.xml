@@ -55,6 +55,8 @@
 			FROM ssrolc.attachFile 
 			WHERE fileThumbFlag = '1'
 			GROUP BY attachFileNo, boardTable, articleNo, fileName, fileSize
+			ORDER BY sort ASC
+			LIMIT 1
 		) AS b
 			ON(a.boardTable = b.boardTable AND a.articleNo = b.articleNo)
 		<where>
@@ -215,6 +217,9 @@
 			</if>
 			<if test="etc4 != null and etc4 != '' ">
 				etc4 = #{etc4},
+			</if>
+			<if test="useEnable != null and useEnable != '' ">
+				useEnable = #{useEnable},
 			</if>
 			<if test="updateDate != null">
 				updateDate = #{updateDate}

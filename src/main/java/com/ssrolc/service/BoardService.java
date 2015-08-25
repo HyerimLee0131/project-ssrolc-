@@ -153,7 +153,7 @@ public class BoardService {
 	}
 	
 	public void setArticle(String boardTable,int articleNo,String categoryCode
-			,String title,String content,String etc1,String etc2,String etc3,String etc4,Timestamp updateDate){
+			,String title,String content,String etc1,String etc2,String etc3,String etc4,boolean useEnable,Timestamp updateDate){
 		Map<String,Object> map = new HashMap<>();
 		map.put("boardTable",boardTable);
 		map.put("articleNo",articleNo);
@@ -164,6 +164,7 @@ public class BoardService {
 		map.put("etc2",etc2);
 		map.put("etc3",etc3);
 		map.put("etc4",etc4);
+		map.put("useEnable",useEnable);
 		map.put("updateDate",updateDate);
 		
 		boardRepository.updateArticle(map);

@@ -303,10 +303,12 @@ public class BoardController {
 					,@RequestParam(value="etc2", required=false,defaultValue="") String etc2
 					,@RequestParam(value="etc3", required=false,defaultValue="") String etc3
 					,@RequestParam(value="etc4", required=false,defaultValue="") String etc4
+					,@RequestParam(value="useEnable", required=false,defaultValue="") boolean useEnable
 					,@RequestParam(value="deleteAttachFiles",required=false,defaultValue="") String deleteAttachFiles 
 					,MultipartHttpServletRequest mhRequest){
-		
+
 		Board boardInfo = boardService.getBoardInfo(boardTable);
+		
 		if(boardInfo == null || boardInfo.equals(null)){
 			throw new BoardNotFoundException(boardTable);
 		}else{
@@ -318,7 +320,7 @@ public class BoardController {
 				Timestamp nowTime = new Timestamp(new Date().getTime());
 				
 				boardService.setArticle(boardTable, articleNo, categoryCode
-						, title, content, etc1, etc2, etc3,etc4, nowTime);
+						, title, content, etc1, etc2, etc3, etc4, useEnable, nowTime);
 				
 				String uploadPath = boardUploadPath+File.separator+boardTable;
 				
@@ -400,7 +402,7 @@ public class BoardController {
 					
 					boardService.setArticleFileCnt(articleNo, fileCnt, imageCnt);
 				}
-								
+
 				return "redirect:/ssrolcmanager/boards/"+boardTable;
 			}
 		}
