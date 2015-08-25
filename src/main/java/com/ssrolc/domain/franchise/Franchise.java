@@ -2,9 +2,7 @@ package com.ssrolc.domain.franchise;
 
 import java.sql.Timestamp;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Getter;
 
 import com.ssrolc.utils.CommonUtils;
 
@@ -39,4 +37,8 @@ public class Franchise {
 	private Timestamp jslipDatetime;
 	private String jslIp;
 
+	public String getJslipDatetime(String format) {
+		
+		return CommonUtils.timestampToString(jslipDatetime,format);
+	}
 }

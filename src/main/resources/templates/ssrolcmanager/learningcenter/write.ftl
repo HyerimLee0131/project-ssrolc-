@@ -40,10 +40,10 @@
 						<span class="button btn-type-J"><a class="w-65" href="/ssrolcmanager/centers">취소</a></span>
 					</div>
 			</div>
-			
 		</div>
-		<#include "/ssrolcmanager/footer.ftl">
 	</div>
+		<#include "/ssrolcmanager/footer.ftl">
+</div>
 		
 
 </body>
