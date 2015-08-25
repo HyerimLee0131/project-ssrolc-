@@ -116,7 +116,12 @@ public class BoardController {
 			
 			Map<String,Object> map = new HashMap<>();
 			map.put("pageInfo",pageUtil);
-			map.put("articles",boardService.getArticles(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
+			
+			if(boardInfo.getThumnailWidth() > 0) {
+				map.put("articles",boardService.getArticlesWithThumb(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
+			} else {
+				map.put("articles",boardService.getArticles(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
+			}
 			return ResponseEntity.ok(map);
 		}
 	}
@@ -689,18 +694,18 @@ public class BoardController {
 	
 	
 	//파일정보 
-	@RequestMapping(value="/ssrolcmanager/thumbview/{boardTable}/{thumnailRealName}/{thumnailSize}",method={RequestMethod.GET} ,produces={MediaType.IMAGE_GIF_VALUE,MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
+	@RequestMapping(value="/ssrolcmanager/thumbview/{boardTable}/{convertFileName}/{fileSize}",method={RequestMethod.GET} ,produces={MediaType.IMAGE_GIF_VALUE,MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
 	@ResponseBody
-	public ResponseEntity<InputStreamResource> thumbStream(HttpServletResponse res,@PathVariable String boardTable ,@PathVariable String thumnailRealName,@PathVariable int thumnailSize) throws FileNotFoundException{
+	public ResponseEntity<InputStreamResource> thumbStream(HttpServletResponse res,@PathVariable String boardTable ,@PathVariable String convertFileName,@PathVariable int fileSize) throws FileNotFoundException{
 		
-		String imageFilePath = boardUploadPath+File.separator+boardTable+File.separator+"thumb"+File.separator+thumnailRealName;
+		String imageFilePath = boardUploadPath+File.separator+boardTable+File.separator+"thumb"+File.separator+convertFileName;
 
 		File imageFile = new File(imageFilePath);
 		
 		FileInputStream fis = new FileInputStream(imageFile);
 		
 		return ResponseEntity.ok()
-				.contentLength(thumnailSize)
+				.contentLength(fileSize)
 				.body(new InputStreamResource(fis));
 	}
 	
