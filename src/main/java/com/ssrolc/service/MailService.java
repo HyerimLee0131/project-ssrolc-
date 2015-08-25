@@ -37,7 +37,7 @@ public class MailService implements RegistrationNotifier {
 	}
 
 	@Override
-	public void sendMail(String pEmailId, String pEmailAdd1, String pEmailAdd2) {
+	public void sendMail(String pEmailId, String pEmailAdd1, String pEmailAdd2,String hostName) {
 		String mailAddress = "";
 		if ("inputEmail".equals(pEmailAdd2)) {
 			mailAddress = pEmailId + "@" + pEmailAdd1;
@@ -51,7 +51,6 @@ public class MailService implements RegistrationNotifier {
 					true, "utf-8");
 			messageHelper.setSubject(MailService.INFO_TITLE);
 			messageHelper.setFrom("mail@jei.com", "스스로러닝센터");
-			// message.setText("안녕하세요 스스로러닝센터입니다.\n당신의 인증번호는"+makeAuthKey()+"입니다.");
 
 			String text = MailService.INFO_BODY.replaceAll(MailService.name,
 					"이혜림");
@@ -59,12 +58,13 @@ public class MailService implements RegistrationNotifier {
 
 			message.setContent(text, "text/html; charset=utf-8");
 			messageHelper.setTo(new InternetAddress(mailAddress, "utf-8"));
-			//mailSender.send(message);
+			
 			System.out.println(mailAddress + "에게 메일 전송 성공!!");
 			
 			HashMap<String, String> model = new HashMap<String, String>();
 			model.put("name", "이혜림");
 			model.put("securityKey", makeAuthKey());
+			model.put("hostName", hostName);
 			sendMail2(model,"/ssrolcmanager/mail/emailContent.ftl",mailAddress);
 		} catch (UnsupportedEncodingException | MessagingException e) {
 			e.printStackTrace();
@@ -81,7 +81,7 @@ public class MailService implements RegistrationNotifier {
 			messageHelper.setSubject(MailService.INFO_TITLE);
 			messageHelper.setFrom("mail@jei.com", "스스로러닝센터");
 			// message.setText("안녕하세요 스스로러닝센터입니다.\n당신의 인증번호는"+makeAuthKey()+"입니다.");
-
+       
 			String text = FreeMarkerTemplateUtils.processTemplateIntoString(
 					freemarkerConfiguration.getTemplate(template, "UTF-8"),
 					model);
