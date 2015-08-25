@@ -48,17 +48,14 @@
 	</select>
 	
 	<select id="findArticlesWithThumb" parameterType="hashMap" resultType="com.ssrolc.domain.board.ArticleWithThumb">
-		SELECT a.*, b.convertFileName, b.fileSize 
-		FROM ssrolc.article AS a
+		SELECT a.*, b.convertFileName, b.fileSize FROM ssrolc.article AS a
 		LEFT JOIN (
-			SELECT attachFileNo, boardTable, articleNo, convertFileName, fileSize
-			FROM ssrolc.attachFile 
-			WHERE fileThumbFlag = '1'
-			GROUP BY attachFileNo, boardTable, articleNo, fileName, fileSize
-			ORDER BY sort ASC
-			LIMIT 1
+		SELECT attachFileNo, boardTable, articleNo, convertFileName, fileSize
+		FROM ssrolc.attachFile 
+		WHERE fileThumbFlag = '1'
+		GROUP BY boardTable, articleNo
 		) AS b
-			ON(a.boardTable = b.boardTable AND a.articleNo = b.articleNo)
+		ON(a.boardTable = b.boardTable AND a.articleNo = b.articleNo)
 		<where>
 			<if test="boardTable != null">
 				a.boardTable = #{boardTable}
