@@ -56,6 +56,7 @@ public class MenuIntercepter extends HandlerInterceptorAdapter {
 			
 			return true;
 		}else{
+			request.setAttribute("currentMenu","main");
 			return true;
 		}
 		
