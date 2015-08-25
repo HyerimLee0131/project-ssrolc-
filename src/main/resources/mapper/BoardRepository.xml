@@ -234,7 +234,7 @@
 		WHERE boardTable = #{boardTable} AND categoryCode = #{categoryCode}
 	</select>
 	
-	<select id="findAttachFileMaxSort" parameterType="Integer" resultType="int">
+	<select id="findAttachFileMaxSort" parameterType="int" resultType="Integer">
 		SELECT MAX(sort) FROM ssrolc.attachFile WHERE articleNo =#{articleNo} GROUP BY sort;
 	</select>
 </mapper>

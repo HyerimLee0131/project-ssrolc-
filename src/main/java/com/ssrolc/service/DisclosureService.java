@@ -1,10 +1,14 @@
 package com.ssrolc.service;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Strings;
 import com.ssrolc.domain.disclosure.Disclosure;
 import com.ssrolc.repository.DisclosureRepository;
 
@@ -26,13 +30,12 @@ public class DisclosureService {
 	public List<Disclosure> getSearchDisclosures(String deptArea1, String deptArea2,String deptType,
 			String startDate,String endDate,String memName, int startLimit,int endLimit){
 		Map<String,Object> map = new HashMap<>();
-		String[] deptTypeArray = deptType.split(",");
 		List<String> deptTypeList = null;
-		if(!"".equals(deptType)){
-			deptTypeList = new ArrayList<String>();
-			for (int i = 0; i < deptTypeArray.length; i++) {
-				deptTypeList.add(deptTypeArray[i]);
-			}
+		if(!Strings.isNullOrEmpty(deptType)){
+			String[] deptTypeArray = deptType.split(",");
+			
+			deptTypeList = Arrays.asList(deptTypeArray);
+			
 		}
 		map.put("deptTypeList", deptTypeList);
 		map.put("deptArea1", deptArea1);
@@ -52,13 +55,12 @@ public class DisclosureService {
 	public int getSearchDisclosureCnt(String deptArea1,String deptArea2,String deptType,
 			String startDate,String endDate,String memName) {
 		Map<String,Object> map = new HashMap<>();
-		String[] deptTypeArray = deptType.split(",");
 		List<String> deptTypeList = null;
-		if(!"".equals(deptType)){
-			deptTypeList = new ArrayList<String>();
-			for (int i = 0; i < deptTypeArray.length; i++) {
-				deptTypeList.add(deptTypeArray[i]);
-			}
+		if(!Strings.isNullOrEmpty(deptType)){
+			String[] deptTypeArray = deptType.split(",");
+			
+			deptTypeList = Arrays.asList(deptTypeArray);
+
 		}
 		map.put("deptTypeList", deptTypeList);
 		map.put("deptArea1", deptArea1);

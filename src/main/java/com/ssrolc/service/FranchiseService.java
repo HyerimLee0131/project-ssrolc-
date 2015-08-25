@@ -1,6 +1,6 @@
 package com.ssrolc.service;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Strings;
 import com.ssrolc.domain.franchise.Franchise;
 import com.ssrolc.repository.FranchiseRepository;
 
@@ -23,13 +24,11 @@ public class FranchiseService {
 	public List<Franchise> getSearchFranchises(String jslcArea1, String jslcArea2,String jslcType,
 			String startDate,String endDate,String jslcounseling,String memName, int startLimit,int endLimit){
 		Map<String,Object> map = new HashMap<>();
-		String[] jslTypeArray = jslcType.split(",");
 		List<String> jslTypeList = null;
-		if(!"".equals(jslcType)){
-			jslTypeList = new ArrayList<String>();
-			for (int i = 0; i < jslTypeArray.length; i++) {
-				jslTypeList.add(jslTypeArray[i]);
-			}
+		if(!Strings.isNullOrEmpty(jslcType)){
+			String[] jslTypeArray = jslcType.split(",");
+			
+			jslTypeList = Arrays.asList(jslTypeArray);
 		}
 		map.put("jslTypeList", jslTypeList);
 		map.put("jslcArea1", jslcArea1);
@@ -57,13 +56,12 @@ public class FranchiseService {
 	public int getSearchDisclosureCnt(String jslcArea1,String jslcArea2,String jslcType,
 			String startDate,String endDate,String jslcounseling,String memName) {
 		Map<String,Object> map = new HashMap<>();
-		String[] jslTypeArray = jslcType.split(",");
 		List<String> jslTypeList = null;
-		if(!"".equals(jslcType)){
-			jslTypeList = new ArrayList<String>();
-			for (int i = 0; i < jslTypeArray.length; i++) {
-				jslTypeList.add(jslTypeArray[i]);
-			}
+		if(!Strings.isNullOrEmpty(jslcType)){
+			String[] jslTypeArray = jslcType.split(",");
+			
+			jslTypeList = Arrays.asList(jslTypeArray);
+		
 		}
 		map.put("jslTypeList", jslTypeList);
 		map.put("jslcArea1", jslcArea1);

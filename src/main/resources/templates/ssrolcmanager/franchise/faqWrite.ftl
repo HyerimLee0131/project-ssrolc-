@@ -146,6 +146,8 @@
 			</div>		
 		</div>	
 	</div>
+</div>
 <#include "/ssrolcmanager/footer.ftl">
-	</div>
-
+</div>
+	</body>
+	</html>
