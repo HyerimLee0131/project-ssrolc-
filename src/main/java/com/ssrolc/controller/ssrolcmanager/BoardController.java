@@ -203,7 +203,11 @@ public class BoardController {
 			
 			Map<String,Object> map = new HashMap<>();
 			map.put("pageInfo",pageUtil);
-			map.put("articles",boardService.getArticles(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
+			if(boardInfo.getThumnailWidth() > 0) {
+				map.put("articles",boardService.getArticlesWithThumb(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
+			} else {
+				map.put("articles",boardService.getArticles(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
+			}
 			return ResponseEntity.ok(map);
 		}
 	}
