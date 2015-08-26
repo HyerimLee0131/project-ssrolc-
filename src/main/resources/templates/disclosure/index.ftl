@@ -1,4 +1,3 @@
-
 		<!-- container -->
 		<div class="container" id="container">
 			<div class="clearfix">

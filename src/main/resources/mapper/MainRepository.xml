@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssrolc.repository.MainRepository">
+	
+	
+	<select id="findData" parameterType="int" resultType="com.ssrolc.domain.myungsimbogam.Myungsimbogam">
+		SELECT title,meanContents,hanjaContents,soundContents 
+		FROM ssrolc.myungsimbogam
+		WHERE sort = #{weakOfYear}
+	</select>
+	
+	
+	
+</mapper>
