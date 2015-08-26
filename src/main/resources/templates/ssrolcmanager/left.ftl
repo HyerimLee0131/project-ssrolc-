@@ -4,7 +4,7 @@
 			<div class="side-content">
 				<div class="btn-join-state">
 					<p class="msg2 mgb-10">안녕하세요.<strong>관리자님</strong></p>
-					<p class="mgb-5"><a href="/ssrolcmanager/password"><img src="/public/img/admin/common/btn_gnb_pass.gif" alt="비밀번호변경" /></a></p>
+					<p class="mgb-5"><a href="/ssrolcmanager/edit"><img src="/public/img/admin/common/btn_gnb_pass.gif" alt="비밀번호변경" /></a></p>
 					<p>
 						<a href="/ssrolcmanager/logout"><img src="/public/img/admin/common/btn_gnb_logout.gif" alt="로그아웃" /></a>
 					</p>
