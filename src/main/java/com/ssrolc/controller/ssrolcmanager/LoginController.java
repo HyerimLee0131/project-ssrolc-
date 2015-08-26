@@ -64,14 +64,20 @@ public class LoginController {
 		final String boardTable = "notice";
 		
 		List<Franchise> franchiseList = franchiseService.getSearchFranchises(null,null,null,null,null,null,null,0,3);
-
+		int newFranchiseCnt = franchiseService.getNewFranchiseWriteCnt();
+		
 		List<Article> articleList = boardService.getArticles(boardTable, 0,3);
+		int newNoticeCnt = boardService.getNewNoticeArticleCnt();
 		
 		List<Disclosure> disclosureList = disclosureService.getSearchDisclosures(null,null,null,null,null,null,0,3);
+		int newDisclosureCnt = disclosureService.getNewDisclosureCnt();		
 		
 		model.addAttribute("franchiseList",franchiseList);
+		model.addAttribute("newFranchiseCnt",newFranchiseCnt);
 		model.addAttribute("articleList",articleList);
+		model.addAttribute("newNoticeCnt",newNoticeCnt);
 		model.addAttribute("disclosureList",disclosureList);
+		model.addAttribute("newDisclosureCnt",newDisclosureCnt);
 		
 		return "ssrolcmanager/main";
 	}

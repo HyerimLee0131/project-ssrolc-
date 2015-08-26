@@ -97,4 +97,7 @@ public class FranchiseService {
 		franchiseRepository.findchangeJoinState(map);
 	}
 
+	public int getNewFranchiseWriteCnt(){
+		return franchiseRepository.countFranchiseWriteCurrent();
+	}
 }

@@ -30,4 +30,8 @@ public interface DisclosureRepository {
 	 * 정보공개서 시,구 리스트 
 	 * */
 	public List<String> findDisclosureDeptAreaList(String deptArea1);
+	/*
+	 * 관리자 메인 오늘자 정보열람 신청 개수
+	 */
+	public int countDisclosureCurrent();
 }

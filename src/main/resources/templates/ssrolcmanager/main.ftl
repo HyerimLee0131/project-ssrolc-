@@ -1,5 +1,7 @@
 <#include "/ssrolcmanager/header.ftl">
 <#include "/ssrolcmanager/left.ftl">
+<#assign curruntDateTime = .now>
+<#assign curruntDate = curruntDateTime?date>
 			<div id="primary_content" class="primary-content">
 				<div class="page-path">
 					<ul>
@@ -10,10 +12,10 @@
 					<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
                     	<tr>
                     		<td width="25%" rowspan="3" style="text-align:center;"><img src="/public/img/admin/common/bill_analysis.gif" alt="" style="margin:-10px 0 0 0;"/></td>
-                        	<td width="75%" height="25"><strong>! 2015-08-25일 스스로러닝센터 관리자 사이트 방문을 환영합니다.</strong></td>
+                        	<td width="75%" height="25"><strong>! ${curruntDate?iso_utc}일 스스로러닝센터 관리자 사이트 방문을 환영합니다.</strong></td>
                     	</tr>
                         <tr>
-                        	<td width="80%" height="25"><span style="color:#c00">▶</span> 금일 신규게시물 수 (가맹문의 <span style="color:#c00"><strong>0</strong></span>건, 공지사항 <span style="color:#c00"><strong>0</strong></span>건, 정보공개서 열람 <span style="color:#c00"><strong>0</strong></span>건)</td>
+                        	<td width="80%" height="25"><span style="color:#c00">▶</span> 금일 신규게시물 수 (가맹문의 <span style="color:#c00"><strong>${newFranchiseCnt}</strong></span>건, 공지사항 <span style="color:#c00"><strong>${newNoticeCnt}</strong></span>건, 정보공개서 열람 <span style="color:#c00"><strong>${newDisclosureCnt}</strong></span>건)</td>
                         </tr>
                     </table>
 				</div>
