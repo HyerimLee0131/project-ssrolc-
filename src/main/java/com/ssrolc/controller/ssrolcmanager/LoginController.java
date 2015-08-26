@@ -1,19 +1,30 @@
 package com.ssrolc.controller.ssrolcmanager;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.expression.MapAccessor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.base.Strings;
 import com.ssrolc.domain.board.Article;
+import com.ssrolc.domain.common.User;
 import com.ssrolc.domain.disclosure.Disclosure;
 import com.ssrolc.domain.franchise.Franchise;
+import com.ssrolc.service.AuthoritiesService;
 import com.ssrolc.service.BoardService;
 import com.ssrolc.service.DisclosureService;
 import com.ssrolc.service.FranchiseService;
@@ -31,6 +42,9 @@ public class LoginController {
 	
 	@Autowired
 	private DisclosureService disclosureService;
+	
+	@Autowired
+	private AuthoritiesService authoritiesService;
 	
 	@Value("${board.https.url}")
 	private String loginCheckUrl;
@@ -80,5 +94,42 @@ public class LoginController {
 		model.addAttribute("newDisclosureCnt",newDisclosureCnt);
 		
 		return "ssrolcmanager/main";
+	}
+	
+	@RequestMapping(value={"/ssrolcmanager/edit"},method={RequestMethod.GET, RequestMethod.HEAD})
+	public String passwordEditView(Model model){
+		//해더에 스크립트 추가
+		List<String> headerScript = new ArrayList<>();
+		headerScript.add("ssrolcmanager/edit");
+		
+		model.addAttribute("headerScript",headerScript);
+		
+		return "ssrolcmanager/edit";
+	}
+	
+	@RequestMapping(value={"/ssrolcmanager/edit"},method={RequestMethod.PUT})
+	@ResponseBody
+	public ResponseEntity<Map<String,Object>> updatePasswordJson(@CookieValue(value="SSROLC_ID") String userId
+			,@RequestParam String oldPass,@RequestParam String newPass,@RequestParam String newPassConfirm){
+		Map<String,Object> map = new HashMap<>();
+		
+		User user = authoritiesService.getUser(userId);
+		
+		if(!Strings.isNullOrEmpty(oldPass) && !Strings.isNullOrEmpty(newPass) && !Strings.isNullOrEmpty(newPassConfirm)){
+			if(oldPass.equals(user.getUserPassword())){
+				if(newPass.equals(newPassConfirm)){
+					
+					authoritiesService.setUserPassword(userId, oldPass, newPass);
+					
+					map.put("message","비밀번호가 변경되었습니다.");
+				}
+			}else{
+				map.put("message","기존 비밀번호가 맞지 않습니다.");
+			}
+		}else{
+			map.put("message","필수 입력 값들을 입력바랍니다.");
+		}
+		
+		return ResponseEntity.ok(map);
 	}
 }
