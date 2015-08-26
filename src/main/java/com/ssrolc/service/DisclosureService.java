@@ -85,5 +85,9 @@ public class DisclosureService {
 
 		return disclosureRepository.findDisclosureDeptAreaList(deptArea1);
 	}
+	
+	public int getNewDisclosureCnt(){
+		return disclosureRepository.countDisclosureCurrent();
+	}
 
 }

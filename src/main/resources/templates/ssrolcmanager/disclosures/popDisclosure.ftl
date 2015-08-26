@@ -38,7 +38,7 @@
 					<td>${disclosure.deptArea1}&nbsp;${disclosure.deptArea2}</td>
 					<th>가맹형태</th>
 					<td>
-					<span><input type="checkbox" disabled="disabled" title="" <#if disclosure.deptType = "공부방">checked</#if>/><label>공부방</label></span><span><input type="checkbox" disabled="disabled" title=""   <#if disclosure.deptType = "학원">checked</#if>/><label>학원</label></span><span><input type="checkbox" disabled="disabled" title=""  <#if disclosure.deptType = "교습소">checked</#if> /><label>교습소</label></span>
+					<span><input type="checkbox" disabled="disabled" <#if disclosure.deptType = "공부방">checked</#if>/><label>공부방</label></span><span><input type="checkbox" disabled="disabled" title=""   <#if disclosure.deptType = "학원">checked</#if>/><label>학원</label></span><span><input type="checkbox" disabled="disabled" title=""  <#if disclosure.deptType = "교습소">checked</#if> /><label>교습소</label></span>
 					</td>					
 				  </tr>
 				</tbody>

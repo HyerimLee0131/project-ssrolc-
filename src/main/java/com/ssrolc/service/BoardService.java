@@ -230,4 +230,8 @@ public class BoardService {
 	public Integer getAttachFileMaxSort(int articleNo){
 		return boardRepository.findAttachFileMaxSort(articleNo);
 	}
+	
+	public int getNewNoticeArticleCnt(){
+		return boardRepository.countNoticeArticleCurrent();
+	}
 }

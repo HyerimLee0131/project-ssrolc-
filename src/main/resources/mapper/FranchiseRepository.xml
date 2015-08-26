@@ -79,4 +79,9 @@
 		VALUES('jeislc',#{jslcName},#{jslcZip1},#{jslcZip2},#{jslcAddr1},#{jslcAddr2},#{jslcCP1},#{jslcCP2},#{jslcCP3},#{jslcType},#{jslcSubject},#{jslcArea1},#{jslcArea2},#{jslcDate},#{jslcTime1},#{jslcTime2},#{jslComments},#{jslIp},SYSDATE(),#{jslcounseling},'유선');
 	</insert>
 	
+	<select id="countFranchiseWriteCurrent" resultType="int">
+		SELECT count(0) FROM ssrolc.jeislc_write 
+		WHERE DATE_FORMAT(jslipDateTime,"%Y-%m-%d") = CURDATE() 
+	</select>
+	
 </mapper>

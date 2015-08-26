@@ -92,4 +92,8 @@ public interface BoardRepository {
 	 * 	파일 최종sort 가져오기
 	 */
 	public Integer findAttachFileMaxSort(int articleNo);
+	/*
+	 * 관리자 메인 오늘 등록된 신규글 개수
+	 */
+	public int countNoticeArticleCurrent();
 }

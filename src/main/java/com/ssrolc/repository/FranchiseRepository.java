@@ -33,4 +33,8 @@ public interface FranchiseRepository {
 	 * 가맹문의 등록
 	 * */
 	public void insertFranchises(Franchise franchise);
+	/*
+	 * 관리자 메인 오늘자 가맹문의 신규 글 개수
+	 */
+	public int countFranchiseWriteCurrent();
 }
