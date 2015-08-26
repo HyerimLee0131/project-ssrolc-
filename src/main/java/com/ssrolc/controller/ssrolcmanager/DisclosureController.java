@@ -65,13 +65,6 @@ public class DisclosureController {
 		int rowBlockSize = 10;
 		int pageBlockSize = 10;
 		int totalRowCnt = disclosureService.getSearchDisclosureCnt(deptArea1,deptArea2,deptType,startDate,endDate,memName);
-		System.out.println("count : "+totalRowCnt);
-		System.out.println(deptArea1);
-		System.out.println(deptArea2);
-		System.out.println(deptType);
-		System.out.println(startDate);
-		System.out.println(endDate);
-		System.out.println(memName);
 		
 		PageUtil pageUtil = new PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
 

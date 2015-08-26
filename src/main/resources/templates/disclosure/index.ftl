@@ -9,6 +9,7 @@
 <body>
 		
 	<form name="sendEmail" method="post" id="sendEmail" action="/disclosure/mail">
+		<input name="pName" type="text" id="pName" title="이름" maxlength="20"/>
 		<input name="pEmailId" type="text" id="pEmailId" title="이메일아이디" maxlength="50"/><span>@</span><input name="pEmailAdd1" type="text" id="pEmailAdd1" title="이메일주소"  maxlength="40" readonly />
 		<select name="pEmailAdd2" id="pEmailAdd2" title="이메일주소">
 				<option value="select">선택하세요</option>
