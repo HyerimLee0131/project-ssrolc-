@@ -33,4 +33,13 @@ public class AuthoritiesService {
 		return authoritiesRepository.isUserByUserId(map);
 	}
 	
+	public void setUserPassword(String userId,String userPassword,String newPass){
+		Map<String,Object> map = new HashMap<>();
+		map.put("userId",userId);
+		map.put("userPassword",userPassword);
+		map.put("newPass",newPass);
+		
+		authoritiesRepository.updateUserPassword(map);
+	}
+	
 }

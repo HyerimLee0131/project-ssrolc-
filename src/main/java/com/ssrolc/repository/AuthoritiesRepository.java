@@ -15,5 +15,7 @@ public interface AuthoritiesRepository {
 	public List<UserRole> findUserRolesByUserId(String userId);
 
 	public boolean isUserByUserId(Map<String, Object> map);
+
+	public void updateUserPassword(Map<String, Object> map);
 	
 }

@@ -21,4 +21,9 @@
 			</if>
 		</where>
 	</select>
+	
+	<update id="updateUserPassword" parameterType="hashMap">
+		UPDATE ssrolc.user SET userPassword = #{newPass}
+		WHERE userId = #{userId} AND userPassword = #{userPassword}
+	</update>
 </mapper>

@@ -19,6 +19,11 @@ uploadpath:
 spring:
     resources:
         cache-period:31556926
+        
+openapi:
+    post:
+        key: 0/zvGsrVGa3CSDZ5Qh5rgGpvKY9EhggvoF1kUpGYDhkrzRZqpHN02OSmtZ4USCEiWA1ciJKHUSj8ybpzzfobeQ==
+        url: http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdSearchAllService/retrieveNewAdressAreaCdSearchAllService/getNewAddressListAreaCdSearchAll?ServiceKey=[:KEY]&countPerPage=[:PAGEBLOCKSIZE]&currentPage=[:PAGENUM]&srchwrd=[:SEARCHVAL]
 ---
 spring.profiles: develop
 
@@ -43,6 +48,11 @@ uploadpath:
 spring:
     resources:
         cache-period:31556926
+        
+openapi:
+    post:
+        key: 0/zvGsrVGa3CSDZ5Qh5rgGpvKY9EhggvoF1kUpGYDhkrzRZqpHN02OSmtZ4USCEiWA1ciJKHUSj8ybpzzfobeQ==
+        url: http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdSearchAllService/retrieveNewAdressAreaCdSearchAllService/getNewAddressListAreaCdSearchAll?ServiceKey=[:KEY]&countPerPage=[:PAGEBLOCKSIZE]&currentPage=[:PAGENUM]&srchwrd=[:SEARCHVAL]
 ---
 spring.profiles: product
 
@@ -67,3 +77,8 @@ uploadpath:
 spring:
     resources:
         cache-period:31556926
+        
+openapi:
+    post:
+        key: 0/zvGsrVGa3CSDZ5Qh5rgGpvKY9EhggvoF1kUpGYDhkrzRZqpHN02OSmtZ4USCEiWA1ciJKHUSj8ybpzzfobeQ==
+        url: http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdSearchAllService/retrieveNewAdressAreaCdSearchAllService/getNewAddressListAreaCdSearchAll?ServiceKey=[:KEY]&countPerPage=[:PAGEBLOCKSIZE]&currentPage=[:PAGENUM]&srchwrd=[:SEARCHVAL]

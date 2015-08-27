@@ -49,7 +49,7 @@ var rt_path = ''
 							<div class="sub">
 								<dl>
 									<dd class="sub1"><a href="">스스로러닝센터소개</a></dd>
-									<dd class="sub2"><a href="">홍보영상</a></dd>
+									<dd class="sub2"><a href="/ssrolcfront/prmedias">홍보영상</a></dd>
 									<dd class="sub3"><a href="">우리동네 러닝센터 찾기</a></dd>
 								</dl>
 							</div>
