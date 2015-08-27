@@ -2,31 +2,31 @@ package com.ssrolc.domain.post;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder={"requestMsgId","responseMsgId","responseTime","successYN","returnCode","errMsg"
+		,"totalCount","countPerPage","totalPage","currentPage"})
 public class PostHeader {
-	@XmlAttribute
 	private String requestMsgId;
-	@XmlAttribute
 	private String responseMsgId;
-	@XmlAttribute
 	private String responseTime;
-	@XmlAttribute
 	private String successYN;
-	@XmlAttribute
 	private String returnCode;
-	@XmlAttribute
 	private String errMsg;
-	@XmlAttribute
 	private int totalCount;
-	@XmlAttribute
 	private int countPerPage;
-	@XmlAttribute
 	private int totalPage;
-	@XmlAttribute
 	private int currentPage;
 }
