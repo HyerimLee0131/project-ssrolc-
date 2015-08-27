@@ -37,11 +37,12 @@
 								<li>
 									<label for="pAuthCode">인증번호</label>
 									<input type="text" class="input-text w100" name="pAuthCode" id="pAuthCode" />
-									<a href=""javascript:$.AuthKeyChk();"" class="btn_code_confirm">인증번호입력</a>
-									<span class="code_ok">*이메일 인증이 성공적으로 완료되었습니다.</span>
+									<a href="javascript:$.AuthKeyChk();" class="btn_code_confirm">인증번호입력</a>
+									<span id="emailOk" class="code_ok" style="display:none;">*이메일 인증이 성공적으로 완료되었습니다.</span>
 								</li>
 							</ul>
 						</div>
+						<input type="hidden" id="emailAuthYN" value="N">
 						<!-- 개인정보수집동의 -->
 						<div class="etc_agree_chk">
 							<h4>개인정보의 수집 및 이용동의</h4>
@@ -186,7 +187,7 @@
 								<td colspan="3">
 									<input name="formPost" type="text" class="input-text w80" id="formPost" title="우편번호 앞자리" readonly /> 
 									
-									<a href="javascript:openPopup('zip.html', 500, 400, 10,30);" class="btn_address_search">우편번호검색</a>
+									<a href="javascript:$.openPopup('/post','postSearch',400,500,10,30);" class="btn_address_search">우편번호검색</a>
 								</td>
 							</tr>
 							<tr>

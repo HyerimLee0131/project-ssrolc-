@@ -48,8 +48,8 @@
 	<p>'{{srchwrd}}'(으)로 검색된 결과입니다. 아래 해당하는 주소를 선택해 주세요.</p>
 	<ul class="clear zip_result_list">
 	{{#each addressList}}
-		<li><a href="javascript:$.setAddress('{{zipNo}}','{{lnmAdres}}');"><span class="zip_code">[{{zipNo}}]</span><span class="addr">{{lnmAdres}}</span></a></li>
-		<li><a href="javascript:$.setAddress('{{zipNo}}','{{rnAdres}}');"><span class="zip_code">[{{zipNo}}]</span><span class="addr">{{rnAdres}}</span></a></li>
+		<li><a href="javascript:$.setPost('{{zipNo}}','{{lnmAdres}}');"><span class="zip_code">[{{zipNo}}]</span><span class="addr">{{lnmAdres}}</span></a></li>
+		<li><a href="javascript:$.setPost('{{zipNo}}','{{rnAdres}}');"><span class="zip_code">[{{zipNo}}]</span><span class="addr">{{rnAdres}}</span></a></li>
 	{{else}}
 		<li>데이터가 없습니다.</li>
 	{{/each}}

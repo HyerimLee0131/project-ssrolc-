@@ -32,7 +32,7 @@ $(function() {
 			});	
 		},
 		setPost:function(zip,addr){
-			opener.$.setAddress(zip,addr);
+			opener.$.setAddr(zip,addr);
 			self.close();
 		}
 	

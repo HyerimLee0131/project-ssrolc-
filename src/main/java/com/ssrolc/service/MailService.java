@@ -1,6 +1,7 @@
 package com.ssrolc.service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -15,6 +16,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
+import com.google.common.base.Strings;
 import com.ssrolc.repository.MailRepository;
 import com.ssrolc.utils.mail.RegistrationNotifier;
 
@@ -120,6 +122,25 @@ public class MailService implements RegistrationNotifier {
 		}
 		return sb.toString();
 	}
-
+	
+	//인증키 일치,불일치 비교
+	public String getAuthInfo(String authKey, String memName, String email) {
+	
+		Map<String,Object> map = new HashMap<>();
+		map.put("memName", memName);
+		map.put("email", email);
+		String dbAuthKey = mailRepository.findAuthKey(map);
+		String result = ""; 
+		if(!Strings.isNullOrEmpty(dbAuthKey)){
+			if(authKey.equals(dbAuthKey)){
+				result = "authKeyOk";
+			}else{
+			 result = "authKeyFail";
+			}
+		 }else{
+			 result = "authKeyNull";
+		 }
+		 	return result;
+		 }
 
 }

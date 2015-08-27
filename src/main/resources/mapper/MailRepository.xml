@@ -7,5 +7,8 @@
 		VALUES(#{authKey},#{mailAddress},#{pMemName},SYSDATE(),#{jslIp});
 	</insert>
 	
+	<select id="findAuthKey" parameterType="hashmap" resultType="String">
+		select authKey from ssrolc.disclosureEmailAuth where memName=#{memName} and email=#{email}
+	</select>
 	
 </mapper>

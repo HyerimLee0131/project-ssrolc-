@@ -41,9 +41,11 @@ $(function() {
 				data: inputData,
 				cache: false,
 				async: true,
-				dataType: "text",
+				dataType: "json",
 				success: function(jsonData, textStatus, XMLHttpRequest) {
-					 alert('이메일이 발송되었습니다.');
+					if(jsonData.result=="MailSendOk"){ 
+						alert('이메일이 발송되었습니다.');
+					}
 				},
 				error:function (xhr, ajaxOptions, thrownError){
 					alert(thrownError);
@@ -52,8 +54,44 @@ $(function() {
 		},
 		
 		AuthKeyChk:function(){
+		
 			var inputAuthKey = $('#pAuthCode').val();
-			alert(inputAuthKey);
+			var name = $('#pMemName').val();
+			var email = $('#pEmailId').val()+"@"+ $('#pEmailAdd1').val();
+			var inputData = {"authKey":inputAuthKey,"memName":name,"email":email};
+			
+			if(inputAuthKey ==""){
+				alert('인증번호를 입력하지 않았습니다.다시입력해주세요');
+				$('#pAuthCode').focus();
+				return;
+			}
+			$.ajax({
+				type :"GET",
+				url  :"/disclosure/mail",
+				data: inputData,
+				cache: false,
+				async: true,
+				dataType: "json",
+				success: function(jsonData, textStatus, XMLHttpRequest) {
+					if(jsonData.result=="authKeyOk"){ 
+						alert('인증번호가 일치합니다.');
+						$("#emailOk").show();
+						$("#emailAuthYN").val("Y");
+					}else if(jsonData.result=="authKeyFail"){
+						alert('인증번호가 일치하지 않습니다. 다시 입력해주세요');
+					}else if(jsonData.result=="authKeyNull"){
+						alert('인증번호가 일치하지 않습니다. 다시 입력해주세요');
+					}
+				},
+				error:function (xhr, ajaxOptions, thrownError){
+					alert(thrownError);
+				}
+			});
+			
+		},
+		setAddr:function(formPost,formAddr01){
+			$('#formPost').val(formPost);
+			$('#formAddr01').val(formAddr01);
 			
 		}
 		
@@ -61,24 +99,30 @@ $(function() {
 	
 	//레이어팝업열기
 	$('.btn_info_read').on("click",function(e){
+		//이메일인증여부
+		var authChk = $("#emailAuthYN").val();
+		//개인정보수집 동의여부
 		var agreeChk = $('input[name="agreeChk"]:checked').val();
-		if(agreeChk=="1"){
-			$('.layer_pop_wrap').css('display','block');
-		}else{
-			alert("개인정보수집 및 이용에 동의체크를 눌러주세요");
+		if(authChk !="Y"){
+			alert('이메일 인증을 해주세요');
+			return;
 		}
+		if(agreeChk !="1"){
+			alert("개인정보수집 및 이용에 동의체크를 눌러주세요");
+			return;
+		}
+		if(authChk=="Y" && agreeChk=="1"){
+			$('.layer_pop_wrap').css('display','block');
+		}
+		
 		e.preventDefault();
 	});
 	//레이어팝업닫기
 	$('.btn_pop_close').on("click",function(){
 		$('.layer_pop_wrap').css('display','none');
 	});
-	//팝업오픈 openPopup(경로, 넓이, 높이, top, left)
-	function openPopup(path, width, height, top, left){
-		window.open(path, "","width="+width+",height="+height+",top="+top+",left="+left+",noresizable,toolbar=no,status=no,scrollbars=yes,directory=no");
-	}
-	
-	
+
+
 	//메일입력
 	$("#pEmailAdd2").change(function(){
 		var email2 = $('#pEmailAdd2').val();

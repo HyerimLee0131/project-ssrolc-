@@ -63,7 +63,10 @@ $(function(){
 					  }
 					  
 					  return zero + n;
-				}
+				},
+			openPopup:function(url,openWindowName,width,height,left,top){
+				window.open(url,openWindowName,"width="+width+",height="+height+",left="+left+",top="+top+"scrollbars=no,toolbar=no,resizable=no");
+			}
 	});
 
 	
