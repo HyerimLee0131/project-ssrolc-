@@ -53,7 +53,7 @@ $(function() {
 		
 		AuthKeyChk:function(){
 			var inputAuthKey = $('#pAuthCode').val();
-			
+			alert(inputAuthKey);
 			
 		}
 		

@@ -76,7 +76,8 @@ $(document).ready(function(){
 
 </script>
 
-<#include "/ssrolcfront/footer.ftl">
+
 </div>
 </body>
+<#include "/ssrolcfront/footer.ftl">
 </html>

@@ -182,10 +182,10 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"><label for="formPost01">우편번호</label></th>
+								<th scope="row"><label for="formPost">우편번호</label></th>
 								<td colspan="3">
-									<input name="formPost01" type="text" class="input-text w80" id="formPost01" title="우편번호 앞자리" readonly /> - 
-									<input name="formPost02" type="text" class="input-text w80" id="formPost02" title="우편번호 뒷자리" readonly />
+									<input name="formPost" type="text" class="input-text w80" id="formPost" title="우편번호 앞자리" readonly /> 
+									
 									<a href="javascript:openPopup('zip.html', 500, 400, 10,30);" class="btn_address_search">우편번호검색</a>
 								</td>
 							</tr>
@@ -245,9 +245,7 @@
 				<a href="" class="btn_pop_close">닫기</a>
 			</div>
 		</div>
-		<!-- footer -->
-		<#include "/ssrolcfront/footer_new.ftl">
-		<!-- //footer -->
 	</div>
 </body>
+<#include "/ssrolcfront/footer_new.ftl">
 </html>
