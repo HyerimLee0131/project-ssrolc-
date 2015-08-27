@@ -7,7 +7,9 @@
 <link rel="stylesheet" type="text/css" href="/public/img/css/common.css" />
 <link rel="stylesheet" type="text/css" href="/public/img/css/layout_main.css" />
 <link rel="stylesheet" type="text/css" href="/public/css/jquery-ui.1.11.4.min.css" />
-<script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script>
+<!-- <script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script> -->
+<link rel="stylesheet" href="/public/css/style.css" />
+
 <script type='text/javascript'>
 //<![CDATA[
 var rt_path = ''
@@ -26,12 +28,14 @@ var rt_path = ''
 <script type='text/javascript' src='/public/js/modal-win.js'></script>
 <script type='text/javascript' src='/public/js/scrollLayer.js'></script>
 <script type='text/javascript' src='/public/js/jeislccommon.js'></script>
+<!-- <script src="/public/js/mail.js"></script> -->
 <#if headerScript?has_content>
 	<#list headerScript as script>
 		<script type="text/javascript" src="/public/js/${script}.js"></script>
 	</#list>
 </#if>
 </head>
+<body>
 <a name='rt_head'></a>
 <div id="wrap">
 	<div class="wrap_in">
@@ -88,15 +92,14 @@ var rt_path = ''
 					</dl>
 			<div class="admin"><a href="javascript:;" onclick="window.open('/ssrolcmanager/login','pop')" title="새창열림"></a></div>
 		</div>
-				
-				<!--// Breadcrumb -->
-				<div class="breadc_a">
-					<span class="home"></span>스스로 러닝 센터</div>
-				<!--Breadcrumb // -->
-			</div>
-			<!-- header// -->
-			<!-- // body -->
-			<div id="body_a" class="clearfix">﻿<!-- // body -->
+<!--// Breadcrumb -->
+	<div class="breadc_a">
+		<span class="home"></span>스스로 러닝 센터</div>
+<!--Breadcrumb // -->
+	</div>
+<!-- header// -->
+
+
 	
 	
 

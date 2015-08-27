@@ -1,5 +1,6 @@
 <#include "/ssrolcfront/header.ftl">
-<body>
+<!-- // body -->
+<div id="body_a" class="clearfix">﻿<!-- // body -->
 	<!--// content -->
 	<div class="ex"></div>
 	<div class="mainvisualimg">

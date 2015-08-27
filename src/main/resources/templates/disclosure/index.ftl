@@ -1,15 +1,52 @@
-		<!-- container -->
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>스스로 러닝센터 &gt; 정보공개서</title>
+	<!--[if IE 7]><html class="no-js ie7"><![endif]-->
+	<!--[if IE 8]><html class="no-js ie8"><![endif]-->
+	<link rel="stylesheet" href="/public/css/style.css" />
+	<script type="text/javascript" src="/public/js/jquery-1.8.1.min.js"></script>
+	<#if headerScript?has_content>
+	<#list headerScript as script>
+		<script type="text/javascript" src="/public/js/${script}.js"></script>
+	</#list>
+</#if>
+</head>
+<body>
+	<div class="wrap">
+		<!-- header -->
+		<div class="header_wrap">
+			<div class="header" id="header">
+				<div class="logo">
+				<h1><a href="#">스스로러닝센터</a></h1>
+				</div>
+				<div class="main_nav">
+					<h2>메인메뉴</h2>
+					<ul class="clear clearfix">
+						<li><a href="prmedia_list.html">스스로러닝센터</a></li>
+						<li><a href="#">학습시스템</a></li>
+						<li><a href="franchiseSearch.html">가맹안내</a></li>
+						<li><a href="faq_list.html">커뮤니티</a></li>
+						<li><a href="#">로그인</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- //header -->
+<!-- container -->
 		<div class="container" id="container">
 			<div class="clearfix">
 				<div class="content no_left">
 					<div class="path">
-						<span class="home"><a href="/">홈</a></span> &gt; <a href="#">정보공개서</a>	
+						<span class="home"><a href="/">홈</a></span> &gt; <a href="/disclosure">정보공개서</a>	
 					</div>
-					<form action="#" method="post" name="frm1">
+					<form action="" name="">
 					<div class="etc_agree">
-						<h3>정보공개서</h3>
 						<p>
-							<img src="../images/etc_txt01.png" alt="정보공개서 내용" />
+							<img src="/public/img/etc/etc_txt01.png" alt="정보공개서 내용" />
 						</p>
 						<div class="info_agree_list">
 							<ul class="clear">
@@ -19,9 +56,9 @@
 								</li>
 								<li>
 									<label for="pEmail01">이메일</label>
-									<input type="text" class="input-text w150" name="pEmail01" id="pEmail01" title="이메일 아이디" /> @
-									<input type="text" class="input-text w150" name="pEmail03" id="pEmail03" title="이메일 주소" /> 
-									<select name="pEmail02" id="pEmail02" title="이메일 주소 선택" class="input-select w150">
+									<input type="text" class="input-text w150" name="pEmailId" id="pEmailId" title="이메일 아이디" /> @
+									<input type="text" class="input-text w150" name="pEmailAdd1" id="pEmailAdd1" title="이메일 주소" readonly /> 
+									<select name="pEmailAdd2" id="pEmailAdd2" title="이메일 주소 선택" class="input-select w150">
 										<option value="">선택하세요</option>
 										<option value="inputEmail">직접입력</option>
 										<option value="gmail.com">gmail.com</option>
@@ -31,12 +68,13 @@
 										<option value="nate.com">nate.com</option>
 										<option value="jei.com">jei.com</option>
 									</select>
-									<a href="#" class="btn_email_confirm">이메일인증하기</a>
+									<a href="javascript:$.emailAuthSubmit();" class="btn_email_confirm">이메일인증하기</a>
+						
 								</li>
 								<li>
 									<label for="pAuthCode">인증번호</label>
 									<input type="text" class="input-text w100" name="pAuthCode" id="pAuthCode" />
-									<a href="#" class="btn_code_confirm">인증번호입력</a>
+									<a href=""javascript:$.AuthKeyChk();"" class="btn_code_confirm">인증번호입력</a>
 									<span class="code_ok">*이메일 인증이 성공적으로 완료되었습니다.</span>
 								</li>
 							</ul>
@@ -63,7 +101,7 @@
 								</dl>
 							</div>
 							<div class="chk_wrap">
-								<label><input type="checkbox" name="" value="" />개인정보수집 및 이용에 동의합니다.</label>
+								<label><input type="checkbox" name="agreeChk" value="1" />개인정보수집 및 이용에 동의합니다.</label>
 							</div>
 						</div>
 						<!-- //개인정보수집동의 -->
@@ -84,7 +122,7 @@
 				<!-- 정보공개서 열람하기 전 확인	 -->	
 				<div class="info_confirm_wrap">
 					<h5>정보공개서 열람하기 전 확인하세요!!!</h5>
-					<p><img src="../images/etc_txt02.gif" alt="" /></p>
+					<p><img src="/public/img/etc/etc_txt02.gif" alt="" /></p>
 				</div>
 				<!-- //정보공개서 열람하기 전 확인 -->
 				<!-- 개인정보 동의 -->
@@ -244,24 +282,6 @@
 				<a href="" class="btn_pop_close">닫기</a>
 			</div>
 		</div>
-		<!-- //정보공개서 열람 레이어팝업 -->
-		<script type="text/javascript">
-			$(document).ready(function(){
-				//레이어팝업열기
-				$('.btn_info_read').on("click",function(e){
-					$('.layer_pop_wrap').css('display','block');
-					e.preventDefault();
-				});
-				//레이어팝업닫기
-				$('.btn_pop_close').on("click",function(){
-					$('.layer_pop_wrap').css('display','none');
-				});
-			});
-			//팝업오픈 openPopup(경로, 넓이, 높이, top, left)
-			function openPopup(path, width, height, top, left){
-				window.open(path, "","width="+width+",height="+height+",top="+top+",left="+left+",noresizable,toolbar=no,status=no,scrollbars=yes,directory=no");
-			}
-		</script>
 		<!-- footer -->
 		<div class="footer" id="footer">
 		</div>

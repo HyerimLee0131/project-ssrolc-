@@ -15,12 +15,18 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
+import com.ssrolc.repository.MailRepository;
 import com.ssrolc.utils.mail.RegistrationNotifier;
 
 import freemarker.template.Configuration;
 
 @Service
 public class MailService implements RegistrationNotifier {
+	
+	@Autowired
+	private MailRepository mailRepository;
+	
+	
 	private final static String name = "##NAME##";
 	private final static String securityKey = "##SECURITY_KEY##";
 	private final static String INFO_TITLE = " [안내]스스로러닝센터입니다. ";
@@ -37,14 +43,11 @@ public class MailService implements RegistrationNotifier {
 	}
 
 	@Override
-	public void sendMail(String pEmailId, String pEmailAdd1, String pEmailAdd2,String hostName) {
+	public String sendMail(String pMemName,String pEmailId, String pEmailAdd1, String hostName) {
+		String name = pMemName;
 		String mailAddress = "";
-		if ("inputEmail".equals(pEmailAdd2)) {
-			mailAddress = pEmailId + "@" + pEmailAdd1;
-		} else {
-			mailAddress = pEmailId + "@" + pEmailAdd2;
-		}
-
+		mailAddress = pEmailId + "@" + pEmailAdd1;
+		String authKey = "";
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message,
@@ -53,22 +56,23 @@ public class MailService implements RegistrationNotifier {
 			messageHelper.setFrom("mail@jei.com", "스스로러닝센터");
 
 			String text = MailService.INFO_BODY.replaceAll(MailService.name,
-					"이혜림");
+					name);
 			text = text.replaceAll(MailService.securityKey, makeAuthKey());
 
 			message.setContent(text, "text/html; charset=utf-8");
 			messageHelper.setTo(new InternetAddress(mailAddress, "utf-8"));
 			
 			System.out.println(mailAddress + "에게 메일 전송 성공!!");
-			
+			authKey = makeAuthKey();
 			HashMap<String, String> model = new HashMap<String, String>();
-			model.put("name", "이혜림");
-			model.put("securityKey", makeAuthKey());
+			model.put("name", name);
+			model.put("securityKey", authKey);
 			model.put("hostName", hostName);
 			sendMail2(model,"/ssrolcmanager/mail/emailContent.ftl",mailAddress);
 		} catch (UnsupportedEncodingException | MessagingException e) {
 			e.printStackTrace();
 		}
+		return authKey;
 	}
 
 	
@@ -80,7 +84,6 @@ public class MailService implements RegistrationNotifier {
 					true, "utf-8");
 			messageHelper.setSubject(MailService.INFO_TITLE);
 			messageHelper.setFrom("mail@jei.com", "스스로러닝센터");
-			// message.setText("안녕하세요 스스로러닝센터입니다.\n당신의 인증번호는"+makeAuthKey()+"입니다.");
        
 			String text = FreeMarkerTemplateUtils.processTemplateIntoString(
 					freemarkerConfiguration.getTemplate(template, "UTF-8"),
@@ -94,7 +97,18 @@ public class MailService implements RegistrationNotifier {
 			e.printStackTrace();
 		}
 	}
+	
+	//메일 인증한 사람 정보 등록
+	public void insertMailAuth(String pMemName, String mailAddress, String authKey, String jslIp) {
+		Map<String,Object> map = new HashMap<>();
+		
+		map.put("pMemName", pMemName);
+		map.put("mailAddress", mailAddress);
+		map.put("authKey", authKey);
+		map.put("jslIp", jslIp);
 
+		mailRepository.insertMailAuth(map);
+	}
 	// 인증번호 생성함수
 	public String makeAuthKey() {
 		String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -106,4 +120,6 @@ public class MailService implements RegistrationNotifier {
 		}
 		return sb.toString();
 	}
+
+
 }
