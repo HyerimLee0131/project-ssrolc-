@@ -1,5 +1,6 @@
 <#include "/ssrolcfront/header_new.ftl">
 <#include "/ssrolcfront/left_new.ftl">
+
 	<div class="content">
 		<div class="path">
 			<span class="home"><a href="/">홈</a></span> &gt; <a href="#">스스로러닝센터소개</a> &gt; <a href="#">홍보영상</a>	
@@ -84,4 +85,5 @@
 		</div>
 		</form>
 	</div>
-	<#include "/ssrolcfront/footer.ftl">
+	
+	<#include "/ssrolcfront/footer_new.ftl">
