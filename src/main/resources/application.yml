@@ -23,7 +23,7 @@ spring:
 openapi:
     post:
         key: 0/zvGsrVGa3CSDZ5Qh5rgGpvKY9EhggvoF1kUpGYDhkrzRZqpHN02OSmtZ4USCEiWA1ciJKHUSj8ybpzzfobeQ==
-        url: http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdSearchAllService/retrieveNewAdressAreaCdSearchAllService/getNewAddressListAreaCdSearchAll?ServiceKey=[:KEY]&countPerPage=[:PAGEBLOCKSIZE]&currentPage=[:PAGENUM]&srchwrd=[:SEARCHVAL]
+        url: http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdSearchAllService/retrieveNewAdressAreaCdSearchAllService/getNewAddressListAreaCdSearchAll?ServiceKey={serviceKey}&countPerPage={pageBlockSize}&currentPage={pageNum}&srchwrd={srchwrd}
 ---
 spring.profiles: develop
 
@@ -52,7 +52,7 @@ spring:
 openapi:
     post:
         key: 0/zvGsrVGa3CSDZ5Qh5rgGpvKY9EhggvoF1kUpGYDhkrzRZqpHN02OSmtZ4USCEiWA1ciJKHUSj8ybpzzfobeQ==
-        url: http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdSearchAllService/retrieveNewAdressAreaCdSearchAllService/getNewAddressListAreaCdSearchAll?ServiceKey=[:KEY]&countPerPage=[:PAGEBLOCKSIZE]&currentPage=[:PAGENUM]&srchwrd=[:SEARCHVAL]
+        url: http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdSearchAllService/retrieveNewAdressAreaCdSearchAllService/getNewAddressListAreaCdSearchAll?ServiceKey={serviceKey}&countPerPage={pageBlockSize}&currentPage={pageNum}&srchwrd={srchwrd}
 ---
 spring.profiles: product
 
@@ -81,4 +81,4 @@ spring:
 openapi:
     post:
         key: 0/zvGsrVGa3CSDZ5Qh5rgGpvKY9EhggvoF1kUpGYDhkrzRZqpHN02OSmtZ4USCEiWA1ciJKHUSj8ybpzzfobeQ==
-        url: http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdSearchAllService/retrieveNewAdressAreaCdSearchAllService/getNewAddressListAreaCdSearchAll?ServiceKey=[:KEY]&countPerPage=[:PAGEBLOCKSIZE]&currentPage=[:PAGENUM]&srchwrd=[:SEARCHVAL]
+        url: http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdSearchAllService/retrieveNewAdressAreaCdSearchAllService/getNewAddressListAreaCdSearchAll?ServiceKey={serviceKey}&countPerPage={pageBlockSize}&currentPage={pageNum}&srchwrd={srchwrd}
