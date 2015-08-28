@@ -57,7 +57,7 @@ import com.ssrolc.utils.PageUtil;
 
 @Controller
 public class BoardController {
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(BoardController.class);
 	
 	@Autowired
 	private BoardService boardService;
