@@ -21,9 +21,9 @@
 					<#if currentMenu == "boardCenter" || currentMenu == "boardFaq" || currentMenu == "boardNotice" || currentMenu == "boardStudent"> 
 					<h3>게시판관리</h3>
 					<ul>
-						<li <#if currentMenu == "boardCenter">  class="active" </#if> ><a href="/ssrolcmanager/boards/center">우수센터장 소개</a></li>
-						<li <#if currentMenu == "boardFaq">  class="active" </#if> ><a href="/ssrolcmanager/boards/faq">자주묻는 질문</a></li>
 						<li <#if currentMenu == "boardNotice">  class="active" </#if> ><a href="/ssrolcmanager/boards/notice">공지사항</a></li>
+						<li <#if currentMenu == "boardFaq">  class="active" </#if> ><a href="/ssrolcmanager/boards/faq">자주묻는 질문</a></li>
+						<li <#if currentMenu == "boardCenter">  class="active" </#if> ><a href="/ssrolcmanager/boards/center">우수센터장 소개</a></li>
 						<li <#if currentMenu == "boardStudent">  class="active" </#if> ><a href="/ssrolcmanager/boards/student">우수학생 소개</a></li>
 					</ul>
 					</#if>					

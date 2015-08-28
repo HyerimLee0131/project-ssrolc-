@@ -7,19 +7,9 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
-		<config>java:com.ssrolc.config.DataSourceConfig</config>
-		<config>java:com.ssrolc.config.MailSendConfig</config>
-		<config>java:com.ssrolc.auth.MyCustomAuthenticationEntryPoint</config>
-		<config>java:com.ssrolc.auth.MyCustomAuthenticationFailureHandler</config>
-		<config>java:com.ssrolc.auth.MyCustomAuthenticationProvider</config>
-		<config>java:com.ssrolc.auth.MyCustomAuthenticationSuccessHandler</config>
-		<config>java:com.ssrolc.auth.MyCustomLogoutSuccessHandler</config>
-		<config>java:com.ssrolc.auth.MyCustomSecurityContextRepository</config>
-		<config>java:com.ssrolc.config.SecurityConfig</config>
-		<config>java:com.ssrolc.SsrolcApplication</config>
-		<config>java:com.ssrolc.config.webConfig</config>
 	</configs>
 	<autoconfigs>
+		<config>java:com.ssrolc.SsrolcApplication</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>
