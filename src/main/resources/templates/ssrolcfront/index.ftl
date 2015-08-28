@@ -17,7 +17,7 @@
 			<dd><a href="" name="centerjang" id="centerjang"><img src="/public/img/main/ban_01.png" alt="우수센터장 소개"></a></dd>
 			<dd><a href="" name="beststudent" id="beststudent"><img src="/public/img/main/ban_02.png" alt="우수학생 소개"></a></dd>
 			<dd><a href="" ><img src="/public/img/main/ban_03.png" alt="가맹점모집영상"></a></dd>
-			<dd><a href="" id="centerserch"><img src="/public/img/main/ban_04.png" alt="우리동네 스스로러닝센터 찾기"></a></dd>
+			<dd><a href="/centerSearch" id="centerserch"><img src="/public/img/main/ban_04.png" alt="우리동네 스스로러닝센터 찾기"></a></dd>
 			<dd><a href="/disclosure" name="etc" id="etc"><img src="/public/img/main/ban_05.png" alt="정보공개서"></a></dd>
 			<dd><a href="javascript:;" id="go_e"><img src="/public/img/main/ban_06.png" alt="스스로e 바로가기"></a></dd>
 		</dl>

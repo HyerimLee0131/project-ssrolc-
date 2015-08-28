@@ -4,7 +4,15 @@
 	<select id="findCenters" statementType="CALLABLE" parameterType="String" resultType="com.ssrolc.domain.learningcenter.LearningCenter">
 		{ CALL JLCENTER.dbo.JEISLC_CENTERSEARCH_LIST(#{area}) }
 	</select>
-	
+
+	<select id="searchCenters" statementType="CALLABLE" parameterType="String" resultType="com.ssrolc.domain.CenterSearch.CenterSearch">
+		{ CALL JLCENTER.dbo.JEISLC_CENTERSEARCH_LIST(#{area}) }
+	</select>
+
+	<select id="findDos" parameterType="hashMap" resultType="String">
+		{ CALL ETC.dbo.EPOST_JUSOSEARCH_LIST(#{doName},#{si},#{dong},#{jobflag}) }
+	</select>
+
 	<select id="findCenter" parameterType="String" resultType="String">
 		<![CDATA[ 
 		SELECT deptName FROM JLCENTER.dbo.Depart AS A 
@@ -15,5 +23,4 @@
 		ORDER BY A.DeptNAME ASC
 		]]>
 	</select>
-	
 </mapper>
