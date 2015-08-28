@@ -81,7 +81,7 @@
 		<!-- 정보공개서 열람 레이어팝업 -->
 		<div class="layer_pop_wrap">
 			<div class="form_info_confirm">
-				<form action="" method="post" name="frm2">
+				<form action="/disclosure" method="post" name="frm2" id="frm2">
 				<h4>정보공개서 열람</h4>
 				<!-- 정보공개서 열람하기 전 확인	 -->	
 				<div class="info_confirm_wrap">
@@ -124,8 +124,8 @@
 							</dl>
 						</div>
 						<div class="chk_wrap">
-							<label><input type="radio" name="infoAgree" value="" /> 동의함</label>
-							<label><input type="radio" name="infoAgree" value="" checked /> 동의하지않음</label>
+							<label><input type="radio" name="infoAgree" value="Y" /> 동의함</label>
+							<label><input type="radio" name="infoAgree" value="N" checked /> 동의하지않음</label>
 						</div>
 					</div>
 				</div>
@@ -143,16 +143,16 @@
 						<thead>
 							<tr>
 								<th scope="row">이름</th>
-								<td>홍길동</td>
+								<td><input type="text" id="name" name="memName" value="" /></td>
 								<th scope="row">이메일</th>
-								<td>honggildong@jei.com</td>
+								<td><input type="text" id="email" name="email" value="" /></td>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<th scope="row"><label for="formTel01">연락처</label></th>
 								<td colspan="3">
-									<select name="formTel01" title="지역번호 or 통신사번호" class="input-select w100">
+									<select id="formTel01" name="formTel01" title="지역번호 or 통신사번호" class="input-select w100">
 										<option value="select">선택</option>
 										<option value="010">010</option>
 										<option value="011">011</option>
@@ -178,14 +178,15 @@
 										<option value="064">064</option>
 										<option value="070">070</option>
 									</select> - 
-									<input type="text" class="input-text w80 " name="formTel02" maxlength=4 title="전화번호 가운데자리" /> - 
-									<input type="text" class="input-text w80 " name="formTel03" maxlength=4 title="전화번호 마지막자리" />
+									<input type="text" class="input-text w80 " id="formTel02" name="formTel02" maxlength=4 title="전화번호 가운데자리" /> - 
+									<input type="text" class="input-text w80 " id="formTel03" name="formTel03" maxlength=4 title="전화번호 마지막자리" />
+									<input type="hidden" id="phone" name="phone" value="">
 								</td>
 							</tr>
 							<tr>
 								<th scope="row"><label for="formPost">우편번호</label></th>
 								<td colspan="3">
-									<input name="formPost" type="text" class="input-text w80" id="formPost" title="우편번호 앞자리" readonly /> 
+									<input name="zip" type="text" class="input-text w80" id="formPost" title="우편번호" readonly="readonly" /> 
 									
 									<a href="javascript:$.openPopup('/post','postSearch',400,500,10,30);" class="btn_address_search">우편번호검색</a>
 								</td>
@@ -194,52 +195,39 @@
 								<th scope="row"><label for="formAddr01">주소</label></th>
 								<td colspan="3">
 									<span class="input-wrap">
-										<input name="formAddr01" type="text" class="input-text w98p" id="formAddr01" />
+										<input name="addressDtl01" type="text" class="input-text w98p" id="addressDtl01" readonly="readonly" />
 									</span>
 									<span class="input-wrap">
-										<input name="formAddr02" type="text" class="input-text w98p" id="formAddr02" title="상세주소" />
+										<input name="addressDtl02" type="text" class="input-text w98p" id="addressDtl02" title="상세주소" />
 									</span>
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"><label for="formHopeArea01">가맹희망지역</label></th>
+								<th scope="row"><label for="hopeArea01">가맹희망지역</label></th>
 								<td>
-									<select id="formHopeArea01" title="지역선택" name="formHopeArea01" class="input-select w120">
+									<select id="hopeArea01" title="지역선택" name="deptArea1" class="input-select w120">
 										<option value="select">지역선택</option>
-										<option value="서울">서울</option>
-										<option value="부산">부산</option>
-										<option value="대구">대구</option>
-										<option value="인천">인천</option>
-										<option value="광주">광주</option>
-										<option value="대전">대전</option>
-										<option value="울산">울산</option>
-										<option value="강원">강원</option>
-										<option value="경기">경기</option>
-										<option value="경남">경남</option>
-										<option value="경북">경북</option>
-										<option value="전남">전남</option>
-										<option value="전북">전북</option>
-										<option value="제주">제주</option>
-										<option value="충남">충남</option>
-										<option value="충북">충북</option>
+										<#list cityList as city>
+											<option value = "${city}">${city}</option>
+										</#list>
 									</select>
-									<select id="formHopeArea02" title="지역선택" name="formHopeArea02" class="input-select w120" >
+									<select id="hopeArea02" title="지역선택" name="deptArea2" class="input-select w120" >
 										<option value="select">지역선택</option>
-										<option value="강남구">강남구</option>
 									</select>
 								</td>
 								<th scope="row"><label for="formClass">가맹교실유형</label></th>
 								<td>
 									<span class="radio_wrap">
-										<label><input type="checkbox" class="" id="formClass" name="formClass" title="" value="공부방"> 공부방</label>
-										<label><input type="checkbox" class="" name="formClass" title="" value="학원"> 학원</label>
-										<label><input type="checkbox" class="" name="formClass" title="" value="교습소"> 교습소</label>
+										<label><input type="checkbox" class="" id="formClass01" name="deptType" title="" value="공부방"> 공부방</label>
+										<label><input type="checkbox" class="" id="formClass02" name="deptType" title=""   value="학원"> 학원</label>
+										<label><input type="checkbox" class="" id="formClass03" name="deptType" title=""   value="교습소"> 교습소</label>
 									</span>
+									
 								</td>
 						</tbody>
 					</table>
 					<div class="etc_info_btn">
-						<a href="#" class="btn_read_fin">정보공개서열람</a>
+						<a href="javascript:$.joinWrite();" class="btn_read_fin">정보공개서열람</a>
 					</div>
 				</div>
 				</form>

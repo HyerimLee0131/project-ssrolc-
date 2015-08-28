@@ -24,13 +24,15 @@ public class Disclosure {
 	private String phone;
 	private int zip1;
 	private int zip2;
+	private String zip;
 	private String addressDtl01;
 	private String addressDtl02;
 	private Timestamp regDate;
+	private String regIp;
 	
 	public String getRegDate(String format) {
 		
 		return CommonUtils.timestampToString(regDate,format);
 	}
-	
+
 }

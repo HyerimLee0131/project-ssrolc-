@@ -1,7 +1,6 @@
 package com.ssrolc.service;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -16,18 +15,12 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
-import com.google.common.base.Strings;
-import com.ssrolc.repository.MailRepository;
 import com.ssrolc.utils.mail.RegistrationNotifier;
 
 import freemarker.template.Configuration;
 
 @Service
 public class MailService implements RegistrationNotifier {
-	
-	@Autowired
-	private MailRepository mailRepository;
-	
 	
 	private final static String name = "##NAME##";
 	private final static String securityKey = "##SECURITY_KEY##";
@@ -100,17 +93,7 @@ public class MailService implements RegistrationNotifier {
 		}
 	}
 	
-	//메일 인증한 사람 정보 등록
-	public void insertMailAuth(String pMemName, String mailAddress, String authKey, String jslIp) {
-		Map<String,Object> map = new HashMap<>();
-		
-		map.put("pMemName", pMemName);
-		map.put("mailAddress", mailAddress);
-		map.put("authKey", authKey);
-		map.put("jslIp", jslIp);
 
-		mailRepository.insertMailAuth(map);
-	}
 	// 인증번호 생성함수
 	public String makeAuthKey() {
 		String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -123,24 +106,7 @@ public class MailService implements RegistrationNotifier {
 		return sb.toString();
 	}
 	
-	//인증키 일치,불일치 비교
-	public String getAuthInfo(String authKey, String memName, String email) {
-	
-		Map<String,Object> map = new HashMap<>();
-		map.put("memName", memName);
-		map.put("email", email);
-		String dbAuthKey = mailRepository.findAuthKey(map);
-		String result = ""; 
-		if(!Strings.isNullOrEmpty(dbAuthKey)){
-			if(authKey.equals(dbAuthKey)){
-				result = "authKeyOk";
-			}else{
-			 result = "authKeyFail";
-			}
-		 }else{
-			 result = "authKeyNull";
-		 }
-		 	return result;
-		 }
+
+
 
 }

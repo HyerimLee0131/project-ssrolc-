@@ -37,7 +37,7 @@ $(function() {
 			
 				$.ajax({
 				type :"POST",
-				url  :"/disclosure/mail",
+				url  :"/disclosure/email",
 				data: inputData,
 				cache: false,
 				async: true,
@@ -65,9 +65,10 @@ $(function() {
 				$('#pAuthCode').focus();
 				return;
 			}
+			
 			$.ajax({
 				type :"GET",
-				url  :"/disclosure/mail",
+				url  :"/disclosure/email",
 				data: inputData,
 				cache: false,
 				async: true,
@@ -75,11 +76,35 @@ $(function() {
 				success: function(jsonData, textStatus, XMLHttpRequest) {
 					if(jsonData.result=="authKeyOk"){ 
 						alert('인증번호가 일치합니다.');
+						if(jsonData.disclosure){
+							var disclosure = jsonData.disclosure;
+							$("#name").val(disclosure.memName);
+							$("#email").val(disclosure.email);
+							var phoneArray = disclosure.phone.split('-');
+							$("#formTel01").val(phoneArray[0]);
+							$("#formTel02").val(phoneArray[1]);
+							$("#formTel03").val(phoneArray[2]);
+							$("#zip").val(disclosure.zip);
+							$("#addressDtl01").val(disclosure.addressDtl01);
+							$("#addressDtl02").val(disclosure.addressDtl02);
+							$("#hopeArea01").val(disclosure.deptArea1);
+							$.getSubArea();
+
+							$("#hopeArea02").val(disclosure.deptArea2);
+
+							if($("#formClass01").val()==disclosure.deptType){
+								$("#formClass01").attr('checked','checked');
+							}
+							if($("#formClass02").val()==disclosure.deptType){
+								$("#formClass02").attr('checked','checked');
+							}
+							if($("#formClass03").val()==disclosure.deptType){
+								$("#formClass03").attr('checked','checked');
+							}
+						}
 						$("#emailOk").show();
 						$("#emailAuthYN").val("Y");
-					}else if(jsonData.result=="authKeyFail"){
-						alert('인증번호가 일치하지 않습니다. 다시 입력해주세요');
-					}else if(jsonData.result=="authKeyNull"){
+					}else{
 						alert('인증번호가 일치하지 않습니다. 다시 입력해주세요');
 					}
 				},
@@ -89,10 +114,99 @@ $(function() {
 			});
 			
 		},
-		setAddr:function(formPost,formAddr01){
+		setAddr:function(formPost,addressDtl01){
 			$('#formPost').val(formPost);
-			$('#formAddr01').val(formAddr01);
+			$('#addressDtl01').val(addressDtl01);
+			$('#addressDtl01').attr('readonly','readonly');
+		},
+		joinWrite:function(){
+
+			//개인정보 동의 체크
+			if($('input[name="infoAgree"]:checked').val()=="N"){
+		        alert("개인정보 동의를 눌러주세요");
+		        return false;
+			}
 			
+			//휴대폰 번호 체크
+			var Tel01 = $('#formTel01').val();
+			var Tel02 = $.trim($('#formTel02').val());
+			var Tel03 = $.trim($('#formTel03').val());
+			var phone = Tel01+"-"+Tel02+"-"+Tel03;
+			$('#phone').val(phone);
+			
+			
+			if(Tel01 == "select" || Tel02 == "" || Tel03 == ""){
+				alert('연락처를 정확히 입력해주세요.');
+				return false;
+			}else{
+				if(!$.numeric(Tel02) || !$.numeric(Tel03)){
+					alert('연락처에 숫자만 입력해주세요.');
+					$.trim($('#formTel02').val(""));
+					$.trim($('#formTel03').val(""));
+					return false;
+				}
+			}
+			
+			if($.trim($('#formPost').val())==""){
+				alert('우편번호를 입력해주세요.');
+				return false;
+			}
+			if($.trim($('#addressDtl02').val())==""){
+				alert('상세주소를 입력해주세요.');
+				return false;
+			}
+			
+			if($('#hopeArea01').val() == "select" || $('#hopeArea02').val() == "select"){
+				alert('가맹희망지역을 선택해주세요.');
+				return false;
+			}
+			
+			var deptType = $('input[name="deptType"]:checked').val();
+
+			if(typeof(deptType) == "undefined" || deptType == ""){
+				alert("가맹교실유형을 선택해주세요.");
+				return false;
+			}
+			$('#frm2').submit();
+			window.open("/public/js/disclosure/disclosure/EBook.htm","disclosure","width=730,height=530,resizable");
+		},
+		numeric:function(str){
+			var pattern = /(^[0-9]+$)/;
+			if(!pattern.test(str)){
+			    return false;
+			}
+			return true;
+		},
+		getSubArea:function(){
+			var jslcArea1 = $('#hopeArea01').val();
+			if(jslcArea1 == 'select'){
+				$("#hopeArea02").find('option').each(function(){
+					$(this).remove();
+				});
+				$("#hopeArea02").append("<option value='select'>지역선택</option>");
+				return;
+				}
+			var inputData = {"jslcArea1":jslcArea1};
+			$.ajax({
+				url:"/franchise/deptArea",
+				type:"GET",
+				cache: false,
+				async: false,
+				data: inputData,
+				dataType: "json",
+				success: function(jsonData, textStatus, XMLHttpRequest) {
+					$("#hopeArea02").find('option').each(function(){
+						$(this).remove();
+					});
+					$("#hopeArea02").append("<option value='select'>지역선택</option>");
+					for(var i=0; i<jsonData.length; i++){
+						$("#hopeArea02").append("<option value='"+jsonData[i]+"'>"+jsonData[i]+"</option>");
+					}
+				},
+				error:function (xhr, ajaxOptions, thrownError){	
+					alert(thrownError);
+				}
+			});
 		}
 		
 	});
@@ -115,6 +229,11 @@ $(function() {
 			$('.layer_pop_wrap').css('display','block');
 		}
 		
+		var name = $('#pMemName').val();
+		var email = $('#pEmailId').val()+"@"+ $('#pEmailAdd1').val();
+		$('#name').val(name);
+		$('#email').val(email);
+		
 		e.preventDefault();
 	});
 	//레이어팝업닫기
@@ -136,6 +255,11 @@ $(function() {
 			$('#pEmailAdd1').val(email2);
 			$('#pEmailAdd1').attr('readonly','readonly');	
 		}	
+	});
+	
+	// 가맹희망지역 선택
+	$('#hopeArea01').on('change',function(){
+		$.getSubArea();
 	});
 	
 

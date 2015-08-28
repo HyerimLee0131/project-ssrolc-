@@ -34,4 +34,16 @@ public interface DisclosureRepository {
 	 * 관리자 메인 오늘자 정보열람 신청 개수
 	 */
 	public int countDisclosureCurrent();
+	/*
+	 * 메일인증한사람 등록하기
+	 * */
+	public void insertMailAuth(Map<String,Object> map);
+	/*
+	 * 가맹희망자 등록
+	 * */
+	public void insertDisclosures(Disclosure disclosure);
+	
+	public int countDisclosureEmailAuth(Map<String, Object> map);
+
+	public Disclosure findDisclosureInfo(Map<String, Object> map);
 }

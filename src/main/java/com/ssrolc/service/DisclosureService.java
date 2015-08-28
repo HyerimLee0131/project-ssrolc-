@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,6 +89,50 @@ public class DisclosureService {
 	
 	public int getNewDisclosureCnt(){
 		return disclosureRepository.countDisclosureCurrent();
+	}
+	//메일 인증한 사람 정보 등록
+	public void insertMailAuth(String pMemName, String mailAddress, String authKey, String jslIp) {
+		Map<String,Object> map = new HashMap<>();
+		
+		map.put("pMemName", pMemName);
+		map.put("mailAddress", mailAddress);
+		map.put("authKey", authKey);
+		map.put("jslIp", jslIp);
+
+		disclosureRepository.insertMailAuth(map);
+	}
+	
+	/*
+	 * 정보공개서에서 가맹희망 등록
+	 * */
+	public void insertDisclosure(Disclosure disclosure) {
+		disclosureRepository.insertDisclosures(disclosure);
+		
+	}
+	
+	//인증키 일치,불일치 비교
+	public String isDisclosureEmailAuth(String authKey, String memName, String email) {
+	
+		Map<String,Object> map = new HashMap<>();
+		map.put("memName", memName);
+		map.put("email", email);
+		map.put("authKey", authKey);
+		int dbAuthKeyCnt = disclosureRepository.countDisclosureEmailAuth(map);
+		if(dbAuthKeyCnt > 0){
+			 return "authKeyOk";
+		}else{
+			 return "authKeyFail";
+		}
+		
+	}
+	
+	
+	public Disclosure getDisclosureInfo(String memName, String email) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("memName", memName);
+		map.put("email", email);
+		return disclosureRepository.findDisclosureInfo(map);
+		
 	}
 
 }
