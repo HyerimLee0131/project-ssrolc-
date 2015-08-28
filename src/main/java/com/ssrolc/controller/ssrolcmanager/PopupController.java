@@ -50,7 +50,6 @@ public class PopupController {
 	//리스트
 	@RequestMapping(value={"/ssrolcmanager/popups"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	public String popupList(Model model){
-		logger.debug("====================================popup List");
 
 		model.addAttribute("title","러닝센터관리자 팝업관리");
 
@@ -66,7 +65,6 @@ public class PopupController {
 	@RequestMapping(value={"/ssrolcmanager/popups/{pageNum:[0-9]+}"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> popupListJson(@PathVariable int pageNum){
-		logger.debug("====================================popup List pageNum:"+pageNum);
 
 		int popupCnt = popupService.getPopupCnt();
 		if(popupCnt == 0){
@@ -89,7 +87,6 @@ public class PopupController {
 	@RequestMapping(value={"/ssrolcmanager/popups/{pageNum:[0-9]+}/{searchField}/{searchValue}"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> popupSearchListJson(@PathVariable int pageNum,@PathVariable String searchField,@PathVariable String searchValue){
-		logger.debug("====================================popup List searchField:"+searchField+",searchValue:"+searchValue);
 
 		int popupCnt = popupService.getPopupCnt();
 		if(popupCnt == 0){
@@ -111,7 +108,6 @@ public class PopupController {
 	//조회
 	@RequestMapping(value={"/ssrolcmanager/popup/{aidx:[0-9]+}"},method={RequestMethod.GET,RequestMethod.HEAD})
 	public String popupView(Model model,@PathVariable int aidx){
-		logger.debug("====================================popup View");
 
 		model.addAttribute("title","러닝센터관리자 팝업관리");
 
@@ -133,7 +129,6 @@ public class PopupController {
 	@RequestMapping(value="/ssrolcmanager/popups/delete", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> popupDeleteJson(@RequestParam(value="aidxs[]", required = false) String[] aidxs){
-		logger.debug("====================================popup Delete : "+aidxs);
 
 		for (String aidx: aidxs) {
 			popupService.setPopupsDel(aidx);
@@ -175,51 +170,15 @@ public class PopupController {
 							,@RequestParam(value="pLocation_left") String pLocation_left
 							,@RequestParam(value="pPopup_id") String pPopup_id
 							,@RequestParam(value="writeType", defaultValue="") String writeType){
-							//,MultipartHttpServletRequest mhRequest){
-		logger.debug("====================================popup Add");
 		
 		if(Strings.isNullOrEmpty(pName) || Strings.isNullOrEmpty(pPopup_id)){
 			throw new PopupNotAddException();
 		}
 
-//		Timestamp nowDate = new Timestamp(new Date().getTime());
-
-/*
-		startDate = startDate + " 00:00:00";
-		java.sql.Timestamp pStartDate = java.sql.Timestamp.valueOf(startDate);
-		endDate = endDate + " 00:00:00";
-		java.sql.Timestamp pEndDate = java.sql.Timestamp.valueOf(endDate);
-*/		
 		Popup popup = new Popup(pAidx, pPopup_id, pName, pSize_width, pSize_height, pLocation_top, pLocation_left
 				, pContent, "", pStartDate, pEndDate, pState, null, pRegId, null, pRegId, "");
-//mhRequest.getRemoteAddr()
 		popupService.addPopup(popup, writeType);
-/*		
-		int lastPopupNo = popup.getAidx();
 
-		String uploadPath = popupUploadPath+File.separator+"popups";
-		
-		FileUploadUtil fileUploadUtil = new FileUploadUtil(mhRequest, "all"
-				, uploadPath,new ArrayList<AttachFile>(),"popups",lastPopupNo, false, "M"
-				, regId, mhRequest.getRemoteAddr(),nowDate);
-		
-		List<AttachFile> uploadedAttachFileList = fileUploadUtil.doFileUpload();
-		
-		int imageCnt = 0;
-		int fileCnt = 0;
-		
-		for (AttachFile attachFile : uploadedAttachFileList) {
-			boardService.addAttachFile(attachFile);
-			if("jpg".equals(attachFile.getFileType()) || "png".equals(attachFile.getFileType()) 
-					|| "gif".equals(attachFile.getFileType())){
-				imageCnt++;
-			}else{
-				fileCnt++;
-			}
-		}
-		
-		boardService.setArticleFileCnt(lastArticleNo, fileCnt, imageCnt);
-*/
 		return "redirect:/ssrolcmanager/popups";
 	}
 	
