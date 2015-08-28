@@ -55,30 +55,15 @@
 					</li>
 				</ul>
 			</div>
-			<div class="pagenavi">
-				<a href="javascript:" class="first">첫페이지</a>
-				<a href="javascript:" class="prev">이전</a>
-				<a href="javascript:;">1</a>
-				<strong>2</strong>
-				<a href="javascript:;">3</a>
-				<a href="javascript:;">4</a>
-				<a href="javascript:;">5</a>
-				<a href="javascript:;">6</a>
-				<a href="javascript:;">7</a>
-				<a href="javascript:;">8</a>
-				<a href="javascript:;">9</a>
-				<a href="javascript:;">10</a>
-				<a href="javascript:" class="next">다음</a>
-				<a href="javascript:" class="last">마지막페이지</a>
+			<div class="pagenavi" id="pagenavi">
 			</div>
 			<div class="ad_search">
 				<fieldset>
 				<legend class="skip">검색</legend>
-				<select name="pSearchKey" id="pSearchKey" class="input-select" title="검색분류">
-					<option value="title">제목</option>
-					<option value="name">글쓴이</option>
+				<select name="searchField" id="searchField" class="input-select" title="검색분류">
+					<option value="prTitle">제목</option>
 				</select>
-				<input name="pSearchValue" type="text" class="input-text" id="pSearchValue" title="검색어입력창" value="">
+				<input name="searchValue" type="text" class="input-text" id="searchValue" title="검색어입력창" value="">
 				<input type="button" class="btn_search" id="searchBtn" value="검색" >
 				</fieldset>
 			</div>
