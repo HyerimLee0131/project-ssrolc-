@@ -60,4 +60,11 @@ $(function() {
 		$("#pageNum").val("1");
 		$.getAddressList();
 	});
+	
+	$("#srchwrd").on("keydown",function(event){
+		if(event.which == 13){
+			event.preventDefault();
+			$("#searchBtn").trigger('click');
+		}
+	});
 });
