@@ -9,6 +9,7 @@
 	<configs>
 	</configs>
 	<autoconfigs>
+		<config>java:com.ssrolc.SsrolcApplication</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>
