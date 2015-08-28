@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.google.common.base.Strings;
 import com.ssrolc.domain.franchise.Franchise;
 import com.ssrolc.service.FranchiseService;
 import com.ssrolc.utils.PageUtil;
@@ -57,22 +56,30 @@ public class FranchiseController {
 		}
 	//가맹문의등록 insert
 	@RequestMapping(value={"/ssrolcmanager/franchise/faq"},method ={RequestMethod.POST})
-		public String insertFaq(Franchise franchise){	
-		System.out.println(franchise);
+		public String insertFaq(HttpServletRequest req,Franchise franchise){	
 		
-		//ip넣기
-			HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 			String jslIp = req.getHeader("X-FORWARDED-FOR");
-	        if (jslIp == null)
+	        if (Strings.isNullOrEmpty(jslIp)) {
 	        	jslIp = req.getRemoteAddr();
-	        System.out.println(jslIp);
+	        }
 	        franchise.setJslIp(jslIp);
 	        
 			franchiseService.insertFranchise(franchise);
 			return "redirect:/ssrolcmanager/franchise/faqs"; 
 		}
-	//정보공개서 리스트
-	@RequestMapping(value="/ssrolcmanager/franchise/{pageNum:[0-9]+}",method={RequestMethod.GET,RequestMethod.HEAD})
+	/**
+	 * 가맹사업 리스트 ajax
+	 * @param pageNum 페이지 번호
+	 * @param jslcArea1 
+	 * @param jslcArea2
+	 * @param jslcType
+	 * @param startDate
+	 * @param endDate
+	 * @param jslcounseling
+	 * @param memName
+	 * @return 페이지번호에 해당하는 가맹사업 리스트를 json으로 리턴
+	 */
+	@RequestMapping(value="/ssrolcmanager/franchise/faqs/{pageNum:[0-9]+}",method={RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> searchListJson(@PathVariable int pageNum
 			,@RequestParam(value="jslcArea1")String jslcArea1
@@ -85,14 +92,6 @@ public class FranchiseController {
 		int rowBlockSize = 10;
 		int pageBlockSize = 10;
 		int totalRowCnt = franchiseService.getSearchDisclosureCnt(jslcArea1,jslcArea2,jslcType,startDate,endDate,jslcounseling,memName);
-		System.out.println("count : "+totalRowCnt);
-		System.out.println(jslcArea1);
-		System.out.println(jslcArea2);
-		System.out.println(jslcType);
-		System.out.println(startDate);
-		System.out.println(endDate);
-		System.out.println(jslcounseling);
-		System.out.println(memName);
 		
 		PageUtil pageUtil = new PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
 
@@ -110,12 +109,16 @@ public class FranchiseController {
 	}
 	
 	//접수상태 수정
-	@RequestMapping(value="/ssrolcmanager/franchise/changeJoinState",method={RequestMethod.POST})
+	@RequestMapping(value="/ssrolcmanager/franchise/changeJoinState",method={RequestMethod.PUT})
 	@ResponseBody
-	public String getFranchiseschangeJoinState(@RequestParam(value="jslcId")String jslcId,
+	public ResponseEntity<Map<String,Object>> getFranchiseschangeJoinState(@RequestParam(value="jslcId")String jslcId,
 											@RequestParam(value="jslcounseling")String jslcounseling){
+		Map<String,Object> map = new HashMap<>();
 		franchiseService.getchangeJoinState(jslcId,jslcounseling);
-		return "update";
+		
+		map.put("result","success");
+		
+		return ResponseEntity.ok(map);
 	}
 	
 	
