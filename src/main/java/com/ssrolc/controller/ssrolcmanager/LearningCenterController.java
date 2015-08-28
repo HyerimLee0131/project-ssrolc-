@@ -42,9 +42,8 @@ public class LearningCenterController {
 		return "ssrolcmanager/learningcenter/write";
 	}
 	//우리동네 러닝센터 등록
-	@RequestMapping(value={"/ssrolcmanager/center"}, method = { RequestMethod.POST, RequestMethod.HEAD })
+	@RequestMapping(value={"/ssrolcmanager/center"}, method = { RequestMethod.POST})
 	public String insertUrl(LearningCenter learningCenter,@RequestParam(value="writeType", defaultValue="") String writeType ){
-		//logger.debug("뭐야야야야야야야ㅑ{}",learningCenter);
 		learningCenterService.writeLearningCenter(learningCenter,writeType);
 		
 		return "redirect:/ssrolcmanager/centers";
