@@ -28,7 +28,6 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -67,7 +66,7 @@ public class BoardController {
 	private String boardUploadPath;
 	
 	@RequestMapping(value={"/{ssrolcPrefix}/boards/{boardTable}"} , method =  { RequestMethod.GET, RequestMethod.HEAD })
-	public String list(Model model,Device device,@PathVariable String ssrolcPrefix,@PathVariable String boardTable
+	public String list(Model model,@PathVariable String ssrolcPrefix,@PathVariable String boardTable
 			,@RequestParam(value="searchcategory",required=false,defaultValue="all") String searchCategory) {
 		if(!"ssrolcmanager".equals(ssrolcPrefix) && !"ssrolcfront".equals(ssrolcPrefix)){
 			throw new BoardNotFoundException(boardTable);
@@ -76,9 +75,7 @@ public class BoardController {
 		if(Strings.isNullOrEmpty(boardTable)){
 			throw new BoardNotFoundException(boardTable);
 		}
-		
-		LOGGER.error("==================="+device.getDevicePlatform());
-
+	
 		Board boardInfo = boardService.getBoardInfo(boardTable);
 		
 		if(boardInfo == null || boardInfo.equals(null)){
