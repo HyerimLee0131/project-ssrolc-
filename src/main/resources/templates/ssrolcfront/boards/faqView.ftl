@@ -45,7 +45,7 @@
 					</tbody>
 				</table>
 				<div class="faq_view_btn">
-					<a href="/ssrolcfront/boards/${boardInfo.boardTable}">목록으로</a>
+					<a href="/ssrolcfront/boards/${boardInfo.boardTable}?searchcategory=${searchCategory}">목록으로</a>
 				</div>
 			</div>
 		</div>
