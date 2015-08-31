@@ -5,6 +5,15 @@ $(function() {
 			var doName = $('#do').val();
 			if(doName == "") {
 				doName = "all";
+			} else {
+				$("#branchMap > area").each(function() {
+					if($(this).attr("data-sido") == doName) {
+						$($(this).attr('data-show')).show();
+						$("#branchAllMap").attr('src',$(this).attr('data-image-over'));
+
+						return false;
+					}
+				});
 			}
 
 			var searchUrl = "/ssrolcfront/centerSearch/"+doName;
