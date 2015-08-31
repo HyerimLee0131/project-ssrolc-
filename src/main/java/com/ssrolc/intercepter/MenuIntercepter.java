@@ -28,19 +28,19 @@ public class MenuIntercepter extends HandlerInterceptorAdapter {
 			request.setAttribute("currentMenu","center");
 			
 			return true;
-		}else if(ant.match("/ssrolcmanager/board*/center/**",currentUrl)){
+		}else if(ant.match("/ssrolcmanager/board*/center/**",currentUrl) || ant.match("/ssrolcfront/board*/center/**",currentUrl)){
 			request.setAttribute("currentMenu","boardCenter");
 			
 			return true;
-		}else if(ant.match("/ssrolcmanager/board*/faq/**",currentUrl)){
+		}else if(ant.match("/ssrolcmanager/board*/faq/**",currentUrl) || ant.match("/ssrolcfront/board*/faq/**",currentUrl)){
 			request.setAttribute("currentMenu","boardFaq");
 			
 			return true;
-		}else if(ant.match("/ssrolcmanager/board*/notice/**",currentUrl)){
+		}else if(ant.match("/ssrolcmanager/board*/notice/**",currentUrl) || ant.match("/ssrolcfront/board*/notice/**",currentUrl)){
 			request.setAttribute("currentMenu","boardNotice");
 			
 			return true;
-		}else if(ant.match("/ssrolcmanager/board*/student/**",currentUrl)){
+		}else if(ant.match("/ssrolcmanager/board*/student/**",currentUrl) || ant.match("/ssrolcfront/board*/student/**",currentUrl)){
 			request.setAttribute("currentMenu","boardStudent");
 			
 			return true;

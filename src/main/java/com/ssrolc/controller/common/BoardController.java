@@ -1,4 +1,4 @@
-package com.ssrolc.controller.ssrolcmanager;
+package com.ssrolc.controller.common;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -65,8 +65,12 @@ public class BoardController {
 	@Value("${uploadpath.boards}")
 	private String boardUploadPath;
 	
-	@RequestMapping(value={"/ssrolcmanager/boards/{boardTable}"} , method =  { RequestMethod.GET, RequestMethod.HEAD })
-	public String list(Model model,@PathVariable String boardTable) {
+	@RequestMapping(value={"/{ssrolcPrefix}/boards/{boardTable}"} , method =  { RequestMethod.GET, RequestMethod.HEAD })
+	public String list(Model model,@PathVariable String ssrolcPrefix,@PathVariable String boardTable
+			,@RequestParam(value="searchcategory",required=false,defaultValue="all") String searchCategory) {
+		if(!"ssrolcmanager".equals(ssrolcPrefix) && !"ssrolcfront".equals(ssrolcPrefix)){
+			throw new BoardNotFoundException(boardTable);
+		}
 		
 		if(Strings.isNullOrEmpty(boardTable)){
 			throw new BoardNotFoundException(boardTable);
@@ -87,23 +91,30 @@ public class BoardController {
 				}else{
 					model.addAttribute("boardCategoryList",boardCategoryList);
 				}
+				
+				model.addAttribute("searchCategory",searchCategory);
 			}
+			
 			
 			//해더에 스크립트 추가
 			List<String> headerScript = new ArrayList<>();
-			headerScript.add("ssrolcmanager/boards/"+boardTable+"List");
+			headerScript.add(ssrolcPrefix+"/boards/"+boardTable+"List");
 			
 			model.addAttribute("headerScript",headerScript);
 			
-			return "ssrolcmanager/boards/"+boardTable+"List";
+			return ssrolcPrefix+"/boards/"+boardTable+"List";
 		}
 	}
 	
 	
-	@RequestMapping(value={"/ssrolcmanager/boards/{boardTable}/{pageNum:[0-9]+}"} ,
+	@RequestMapping(value={"/{ssrolcPrefix}/boards/{boardTable}/{pageNum:[0-9]+}"} ,
 			method = { RequestMethod.GET, RequestMethod.HEAD })
 	@ResponseBody
-	public ResponseEntity<Map<String,Object>> listJson(@PathVariable String boardTable,@PathVariable int pageNum){
+	public ResponseEntity<Map<String,Object>> listJson(@PathVariable String ssrolcPrefix,@PathVariable String boardTable,@PathVariable int pageNum){
+		if(!"ssrolcmanager".equals(ssrolcPrefix) && !"ssrolcfront".equals(ssrolcPrefix)){
+			throw new BoardNotFoundException(boardTable);
+		}
+		
 		Board boardInfo = boardService.getBoardInfo(boardTable);
 		if(boardInfo == null || boardInfo.equals(null)){
 			throw new BoardNotFoundException(boardTable);
@@ -126,11 +137,15 @@ public class BoardController {
 		}
 	}
 	
-	@RequestMapping(value={"/ssrolcmanager/boards/{boardTable}/{pageNum:[0-9]+}/{searchField}/{searchValue}"} ,
+	@RequestMapping(value={"/{ssrolcPrefix}/boards/{boardTable}/{pageNum:[0-9]+}/{searchField}/{searchValue}"} ,
 			method = { RequestMethod.GET, RequestMethod.HEAD })
 	@ResponseBody
-	public ResponseEntity<Map<String,Object>> searchListJson(@PathVariable String boardTable,@PathVariable int pageNum,
+	public ResponseEntity<Map<String,Object>> searchListJson(@PathVariable String ssrolcPrefix,@PathVariable String boardTable,@PathVariable int pageNum,
 			@PathVariable String searchField,@PathVariable String searchValue){
+		if(!"ssrolcmanager".equals(ssrolcPrefix) && !"ssrolcfront".equals(ssrolcPrefix)){
+			throw new BoardNotFoundException(boardTable);
+		}
+		
 		Board boardInfo = boardService.getBoardInfo(boardTable);
 		if(boardInfo == null || boardInfo.equals(null)){
 			throw new BoardNotFoundException(boardTable);
@@ -154,10 +169,14 @@ public class BoardController {
 	}
 	
 	
-	@RequestMapping(value={"/ssrolcmanager/boards/{boardTable}/{categoryCode}/{pageNum:[0-9]+}"} ,
+	@RequestMapping(value={"/{ssrolcPrefix}/boards/{boardTable}/{categoryCode}/{pageNum:[0-9]+}"} ,
 			method = { RequestMethod.GET, RequestMethod.HEAD })
 	@ResponseBody
-	public ResponseEntity<Map<String,Object>> listWithCategoryJson(@PathVariable String boardTable,@PathVariable String categoryCode,@PathVariable int pageNum){
+	public ResponseEntity<Map<String,Object>> listWithCategoryJson(@PathVariable String ssrolcPrefix,@PathVariable String boardTable,@PathVariable String categoryCode,@PathVariable int pageNum){
+		if(!"ssrolcmanager".equals(ssrolcPrefix) && !"ssrolcfront".equals(ssrolcPrefix)){
+			throw new BoardNotFoundException(boardTable);
+		}
+		
 		Board boardInfo = boardService.getBoardInfo(boardTable);
 		if(boardInfo == null || boardInfo.equals(null)){
 			throw new BoardNotFoundException(boardTable);
@@ -196,11 +215,15 @@ public class BoardController {
 		}
 	}
 	
-	@RequestMapping(value={"/ssrolcmanager/boards/{boardTable}/{categoryCode}/{pageNum:[0-9]+}/{searchField}/{searchValue}"} ,
+	@RequestMapping(value={"/{ssrolcPrefix}/boards/{boardTable}/{categoryCode}/{pageNum:[0-9]+}/{searchField}/{searchValue}"} ,
 			method = { RequestMethod.GET, RequestMethod.HEAD })
 	@ResponseBody
-	public ResponseEntity<Map<String,Object>> searchListWithCategoryJson(@PathVariable String boardTable,@PathVariable String categoryCode
+	public ResponseEntity<Map<String,Object>> searchListWithCategoryJson(@PathVariable String ssrolcPrefix,@PathVariable String boardTable,@PathVariable String categoryCode
 			,@PathVariable int pageNum,@PathVariable String searchField,@PathVariable String searchValue){
+		if(!"ssrolcmanager".equals(ssrolcPrefix) && !"ssrolcfront".equals(ssrolcPrefix)){
+			throw new BoardNotFoundException(boardTable);
+		}
+		
 		Board boardInfo = boardService.getBoardInfo(boardTable);
 		if(boardInfo == null || boardInfo.equals(null)){
 			throw new BoardNotFoundException(boardTable);
@@ -218,13 +241,34 @@ public class BoardController {
 			} else {
 				map.put("articles",boardService.getArticles(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
 			}
+			
+			if(boardInfo.isBoardCategoryEnable()){
+				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
+				
+				if(boardCategoryList == null || boardCategoryList.equals(null)){
+					throw new BoardCategoryNotFoundException(boardTable);
+				}
+				
+				Map<String,Object> cateMap = new HashMap<>();
+				
+				for (BoardCategory boardCategory : boardCategoryList) {
+					cateMap.put(boardCategory.getCategoryCode(),boardCategory.getCategoryName());
+				}
+				
+				map.put("boardCategoryMap",cateMap);
+			}
+			
 			return ResponseEntity.ok(map);
 		}
 	}
 	
 	
-	@RequestMapping(value={"/ssrolcmanager/board/{boardTable}/{articleNo:[0-9]+}"},method = { RequestMethod.GET, RequestMethod.HEAD })	
-	public String view(Model model,@PathVariable String boardTable,@PathVariable int articleNo){
+	@RequestMapping(value={"/{ssrolcPrefix}/board/{boardTable}/{articleNo:[0-9]+}"},method = { RequestMethod.GET, RequestMethod.HEAD })	
+	public String view(Model model,@PathVariable String ssrolcPrefix,@PathVariable String boardTable,@PathVariable int articleNo,@RequestParam(value="searchcategory",required=false,defaultValue="all") String searchCategory){
+		if(!"ssrolcmanager".equals(ssrolcPrefix) && !"ssrolcfront".equals(ssrolcPrefix)){
+			throw new BoardNotFoundException(boardTable);
+		}
+		
 		Board boardInfo = boardService.getBoardInfo(boardTable);
 		if(boardInfo == null || boardInfo.equals(null)){
 			throw new BoardNotFoundException(boardTable);
@@ -246,6 +290,20 @@ public class BoardController {
 				
 				if(boardInfo.isBoardCategoryEnable()){
 					model.addAttribute("boardCategoryName",boardService.getBoardCategoryName(boardTable,article.getCategoryCode()));
+					
+					List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
+					
+					if(boardCategoryList == null || boardCategoryList.equals(null)){
+						throw new BoardCategoryNotFoundException(boardTable);
+					}else{
+						model.addAttribute("boardCategoryList",boardCategoryList);
+					}
+
+					//faq
+					if(!Strings.isNullOrEmpty(searchCategory)){
+						model.addAttribute("searchCategory",searchCategory);
+					}
+					
 				}
 				
 				
@@ -253,11 +311,11 @@ public class BoardController {
 				
 				//해더에 스크립트 추가
 				List<String> headerScript = new ArrayList<>();
-				headerScript.add("ssrolcmanager/boards/"+boardTable+"View");
+				headerScript.add(ssrolcPrefix+"/boards/"+boardTable+"View");
 				
 				model.addAttribute("headerScript",headerScript);
 				
-				return "ssrolcmanager/boards/"+boardTable+"View";
+				return ssrolcPrefix+"/boards/"+boardTable+"View";
 			}
 		}
 	}
@@ -710,7 +768,7 @@ public class BoardController {
 	
 	
 	//파일정보 
-	@RequestMapping(value="/ssrolcmanager/thumbview/{boardTable}/{convertFileName}/{fileSize}",method={RequestMethod.GET} ,produces={MediaType.IMAGE_GIF_VALUE,MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
+	@RequestMapping(value={"/ssrolcmanager/thumbview/{boardTable}/{convertFileName}/{fileSize}","/ssrolcfront/thumbview/{boardTable}/{convertFileName}/{fileSize}"},method={RequestMethod.GET} ,produces={MediaType.IMAGE_GIF_VALUE,MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
 	@ResponseBody
 	public ResponseEntity<InputStreamResource> thumbStream(HttpServletResponse res,@PathVariable String boardTable ,@PathVariable String convertFileName,@PathVariable int fileSize) throws FileNotFoundException{
 		
