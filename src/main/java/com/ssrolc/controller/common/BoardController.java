@@ -561,7 +561,7 @@ public class BoardController {
 			Timestamp nowDate = new Timestamp(new Date().getTime());
 			
 			Article article = new Article(boardTable, categoryCode, title, content,0,0,0
-					, etc1, etc2, etc3, etc4, true, false, regId, mhRequest.getRemoteAddr(), nowDate,null);
+					, etc1, etc2, etc3, etc4, true, false, regId, mhRequest.getHeader("X-FORWARDED-FOR"), nowDate,null);
 			
 			boardService.addArticle(article);
 			
