@@ -4,8 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>${title?default('')}</title>
-<link rel="stylesheet" type="text/css" href="/public/img/css/common.css" />
-<link rel="stylesheet" type="text/css" href="/public/img/css/layout_popup.css" />
+<link rel="stylesheet" href="/public/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/public/css/jquery-ui.1.11.4.min.css" />
 <link rel="stylesheet" type="text/css" href="/public/css/jquery-ui.1.11.4.min.css" />
 <#if headerCss?has_content>
 	<#list headerCss as css>
@@ -48,8 +48,8 @@
 	<p>'{{srchwrd}}'(으)로 검색된 결과입니다. 아래 해당하는 주소를 선택해 주세요.</p>
 	<ul class="clear zip_result_list">
 	{{#each addressList}}
-		<li><a href="javascript:$.setAddress('{{zipNo}}','{{lnmAdres}}');"><span class="zip_code">[{{zipNo}}]</span><span class="addr">{{lnmAdres}}</span></a></li>
-		<li><a href="javascript:$.setAddress('{{zipNo}}','{{rnAdres}}');"><span class="zip_code">[{{zipNo}}]</span><span class="addr">{{rnAdres}}</span></a></li>
+		<li><a href="javascript:$.setPost('{{zipNo}}','{{lnmAdres}}');"><span class="zip_code">[{{zipNo}}]</span><span class="addr">{{lnmAdres}}</span></a></li>
+		<li><a href="javascript:$.setPost('{{zipNo}}','{{rnAdres}}');"><span class="zip_code">[{{zipNo}}]</span><span class="addr">{{rnAdres}}</span></a></li>
 	{{else}}
 		<li>데이터가 없습니다.</li>
 	{{/each}}

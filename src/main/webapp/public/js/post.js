@@ -1,4 +1,5 @@
 $(function() {
+	var postSendCheckFlag = false;
 	$.extend({  
 		getAddressList:function(){
 			var pageNum = $("#pageNum").val();
@@ -16,6 +17,9 @@ $(function() {
 				cache: false,
 				async: true,
 				dataType: "json",
+				beforeSend:function(){
+					postSendCheckFlag = true;
+				},
 				success: function(jsonData, textStatus, XMLHttpRequest) {
 					jsonData.srchwrd = srchwrd;
 					var postHeader = jsonData.postHeader;
@@ -28,11 +32,14 @@ $(function() {
 				},
 				error:function (xhr, ajaxOptions, thrownError){	
 					alert(thrownError);
+				},
+				complete:function(){
+					postSendCheckFlag = false;
 				}
 			});	
 		},
 		setPost:function(zip,addr){
-			opener.$.setAddress(zip,addr);
+			opener.$.setAddr(zip,addr);
 			self.close();
 		}
 	
@@ -46,7 +53,18 @@ $(function() {
 	});	
 	
 	$("#searchBtn").on("click",function() {
+		if(postSendCheckFlag){
+			alert("처리중입니다.");
+			return;
+		}		
 		$("#pageNum").val("1");
 		$.getAddressList();
+	});
+	
+	$("#srchwrd").on("keydown",function(event){
+		if(event.which == 13){
+			event.preventDefault();
+			$("#searchBtn").trigger('click');
+		}
 	});
 });

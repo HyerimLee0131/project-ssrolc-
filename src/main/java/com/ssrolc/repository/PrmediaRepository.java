@@ -39,6 +39,13 @@ public interface PrmediaRepository {
 	 * 글 삭제
 	 */
 	public void deletePrmedia(int aidx);
-	
+	/*
+	 * 로딩시 첫번째 홍보영상 url
+	 */
+	public String findPrmediaFirst();
+	/*
+	 * 글 읽어오기
+	 */
+	public String findPrmediaView(int aidx);
 	
 }

@@ -5,7 +5,7 @@ $(function() {
 	$.extend({
 		getBoardList:function(){
 			var pageNum = $("#pageNum").val();
-			var searchUrl = "/ssrolcmanager/franchise/"+pageNum;
+			var searchUrl = "/ssrolcmanager/franchise/faqs/"+pageNum;
 			
 			var hopeArea01 = $("#hopeArea01").val();
 			var hopeArea02 = $("#hopeArea02").val();
@@ -118,14 +118,16 @@ $(function() {
 		joinLayerSubmit:function(jslcId,changejoinState){
 			var inputData = {"jslcId":jslcId,"jslcounseling":changejoinState};
 			$.ajax({
-				type :"POST",
+				type :"PUT",
 				url  :"/ssrolcmanager/franchise/changeJoinState",
 				data: inputData,
 				cache: false,
 				async: true,
-				dataType : "text",	
+				dataType : "json",	
 				success: function(jsonData, textStatus, XMLHttpRequest) {
-					$.getBoardList();
+					if(jsonData.result == "success"){
+						$.getBoardList();
+					}
 				},
 				error:function (xhr, ajaxOptions, thrownError){	
 					alert(thrownError);

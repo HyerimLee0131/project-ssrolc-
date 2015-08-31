@@ -29,7 +29,7 @@ public class CenterSearchController {
 	private CenterSearchService ceterSearchService;
 
 	//리스트
-	@RequestMapping(value={"/ssrolcfront/centerSearch","/centerSearch"},method = {RequestMethod.GET,RequestMethod.HEAD})
+	@RequestMapping(value={"/ssrolcfront/centerSearch"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	public String centerSearchList(Model model){
 		logger.debug("====================================centerSearch List");
 

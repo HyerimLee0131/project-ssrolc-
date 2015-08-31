@@ -1,5 +1,6 @@
 <#include "/ssrolcfront/header.ftl">
-<body>
+<!-- // body -->
+<div id="body_a" class="clearfix">﻿<!-- // body -->
 	<!--// content -->
 	<div class="ex"></div>
 	<div class="mainvisualimg">
@@ -17,8 +18,8 @@
 			<dd><a href="" name="centerjang" id="centerjang"><img src="/public/img/main/ban_01.png" alt="우수센터장 소개"></a></dd>
 			<dd><a href="" name="beststudent" id="beststudent"><img src="/public/img/main/ban_02.png" alt="우수학생 소개"></a></dd>
 			<dd><a href="" ><img src="/public/img/main/ban_03.png" alt="가맹점모집영상"></a></dd>
-			<dd><a href="/centerSearch" id="centerserch"><img src="/public/img/main/ban_04.png" alt="우리동네 스스로러닝센터 찾기"></a></dd>
-			<dd><a href="/disclosure" name="etc" id="etc"><img src="/public/img/main/ban_05.png" alt="정보공개서"></a></dd>
+			<dd><a href="/ssrolcfront/centerSearch" id="centerserch"><img src="/public/img/main/ban_04.png" alt="우리동네 스스로러닝센터 찾기"></a></dd>
+			<dd><a href="/ssrolcfront/disclosure" name="etc" id="etc"><img src="/public/img/main/ban_05.png" alt="정보공개서"></a></dd>
 			<dd><a href="javascript:;" id="go_e"><img src="/public/img/main/ban_06.png" alt="스스로e 바로가기"></a></dd>
 		</dl>
 	</div>
@@ -53,7 +54,6 @@ $(document).ready(function(){
 	});
 });
 </script>
-<!-- 웹접근성 개선작업을 위한 div추가 2013-12-04 IT지원팀 장승균-->
 <div>
 
 <!-- body// -->
@@ -75,7 +75,8 @@ $(document).ready(function(){
 
 </script>
 
-<#include "/ssrolcfront/footer.ftl">
+
 </div>
 </body>
+<#include "/ssrolcfront/footer.ftl">
 </html>

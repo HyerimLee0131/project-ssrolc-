@@ -1,0 +1,11 @@
+&BOOK_VARS_URL=Config/PageList.txt&
+						&ADVERTISE_URL=Config/Notice.txt&
+						&INDEXLIST_URL=Config/IndexListData.txt&
+						&TEXTMENU_URL=Config/TextMenuData.txt&
+						&THUMBNAIL_URL=Config/ThumbnailList.txt&
+						&LOGO_URL=Config/logo.gif&
+						&LOGO_LINKURL=&
+						&SEARCH_URL=search.swf&
+						&SENDMAIL_URL=http://www.ebook.co.kr/mail/sendMail.php&
+						&SENDMAIL_FORM_URL=Mail/mailForm.htm&
+						
