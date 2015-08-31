@@ -7,13 +7,6 @@
 <link rel="stylesheet" type="text/css" href="/public/img/css/common.css" />
 <link rel="stylesheet" type="text/css" href="/public/img/css/layout_main.css" />
 <link rel="stylesheet" type="text/css" href="/public/css/jquery-ui.1.11.4.min.css" />
-<script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script>
-<script type='text/javascript'>
-//<![CDATA[
-var rt_path = ''
-  , rt_charset = 'utf-8';
-//]]>
-</script>
 <#if headerCss?has_content>
 	<#list headerCss as css>
 		<link rel="stylesheet" type="text/css" href="/public/css/${css}.css" />
@@ -24,8 +17,6 @@ var rt_path = ''
 <script type="text/javascript" src="/public/js/common.js"></script>
 <script type="text/javascript" src="/public/js/handlebars_3_0_3.min.js"></script>
 <script type='text/javascript' src='/public/js/modal-win.js'></script>
-<script type='text/javascript' src='/public/js/scrollLayer.js'></script>
-<script type='text/javascript' src='/public/js/jeislccommon.js'></script>
 <#if headerScript?has_content>
 	<#list headerScript as script>
 		<script type="text/javascript" src="/public/js/${script}.js"></script>
@@ -46,7 +37,7 @@ var rt_path = ''
 								<dl>
 									<dd class="sub1"><a href="">스스로러닝센터소개</a></dd>
 									<dd class="sub2"><a href="/ssrolcfront/prmedias">홍보영상</a></dd>
-									<dd class="sub3"><a href="">우리동네 러닝센터 찾기</a></dd>
+									<dd class="sub3"><a href="/centerSearch">우리동네 러닝센터 찾기</a></dd>
 								</dl>
 							</div>
 						</dd>
@@ -97,7 +88,3 @@ var rt_path = ''
 			<!-- header// -->
 			<!-- // body -->
 			<div id="body_a" class="clearfix">﻿<!-- // body -->
-	
-	
-
-
