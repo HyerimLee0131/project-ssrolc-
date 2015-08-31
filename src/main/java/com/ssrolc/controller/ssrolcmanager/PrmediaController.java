@@ -232,11 +232,6 @@ public class PrmediaController {
 								,@PathVariable int aidx
 								,@RequestParam(value="prTitle") String prTitle
 								,@RequestParam(value="makeTime") String makeTime
-								/*
-								,@RequestParam(value="thumnailName") String thumnailName
-								,@RequestParam(value="thumnailRealName") String thumnailRealName
-								,@RequestParam(value="thumnailSize") int thumnailSize*/
-								
 								,@RequestParam(value="mediaLinkUrl") String mediaLinkUrl
 								,@RequestParam(value="mediaLocation") String mediaLocation
 								,MultipartHttpServletRequest mhRequest) {
@@ -251,9 +246,6 @@ public class PrmediaController {
 				Prmedia prmedia = new Prmedia(aidx,prTitle, makeTime,"","",0,0,mediaLinkUrl,mediaLocation,nowDate,regId,nowDate, regId, mhRequest.getRemoteAddr());
 				
 				prmediaService.setPrmedia(prmedia);
-				
-				
-				String uploadPath = prmediaUploadPath;
 				
 				final String uploadFileTypeMode = "image";
 				
