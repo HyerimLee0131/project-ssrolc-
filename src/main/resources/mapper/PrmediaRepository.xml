@@ -32,6 +32,14 @@
 		WHERE aidx = #{aidx}
 	</select>
 	
+	<select id="findPrmediaFirst" parameterType="hashMap" resultType="String">
+		SELECT mediaLinkUrl FROM ssrolc.prmedia ORDER BY aidx DESC LIMIT 1 
+	</select>
+	
+	<select id="findPrmediaView"  parameterType="int" resultType="String">
+		SELECT mediaLinkUrl FROM ssrolc.prmedia WHERE aidx = #{aidx}
+	</select>
+	
 	<update id="updateHit" parameterType="int">
 		UPDATE ssrolc.prmedia SET hitCnt = hitCnt + 1
 		WHERE aidx = #{aidx}
@@ -53,13 +61,13 @@
 			<if test="makeTime != null">
 				makeTime = #{makeTime},
 			</if>
-			<if test="thumnailName != null">
+			<if test="thumnailName != null and thumnailName != '' ">
 				thumnailName = #{thumnailName},
 			</if>
-			<if test="thumnailRealName != null">
+			<if test="thumnailRealName != null and thumnailRealName != '' ">
 				thumnailRealName = #{thumnailRealName},
 			</if>
-			<if test="thumnailSize != null">
+			<if test="thumnailSize != null and thumnailSize != '' " >
 				thumnailSize = #{thumnailSize},
 			</if>
 			<if test="mediaLinkUrl != null">

@@ -5,8 +5,8 @@
 					<h2>스스로러닝센터</h2>
 					<ul class="clear">
 						<li><a href="#">스스로러닝센터소개</a></li>
-						<li><a href="prmedia_list.html">홍보영상</a></li>
-						<li><a href="/centerSearch">우리동네 러닝센터 찾기</a></li>
+						<li><a href="/ssrolcfront/prmedias">홍보영상</a></li>
+						<li><a href="/ssrolcfront/centerSearch">우리동네 러닝센터 찾기</a></li>
 					</ul>
 					
 					<#if currentMenu == "boardCenter" || currentMenu == "boardFaq" || currentMenu == "boardNotice" || currentMenu == "boardStudent">
