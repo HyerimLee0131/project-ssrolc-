@@ -375,7 +375,7 @@ public class BoardController {
 					,@RequestParam(value="etc2", required=false,defaultValue="") String etc2
 					,@RequestParam(value="etc3", required=false,defaultValue="") String etc3
 					,@RequestParam(value="etc4", required=false,defaultValue="") String etc4
-					,@RequestParam(value="useEnable", required=false,defaultValue="") boolean useEnable
+					,@RequestParam(value="useEnable", required=false,defaultValue="true") boolean useEnable
 					,@RequestParam(value="deleteAttachFiles",required=false,defaultValue="") String deleteAttachFiles 
 					,MultipartHttpServletRequest mhRequest){
 
@@ -418,9 +418,7 @@ public class BoardController {
 								
 								//썸네일파일인가
 								if(attachFileInfo.isFileThumbFlag()){
-									
-									filePath += "thumb"
-														+File.separator+attachFileInfo.getConvertFileName();
+									filePath += "thumb"+File.separator+attachFileInfo.getConvertFileName();
 								}else{
 									filePath += attachFileInfo.getConvertFileName();
 								}
@@ -548,6 +546,7 @@ public class BoardController {
 							,@RequestParam(value="etc2", required=false,defaultValue="") String etc2
 							,@RequestParam(value="etc3", required=false,defaultValue="") String etc3
 							,@RequestParam(value="etc4", required=false,defaultValue="") String etc4
+							,@RequestParam(value="useEnable", required=false,defaultValue="true") boolean useEnable
 							,MultipartHttpServletRequest mhRequest){
 
 		Board boardInfo = boardService.getBoardInfo(boardTable);
@@ -561,7 +560,7 @@ public class BoardController {
 			Timestamp nowDate = new Timestamp(new Date().getTime());
 			
 			Article article = new Article(boardTable, categoryCode, title, content,0,0,0
-					, etc1, etc2, etc3, etc4, true, false, regId, mhRequest.getHeader("X-FORWARDED-FOR"), nowDate,null);
+					, etc1, etc2, etc3, etc4, useEnable, false, regId, mhRequest.getHeader("X-FORWARDED-FOR"), nowDate,null);
 			
 			boardService.addArticle(article);
 			
@@ -588,7 +587,7 @@ public class BoardController {
 							, uploadFileInfo.getConvertFileName(),0,uploadFileInfo.getSize()
 							,uploadFileInfo.getWidth(),uploadFileInfo.getHeight()
 							,uploadFileType,uploadFileInfo.isThumbType(), regId
-							,mhRequest.getRemoteAddr(),nowDate);
+							,mhRequest.getHeader("X-FORWARDED-FOR"),nowDate);
 					
 					boardService.addAttachFile(attachFile);
 					
@@ -637,7 +636,7 @@ public class BoardController {
 							, uploadFileInfo.getConvertFileName(),0,uploadFileInfo.getSize()
 							,uploadFileInfo.getWidth(),uploadFileInfo.getHeight()
 							,uploadFileInfo.getFileType(),uploadFileInfo.isThumbType(), regId
-							,mhRequest.getRemoteAddr(),new Timestamp(new Date().getTime()));
+							,mhRequest.getHeader("X-FORWARDED-FOR"),new Timestamp(new Date().getTime()));
 					
 					boardService.addAttachFile(attachFile);
 					
