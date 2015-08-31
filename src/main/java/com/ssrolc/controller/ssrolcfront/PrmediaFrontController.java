@@ -1,15 +1,23 @@
 package com.ssrolc.controller.ssrolcfront;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,11 +40,17 @@ public class PrmediaFrontController {
 	
 	@Value("${uploadpath.prmedia}")
 	private String prmediaUploadPath;
+
+	private HttpServletResponse request;
 	
 	//리스트
 	@RequestMapping(value={"/ssrolcfront/prmedias"},method = {RequestMethod.GET,RequestMethod.HEAD})
-	public String prmediaList(Model model){
+	public String prmediaList(Model model,HttpServletRequest request){
 		//logger.debug("prmedia List");
+		
+		
+		String browser = getBrowser(request);
+		logger.debug("browser"+ browser);
 		
 		model.addAttribute("title","러닝센터관리자 홍보영상관리");
 		
@@ -46,6 +60,7 @@ public class PrmediaFrontController {
 		model.addAttribute("headerScript",headerScript);
 		
 		model.addAttribute("prmediaUrl",prmediaService.getPrmediaFirst());
+		model.addAttribute("browser",browser);
 		return "/ssrolcfront/prmedia/list";
 	}
 	
@@ -58,7 +73,7 @@ public class PrmediaFrontController {
 		if(prmediaCnt == 0){
 			throw new PrmediaNotFoundException();
 		}else{
-			int rowBlockSize = 10;
+			int rowBlockSize = 5;
 			int pageBlockSize = 10;
 			int totalRowCnt = prmediaCnt;
 
@@ -110,6 +125,35 @@ public class PrmediaFrontController {
 		
 		model.addAttribute("prmediaUrl",prmediaService.getPrmediaView(aidx));
 		return "/ssrolcfront/prmedia/list";
+	}
+	
+	
+	//파일정보 
+	@RequestMapping(value="/ssrolcfront/prmedias/thumbview/{thumnailRealName}/{thumnailSize}",method={RequestMethod.GET} ,produces={MediaType.IMAGE_GIF_VALUE,MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
+	@ResponseBody
+	public ResponseEntity<InputStreamResource> thumbStream(HttpServletResponse res ,@PathVariable String thumnailRealName,@PathVariable int thumnailSize) throws FileNotFoundException{
+		
+		String imageFilePath = prmediaUploadPath+File.separator+"thumb"+File.separator+thumnailRealName;
+
+		File imageFile = new File(imageFilePath);
+		
+		FileInputStream fis = new FileInputStream(imageFile);
+		
+		return ResponseEntity.ok()
+				.contentLength(thumnailSize)
+				.body(new InputStreamResource(fis));
+	}
+	
+	private String getBrowser(HttpServletRequest request) {
+        String header =request.getHeader("User-Agent");
+        if (header.contains("MSIE")||header.contains("Trident/7.0")) {
+               return "MSIE";
+        } else if(header.contains("Chrome")) {
+               return "Chrome";
+        } else if(header.contains("Opera")) {
+               return "Opera";
+        } 
+        return "Firefox";
 	}
 	
 }
