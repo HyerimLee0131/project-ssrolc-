@@ -105,10 +105,21 @@ public class DisclosureService {
 	/*
 	 * 정보공개서에서 가맹희망 등록
 	 * */
-	public void insertDisclosure(Disclosure disclosure) {
-		disclosureRepository.insertDisclosures(disclosure);
+	public void isDisclosure(Disclosure disclosure) {
 		
+		Map<String,Object> map = new HashMap<>();
+		map.put("memName",disclosure.getMemName());
+		map.put("email",disclosure.getEmail());
+	
+		int dbAuthKeyCnt = disclosureRepository.countDisclosureEmailAuthYN(map); 
+
+		if(dbAuthKeyCnt > 0){
+			disclosureRepository.updateDisclosures(disclosure);
+		}else{
+			disclosureRepository.insertDisclosures(disclosure);
+		}
 	}
+	
 	
 	//인증키 일치,불일치 비교
 	public String isDisclosureEmailAuth(String authKey, String memName, String email) {
@@ -118,6 +129,7 @@ public class DisclosureService {
 		map.put("email", email);
 		map.put("authKey", authKey);
 		int dbAuthKeyCnt = disclosureRepository.countDisclosureEmailAuth(map);
+		
 		if(dbAuthKeyCnt > 0){
 			 return "authKeyOk";
 		}else{
@@ -134,5 +146,6 @@ public class DisclosureService {
 		return disclosureRepository.findDisclosureInfo(map);
 		
 	}
+	
 
 }

@@ -84,7 +84,25 @@
 		SELECT count(0) FROM ssrolc.disclosureEmailAuth WHERE memName=#{memName} AND email=#{email} AND authKey=#{authKey}
 	</select>
 	
+	<select id="countDisclosureEmailAuthYN" parameterType="hashmap" resultType="int">
+		SELECT count(0) FROM ssrolc.disclosure WHERE memName=#{memName} AND email=#{email}
+	</select>
+	
 	<select id="findDisclosureInfo" parameterType="hashMap" resultType="com.ssrolc.domain.disclosure.Disclosure">
 		SELECT * FROM ssrolc.disclosure WHERE memName=#{memName} AND email=#{email}
 	</select>
+	
+	<update id="updateDisclosures" parameterType="com.ssrolc.domain.disclosure.Disclosure" >
+		UPDATE ssrolc.disclosure
+		SET deptArea1 = #{deptArea1}
+						,deptArea2 = #{deptArea2}
+						,deptType = #{deptType}
+						,phone = #{phone}
+						,zip = #{zip}
+						,addressDtl01 = #{addressDtl01}
+						,addressDtl02 = #{addressDtl02}
+						,regDate = SYSDATE()
+						,regIp = #{regIp}
+		WHERE memName=#{memName} AND email=#{email}
+	</update>
 </mapper>

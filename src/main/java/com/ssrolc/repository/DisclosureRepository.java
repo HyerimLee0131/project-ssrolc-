@@ -42,8 +42,16 @@ public interface DisclosureRepository {
 	 * 가맹희망자 등록
 	 * */
 	public void insertDisclosures(Disclosure disclosure);
+	/*
+	 * 가맹희망자 수정
+	 * */
+	public void updateDisclosures(Disclosure disclosure);
 	
 	public int countDisclosureEmailAuth(Map<String, Object> map);
 
 	public Disclosure findDisclosureInfo(Map<String, Object> map);
+
+	public int countDisclosureEmailAuthYN(Map<String, Object> map);
+
+	
 }

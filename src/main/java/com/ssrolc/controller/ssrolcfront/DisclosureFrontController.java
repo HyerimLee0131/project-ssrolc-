@@ -50,18 +50,20 @@ public class DisclosureFrontController {
 		
 		return "disclosure/index";
 	}
-	
+	/*
+	 * 이메일인증한사람 등록
+	 * */
 	@RequestMapping(value={"/disclosure"},method ={RequestMethod.POST})
 	public String insert(HttpServletRequest req,Disclosure disclosure){		
 			//ip넣기
 			String regIp = req.getHeader("X-FORWARDED-FOR");
 	        if (Strings.isNullOrEmpty(regIp)){
 	        	regIp = req.getRemoteAddr();
-	        }
-	        	
+	        }	
 	        disclosure.setRegIp(regIp);
 	        
-			disclosureService.insertDisclosure(disclosure);
+			disclosureService.isDisclosure(disclosure);
+			
 			return "redirect:/disclosure"; 
 		}
 	
@@ -94,7 +96,6 @@ public class DisclosureFrontController {
 		if("authKeyOk".equals(result)){
 			map.put("disclosure",disclosureService.getDisclosureInfo(memName,email));
 		}
-		logger.debug("############{}",result);
 		map.put("result",result);
 		return ResponseEntity.ok(map); 
 	

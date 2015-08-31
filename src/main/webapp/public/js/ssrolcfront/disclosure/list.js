@@ -84,7 +84,7 @@ $(function() {
 							$("#formTel01").val(phoneArray[0]);
 							$("#formTel02").val(phoneArray[1]);
 							$("#formTel03").val(phoneArray[2]);
-							$("#zip").val(disclosure.zip);
+							$("#formPost").val(disclosure.zip);
 							$("#addressDtl01").val(disclosure.addressDtl01);
 							$("#addressDtl02").val(disclosure.addressDtl02);
 							$("#hopeArea01").val(disclosure.deptArea1);
