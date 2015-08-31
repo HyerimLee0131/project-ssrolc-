@@ -2,9 +2,7 @@ package com.ssrolc.domain.disclosure;
 
 import java.sql.Timestamp;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Getter;
 
 import com.ssrolc.utils.CommonUtils;
 
@@ -24,13 +22,15 @@ public class Disclosure {
 	private String phone;
 	private int zip1;
 	private int zip2;
+	private String zip;
 	private String addressDtl01;
 	private String addressDtl02;
 	private Timestamp regDate;
+	private String regIp;
 	
 	public String getRegDate(String format) {
 		
 		return CommonUtils.timestampToString(regDate,format);
 	}
-	
+
 }

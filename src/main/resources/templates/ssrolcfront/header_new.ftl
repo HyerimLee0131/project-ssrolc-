@@ -1,12 +1,9 @@
 <!DOCTYPE HTML>
-<html lang="ko">
+<html>
 <head>
-	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	<title>${title?default('')}</title>
-	<!--[if IE 7]><html class="no-js ie7"><![endif]-->
-	<!--[if IE 8]><html class="no-js ie8"><![endif]-->
 	<link rel="stylesheet" href="/public/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="/public/css/jquery-ui.1.11.4.min.css" />
 	<#if headerCss?has_content>

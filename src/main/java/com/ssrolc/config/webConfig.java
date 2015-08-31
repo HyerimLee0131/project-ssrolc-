@@ -1,14 +1,19 @@
 package com.ssrolc.config;
 
+import java.util.List;
+
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.mobile.device.DeviceHandlerMethodArgumentResolver;
+import org.springframework.mobile.device.DeviceResolverHandlerInterceptor;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.filter.HttpPutFormContentFilter;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 import com.ssrolc.intercepter.MenuIntercepter;
@@ -48,6 +53,19 @@ public class webConfig extends WebMvcAutoConfigurationAdapter {
 	}
 	
 	@Bean
+	public DeviceResolverHandlerInterceptor 
+	        deviceResolverHandlerInterceptor() {
+	    return new DeviceResolverHandlerInterceptor();
+	}
+
+	@Bean
+	public DeviceHandlerMethodArgumentResolver 
+	        deviceHandlerMethodArgumentResolver() {
+	    return new DeviceHandlerMethodArgumentResolver();
+	}
+
+	
+	@Bean
 	public MenuIntercepter menuIntercepter(){
 		return new MenuIntercepter();
 	}
@@ -56,6 +74,13 @@ public class webConfig extends WebMvcAutoConfigurationAdapter {
 	public void addInterceptors(InterceptorRegistry registry) {
 		// TODO Auto-generated method stub
 		registry.addInterceptor(menuIntercepter()).addPathPatterns("/**").excludePathPatterns("/ssrolcmanager","/ssrolcmanager/login");
+		registry.addInterceptor(deviceResolverHandlerInterceptor());
+	}
+	
+	@Override
+	public void addArgumentResolvers(
+	        List<HandlerMethodArgumentResolver> argumentResolvers) {
+	    argumentResolvers.add(deviceHandlerMethodArgumentResolver());
 	}
 	
 }

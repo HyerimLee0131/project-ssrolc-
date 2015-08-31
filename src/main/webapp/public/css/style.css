@@ -182,7 +182,7 @@ style.css
 	.zip_wrap h1{font-size:18px;padding:10px;background:#eee}
 	.zip_wrap .btn_zip_search{display:inline-block;width:80px;line-height:25px;background:#e4e4e4;text-align:center;}
 	.zip_search{border:1px solid #eee;padding:20px}
-	.zip_result_list{height:200px;overflow-y:scroll;border:1px solid #ccc}
+	.zip_result_list{border:1px solid #ccc}
 	.zip_result_list li a{display:block;padding:5px;text-decoration:none;}
 	.zip_result_list li a:hover{background:#eee}
 	.zip_close{padding:5px;text-align:center}
@@ -223,6 +223,7 @@ style.css
 	.txtBlue {color:#1079c4;}
 	.mapWrap { padding:20px 0; margin-bottom:20px;}
 	.mapWrap ul {overflow:hidden; zoom:1;}
+	.mapWrap li.step-1.map_one{float:none;margin:0 auto}
 	.mapWrap li.step-1 {float:left; width:309px; margin-left:30px;}
 	.mapWrap li.step-2 {float:left; width:400px; text-align:center}
 	.mapWrap map area {outline:none;border:0}

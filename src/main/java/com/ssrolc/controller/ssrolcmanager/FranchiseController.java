@@ -101,7 +101,7 @@ public class FranchiseController {
 		return ResponseEntity.ok(map);
 	}
 	
-	@RequestMapping(value="/ssrolcmanager/franchise/deptArea",method={RequestMethod.GET,RequestMethod.HEAD})
+	@RequestMapping(value={"/ssrolcmanager/franchise/deptArea","/ssrolcfront/franchise/deptArea"},method={RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<List<String>> getDeptArea(@RequestParam(value="jslcArea1")String jslcArea1){
 		List<String> deptAreaList = franchiseService.getFranchiseDeptAreaList(jslcArea1);
