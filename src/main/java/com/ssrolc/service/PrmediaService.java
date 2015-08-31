@@ -35,6 +35,15 @@ public class PrmediaService {
 		return prmediaRepository.findPrmedias(map);
 	}
 	
+	public String getPrmediaFirst(){
+		return prmediaRepository.findPrmediaFirst();
+	}
+	
+	public String getPrmediaView(int aidx){
+		return prmediaRepository.findPrmediaView(aidx);
+	}
+	
+	
 	public int getPrmediaCnt(){
 		Map<String,Object> map = new HashMap<>();
 
