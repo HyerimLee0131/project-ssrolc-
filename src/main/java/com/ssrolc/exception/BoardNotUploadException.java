@@ -2,7 +2,7 @@ package com.ssrolc.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class BoardNotUploadException extends ResourceNotFoundException {
+public class BoardNotUploadException extends RuntimeException {
 	private final String boardTable;
 	
 	public BoardNotUploadException(String boardTable) {
@@ -13,12 +13,10 @@ public class BoardNotUploadException extends ResourceNotFoundException {
 		return boardTable;
 	}
 	
-	@Override
 	public String getError() {
 		return "BoardUpload " + HttpStatus.NOT_ACCEPTABLE.getReasonPhrase();
 	}
 	
-	@Override
 	public Object[] getArgs() {
 		return new Object[]{ boardTable };
 	}
