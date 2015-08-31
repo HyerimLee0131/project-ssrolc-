@@ -1,5 +1,6 @@
 <#include "/ssrolcfront/header.ftl">
-<body>
+<!-- // body -->
+<div id="body_a" class="clearfix">﻿<!-- // body -->
 	<!--// content -->
 	<div class="ex"></div>
 	<div class="mainvisualimg">
@@ -18,7 +19,7 @@
 			<dd><a href="" name="beststudent" id="beststudent"><img src="/public/img/main/ban_02.png" alt="우수학생 소개"></a></dd>
 			<dd><a href="" ><img src="/public/img/main/ban_03.png" alt="가맹점모집영상"></a></dd>
 			<dd><a href="" id="centerserch"><img src="/public/img/main/ban_04.png" alt="우리동네 스스로러닝센터 찾기"></a></dd>
-			<dd><a href="/disclosure" name="etc" id="etc"><img src="/public/img/main/ban_05.png" alt="정보공개서"></a></dd>
+			<dd><a href="/ssrolcfront/disclosure" name="etc" id="etc"><img src="/public/img/main/ban_05.png" alt="정보공개서"></a></dd>
 			<dd><a href="javascript:;" id="go_e"><img src="/public/img/main/ban_06.png" alt="스스로e 바로가기"></a></dd>
 		</dl>
 	</div>
@@ -75,7 +76,8 @@ $(document).ready(function(){
 
 </script>
 
-<#include "/ssrolcfront/footer.ftl">
+
 </div>
 </body>
+<#include "/ssrolcfront/footer.ftl">
 </html>
