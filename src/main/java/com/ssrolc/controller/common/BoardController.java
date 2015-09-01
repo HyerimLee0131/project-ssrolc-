@@ -101,7 +101,7 @@ public class BoardController {
 			if(boardInfo.isBoardCategoryEnable()){
 				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
 				
-				if(boardCategoryList == null){
+				if(boardCategoryList == null || boardCategoryList.size() == 0){
 					throw new BoardCategoryNotFoundException(boardTable);
 				}else{
 					model.addAttribute("boardCategoryList",boardCategoryList);
@@ -229,7 +229,7 @@ public class BoardController {
 			if(boardInfo.isBoardCategoryEnable()){
 				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
 				
-				if(boardCategoryList == null){
+				if(boardCategoryList == null || boardCategoryList.size() == 0){
 					throw new BoardCategoryNotFoundException(boardTable);
 				}
 				
@@ -275,7 +275,7 @@ public class BoardController {
 			if(boardInfo.isBoardCategoryEnable()){
 				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
 				
-				if(boardCategoryList == null){
+				if(boardCategoryList == null || boardCategoryList.size() == 0){
 					throw new BoardCategoryNotFoundException(boardTable);
 				}
 				
@@ -323,7 +323,7 @@ public class BoardController {
 					
 					List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
 					
-					if(boardCategoryList == null){
+					if(boardCategoryList == null || boardCategoryList.size() == 0){
 						throw new BoardCategoryNotFoundException(boardTable);
 					}else{
 						model.addAttribute("boardCategoryList",boardCategoryList);
@@ -374,7 +374,7 @@ public class BoardController {
 				if(boardInfo.isBoardCategoryEnable()){
 					List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
 					
-					if(boardCategoryList == null){
+					if(boardCategoryList == null || boardCategoryList.size() == 0){
 						throw new BoardCategoryNotFoundException(boardTable);
 					}else{
 						model.addAttribute("boardCategoryList",boardCategoryList);
@@ -520,7 +520,7 @@ public class BoardController {
 			if(boardInfo.isBoardCategoryEnable()){
 				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
 				
-				if(boardCategoryList == null){
+				if(boardCategoryList == null || boardCategoryList.size() == 0){
 					throw new BoardCategoryNotFoundException(boardTable);
 				}else{
 					model.addAttribute("boardCategoryList",boardCategoryList);
