@@ -51,20 +51,35 @@ import com.ssrolc.exception.ArticleNotFoundException;
 import com.ssrolc.exception.BoardCategoryNotFoundException;
 import com.ssrolc.exception.BoardNotFoundException;
 import com.ssrolc.exception.BoardNotUploadException;
+import com.ssrolc.exception.FileNotExistsException;
 import com.ssrolc.service.BoardService;
 import com.ssrolc.utils.FileUploadUtil;
 import com.ssrolc.utils.PageUtil;
-
+/*
+ * 만든이 : 김순호
+ * 작성날짜 : 2015-08
+ * 기능 : 게시판
+ */
 @Controller
 public class BoardController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BoardController.class);
 	
 	@Autowired
 	private BoardService boardService;
-
+	/*
+	 * 게시판 업로드 경로
+	 */
 	@Value("${uploadpath.boards}")
 	private String boardUploadPath;
 	
+	/**
+	 * 게시판 목록
+	 * @param model
+	 * @param ssrolcPrefix {ssrolcmanager 또는 ssrolcfront만 가능}
+	 * @param boardTable 게시판 테이블 명
+	 * @param searchCategory 카테고리
+	 * @return
+	 */
 	@RequestMapping(value={"/{ssrolcPrefix}/boards/{boardTable}"} , method =  { RequestMethod.GET, RequestMethod.HEAD })
 	public String list(Model model,@PathVariable String ssrolcPrefix,@PathVariable String boardTable
 			,@RequestParam(value="searchcategory",required=false,defaultValue="all") String searchCategory) {
@@ -106,7 +121,13 @@ public class BoardController {
 		}
 	}
 	
-	
+	/**
+	 * 게시판 목록 정보 ajax요청
+	 * @param ssrolcPrefix
+	 * @param boardTable
+	 * @param pageNum
+	 * @return 게시판 목록 정보 json으로 리턴
+	 */
 	@RequestMapping(value={"/{ssrolcPrefix}/boards/{boardTable}/{pageNum:[0-9]+}"} ,
 			method = { RequestMethod.GET, RequestMethod.HEAD })
 	@ResponseBody
@@ -137,6 +158,15 @@ public class BoardController {
 		}
 	}
 	
+	/**
+	 * 게시판 검색 정보 ajax요청
+	 * @param ssrolcPrefix
+	 * @param boardTable
+	 * @param pageNum
+	 * @param searchField
+	 * @param searchValue
+	 * @return json으로 응답
+	 */
 	@RequestMapping(value={"/{ssrolcPrefix}/boards/{boardTable}/{pageNum:[0-9]+}/{searchField}/{searchValue}"} ,
 			method = { RequestMethod.GET, RequestMethod.HEAD })
 	@ResponseBody
@@ -617,7 +647,6 @@ public class BoardController {
 			throw new BoardNotFoundException(boardTable);
 		}else{
 			if(!boardInfo.isEditorImageUploadEnable()){
-				//수정해야함
 				throw new BoardNotUploadException(boardTable);
 			}else{
 				final String imageFileType = "image";
@@ -710,8 +739,7 @@ public class BoardController {
 		File downloadFile = new File(filePath);
 		
 		if(!downloadFile.exists()){
-			//에러처리
-			return;
+			throw new FileNotExistsException();
 		}
 		
 		Path source = Paths.get(filePath);
