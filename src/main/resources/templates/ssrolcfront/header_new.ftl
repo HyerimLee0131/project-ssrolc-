@@ -36,7 +36,7 @@
 						<li><a href="prmedia_list.html">스스로러닝센터</a></li>
 						<li><a href="#">학습시스템</a></li>
 						<li><a href="franchiseSearch.html">가맹안내</a></li>
-						<li><a href="faq_list.html">커뮤니티</a></li>
+						<li><a href="/ssrolcfront/boards/notice">커뮤니티</a></li>
 						<li><a href="#">로그인</a></li>
 					</ul>
 				</div>
