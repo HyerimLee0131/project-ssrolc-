@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,24 +34,31 @@ import com.ssrolc.utils.PageUtil;
 
 @Controller
 public class PrmediaFrontController {
-	private static final Logger logger = LoggerFactory.getLogger(PrmediaFrontController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PrmediaFrontController.class);
 	
 	@Autowired
 	private PrmediaService prmediaService;
 	
 	@Value("${uploadpath.prmedia}")
 	private String prmediaUploadPath;
-
-	private HttpServletResponse request;
 	
 	//리스트
 	@RequestMapping(value={"/ssrolcfront/prmedias"},method = {RequestMethod.GET,RequestMethod.HEAD})
-	public String prmediaList(Model model,HttpServletRequest request){
+	public String prmediaList(Model model,Device device,HttpServletRequest request){
 		//logger.debug("prmedia List");
+		
+		//디바이스 알아보기
+		if(device.isNormal()){
+			LOGGER.debug("===============PC"+device.getDevicePlatform());
+		}else if(device.isTablet()){
+			LOGGER.debug("============테블릿:"+device.getDevicePlatform());
+		}else if(device.isMobile()){
+			LOGGER.debug("================모바일:"+device.getDevicePlatform());
+		}
 		
 		
 		String browser = getBrowser(request);
-		logger.debug("browser"+ browser);
+		LOGGER.debug("browser"+ browser);
 		
 		model.addAttribute("title","러닝센터관리자 홍보영상관리");
 		
@@ -91,7 +99,7 @@ public class PrmediaFrontController {
 	@RequestMapping(value={"/ssrolcfront/prmedias/{pageNum:[0-9]+}/{searchField}/{searchValue}"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> prmediaSearchListJson(@PathVariable int pageNum,@PathVariable String searchField,@PathVariable String searchValue){
-		logger.debug("searchField:"+searchField+",searchValue:"+searchValue);
+		LOGGER.debug("searchField:"+searchField+",searchValue:"+searchValue);
 		
 		int prmediaCnt = prmediaService.getPrmediaCnt();
 		if(prmediaCnt == 0){
