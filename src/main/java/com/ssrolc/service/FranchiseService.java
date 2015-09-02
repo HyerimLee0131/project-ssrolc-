@@ -1,5 +1,6 @@
 package com.ssrolc.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,7 @@ public class FranchiseService {
 		if(!Strings.isNullOrEmpty(jslcType)){
 			String[] jslTypeArray = jslcType.split(",");
 			
-			jslTypeList = Arrays.asList(jslTypeArray);
+			jslTypeList = new ArrayList<>(Arrays.asList(jslTypeArray));
 		}
 		map.put("jslTypeList", jslTypeList);
 		map.put("jslcArea1", jslcArea1);
@@ -60,7 +61,7 @@ public class FranchiseService {
 		if(!Strings.isNullOrEmpty(jslcType)){
 			String[] jslTypeArray = jslcType.split(",");
 			
-			jslTypeList = Arrays.asList(jslTypeArray);
+			jslTypeList = new ArrayList<>(Arrays.asList(jslTypeArray));
 		
 		}
 		map.put("jslTypeList", jslTypeList);
