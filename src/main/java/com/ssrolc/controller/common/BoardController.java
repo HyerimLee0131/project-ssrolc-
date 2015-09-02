@@ -141,8 +141,17 @@ public class BoardController {
 		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
-			int rowBlockSize = boardInfo.getPageBlockSize();
-			int pageBlockSize = boardInfo.getRowBlockSize();
+			int rowBlockSize = 10;
+			int pageBlockSize = 10;
+			
+			if("ssrolcmanager".equals(ssrolcPrefix)){				
+				rowBlockSize = boardInfo.getFrontRowBlockSize();
+				pageBlockSize = boardInfo.getFrontPageBlockSize();
+			}else{
+				rowBlockSize = boardInfo.getManagerRowBlockSize();
+				pageBlockSize = boardInfo.getManagerPageBlockSize();
+			}
+			
 			int totalRowCnt = boardService.getArticleCnt(boardTable);
 			
 			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
@@ -185,8 +194,17 @@ public class BoardController {
 		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
-			int rowBlockSize = boardInfo.getPageBlockSize();
-			int pageBlockSize = boardInfo.getRowBlockSize();
+			int rowBlockSize = 10;
+			int pageBlockSize = 10;
+			
+			if("ssrolcmanager".equals(ssrolcPrefix)){				
+				rowBlockSize = boardInfo.getFrontRowBlockSize();
+				pageBlockSize = boardInfo.getFrontPageBlockSize();
+			}else{
+				rowBlockSize = boardInfo.getManagerRowBlockSize();
+				pageBlockSize = boardInfo.getManagerPageBlockSize();
+			}
+			
 			int totalRowCnt = boardService.getArticleCnt(boardTable,searchField,searchValue);
 			
 			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
@@ -217,8 +235,17 @@ public class BoardController {
 		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
-			int rowBlockSize = boardInfo.getPageBlockSize();
-			int pageBlockSize = boardInfo.getRowBlockSize();
+			int rowBlockSize = 10;
+			int pageBlockSize = 10;
+			
+			if("ssrolcmanager".equals(ssrolcPrefix)){				
+				rowBlockSize = boardInfo.getFrontRowBlockSize();
+				pageBlockSize = boardInfo.getFrontPageBlockSize();
+			}else{
+				rowBlockSize = boardInfo.getManagerRowBlockSize();
+				pageBlockSize = boardInfo.getManagerPageBlockSize();
+			}
+			
 			int totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode);
 			
 			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
@@ -264,8 +291,17 @@ public class BoardController {
 		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
-			int rowBlockSize = boardInfo.getPageBlockSize();
-			int pageBlockSize = boardInfo.getRowBlockSize();
+			int rowBlockSize = 10;
+			int pageBlockSize = 10;
+			
+			if("ssrolcmanager".equals(ssrolcPrefix)){				
+				rowBlockSize = boardInfo.getFrontRowBlockSize();
+				pageBlockSize = boardInfo.getFrontPageBlockSize();
+			}else{
+				rowBlockSize = boardInfo.getManagerRowBlockSize();
+				pageBlockSize = boardInfo.getManagerPageBlockSize();
+			}
+			
 			int totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode,searchField,searchValue);
 			
 			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);

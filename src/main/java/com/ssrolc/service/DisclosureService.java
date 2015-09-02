@@ -1,5 +1,6 @@
 package com.ssrolc.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,7 @@ public class DisclosureService {
 		if(!Strings.isNullOrEmpty(deptType)){
 			String[] deptTypeArray = deptType.split(",");
 			
-			deptTypeList = Arrays.asList(deptTypeArray);
+			deptTypeList = new ArrayList<>(Arrays.asList(deptTypeArray));
 			
 		}
 		map.put("deptTypeList", deptTypeList);
@@ -59,7 +60,7 @@ public class DisclosureService {
 		if(!Strings.isNullOrEmpty(deptType)){
 			String[] deptTypeArray = deptType.split(",");
 			
-			deptTypeList = Arrays.asList(deptTypeArray);
+			deptTypeList = new ArrayList<>(Arrays.asList(deptTypeArray));
 
 		}
 		map.put("deptTypeList", deptTypeList);
