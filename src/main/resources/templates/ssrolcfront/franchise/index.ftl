@@ -10,7 +10,9 @@
 							<label for="do">시/도 :</label>
 							<select name="do" class="input-select w100" id="do" title="시/도선택">
 								<option value="">선택</option>
-								<option value="">경기</option>
+								<#list doList as do>
+									<option value="${do}">${do}</option>
+								</#list>
 							</select>
 							<label for="guGun">군/구 :</label>
 							<select name="guGun" class="input-select w100" id="guGun" title="군/구선택">
@@ -28,23 +30,23 @@
 										<dd>
 											<img src="/public/img/map/map_none.png" alt="전체" usemap="#branchMap" id="branchAllMap" />
 											<map name="branchMap" id="branchMap">
-												<area shape="poly" href="javascript:$.resetGugun()" alt="서울특별시" coords="65,102,56,101,59,111,62,111,78,114,86,107,73,97" data-show="#seoulMap" data-image-over="/public/img/map/map_seoul.png" data-sido="서울" />
-												<area shape="poly" href="javascript:$.resetGugun()" alt="경기도" coords="48,63,36,70,30,82,39,85,47,97,52,99,57,99,67,97,78,96,87,107,78,119,68,118,56,111,46,116,44,121,39,126,42,134,51,137,53,137,50,142,56,144,66,149,83,146,92,147,109,139,110,135,116,129,117,115,120,113,118,108,119,103,113,100,106,92,110,81,108,76,100,75,97,73,90,69,82,64,69,60" data-show="#gyeonggiMap"  data-image-over="/public/img/map/map_gyeonggi.png" data-sido="경기"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="부산광역시" coords="188,275,196,263,210,259,216,252,222,256,217,266,207,270,193,277" data-show="#busanMap"  data-image-over="/public/img/map/map_busan.png"  data-sido="부산"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="인천광역시" coords="30,92,35,100,27,98,35,106,47,106,47,111,54,109,58,105,48,100,41,93,35,88" data-show="#incheonMap"  data-image-over="/public/img/map/map_incheon.png" data-sido="인천"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="대전광역시" coords="92,180,83,189,87,195,107,198,101,192,101,183" data-show="#daejeonMap" data-image-over="/public/img/map/map_daejeon.png"  data-sido="대전"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="대구광역시" coords="162,217,164,226,158,234,160,237,169,236,174,228,184,231,182,209" data-show="#daeguMap"  data-image-over="/public/img/map/map_daegu.png" data-sido="대구"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="울산광역시" coords="208,232,203,242,210,249,223,254,228,248,235,236,235,234,228,232,223,234,219,235,214,231" data-show="#ulsanMap" data-image-over="/public/img/map/map_ulsan.png" data-sido="울산"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="광주광역시" coords="69,260,49,260,43,268,54,276,67,273,76,265" data-show="#gwangjuMap"  data-image-over="/public/img/map/map_gwangju.png"  data-sido="광주"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="강원도" coords="158,34,118,6,107,1,109,18,94,25,92,4,70,15,65,22,66,23,57,26,56,29,48,33,53,48,96,71,103,72,114,78,107,92,114,96,123,112,116,127,126,133,127,121,130,121,146,126,158,123,155,132,181,135,212,135,221,131,203,97,170,57" data-show="#gangwonMap" data-image-over="/public/img/map/map_gangwon.png" data-sido="강원"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="충청북도" coords="178,137,154,131,157,127,142,128,131,124,132,129,129,133,116,130,111,134,104,142,94,146,95,156,93,166,92,168,94,177,103,179,102,187,110,198,111,203,122,206,126,206,133,196,122,188,126,180,119,170,138,153,153,152,166,145" data-show="#chungbukMap" data-image-over="/public/img/map/map_chungbuk.png" data-sido="충북"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="충청남도" coords="84,149,75,148,66,150,61,147,44,139,30,142,25,147,12,155,14,162,28,181,37,201,44,204,46,204,49,209,68,196,83,206,86,201,98,207,101,203,110,202,103,199,95,201,84,196,81,191,82,187,72,165,78,155,87,152,95,156" data-show="#chungnamMap" data-image-over="/public/img/map/map_chungnam.png"  data-sido="충남"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="세종시" coords="93,179,89,160,94,154,83,154,76,160,73,167,82,184" data-show="#sejongMap" data-image-over="/public/img/map/map_sejong.png"  data-sido="세종"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="경상북도" coords="229,205,226,192,231,176,230,158,228,149,234,132,221,132,212,139,200,136,191,137,179,139,171,144,162,151,155,153,148,155,143,153,130,164,123,169,127,179,125,189,137,192,135,198,126,210,126,218,145,223,150,229,155,237,160,224,158,217,176,209,183,209,187,232,173,234,171,239,187,238,199,236,207,229,212,229,217,234,231,228,233,218,237,211,235,203,258,166,265,166,298,171,298,164,261,150,254,161" data-show="#gyeongbukMap" data-image-over="/public/img/map/map_gyeongbuk.png" data-sido="경북"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="경상남도" coords="131,221,118,226,113,242,111,254,107,257,121,280,122,287,127,296,134,300,139,288,131,281,138,279,162,294,167,277,179,276,168,289,175,296,187,288,183,277,192,265,204,261,212,254,200,245,203,237,187,241,173,239,162,242,151,234,147,226" data-show="#gyeongnamMap" data-image-over="/public/img/map/map_gyeongnam.png" data-sido="경남"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="전라북도" coords="62,202,54,208,48,210,42,209,38,211,33,213,50,218,34,224,35,229,33,237,43,235,45,237,38,238,32,245,37,254,39,254,44,252,54,243,63,245,70,247,71,251,74,253,83,253,90,254,96,250,105,254,111,247,111,236,115,226,123,218,123,208,103,203,99,208,95,206,87,203,82,207,70,200" data-show="#jeonbukMap" data-image-over="/public/img/map/map_jeonbuk.png" data-sido="전북"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="전라남도" coords="31,248,23,255,19,268,4,270,15,287,29,293,28,294,27,298,20,300,19,295,6,315,20,315,39,321,50,309,56,315,62,315,67,302,73,298,88,294,74,302,79,310,85,313,101,306,99,300,96,294,100,287,103,296,102,300,116,309,120,300,115,293,123,292,113,285,118,277,105,255,99,252,91,258,81,256,79,258,73,254,67,249,55,247,41,257,36,257" data-show="#jeonnamMap" data-image-over="/public/img/map/map_jeonnam.png" data-sido="전남"/>
-												<area shape="poly" href="javascript:$.resetGugun()" alt="제주도" coords="30,356,14,363,8,371,9,374,26,378,63,368,71,359,57,354" data-show="#jejuMap" data-image-over="/public/img/map/map_jeju.png"  data-sido="제주"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="서울특별시" coords="65,102,56,101,59,111,62,111,78,114,86,107,73,97" data-show="#seoulMap" data-image-over="/public/img/map/map_seoul.png" data-sido="서울" />
+												<area shape="poly" href="javascript:$.resetGugun();" alt="경기도" coords="48,63,36,70,30,82,39,85,47,97,52,99,57,99,67,97,78,96,87,107,78,119,68,118,56,111,46,116,44,121,39,126,42,134,51,137,53,137,50,142,56,144,66,149,83,146,92,147,109,139,110,135,116,129,117,115,120,113,118,108,119,103,113,100,106,92,110,81,108,76,100,75,97,73,90,69,82,64,69,60" data-show="#gyeonggiMap"  data-image-over="/public/img/map/map_gyeonggi.png" data-sido="경기"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="부산광역시" coords="188,275,196,263,210,259,216,252,222,256,217,266,207,270,193,277" data-show="#busanMap"  data-image-over="/public/img/map/map_busan.png"  data-sido="부산"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="인천광역시" coords="30,92,35,100,27,98,35,106,47,106,47,111,54,109,58,105,48,100,41,93,35,88" data-show="#incheonMap"  data-image-over="/public/img/map/map_incheon.png" data-sido="인천"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="대전광역시" coords="92,180,83,189,87,195,107,198,101,192,101,183" data-show="#daejeonMap" data-image-over="/public/img/map/map_daejeon.png"  data-sido="대전"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="대구광역시" coords="162,217,164,226,158,234,160,237,169,236,174,228,184,231,182,209" data-show="#daeguMap"  data-image-over="/public/img/map/map_daegu.png" data-sido="대구"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="울산광역시" coords="208,232,203,242,210,249,223,254,228,248,235,236,235,234,228,232,223,234,219,235,214,231" data-show="#ulsanMap" data-image-over="/public/img/map/map_ulsan.png" data-sido="울산"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="광주광역시" coords="69,260,49,260,43,268,54,276,67,273,76,265" data-show="#gwangjuMap"  data-image-over="/public/img/map/map_gwangju.png"  data-sido="광주"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="강원도" coords="158,34,118,6,107,1,109,18,94,25,92,4,70,15,65,22,66,23,57,26,56,29,48,33,53,48,96,71,103,72,114,78,107,92,114,96,123,112,116,127,126,133,127,121,130,121,146,126,158,123,155,132,181,135,212,135,221,131,203,97,170,57" data-show="#gangwonMap" data-image-over="/public/img/map/map_gangwon.png" data-sido="강원"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="충청북도" coords="178,137,154,131,157,127,142,128,131,124,132,129,129,133,116,130,111,134,104,142,94,146,95,156,93,166,92,168,94,177,103,179,102,187,110,198,111,203,122,206,126,206,133,196,122,188,126,180,119,170,138,153,153,152,166,145" data-show="#chungbukMap" data-image-over="/public/img/map/map_chungbuk.png" data-sido="충북"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="충청남도" coords="84,149,75,148,66,150,61,147,44,139,30,142,25,147,12,155,14,162,28,181,37,201,44,204,46,204,49,209,68,196,83,206,86,201,98,207,101,203,110,202,103,199,95,201,84,196,81,191,82,187,72,165,78,155,87,152,95,156" data-show="#chungnamMap" data-image-over="/public/img/map/map_chungnam.png"  data-sido="충남"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="세종시" coords="93,179,89,160,94,154,83,154,76,160,73,167,82,184" data-show="#sejongMap" data-image-over="/public/img/map/map_sejong.png"  data-sido="세종"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="경상북도" coords="229,205,226,192,231,176,230,158,228,149,234,132,221,132,212,139,200,136,191,137,179,139,171,144,162,151,155,153,148,155,143,153,130,164,123,169,127,179,125,189,137,192,135,198,126,210,126,218,145,223,150,229,155,237,160,224,158,217,176,209,183,209,187,232,173,234,171,239,187,238,199,236,207,229,212,229,217,234,231,228,233,218,237,211,235,203,258,166,265,166,298,171,298,164,261,150,254,161" data-show="#gyeongbukMap" data-image-over="/public/img/map/map_gyeongbuk.png" data-sido="경북"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="경상남도" coords="131,221,118,226,113,242,111,254,107,257,121,280,122,287,127,296,134,300,139,288,131,281,138,279,162,294,167,277,179,276,168,289,175,296,187,288,183,277,192,265,204,261,212,254,200,245,203,237,187,241,173,239,162,242,151,234,147,226" data-show="#gyeongnamMap" data-image-over="/public/img/map/map_gyeongnam.png" data-sido="경남"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="전라북도" coords="62,202,54,208,48,210,42,209,38,211,33,213,50,218,34,224,35,229,33,237,43,235,45,237,38,238,32,245,37,254,39,254,44,252,54,243,63,245,70,247,71,251,74,253,83,253,90,254,96,250,105,254,111,247,111,236,115,226,123,218,123,208,103,203,99,208,95,206,87,203,82,207,70,200" data-show="#jeonbukMap" data-image-over="/public/img/map/map_jeonbuk.png" data-sido="전북"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="전라남도" coords="31,248,23,255,19,268,4,270,15,287,29,293,28,294,27,298,20,300,19,295,6,315,20,315,39,321,50,309,56,315,62,315,67,302,73,298,88,294,74,302,79,310,85,313,101,306,99,300,96,294,100,287,103,296,102,300,116,309,120,300,115,293,123,292,113,285,118,277,105,255,99,252,91,258,81,256,79,258,73,254,67,249,55,247,41,257,36,257" data-show="#jeonnamMap" data-image-over="/public/img/map/map_jeonnam.png" data-sido="전남"/>
+												<area shape="poly" href="javascript:$.resetGugun();" alt="제주도" coords="30,356,14,363,8,371,9,374,26,378,63,368,71,359,57,354" data-show="#jejuMap" data-image-over="/public/img/map/map_jeju.png"  data-sido="제주"/>
 											</map>
 										</dd>
 									</dl>
@@ -55,7 +57,7 @@
 										<dd>
 											<!-- 서울특별시 -->
 											<div id="seoulMap" class="rightMap" style="display:none;">
-												<img src="" alt="서울" usemap="#seoulMap" id="seoulAllMap" />
+												<img src="/public/img/map/map_seoul_00.png" alt="서울" usemap="#seoulMap" id="seoulAllMap" />
 												<map name="seoulMap" id="seoulMap">
 													<area shape="poly" href="" alt="서울특별시 강서구" coords="97,172,92,159,43,129,35,137,33,149,13,167,0,191,13,200,19,206,36,214,47,205,53,207,57,211,66,205,82,226,91,228,98,217,101,199,109,202,116,198,118,191,112,189"  data-image-over="/public/img/map/map_seoul_01.png" data-gungu="강서구" id="서울강서구"/>
 													<area shape="poly" href="#none" alt="서울특별시 노원구" coords="295,18,292,50,297,63,294,73,287,72,282,89,287,97,296,102,300,109,309,110,322,104,342,105,349,84,321,61,325,58,336,56,335,44,334,23,320,21,326,16,321,11,312,14,304,16" data-image-over="/public/img/map/map_seoul_18.png" data-gungu="노원구" id="서울노원구"/>
@@ -86,7 +88,7 @@
 											</div>
 											<!-- 경기도 -->
 											<div id="gyeonggiMap" style="display:none;" class="rightMap">
-											<img src="" alt="경기" usemap="#gyeonggiMap" border="0"  id="gyeonggiAllMap"/>
+											<img src="/public/img/map/map_gyeonggi_00.png" alt="경기" usemap="#gyeonggiMap" border="0"  id="gyeonggiAllMap"/>
 									<map name="gyeonggiMap" id="gyeonggiMap">
 										<area shape="poly" href="#none" alt="경기도 연천군" coords="100,5,88,11,80,18,72,42,63,47,60,60,50,61,48,68,53,78,61,74,66,70,77,72,76,86,86,87,89,76,109,76,113,61,112,56,121,53,124,36,119,13,108,20,107,4" data-image-over="/public/img/map/map_gyeonggi_01.png"  data-gungu="연천군" id="경기연천군"/>
 										<area shape="poly" href="#none" alt="경기도 파주시" coords="45,64,31,73,29,83,28,86,23,96,26,111,28,133,42,131,73,126,69,115,76,102,76,86,74,70,67,72,53,79" data-image-over="/public/img/map/map_gyeonggi_02.png"  data-gungu="파주시" id="경기파주시"/>
@@ -123,7 +125,7 @@
 								</div>
 								<!-- 인천광역시 -->
 								<div id="incheonMap" style="display:none"; class="rightMap">
-									<img src="" alt="인천" usemap="#incheonMap" border="0"  id="incheonAllMap"/>
+									<img src="/public/img/map/map_incheon_00.png" alt="인천" usemap="#incheonMap" border="0"  id="incheonAllMap"/>
 									<map name="incheonMap" id="incheonMap">
 										<area shape="poly"  href="#none" alt="인천광역시 강화" coords="5,27,22,7,104,10,115,3,128,5,152,19,166,29,173,41,171,48,179,55,183,67,182,77,177,83,180,90,184,98,180,109,185,116,185,122,177,126,178,131,184,140,185,153,183,162,175,164,166,170,157,173,147,172,137,178,118,177,102,169,90,158,87,151,95,146,92,138,96,130,107,129,106,116,103,108,97,96,83,116,64,126,60,105,44,94,36,76,15,51,6,42" data-image-over="/public/img/map/map_incheon_01.png"  data-gungu="강화군" id="인천강화군"/>
 										<area shape="poly" href="#none" coords="203,155,224,149,234,138,256,124,276,133,280,142,292,147,308,159,304,167,293,174,281,169,277,171,280,178,294,187,297,201,294,210,281,214,278,227,289,259,290,273,283,278,262,265,246,261,242,254,246,246,232,247,227,236,221,227,226,217,238,220,250,213,256,205,255,200,249,202,241,208,232,217,224,210,219,215,214,203,208,213,200,216,195,202,199,191,206,175,199,164,198,156" alt="인천광역시 서구" data-image-over="/public/img/map/map_incheon_02.png"  data-gungu="서구" id="인천서구"/>
@@ -419,21 +421,28 @@
 										<th scope="col" class="no_rightLine">주소</th>
 									</tr>
 								</thead>
-								<tbody id="dataList">
-									<tr>
-										<td>충남총국 서산지역국</td>
-										<td>041</td>
-										<td>666-1132</td>
-										<td class="no_rightLine">충남 서산시 동문동 276-11번지 일송타워 4층</td>
-									</tr>
-									<!-- <tr>
-										<td colspan="5" class="no_rightLine">현재 살고 계신 시/도를 선택해주세요.</td>
-									</tr> -->
+								<tbody id="dataList">	
 								</tbody>
 							</table>
 						</div>
 
 					</div>
 				</div>
+	<script id="franchisesTemplate" type="text/x-handlebars-template">
+		{{! 가맹지사 리스트 }}
+		{{#each franchises}}
+		<tr>
+			<td>{{sa_deptname}} {{depname}}</td>
+			<td>{{telno}}</td>
+			<td>{{tel1}}</td>
+			<td class="no_rightLine">{{addr1}}</td>
+		</tr>
+		{{else}}
+		<tr>
+			<td colspan="4" class="no_rightLine">데이터가 없습니다.</td>
+		</tr>		
+		{{/each}}
+		 
+	</script>
 				
 	<#include "/ssrolcfront/footer_new.ftl">

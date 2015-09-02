@@ -43,6 +43,7 @@ public class CenterSearchController {
 		headerScript.add("ssrolcfront/centerSearch");
 		model.addAttribute("headerScript",headerScript);
 		model.addAttribute("doList", doList);
+		
 
 		return "ssrolcfront/centerSearch/list";
 	}

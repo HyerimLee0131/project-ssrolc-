@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssrolc.domain.CenterSearch.CenterSearch;
+import com.ssrolc.domain.franchise.FranchiseCity;
 import com.ssrolc.repository.LearningCenterRepository;
 import com.ssrolc.repository.MssqlRepository;
 
@@ -51,4 +52,6 @@ public class CenterSearchService {
 
 		return mssqlRepository.findDos(map);
 	}
+
+
 }

@@ -9,14 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.base.Strings;
+import com.ssrolc.domain.CenterSearch.CenterSearch;
 import com.ssrolc.domain.franchise.Franchise;
+import com.ssrolc.domain.franchise.FranchiseCity;
+import com.ssrolc.domain.franchise.Franchises;
 import com.ssrolc.repository.FranchiseRepository;
+import com.ssrolc.repository.MssqlRepository;
 
 @Service
 public class FranchiseService {
 
 	@Autowired
 	private FranchiseRepository franchiseRepository;
+	
+	@Autowired
+	private MssqlRepository mssqlRepository;
 
 	/*
 	 * 가맹문의 상담 접수 대기건 리스트(검색 포함)
@@ -100,4 +107,34 @@ public class FranchiseService {
 	public int getNewFranchiseWriteCnt(){
 		return franchiseRepository.countFranchiseWriteCurrent();
 	}
+	
+	/*
+	 * 구/군 찾기
+	 * */
+	
+	public List<FranchiseCity> getGugun(String doName, String si, String dong,
+			String jobflag) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("doName", doName);
+		map.put("si", si);
+		map.put("dong", dong);
+		map.put("jobflag", jobflag);
+		
+		return mssqlRepository.findFranchisesCity(map);
+	}
+	/*
+	 * 가맹지사 지역국 찾기
+	 * */
+	public List<Franchises> getFranchises(String doName, String si, String dong,
+			String jobflag) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("doName", doName);
+		map.put("si", si);
+		map.put("dong", dong);
+		map.put("jobflag", jobflag);
+		
+		return mssqlRepository.findFranchises(map);
+	}
+
+
 }
