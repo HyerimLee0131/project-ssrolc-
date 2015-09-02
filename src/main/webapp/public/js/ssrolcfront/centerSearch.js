@@ -25,50 +25,45 @@ $(function() {
 				dataType: "json",
 				success: function(jsonData, textStatus, XMLHttpRequest) {
 					//if(jsonData.result == "success" || doVal == "충남"){	//직영센터로 인해 충남 예외처리
-					if(!jsonData) {
-						$("#dataList").html($('#emptyList').text());
-						$('#emptyList').show();
-					} else { 
-						if(jsonData.result == "success"){	//직영센터로 인해 충남 예외처리
-							var source = $("#centersTemplate").html();
-							var template = Handlebars.compile(source);
-							Handlebars.registerHelper('xIf', function (lvalue, operator, rvalue, options) {
-							    var operators, result;
-							    if (arguments.length < 3) {
-							        throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
-							    }
-							    if (options === undefined) {
-							        options = rvalue;
-							        rvalue = operator;
-							        operator = "===";
-							    }
-							    operators = {
-							        '==': function (l, r) { return l == r; },
-							        '===': function (l, r) { return l === r; },
-							        '!=': function (l, r) { return l != r; },
-							        '!==': function (l, r) { return l !== r; },
-							        '<': function (l, r) { return l < r; },
-							        '>': function (l, r) { return l > r; },
-							        '<=': function (l, r) { return l <= r; },
-							        '>=': function (l, r) { return l >= r; },
-							        'typeof': function (l, r) { return typeof l == r; }
-							    };
-	
-							    if (!operators[operator]) {
-							        throw new Error("'xIf' doesn't know the operator " + operator);
-							    }
-	
-							    result = operators[operator](lvalue, rvalue);
-							    if (result) {
-							        return options.fn(this);
-							    } else {
-							        return options.inverse(this);
-							    }
-							});
-	
-							$("#dataList").empty();
-							$("#dataList").append(template(jsonData));
-						}
+					if(jsonData.result == "success"){	//직영센터로 인해 충남 예외처리
+						var source = $("#centersTemplate").html();
+						var template = Handlebars.compile(source);
+						Handlebars.registerHelper('xIf', function (lvalue, operator, rvalue, options) {
+						    var operators, result;
+						    if (arguments.length < 3) {
+						        throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+						    }
+						    if (options === undefined) {
+						        options = rvalue;
+						        rvalue = operator;
+						        operator = "===";
+						    }
+						    operators = {
+						        '==': function (l, r) { return l == r; },
+						        '===': function (l, r) { return l === r; },
+						        '!=': function (l, r) { return l != r; },
+						        '!==': function (l, r) { return l !== r; },
+						        '<': function (l, r) { return l < r; },
+						        '>': function (l, r) { return l > r; },
+						        '<=': function (l, r) { return l <= r; },
+						        '>=': function (l, r) { return l >= r; },
+						        'typeof': function (l, r) { return typeof l == r; }
+						    };
+
+						    if (!operators[operator]) {
+						        throw new Error("'xIf' doesn't know the operator " + operator);
+						    }
+
+						    result = operators[operator](lvalue, rvalue);
+						    if (result) {
+						        return options.fn(this);
+						    } else {
+						        return options.inverse(this);
+						    }
+						});
+
+						$("#dataList").empty();
+						$("#dataList").append(template(jsonData));
 					}
 				},
 				error:function (xhr, ajaxOptions, thrownError){	
