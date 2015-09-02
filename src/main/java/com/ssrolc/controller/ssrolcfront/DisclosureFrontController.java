@@ -83,7 +83,7 @@ public class DisclosureFrontController {
 		String authKey = mailService.sendMail(pMemName,pEmailId,pEmailAdd1,hostName);
 		String mailAddress = pEmailId + "@" + pEmailAdd1;
 		disclosureService.insertMailAuth(pMemName,mailAddress,authKey,jslIp);
-		
+		logger.debug("Mail Send : authKey = {}", authKey);
 		Map<String, Object> map = new HashMap<>();
 		map.put("result","MailSendOk");
 		return ResponseEntity.ok(map); 
