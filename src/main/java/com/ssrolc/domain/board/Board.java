@@ -14,8 +14,10 @@ import lombok.ToString;
 public class Board {
 	private String boardTable;
 	private String boardName;
-	private int rowBlockSize;
-	private int pageBlockSize;
+	private int frontRowBlockSize;
+	private int frontPageBlockSize;
+	private int managerRowBlockSize;
+	private int managerPageBlockSize;
 	private boolean boardCategoryEnable;
 	private boolean boardFileUploadEnable;
 	private String boardFileUploadType;
