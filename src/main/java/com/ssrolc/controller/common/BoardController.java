@@ -594,9 +594,15 @@ public class BoardController {
 			}
 			
 			Timestamp nowDate = new Timestamp(new Date().getTime());
+
+			//ip주소 null처리
+			String regIp = mhRequest.getHeader("X-FORWARDED-FOR");
+	        if (Strings.isNullOrEmpty(regIp)) {
+	        	regIp = mhRequest.getRemoteAddr();
+	        }
 			
 			Article article = new Article(boardTable, categoryCode, title, content,0,0,0
-					, etc1, etc2, etc3, etc4, useEnable, false, regId, mhRequest.getHeader("X-FORWARDED-FOR"), nowDate,null);
+					, etc1, etc2, etc3, etc4, useEnable, false, regId, regIp, nowDate,null);
 			
 			boardService.addArticle(article);
 			
@@ -623,7 +629,7 @@ public class BoardController {
 							, uploadFileInfo.getConvertFileName(),0,uploadFileInfo.getSize()
 							,uploadFileInfo.getWidth(),uploadFileInfo.getHeight()
 							,uploadFileType,uploadFileInfo.isThumbType(), regId
-							,mhRequest.getHeader("X-FORWARDED-FOR"),nowDate);
+							,regIp,nowDate);
 					
 					boardService.addAttachFile(attachFile);
 					
@@ -666,12 +672,18 @@ public class BoardController {
 				
 				int attachFileNo = 0;
 				
+				//ip주소 null처리
+				String regIp = mhRequest.getHeader("X-FORWARDED-FOR");
+		        if (Strings.isNullOrEmpty(regIp)) {
+		        	regIp = mhRequest.getRemoteAddr();
+		        }
+		        
 				for (UploadFileInfo uploadFileInfo : uploadFileInfoList) {
 					AttachFile attachFile = new AttachFile(boardTable,0,true,1,uploadFileInfo.getOriginalFilename()
 							, uploadFileInfo.getConvertFileName(),0,uploadFileInfo.getSize()
 							,uploadFileInfo.getWidth(),uploadFileInfo.getHeight()
 							,uploadFileInfo.getFileType(),uploadFileInfo.isThumbType(), regId
-							,mhRequest.getHeader("X-FORWARDED-FOR"),new Timestamp(new Date().getTime()));
+							,regIp,new Timestamp(new Date().getTime()));
 					
 					boardService.addAttachFile(attachFile);
 					

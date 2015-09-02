@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssrolc.repository.CenterSearchRepository">
+	<select id="findDirectCenters" parameterType="hashMap" resultType="com.ssrolc.domain.CenterSearch.CenterSearch">
+		SELECT deptId,deptName,homeUrl,tel1,tel2,tel3,addr FROM ssrolc.direct_center
+		<where>
+			<if test="area != null and area != ''">
+				AND addr LIKE CONCAT('%',#{area},'%')
+			</if>
+		</where>
+		ORDER BY deptId ASC
+	</select>
+</mapper>

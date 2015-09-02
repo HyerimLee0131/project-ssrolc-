@@ -14,12 +14,7 @@
 					</div>
 				</div>
 				<div class="center_list">
-					<ul class="clear">
-						<li><a href="center_view.html"><span class="img"><img src="../images/center_img01.jpg" alt="" /></span><span class="title"><strong>지역사회 발전까지 생각하는</strong> <em>별내직영학원</em></span></a></li>
-						<li><a href="center_view.html"><span class="img"><img src="../images/center_img02.jpg" alt="" /></span><span class="title"><strong>가맹사업의 1:1맞춤학습</strong> <em>스스로러닝센터 중계학원점</em></span></a></li>
-						<li><a href="center_view.html"><span class="img"><img src="../images/center_img03.jpg" alt="" /></span><span class="title"><strong>성적이 쑥쑥 자라는</strong> <em>경기광주쌍동 스스로러닝센터</em></span></a></li>
-						<li><a href="center_view.html"><span class="img"><img src="../images/center_img01.jpg" alt="" /></span><span class="title"><strong>가맹사업의 1:1맞춤학습</strong> <em>스스로러닝센터 중계학원점</em></span></a></li>
-					</ul>
+					<ul class="clear" id=dataList></ul>
 				</div>
 			</div>
 			<!-- 페이징 -->
@@ -42,5 +37,16 @@
 			<!-- //게시판검색 -->
 		</div>
 	</div>
-
+<script id="boardsTemplate" type="text/x-handlebars-template">
+	{{#each articleAndAttachFileList}}
+		<li>
+			<a href="/ssrolcfront/board/{{boardTable}}/{{articleNo}}">
+				<span class="img">
+					{{#xIf attachFileList "!=" null}}<img src="/ssrolcmanager/thumbview/{{boardTable}}/{{attachFileList.convertFileName}}/{{attachFileList.fileSize}}">{{/xIf}}
+				</span>
+				<span class="title"><strong>{{title}}</strong> <em>{{etc1}}</em></span>
+			</a>
+		</li>
+	{{/each}}
+</script>
 	<#include "/ssrolcfront/footer_new.ftl">

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssrolc.domain.CenterSearch.CenterSearch;
+import com.ssrolc.repository.CenterSearchRepository;
 import com.ssrolc.repository.LearningCenterRepository;
 import com.ssrolc.repository.MssqlRepository;
 
@@ -20,7 +21,10 @@ public class CenterSearchService {
 	@Autowired
 	private LearningCenterRepository learningCenterRepository;
 
-	//센터리스트
+	@Autowired
+	private CenterSearchRepository centerSearchRepository;
+
+	//가맹센터리스트
 	public List<CenterSearch> getCenters(String area){
 		List<CenterSearch> centers = mssqlRepository.searchCenters(area);
 		List<Map<String, Object>> url = learningCenterRepository.findCentersUrl();
@@ -39,6 +43,14 @@ public class CenterSearchService {
 		}
 
 		return centers;
+	}
+
+	//직영센터리스트
+	public List<CenterSearch> getDirectCenters(String area){
+		Map<String, Object> map = new HashMap<>();
+		map.put("area", area);
+
+		return centerSearchRepository.findDirectCenters(map);
 	}
 
 	//시/도 정보
