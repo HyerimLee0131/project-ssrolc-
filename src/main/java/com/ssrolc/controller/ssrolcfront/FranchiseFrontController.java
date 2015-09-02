@@ -67,6 +67,21 @@ public class FranchiseFrontController {
 			map.put("result", "success");
 			return ResponseEntity.ok(map);
 		}
+		
+		//가맹문의 페이지
+		@RequestMapping(value={"/ssrolcfront/franchise/faq"} , method =  { RequestMethod.GET, RequestMethod.HEAD })
+		public String write(Model model) {
+				
+			List<String> cityList = franchiseService.getFranchiseCityList();
+			// 해더에 스크립트 추가
+			List<String> headerScript = new ArrayList<>();
+			headerScript.add("ssrolcmanager/franchise/view");
+			model.addAttribute("headerScript",headerScript);
+			model.addAttribute("cityList", cityList);
+			
+				return "ssrolcfront/franchise/faq";
+			}
+	
 	
 	
 }

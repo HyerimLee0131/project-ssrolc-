@@ -13,7 +13,7 @@
 						<li><a href="#">스스로러닝센터 경쟁력</a></li>
 						<li><a href="#">가맹절차</a></li>
 						<li><a href="/ssrolcfront/franchise/search">가맹지사찾기</a></li>
-						<li><a href="franchisefaq.html">가맹문의</a></li>
+						<li><a href="/ssrolcfront/franchise/faq">가맹문의</a></li>
 					</ul>
 					
 					<#if currentMenu == "boardCenter" || currentMenu == "boardFaq" || currentMenu == "boardNotice" || currentMenu == "boardStudent">
