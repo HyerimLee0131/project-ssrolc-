@@ -243,4 +243,87 @@
 		WHERE boardTable = 'notice' AND DATE_FORMAT(regDate,"%Y-%m-%d") = CURDATE()
 	</select>
 	
+	<resultMap type="com.ssrolc.domain.board.ArticleAndAttachFile" id="articleAndAttachFileResultMap">
+		<result property="articleNo" column="articleNo" />
+		<result property="boardTable" column="boardTable" />
+		<result property="categoryCode" column="categoryCode" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="hit" column="hit" />
+		<result property="fileCnt" column="fileCnt" />
+		<result property="imageCnt" column="imageCnt" />
+		<result property="etc1" column="etc1" />
+		<result property="etc2" column="etc2" />
+		<result property="etc3" column="etc3" />
+		<result property="etc4" column="etc4" />
+		<result property="useEnable" column="useEnable" />
+		<result property="deleteFlag" column="deleteFlag" />
+		<result property="regId" column="regId" />
+		<result property="regIp" column="regIp" />
+		<result property="regDate" column="regDate" />
+		<result property="updateDate" column="updateDate" />
+		<collection property="attachFileList" javaType="java.util.ArrayList" resultMap="attachFileResultMap"/>
+	</resultMap>
+	
+	<resultMap type="com.ssrolc.domain.board.AttachFile" id="attachFileResultMap">
+		<result property="attachFileNo" column="attachFileNo"/>
+		<result property="boardTable" column="attachBoardTable"/>
+		<result property="articleNo" column="attachArticleNo"/>
+		<result property="editFlag" column="editFlag"/>
+		<result property="sort" column="sort"/>
+		<result property="fileName" column="fileName"/>
+		<result property="convertFileName" column="convertFileName"/>
+		<result property="downloadCnt" column="downloadCnt"/>
+		<result property="fileSize" column="fileSize"/>
+		<result property="fileWidth" column="fileWidth"/>
+		<result property="fileHeight" column="fileHeight"/>
+		<result property="fileType" column="fileType"/>
+		<result property="fileThumbFlag" column="fileThumbFlag"/>
+		<result property="regId" column="attachRegId"/>
+		<result property="regIp" column="attachRegIp"/>
+		<result property="regDate" column="attachRegDate"/>
+	</resultMap>
+	
+	<select id="findArticleAndAttachFile" parameterType="hashMap" resultMap="articleAndAttachFileResultMap">
+		SELECT A.articleNO as articleNO,A.boardTable as boardTable,A.categoryCode as categoryCode
+		,A.title as title,A.content as content,A.hit as hit,A.fileCnt as fileCnt
+		,A.imageCnt as imageCnt,A.etc1 as etc1,A.etc2 as etc2,A.etc3 as etc3,A.etc4 as etc4
+		,A.useEnable as useEnable,A.deleteFlag as deleteFlag,A.regId as regId,A.regIp as regIp
+		,A.regDate,A.updateDate,B.attachFileNo as attachFileNo,B.boardTable as attachBoardTable
+		,B.articleNo as attachArticleNo,B.editFlag as editFlag,B.sort as sort
+		,B.fileName as fileName,B.convertFileName as convertFileName,B.downloadCnt as downloadCnt
+		,B.fileSize as fileSize,B.fileWidth as fileWidth,B.fileHeight as fileHeight 
+		,B.fileType as fileType,B.fileThumbFlag as fileThumbFlag,B.regId as attachRegId
+		,B.regIp as attachRegIp,B.regDate as attachRegDate
+		FROM (
+		SELECT * FROM ssrolc.article
+		<where>
+			<if test="boardTable != null">
+				boardTable = #{boardTable}
+			</if>
+			<if test="searchField != null and searchField != '' and  searchValue != null and searchValue != '' ">
+				<if test="searchField == 'title' ">
+					AND title LIKE CONCAT('%',#{searchValue},'%')			
+				</if>
+				<if test="searchField == 'content' ">
+					AND content LIKE CONCAT('%',#{searchValue},'%')			
+				</if>
+				<if test="searchField == 'title+content' ">
+					AND (title LIKE CONCAT('%',#{searchValue},'%') OR content LIKE CONCAT('%',#{searchValue},'%') )		
+				</if>
+			</if>
+			<if test="categoryCode != null and categoryCode != 'all' ">
+				AND categoryCode = #{categoryCode}
+			</if>
+		</where>
+		ORDER BY regDate DESC
+		<if test="startLimit != null and endLimit != null">
+			LIMIT #{startLimit},#{endLimit}
+		</if> 
+		) AS A
+		LEFT JOIN ssrolc.attachFile AS B 
+		ON (A.articleNo = B.articleNo)
+	</select>
+	
+	
 </mapper>

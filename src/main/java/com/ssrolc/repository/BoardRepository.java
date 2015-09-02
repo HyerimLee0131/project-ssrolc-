@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssrolc.domain.board.Article;
+import com.ssrolc.domain.board.ArticleAndAttachFile;
 import com.ssrolc.domain.board.ArticleWithThumb;
 import com.ssrolc.domain.board.AttachFile;
 import com.ssrolc.domain.board.Board;
@@ -96,4 +97,6 @@ public interface BoardRepository {
 	 * 관리자 메인 오늘 등록된 신규글 개수
 	 */
 	public int countNoticeArticleCurrent();
+	
+	public List<ArticleAndAttachFile> findArticleAndAttachFile(Map<String, Object> map);
 }

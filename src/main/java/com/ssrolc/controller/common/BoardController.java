@@ -42,6 +42,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.common.base.Strings;
 import com.ssrolc.domain.board.Article;
+import com.ssrolc.domain.board.ArticleAndAttachFile;
 import com.ssrolc.domain.board.AttachFile;
 import com.ssrolc.domain.board.Board;
 import com.ssrolc.domain.board.BoardCategory;
@@ -154,6 +155,10 @@ public class BoardController {
 			} else {
 				map.put("articles",boardService.getArticles(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
 			}
+			List<ArticleAndAttachFile> articleAndAttachFileList = boardService.getArticleAndAttachFile(boardTable,null,pageUtil.getStartRow(),pageUtil.getEndRow(), null, null);
+			
+			map.put("articleAndAttachFileList", articleAndAttachFileList);
+			
 			return ResponseEntity.ok(map);
 		}
 	}
@@ -194,6 +199,7 @@ public class BoardController {
 			} else {
 				map.put("articles",boardService.getArticles(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
 			}
+			
 			return ResponseEntity.ok(map);
 		}
 	}
