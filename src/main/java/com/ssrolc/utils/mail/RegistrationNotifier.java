@@ -1,5 +1,8 @@
 package com.ssrolc.utils.mail;
 
+import java.util.Map;
+
+
 public interface RegistrationNotifier {
-	public String sendMail(String pMemName,String pEmailId,String pEmailAdd1,String hostName);
+	public void sendMail(Map model,String pMemName,String pEmailId,String pEmailAdd1,String hostName);
 }

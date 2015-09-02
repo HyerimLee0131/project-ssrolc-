@@ -1,8 +1,5 @@
 mail:
     host: mail.jei.com
-    port: 587
-    username: sayhyerim
-    password: fladl1215!
     
 board:
     https:
@@ -29,9 +26,6 @@ spring.profiles: develop
 
 mail:
     host: mail.jei.com
-    port: 587
-    username: sayhyerim
-    password: fladl1215!
     
 board:
     https:
@@ -58,9 +52,7 @@ spring.profiles: product
 
 mail:
     host: mail.jei.com
-    port: 587
-    username: sayhyerim
-    password: fladl1215!
+
     
 board:
     https:

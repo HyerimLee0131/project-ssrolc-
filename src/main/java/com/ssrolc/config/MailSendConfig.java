@@ -14,16 +14,12 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 public class MailSendConfig {
 	
 	private String host;
-	private int port;
-	private String username;
-	private String password;
+
 	
 	@Bean
 	public JavaMailSender mailSender(){
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		mailSender.setHost(host);
-		mailSender.setUsername(username);
-		mailSender.setPassword(password);
 		return mailSender;
 	}
 }

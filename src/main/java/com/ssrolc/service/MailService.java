@@ -38,36 +38,40 @@ public class MailService implements RegistrationNotifier {
 	}
 
 	@Override
-	public String sendMail(String pMemName,String pEmailId, String pEmailAdd1, String hostName) {
+	public void sendMail(Map model,String pMemName,String pEmailId, String pEmailAdd1, String hostName) {
 		String name = pMemName;
 		String mailAddress = "";
 		mailAddress = pEmailId + "@" + pEmailAdd1;
 		String authKey = "";
+		authKey = makeAuthKey();
+		
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message,
 					true, "utf-8");
 			messageHelper.setSubject(MailService.INFO_TITLE);
 			messageHelper.setFrom("mail@jei.com", "스스로러닝센터");
-
-			String text = MailService.INFO_BODY.replaceAll(MailService.name,
-					name);
-			text = text.replaceAll(MailService.securityKey, makeAuthKey());
-
-			message.setContent(text, "text/html; charset=utf-8");
-			messageHelper.setTo(new InternetAddress(mailAddress, "utf-8"));
-			
-			System.out.println(mailAddress + "에게 메일 전송 성공!!");
-			authKey = makeAuthKey();
 			HashMap<String, String> model = new HashMap<String, String>();
 			model.put("name", name);
 			model.put("securityKey", authKey);
 			model.put("hostName", hostName);
-			sendMail2(model,"/ssrolcmanager/mail/emailContent.ftl",mailAddress);
-		} catch (UnsupportedEncodingException | MessagingException e) {
+
+			//String text = MailService.INFO_BODY.replaceAll(MailService.name,
+			//		name);
+			//text = text.replaceAll(MailService.securityKey, makeAuthKey());
+			
+			String text = FreeMarkerTemplateUtils.processTemplateIntoString(
+					freemarkerConfiguration.getTemplate(template, "UTF-8"),
+					model);
+			message.setContent(text, "text/html; charset=utf-8");
+			messageHelper.setTo(new InternetAddress(mailAddress, "utf-8"));
+			mailSender.send(message);
+	
+			//sendMail2(model,"/ssrolcmanager/mail/emailContent.ftl",mailAddress);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return authKey;
+		//return authKey;
 	}
 
 	
