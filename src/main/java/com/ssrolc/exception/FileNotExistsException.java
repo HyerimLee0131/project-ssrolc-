@@ -2,11 +2,11 @@ package com.ssrolc.exception;
 
 import org.springframework.http.HttpStatus;
 
-
-public class PopupNotAddException extends RuntimeException{
-
+public class FileNotExistsException extends RuntimeException {
+	
+	
 	public String getError() {
-		return "Popup " + HttpStatus.NOT_ACCEPTABLE.getReasonPhrase();
+		return "File " + HttpStatus.NOT_FOUND.getReasonPhrase();
 	}
 	
 	public Object[] getArgs() {

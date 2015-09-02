@@ -51,20 +51,35 @@ import com.ssrolc.exception.ArticleNotFoundException;
 import com.ssrolc.exception.BoardCategoryNotFoundException;
 import com.ssrolc.exception.BoardNotFoundException;
 import com.ssrolc.exception.BoardNotUploadException;
+import com.ssrolc.exception.FileNotExistsException;
 import com.ssrolc.service.BoardService;
 import com.ssrolc.utils.FileUploadUtil;
 import com.ssrolc.utils.PageUtil;
-
+/*
+ * 만든이 : 김순호
+ * 작성날짜 : 2015-08
+ * 기능 : 게시판
+ */
 @Controller
 public class BoardController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BoardController.class);
 	
 	@Autowired
 	private BoardService boardService;
-
+	/*
+	 * 게시판 업로드 경로
+	 */
 	@Value("${uploadpath.boards}")
 	private String boardUploadPath;
 	
+	/**
+	 * 게시판 목록
+	 * @param model
+	 * @param ssrolcPrefix {ssrolcmanager 또는 ssrolcfront만 가능}
+	 * @param boardTable 게시판 테이블 명
+	 * @param searchCategory 카테고리
+	 * @return
+	 */
 	@RequestMapping(value={"/{ssrolcPrefix}/boards/{boardTable}"} , method =  { RequestMethod.GET, RequestMethod.HEAD })
 	public String list(Model model,@PathVariable String ssrolcPrefix,@PathVariable String boardTable
 			,@RequestParam(value="searchcategory",required=false,defaultValue="all") String searchCategory) {
@@ -75,10 +90,10 @@ public class BoardController {
 		if(Strings.isNullOrEmpty(boardTable)){
 			throw new BoardNotFoundException(boardTable);
 		}
-
+	
 		Board boardInfo = boardService.getBoardInfo(boardTable);
 		
-		if(boardInfo == null || boardInfo.equals(null)){
+		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
 			model.addAttribute("boardInfo",boardInfo);
@@ -86,7 +101,7 @@ public class BoardController {
 			if(boardInfo.isBoardCategoryEnable()){
 				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
 				
-				if(boardCategoryList == null || boardCategoryList.equals(null)){
+				if(boardCategoryList == null || boardCategoryList.size() == 0){
 					throw new BoardCategoryNotFoundException(boardTable);
 				}else{
 					model.addAttribute("boardCategoryList",boardCategoryList);
@@ -106,7 +121,13 @@ public class BoardController {
 		}
 	}
 	
-	
+	/**
+	 * 게시판 목록 정보 ajax요청
+	 * @param ssrolcPrefix
+	 * @param boardTable
+	 * @param pageNum
+	 * @return 게시판 목록 정보 json으로 리턴
+	 */
 	@RequestMapping(value={"/{ssrolcPrefix}/boards/{boardTable}/{pageNum:[0-9]+}"} ,
 			method = { RequestMethod.GET, RequestMethod.HEAD })
 	@ResponseBody
@@ -116,7 +137,7 @@ public class BoardController {
 		}
 		
 		Board boardInfo = boardService.getBoardInfo(boardTable);
-		if(boardInfo == null || boardInfo.equals(null)){
+		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
 			int rowBlockSize = boardInfo.getPageBlockSize();
@@ -137,6 +158,15 @@ public class BoardController {
 		}
 	}
 	
+	/**
+	 * 게시판 검색 정보 ajax요청
+	 * @param ssrolcPrefix
+	 * @param boardTable
+	 * @param pageNum
+	 * @param searchField
+	 * @param searchValue
+	 * @return json으로 응답
+	 */
 	@RequestMapping(value={"/{ssrolcPrefix}/boards/{boardTable}/{pageNum:[0-9]+}/{searchField}/{searchValue}"} ,
 			method = { RequestMethod.GET, RequestMethod.HEAD })
 	@ResponseBody
@@ -147,7 +177,7 @@ public class BoardController {
 		}
 		
 		Board boardInfo = boardService.getBoardInfo(boardTable);
-		if(boardInfo == null || boardInfo.equals(null)){
+		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
 			int rowBlockSize = boardInfo.getPageBlockSize();
@@ -178,7 +208,7 @@ public class BoardController {
 		}
 		
 		Board boardInfo = boardService.getBoardInfo(boardTable);
-		if(boardInfo == null || boardInfo.equals(null)){
+		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
 			int rowBlockSize = boardInfo.getPageBlockSize();
@@ -199,7 +229,7 @@ public class BoardController {
 			if(boardInfo.isBoardCategoryEnable()){
 				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
 				
-				if(boardCategoryList == null || boardCategoryList.equals(null)){
+				if(boardCategoryList == null || boardCategoryList.size() == 0){
 					throw new BoardCategoryNotFoundException(boardTable);
 				}
 				
@@ -225,7 +255,7 @@ public class BoardController {
 		}
 		
 		Board boardInfo = boardService.getBoardInfo(boardTable);
-		if(boardInfo == null || boardInfo.equals(null)){
+		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
 			int rowBlockSize = boardInfo.getPageBlockSize();
@@ -245,7 +275,7 @@ public class BoardController {
 			if(boardInfo.isBoardCategoryEnable()){
 				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
 				
-				if(boardCategoryList == null || boardCategoryList.equals(null)){
+				if(boardCategoryList == null || boardCategoryList.size() == 0){
 					throw new BoardCategoryNotFoundException(boardTable);
 				}
 				
@@ -270,11 +300,11 @@ public class BoardController {
 		}
 		
 		Board boardInfo = boardService.getBoardInfo(boardTable);
-		if(boardInfo == null || boardInfo.equals(null)){
+		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
 			Article article = boardService.getArticle(boardTable, articleNo);
-			if(article == null || article.equals(null)){
+			if(article == null){
 				throw new ArticleNotFoundException(boardTable,articleNo);
 			}else{
 				model.addAttribute("boardInfo",boardInfo);
@@ -293,7 +323,7 @@ public class BoardController {
 					
 					List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
 					
-					if(boardCategoryList == null || boardCategoryList.equals(null)){
+					if(boardCategoryList == null || boardCategoryList.size() == 0){
 						throw new BoardCategoryNotFoundException(boardTable);
 					}else{
 						model.addAttribute("boardCategoryList",boardCategoryList);
@@ -323,11 +353,11 @@ public class BoardController {
 	@RequestMapping(value={"/ssrolcmanager/board/{boardTable}/edit/{articleNo:[0-9]+}"},method = { RequestMethod.GET, RequestMethod.HEAD })	
 	public String edit(Model model,@PathVariable String boardTable,@PathVariable int articleNo){
 		Board boardInfo = boardService.getBoardInfo(boardTable);
-		if(boardInfo == null || boardInfo.equals(null)){
+		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
 			Article article = boardService.getArticle(boardTable, articleNo);
-			if(article == null || article.equals(null)){
+			if(article == null){
 				throw new ArticleNotFoundException(boardTable,articleNo);
 			}else{
 				model.addAttribute("boardInfo",boardInfo);
@@ -344,7 +374,7 @@ public class BoardController {
 				if(boardInfo.isBoardCategoryEnable()){
 					List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
 					
-					if(boardCategoryList == null || boardCategoryList.equals(null)){
+					if(boardCategoryList == null || boardCategoryList.size() == 0){
 						throw new BoardCategoryNotFoundException(boardTable);
 					}else{
 						model.addAttribute("boardCategoryList",boardCategoryList);
@@ -375,17 +405,17 @@ public class BoardController {
 					,@RequestParam(value="etc2", required=false,defaultValue="") String etc2
 					,@RequestParam(value="etc3", required=false,defaultValue="") String etc3
 					,@RequestParam(value="etc4", required=false,defaultValue="") String etc4
-					,@RequestParam(value="useEnable", required=false,defaultValue="") boolean useEnable
+					,@RequestParam(value="useEnable", required=false,defaultValue="true") boolean useEnable
 					,@RequestParam(value="deleteAttachFiles",required=false,defaultValue="") String deleteAttachFiles 
 					,MultipartHttpServletRequest mhRequest){
 
 		Board boardInfo = boardService.getBoardInfo(boardTable);
 		
-		if(boardInfo == null || boardInfo.equals(null)){
+		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
 			Article article = boardService.getArticle(boardTable, articleNo);
-			if(article == null || article.equals(null)){
+			if(article == null){
 				throw new ArticleNotFoundException(boardTable,articleNo);
 			}else{
 				
@@ -418,9 +448,7 @@ public class BoardController {
 								
 								//썸네일파일인가
 								if(attachFileInfo.isFileThumbFlag()){
-									
-									filePath += "thumb"
-														+File.separator+attachFileInfo.getConvertFileName();
+									filePath += "thumb"+File.separator+attachFileInfo.getConvertFileName();
 								}else{
 									filePath += attachFileInfo.getConvertFileName();
 								}
@@ -484,7 +512,7 @@ public class BoardController {
 	@RequestMapping(value="/ssrolcmanager/boards/{boardTable}/new",method={ RequestMethod.GET, RequestMethod.HEAD })
 	public String write(Model model,@PathVariable String boardTable){
 		Board boardInfo = boardService.getBoardInfo(boardTable);
-		if(boardInfo == null || boardInfo.equals(null)){
+		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
 			model.addAttribute("boardInfo",boardInfo);
@@ -492,7 +520,7 @@ public class BoardController {
 			if(boardInfo.isBoardCategoryEnable()){
 				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
 				
-				if(boardCategoryList == null || boardCategoryList.equals(null)){
+				if(boardCategoryList == null || boardCategoryList.size() == 0){
 					throw new BoardCategoryNotFoundException(boardTable);
 				}else{
 					model.addAttribute("boardCategoryList",boardCategoryList);
@@ -548,10 +576,11 @@ public class BoardController {
 							,@RequestParam(value="etc2", required=false,defaultValue="") String etc2
 							,@RequestParam(value="etc3", required=false,defaultValue="") String etc3
 							,@RequestParam(value="etc4", required=false,defaultValue="") String etc4
+							,@RequestParam(value="useEnable", required=false,defaultValue="true") boolean useEnable
 							,MultipartHttpServletRequest mhRequest){
 
 		Board boardInfo = boardService.getBoardInfo(boardTable);
-		if(boardInfo == null || boardInfo.equals(null)){
+		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
 			if(Strings.isNullOrEmpty(title) || Strings.isNullOrEmpty(content)){
@@ -561,7 +590,7 @@ public class BoardController {
 			Timestamp nowDate = new Timestamp(new Date().getTime());
 			
 			Article article = new Article(boardTable, categoryCode, title, content,0,0,0
-					, etc1, etc2, etc3, etc4, true, false, regId, mhRequest.getRemoteAddr(), nowDate,null);
+					, etc1, etc2, etc3, etc4, useEnable, false, regId, mhRequest.getHeader("X-FORWARDED-FOR"), nowDate,null);
 			
 			boardService.addArticle(article);
 			
@@ -588,7 +617,7 @@ public class BoardController {
 							, uploadFileInfo.getConvertFileName(),0,uploadFileInfo.getSize()
 							,uploadFileInfo.getWidth(),uploadFileInfo.getHeight()
 							,uploadFileType,uploadFileInfo.isThumbType(), regId
-							,mhRequest.getRemoteAddr(),nowDate);
+							,mhRequest.getHeader("X-FORWARDED-FOR"),nowDate);
 					
 					boardService.addAttachFile(attachFile);
 					
@@ -614,11 +643,10 @@ public class BoardController {
 	@RequestMapping(value="/ssrolcmanager/boards/{boardTable}/imgfileupload",method=RequestMethod.POST)
 	public String imgFileUpload(Model model,@CookieValue(value="SSROLC_ID") String regId,@PathVariable String boardTable,MultipartHttpServletRequest mhRequest){
 		Board boardInfo = boardService.getBoardInfo(boardTable);
-		if(boardInfo == null || boardInfo.equals(null)){
+		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
 			if(!boardInfo.isEditorImageUploadEnable()){
-				//수정해야함
 				throw new BoardNotUploadException(boardTable);
 			}else{
 				final String imageFileType = "image";
@@ -637,7 +665,7 @@ public class BoardController {
 							, uploadFileInfo.getConvertFileName(),0,uploadFileInfo.getSize()
 							,uploadFileInfo.getWidth(),uploadFileInfo.getHeight()
 							,uploadFileInfo.getFileType(),uploadFileInfo.isThumbType(), regId
-							,mhRequest.getRemoteAddr(),new Timestamp(new Date().getTime()));
+							,mhRequest.getHeader("X-FORWARDED-FOR"),new Timestamp(new Date().getTime()));
 					
 					boardService.addAttachFile(attachFile);
 					
@@ -711,8 +739,7 @@ public class BoardController {
 		File downloadFile = new File(filePath);
 		
 		if(!downloadFile.exists()){
-			//에러처리
-			return;
+			throw new FileNotExistsException();
 		}
 		
 		Path source = Paths.get(filePath);

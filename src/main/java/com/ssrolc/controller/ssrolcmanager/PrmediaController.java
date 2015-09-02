@@ -146,7 +146,7 @@ public class PrmediaController {
 	public String view(Model model,@PathVariable int aidx){
 	
 			Prmedia prmedia = prmediaService.getPrmedia(aidx);
-			if(prmedia == null || prmedia.equals(null)){
+			if(prmedia == null){
 				throw new PrmediaNotFoundException();
 			}else{
 				//해더에 스크립트 추가
@@ -208,7 +208,7 @@ public class PrmediaController {
 		public String edit(Model model,@PathVariable int aidx){
 		
 				Prmedia prmedia = prmediaService.getPrmedia(aidx);
-				if(prmedia == null || prmedia.equals(null)){
+				if(prmedia == null){
 					throw new PrmediaNotFoundException();
 				}else{
 					model.addAttribute("prmedia",prmedia);

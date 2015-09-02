@@ -2,7 +2,7 @@ package com.ssrolc.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class ArticleNotAddException extends ResourceNotFoundException{
+public class ArticleNotAddException extends RuntimeException{
 private final String boardTable;
 	
 	public ArticleNotAddException(String boardTable) {
@@ -13,13 +13,10 @@ private final String boardTable;
 		return boardTable;
 	}
 	
-
-	@Override
 	public String getError() {
 		return "Article " + HttpStatus.NOT_ACCEPTABLE.getReasonPhrase();
 	}
 	
-	@Override
 	public Object[] getArgs() {
 		return new Object[]{ boardTable};
 	}

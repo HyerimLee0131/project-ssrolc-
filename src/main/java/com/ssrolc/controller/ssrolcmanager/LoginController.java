@@ -53,7 +53,7 @@ public class LoginController {
 	 * @param returl : 로그인성공되면 리턴될 url
 	 * @return
 	 */
-	@RequestMapping(value={"/ssrolcmanager/login","/ssrolcmanager"})
+	@RequestMapping(value={"/ssrolcmanager/login","/ssrolcmanager"},method={RequestMethod.GET,RequestMethod.HEAD})
 	public String login(Model model,@RequestParam(value="returl",required=false) String returl
 			,@RequestParam(value="error",required=false,defaultValue="") String error){
 //      로그찍을때
@@ -70,7 +70,7 @@ public class LoginController {
 	    return "ssrolcmanager/login";
 	}
 	
-	@RequestMapping(value={"/ssrolcmanager/main"})
+	@RequestMapping(value={"/ssrolcmanager/main"},method={RequestMethod.GET,RequestMethod.HEAD})
 	public String main(Model model){
 		model.addAttribute("title","러닝센터관리자 메인");
 		
