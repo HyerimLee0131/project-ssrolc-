@@ -107,8 +107,8 @@ style.css
 	.side_left ul li a{display:block;line-height:30px;text-decoration:none;}
 	.side_left ul li a:hover{background:#f4f4f4;padding-left:10px}
 	.path{text-align:right;font-size:11px}
-	.pagenavi{text-align:center;padding-top:20px;font-size:12px;clear:both;height:40px;}
-	.pagenavi a, .pagenavi strong{padding:6px;text-align:center;font-size:12px;color:#666666;vertical-align:top;}
+	.pageNavi{text-align:center;padding-top:20px;font-size:12px;clear:both;height:40px;}
+	.pageNavi a, .pageNavi strong{padding:6px;text-align:center;font-size:12px;color:#666666;vertical-align:top;}
 	
 	.board_search{width:400px;padding:10px;margin:0 auto}
 	.board_search .input-text{text-indent:5px}

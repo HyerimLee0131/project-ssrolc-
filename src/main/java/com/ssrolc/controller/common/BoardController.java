@@ -145,11 +145,11 @@ public class BoardController {
 			int pageBlockSize = 10;
 			
 			if("ssrolcmanager".equals(ssrolcPrefix)){				
-				rowBlockSize = boardInfo.getFrontRowBlockSize();
-				pageBlockSize = boardInfo.getFrontPageBlockSize();
-			}else{
 				rowBlockSize = boardInfo.getManagerRowBlockSize();
 				pageBlockSize = boardInfo.getManagerPageBlockSize();
+			}else{
+				rowBlockSize = boardInfo.getFrontRowBlockSize();
+				pageBlockSize = boardInfo.getFrontPageBlockSize();
 			}
 			
 			int totalRowCnt = boardService.getArticleCnt(boardTable);
@@ -198,11 +198,11 @@ public class BoardController {
 			int pageBlockSize = 10;
 			
 			if("ssrolcmanager".equals(ssrolcPrefix)){				
-				rowBlockSize = boardInfo.getFrontRowBlockSize();
-				pageBlockSize = boardInfo.getFrontPageBlockSize();
-			}else{
 				rowBlockSize = boardInfo.getManagerRowBlockSize();
 				pageBlockSize = boardInfo.getManagerPageBlockSize();
+			}else{
+				rowBlockSize = boardInfo.getFrontRowBlockSize();
+				pageBlockSize = boardInfo.getFrontPageBlockSize();
 			}
 			
 			int totalRowCnt = boardService.getArticleCnt(boardTable,searchField,searchValue);
@@ -239,11 +239,11 @@ public class BoardController {
 			int pageBlockSize = 10;
 			
 			if("ssrolcmanager".equals(ssrolcPrefix)){				
-				rowBlockSize = boardInfo.getFrontRowBlockSize();
-				pageBlockSize = boardInfo.getFrontPageBlockSize();
-			}else{
 				rowBlockSize = boardInfo.getManagerRowBlockSize();
 				pageBlockSize = boardInfo.getManagerPageBlockSize();
+			}else{
+				rowBlockSize = boardInfo.getFrontRowBlockSize();
+				pageBlockSize = boardInfo.getFrontPageBlockSize();
 			}
 			
 			int totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode);
@@ -295,11 +295,11 @@ public class BoardController {
 			int pageBlockSize = 10;
 			
 			if("ssrolcmanager".equals(ssrolcPrefix)){				
-				rowBlockSize = boardInfo.getFrontRowBlockSize();
-				pageBlockSize = boardInfo.getFrontPageBlockSize();
-			}else{
 				rowBlockSize = boardInfo.getManagerRowBlockSize();
 				pageBlockSize = boardInfo.getManagerPageBlockSize();
+			}else{
+				rowBlockSize = boardInfo.getFrontRowBlockSize();
+				pageBlockSize = boardInfo.getFrontPageBlockSize();
 			}
 			
 			int totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode,searchField,searchValue);

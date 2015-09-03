@@ -10,7 +10,7 @@
 			<div class="clearfix center_list_wrap">
 				<div class="good_center_list">
 					<div class="good_center">
-						<a href="center_view.html"><span class="img"><img src="../images/center_img02.jpg" alt="" /></span><span class="title"><strong>아이들의 성적과 태도가 변화되는</strong> <em>경기광주쌍동점</em></span></a>
+						<a href="center_view.html"><span class="img"><img src="file://192.2.1.110/Web_server/[8513]_스스로러닝센터(esls)/renewal/images/center_img02.jpg" alt="" /></span><span class="title"><strong>아이들의 성적과 태도가 변화되는</strong> <em>경기광주쌍동점</em></span></a>
 					</div>
 				</div>
 				<div class="center_list">
@@ -42,7 +42,11 @@
 		<li>
 			<a href="/ssrolcfront/board/{{boardTable}}/{{articleNo}}">
 				<span class="img">
-					{{#xIf attachFileList "!=" null}}<img src="/ssrolcmanager/thumbview/{{boardTable}}/{{attachFileList.convertFileName}}/{{attachFileList.fileSize}}">{{/xIf}}
+					{{#xIf attachFileList "!=" null}}
+						{{#each attachFileList}}
+							<img src="/ssrolcfront/thumbview/{{boardTable}}/{{convertFileName}}/{{fileSize}}">
+						{{/each}}
+					{{/xIf}}
 				</span>
 				<span class="title"><strong>{{title}}</strong> <em>{{etc1}}</em></span>
 			</a>
