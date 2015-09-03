@@ -42,7 +42,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.common.base.Strings;
 import com.ssrolc.domain.board.Article;
-import com.ssrolc.domain.board.ArticleAndAttachFile;
 import com.ssrolc.domain.board.AttachFile;
 import com.ssrolc.domain.board.Board;
 import com.ssrolc.domain.board.BoardCategory;
@@ -141,23 +140,26 @@ public class BoardController {
 		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
-			int rowBlockSize = boardInfo.getPageBlockSize();
-			int pageBlockSize = boardInfo.getRowBlockSize();
+			int rowBlockSize = 10;
+			int pageBlockSize = 10;
+			
+			if("ssrolcfront".equals(ssrolcPrefix)){
+				rowBlockSize = boardInfo.getFrontRowBlockSize();
+				pageBlockSize = boardInfo.getFrontPageBlockSize();
+			}else{
+				rowBlockSize = boardInfo.getManagerRowBlockSize();
+				pageBlockSize = boardInfo.getManagerPageBlockSize();
+			}
+			
+			
 			int totalRowCnt = boardService.getArticleCnt(boardTable);
 			
 			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
 			
 			Map<String,Object> map = new HashMap<>();
 			map.put("pageInfo",pageUtil);
-			
-			if(boardInfo.getThumnailWidth() > 0) {
-				map.put("articles",boardService.getArticlesWithThumb(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
-			} else {
-				map.put("articles",boardService.getArticles(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
-			}
-			List<ArticleAndAttachFile> articleAndAttachFileList = boardService.getArticleAndAttachFile(boardTable,null,pageUtil.getStartRow(),pageUtil.getEndRow(), null, null);
-			
-			map.put("articleAndAttachFileList", articleAndAttachFileList);
+	
+			map.put("articles", boardService.getArticleAndAttachFile(boardTable,null,pageUtil.getStartRow(),pageUtil.getEndRow(), null, null));
 			
 			return ResponseEntity.ok(map);
 		}
@@ -185,8 +187,17 @@ public class BoardController {
 		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
-			int rowBlockSize = boardInfo.getPageBlockSize();
-			int pageBlockSize = boardInfo.getRowBlockSize();
+			int rowBlockSize = 10;
+			int pageBlockSize = 10;
+			
+			if("ssrolcfront".equals(ssrolcPrefix)){
+				rowBlockSize = boardInfo.getFrontRowBlockSize();
+				pageBlockSize = boardInfo.getFrontPageBlockSize();
+			}else{
+				rowBlockSize = boardInfo.getManagerRowBlockSize();
+				pageBlockSize = boardInfo.getManagerPageBlockSize();
+			}
+			
 			int totalRowCnt = boardService.getArticleCnt(boardTable,searchField,searchValue);
 			
 			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
@@ -194,11 +205,7 @@ public class BoardController {
 			Map<String,Object> map = new HashMap<>();
 			map.put("pageInfo",pageUtil);
 			
-			if(boardInfo.getThumnailWidth() > 0) {
-				map.put("articles",boardService.getArticlesWithThumb(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
-			} else {
-				map.put("articles",boardService.getArticles(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
-			}
+			map.put("articles", boardService.getArticleAndAttachFile(boardTable,null,pageUtil.getStartRow(),pageUtil.getEndRow(), searchField,searchValue));
 			
 			return ResponseEntity.ok(map);
 		}
@@ -217,8 +224,17 @@ public class BoardController {
 		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
-			int rowBlockSize = boardInfo.getPageBlockSize();
-			int pageBlockSize = boardInfo.getRowBlockSize();
+			int rowBlockSize = 10;
+			int pageBlockSize = 10;
+			
+			if("ssrolcfront".equals(ssrolcPrefix)){
+				rowBlockSize = boardInfo.getFrontRowBlockSize();
+				pageBlockSize = boardInfo.getFrontPageBlockSize();
+			}else{
+				rowBlockSize = boardInfo.getManagerRowBlockSize();
+				pageBlockSize = boardInfo.getManagerPageBlockSize();
+			}
+			
 			int totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode);
 			
 			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
@@ -226,11 +242,7 @@ public class BoardController {
 			Map<String,Object> map = new HashMap<>();
 			map.put("pageInfo",pageUtil);
 
-			if(boardInfo.getThumnailWidth() > 0) {
-				map.put("articles",boardService.getArticlesWithThumb(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
-			} else {
-				map.put("articles",boardService.getArticles(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow()));
-			}
+			map.put("articles", boardService.getArticleAndAttachFile(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(), null,null));
 			
 			if(boardInfo.isBoardCategoryEnable()){
 				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
@@ -264,19 +276,25 @@ public class BoardController {
 		if(boardInfo == null){
 			throw new BoardNotFoundException(boardTable);
 		}else{
-			int rowBlockSize = boardInfo.getPageBlockSize();
-			int pageBlockSize = boardInfo.getRowBlockSize();
+			int rowBlockSize = 10;
+			int pageBlockSize = 10;
+			
+			if("ssrolcfront".equals(ssrolcPrefix)){
+				rowBlockSize = boardInfo.getFrontRowBlockSize();
+				pageBlockSize = boardInfo.getFrontPageBlockSize();
+			}else{
+				rowBlockSize = boardInfo.getManagerRowBlockSize();
+				pageBlockSize = boardInfo.getManagerPageBlockSize();
+			}
+			
 			int totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode,searchField,searchValue);
 			
 			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
 			
 			Map<String,Object> map = new HashMap<>();
 			map.put("pageInfo",pageUtil);
-			if(boardInfo.getThumnailWidth() > 0) {
-				map.put("articles",boardService.getArticlesWithThumb(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
-			} else {
-				map.put("articles",boardService.getArticles(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
-			}
+			
+			map.put("articles", boardService.getArticleAndAttachFile(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
 			
 			if(boardInfo.isBoardCategoryEnable()){
 				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
