@@ -75,6 +75,11 @@
 		VALUES(#{authKey},#{mailAddress},#{pMemName},SYSDATE(),#{jslIp});
 	</insert>
 	
+	<insert id="insertIgnoreEmail" parameterType="hashmap" useGeneratedKeys="true" keyProperty="aidx">
+		INSERT INTO ssrolc.ignoreEmail(email,reason,regDate,regIp) 
+		VALUES(#{email},'userDontwantReciveEmail',SYSDATE(),#{regIp});
+	</insert>
+	
 	<insert id="insertDisclosures" parameterType="com.ssrolc.domain.disclosure.Disclosure" useGeneratedKeys="true" keyProperty="aidx">
 		INSERT INTO ssrolc.disclosure(email,memName,deptArea1,deptArea2,deptType,phone,zip,addressDtl01,addressDtl02,regDate,regIp) 
 		VALUES(#{email},#{memName},#{deptArea1},#{deptArea2},#{deptType},#{phone},#{zip},#{addressDtl01},#{addressDtl02},SYSDATE(),#{regIp});
@@ -86,6 +91,10 @@
 	
 	<select id="countDisclosureEmailAuthYN" parameterType="hashmap" resultType="int">
 		SELECT count(0) FROM ssrolc.disclosure WHERE memName=#{memName} AND email=#{email}
+	</select>
+	
+	<select id="countIgnoreEmailYN" parameterType="String" resultType="int">
+		SELECT count(0) FROM ssrolc.ignoreEmail WHERE email=#{email}
 	</select>
 	
 	<select id="findDisclosureInfo" parameterType="hashMap" resultType="com.ssrolc.domain.disclosure.Disclosure">

@@ -1,3 +1,6 @@
+host:
+    url: localhost:8080
+
 mail:
     host: mail.jei.com
     
@@ -24,6 +27,9 @@ openapi:
 ---
 spring.profiles: develop
 
+host:
+    url: devspring.ssrolc.com
+
 mail:
     host: mail.jei.com
     
@@ -49,6 +55,9 @@ openapi:
         url: http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdSearchAllService/retrieveNewAdressAreaCdSearchAllService/getNewAddressListAreaCdSearchAll?ServiceKey={serviceKey}&countPerPage={pageBlockSize}&currentPage={pageNum}&srchwrd={srchwrd}
 ---
 spring.profiles: product
+
+host:
+    url: devspring.ssrolc.com
 
 mail:
     host: mail.jei.com

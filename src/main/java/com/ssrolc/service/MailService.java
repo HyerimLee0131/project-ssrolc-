@@ -9,6 +9,7 @@ import org.springframework.mail.javamail.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.freemarker.*;
 
+import com.ssrolc.repository.DisclosureRepository;
 import com.ssrolc.utils.mail.*;
 
 import freemarker.template.*;
@@ -26,19 +27,26 @@ public class MailService implements RegistrationNotifier {
 	private JavaMailSender mailSender;
 	@Autowired
 	private Configuration freemarkerConfiguration;
+	
+	@Autowired
+	private DisclosureRepository disclosureRepository;
+	
+	@Value("${host.url}")
+	private String hostUrl;
 
 	public void setMailSender(JavaMailSender mailSender) {
 		this.mailSender = mailSender;
 	}
 
 	@Override
-	public String sendMail(String pMemName,String pEmailId, String pEmailAdd1, String hostName) {
+	public Map<String, Object> sendMail(String pMemName,String pEmailId, String pEmailAdd1, String hostName) {
 		String name = pMemName;
 		String mailAddress = "";
 		String template = "/ssrolcmanager/mail/emailContent.ftl";
 		mailAddress = pEmailId + "@" + pEmailAdd1;
 		String authKey = "";
 		authKey = makeAuthKey();
+		Map<String, Object> map = new HashMap<>();
 		
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
@@ -50,23 +58,28 @@ public class MailService implements RegistrationNotifier {
 			model.put("name", name);
 			model.put("securityKey", authKey);
 			model.put("hostName", hostName);
-
-			//String text = MailService.INFO_BODY.replaceAll(MailService.name,
-			//		name);
-			//text = text.replaceAll(MailService.securityKey, makeAuthKey());
+			model.put("email", mailAddress);
+			model.put("hostUrl", hostUrl);
+			
 			
 			String text = FreeMarkerTemplateUtils.processTemplateIntoString(
 					freemarkerConfiguration.getTemplate(template, "UTF-8"),
 					model);
 			message.setContent(text, "text/html; charset=utf-8");
 			messageHelper.setTo(new InternetAddress(mailAddress, "utf-8"));
-			mailSender.send(message);
-	
-			//sendMail2(model,"/ssrolcmanager/mail/emailContent.ftl",mailAddress);
+			
+			int dbIgnoreEmailCnt = disclosureRepository.countIgnoreEmailYN(mailAddress);
+			if (dbIgnoreEmailCnt == 0){
+				mailSender.send(message);
+				map.put("result", "mailSend");
+				map.put("authKey", authKey);
+			}else{
+				map.put("result", "mailIgnore");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return authKey;
+		return map;
 	}
 
 	

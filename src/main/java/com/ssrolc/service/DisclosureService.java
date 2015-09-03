@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.google.common.base.Strings;
 import com.ssrolc.domain.disclosure.Disclosure;
+import com.ssrolc.domain.disclosure.IgnoreEmail;
 import com.ssrolc.repository.DisclosureRepository;
 
 @Service
@@ -20,6 +22,8 @@ public class DisclosureService {
 	/*
 	 * 정보공개서 열람증 열기(팝업)
 	 * */
+
+	
 	public Disclosure getDisclosure(int aidx) {
 
 		return disclosureRepository.findDisclosure(aidx);
@@ -100,6 +104,26 @@ public class DisclosureService {
 
 		disclosureRepository.insertMailAuth(map);
 	}
+	/*
+	 * 수신거부 버튼 눌렀을 때 수신거부한 사람 이메일 등록
+	 * */
+	public String insertIgnoreEmail(String email,IgnoreEmail ignoreEmail) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("email", email);
+		map.put("reason", ignoreEmail.getReason());
+		map.put("regDate",ignoreEmail.getRegDate());
+		map.put("regIp", ignoreEmail.getRegIp());
+		int dbIgnoreEmailCnt = disclosureRepository.countIgnoreEmailYN(email);
+		String result = "";
+		if(dbIgnoreEmailCnt == 0){
+			result="success";
+			disclosureRepository.insertIgnoreEmail(map);
+		}else if(dbIgnoreEmailCnt == 1){
+			result="fail";
+		}
+		return result;
+		
+	}
 	
 	/*
 	 * 정보공개서에서 가맹희망 등록
@@ -145,6 +169,7 @@ public class DisclosureService {
 		return disclosureRepository.findDisclosureInfo(map);
 		
 	}
+	
 	
 
 }
