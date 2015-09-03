@@ -143,7 +143,7 @@ public class BoardController {
 			int rowBlockSize = 10;
 			int pageBlockSize = 10;
 			
-			if("ssrolcmanager".equals(ssrolcPrefix)){				
+			if("ssrolcfront".equals(ssrolcPrefix)){
 				rowBlockSize = boardInfo.getFrontRowBlockSize();
 				pageBlockSize = boardInfo.getFrontPageBlockSize();
 			}else{
@@ -157,12 +157,9 @@ public class BoardController {
 			
 			Map<String,Object> map = new HashMap<>();
 			map.put("pageInfo",pageUtil);
+	
+			map.put("articles", boardService.getArticleAndAttachFile(boardTable,null,pageUtil.getStartRow(),pageUtil.getEndRow(), null, null));
 			
-			if(boardInfo.getThumnailWidth() > 0) {
-				map.put("articles",boardService.getArticlesWithThumb(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
-			} else {
-				map.put("articles",boardService.getArticles(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
-			}
 			return ResponseEntity.ok(map);
 		}
 	}
@@ -192,7 +189,7 @@ public class BoardController {
 			int rowBlockSize = 10;
 			int pageBlockSize = 10;
 			
-			if("ssrolcmanager".equals(ssrolcPrefix)){				
+			if("ssrolcfront".equals(ssrolcPrefix)){
 				rowBlockSize = boardInfo.getFrontRowBlockSize();
 				pageBlockSize = boardInfo.getFrontPageBlockSize();
 			}else{
@@ -207,11 +204,8 @@ public class BoardController {
 			Map<String,Object> map = new HashMap<>();
 			map.put("pageInfo",pageUtil);
 			
-			if(boardInfo.getThumnailWidth() > 0) {
-				map.put("articles",boardService.getArticlesWithThumb(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
-			} else {
-				map.put("articles",boardService.getArticles(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
-			}
+			map.put("articles", boardService.getArticleAndAttachFile(boardTable,null,pageUtil.getStartRow(),pageUtil.getEndRow(), searchField,searchValue));
+			
 			return ResponseEntity.ok(map);
 		}
 	}
@@ -232,7 +226,7 @@ public class BoardController {
 			int rowBlockSize = 10;
 			int pageBlockSize = 10;
 			
-			if("ssrolcmanager".equals(ssrolcPrefix)){				
+			if("ssrolcfront".equals(ssrolcPrefix)){
 				rowBlockSize = boardInfo.getFrontRowBlockSize();
 				pageBlockSize = boardInfo.getFrontPageBlockSize();
 			}else{
@@ -247,11 +241,7 @@ public class BoardController {
 			Map<String,Object> map = new HashMap<>();
 			map.put("pageInfo",pageUtil);
 
-			if(boardInfo.getThumnailWidth() > 0) {
-				map.put("articles",boardService.getArticlesWithThumb(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
-			} else {
-				map.put("articles",boardService.getArticles(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow()));
-			}
+			map.put("articles", boardService.getArticleAndAttachFile(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(), null,null));
 			
 			if(boardInfo.isBoardCategoryEnable()){
 				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
@@ -288,7 +278,7 @@ public class BoardController {
 			int rowBlockSize = 10;
 			int pageBlockSize = 10;
 			
-			if("ssrolcmanager".equals(ssrolcPrefix)){				
+			if("ssrolcfront".equals(ssrolcPrefix)){
 				rowBlockSize = boardInfo.getFrontRowBlockSize();
 				pageBlockSize = boardInfo.getFrontPageBlockSize();
 			}else{
@@ -302,11 +292,8 @@ public class BoardController {
 			
 			Map<String,Object> map = new HashMap<>();
 			map.put("pageInfo",pageUtil);
-			if(boardInfo.getThumnailWidth() > 0) {
-				map.put("articles",boardService.getArticlesWithThumb(boardTable,pageUtil.getStartRow(),pageUtil.getEndRow()));
-			} else {
-				map.put("articles",boardService.getArticles(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
-			}
+			
+			map.put("articles", boardService.getArticleAndAttachFile(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
 			
 			if(boardInfo.isBoardCategoryEnable()){
 				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);

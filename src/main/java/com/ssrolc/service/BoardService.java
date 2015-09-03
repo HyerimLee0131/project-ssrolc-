@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssrolc.domain.board.Article;
+import com.ssrolc.domain.board.ArticleAndAttachFile;
 import com.ssrolc.domain.board.ArticleWithThumb;
 import com.ssrolc.domain.board.AttachFile;
 import com.ssrolc.domain.board.Board;
@@ -233,5 +234,19 @@ public class BoardService {
 	
 	public int getNewNoticeArticleCnt(){
 		return boardRepository.countNoticeArticleCurrent();
+	}
+	
+	public List<ArticleAndAttachFile> getArticleAndAttachFile(String boardTable, String categoryCode,
+			int startLimit, int endLimit, String searchField, String searchValue){
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+		map.put("categoryCode",categoryCode);
+		map.put("startLimit",startLimit);
+		map.put("endLimit",endLimit);
+		map.put("searchField",searchField);
+		map.put("searchValue",searchValue);
+		
+		return boardRepository.findArticleAndAttachFile(map);
 	}
 }
