@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.google.common.base.Strings;
 import com.ssrolc.domain.common.User;
 import com.ssrolc.service.AuthoritiesService;
 
@@ -40,7 +41,7 @@ public class MyCustomAuthenticationSuccessHandler implements AuthenticationSucce
 		
 		addAuthCookie(response, authentication);
 		String retUrl = request.getParameter("returl");
-		if(retUrl == null || retUrl.isEmpty()){
+		if(Strings.isNullOrEmpty(retUrl)){
 			response.sendRedirect(request.getContextPath()+DEFAULT_SSROMANAGER_INDEX_URL);
 			return;
 		}

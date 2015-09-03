@@ -1,11 +1,15 @@
 package com.ssrolc.exception;
 
+import java.io.FileNotFoundException;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 @ControllerAdvice("com.ssrolc.controller")
@@ -26,6 +30,12 @@ public class CommonExeptionHandler {
 	public String handlerResourseNotFoundExeption(HttpServletResponse res){
 		res.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		return "common/error404";
+	}
+	
+	@ExceptionHandler(value={FileNotFoundException.class})
+	@ResponseStatus(value=HttpStatus.NOT_FOUND)
+	public void handlerFileNotFoundException(){
+		
 	}
 	
 }

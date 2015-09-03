@@ -10,6 +10,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.stereotype.Component;
+
+import com.google.common.base.Strings;
 /**
  * 로그인 폼으로 리다이렉트할때 현재 경로를 returl 파라미터로 붙여서 보내주는 커스텀 클레스 714줄
  * @author Administrator
@@ -24,7 +26,7 @@ public class MyCustomAuthenticationEntryPoint implements AuthenticationEntryPoin
 	public void commence(HttpServletRequest request,
 			HttpServletResponse response, AuthenticationException authException)
 			throws IOException, ServletException {
-		if(loginFormPath == null || loginFormPath.isEmpty()){
+		if(Strings.isNullOrEmpty(loginFormPath)){
 			setLoginFormPath("/ssrolcmanager/login");
 		}
 		String redirectUrl = UrlUtils.buildRequestUrl(request);

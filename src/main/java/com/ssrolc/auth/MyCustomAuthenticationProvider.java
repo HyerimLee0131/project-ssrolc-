@@ -52,9 +52,11 @@ public class MyCustomAuthenticationProvider implements AuthenticationProvider {
 
 	private List<GrantedAuthority> getAuthorities(String userId) {
 		List<UserRole> perms = authoritiesService.getUserRole(userId);
-		if (perms == null)
+		
+		if (perms == null){
 			return Collections.emptyList();
-
+		}
+		
 		List<GrantedAuthority> authorities = new ArrayList<>(perms.size());
 		for (UserRole perm : perms) {
 			authorities.add(new SimpleGrantedAuthority(perm.getAuthority()));

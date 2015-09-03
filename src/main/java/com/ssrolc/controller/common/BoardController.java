@@ -825,7 +825,7 @@ public class BoardController {
 		String imageFilePath = boardUploadPath+File.separator+boardTable+File.separator+"thumb"+File.separator+convertFileName;
 
 		File imageFile = new File(imageFilePath);
-		
+			
 		FileInputStream fis = new FileInputStream(imageFile);
 		
 		return ResponseEntity.ok()

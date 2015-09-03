@@ -10,6 +10,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
+import com.google.common.base.Strings;
+
 /**
  * 실패하면 로그인 폼으로 다시돌아가기
  * @author Administrator
@@ -25,7 +27,7 @@ public class MyCustomAuthenticationFailureHandler implements AuthenticationFailu
 			HttpServletResponse response, AuthenticationException exception)
 			throws IOException, ServletException {
 		
-		if(loginFormPath == null || loginFormPath.isEmpty()){
+		if(Strings.isNullOrEmpty(loginFormPath)){
 			setLoginFormPath("/ssrolcmanager/login?error=true");
 		}
 		

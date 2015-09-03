@@ -73,7 +73,11 @@
 			<td>{{inc @index}}</td>
 			<td>{{#xIf useEnable "==" 0}}비활성{{else}}활성{{/xIf}}</td>
 			<td>
-				{{#xIf convertFileName "!=" null}}<img src="/ssrolcmanager/thumbview/{{boardTable}}/{{convertFileName}}/{{fileSize}}">{{/xIf}}
+				{{#each attachFileList}}
+					{{#if @first}}
+						{{#xIf convertFileName "!=" null}}<img src="/ssrolcmanager/thumbview/{{boardTable}}/{{convertFileName}}/{{fileSize}}">{{/xIf}}
+					{{/if}}
+				{{/each}}
 			</td>
 			<td>
 				<a href='/ssrolcmanager/board/{{boardTable}}/{{articleNo}}'>{{title}}</a>
