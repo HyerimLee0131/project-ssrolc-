@@ -37,4 +37,8 @@ public interface FranchiseRepository {
 	 * 관리자 메인 오늘자 가맹문의 신규 글 개수
 	 */
 	public int countFranchiseWriteCurrent();
+	/*
+	 * 대기 건수
+	 * */
+	public int countWaitCnt(Map<String,Object> map);
 }

@@ -92,12 +92,14 @@ public class FranchiseController {
 		int rowBlockSize = 10;
 		int pageBlockSize = 10;
 		int totalRowCnt = franchiseService.getSearchDisclosureCnt(jslcArea1,jslcArea2,jslcType,startDate,endDate,jslcounseling,memName);
+		int waitCnt = franchiseService.getWaitCnt(jslcArea1,jslcArea2,jslcType,startDate,endDate,jslcounseling,memName);
 		
 		PageUtil pageUtil = new PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
 
 		Map<String,Object> map = new HashMap<>();
 		map.put("pageInfo",pageUtil);
 		map.put("franchiseInfo", franchiseService.getSearchFranchises(jslcArea1,jslcArea2,jslcType,startDate,endDate,jslcounseling,memName,pageUtil.getStartRow(),pageUtil.getEndRow()));
+		map.put("waitCnt",waitCnt);
 		return ResponseEntity.ok(map);
 	}
 	

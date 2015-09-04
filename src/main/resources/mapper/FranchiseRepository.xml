@@ -84,4 +84,33 @@
 		WHERE DATE_FORMAT(jslipDateTime,"%Y-%m-%d") = CURDATE() 
 	</select>
 	
+	<select id="countWaitCnt" parameterType="hashmap" resultType="int">
+		SELECT count(0) FROM ssrolc.jeislc_write
+		<where>
+			<if test="jslTypeList != null">
+				jslcType IN 
+				 <foreach item="item" index="index" collection="jslTypeList"
+				     open="(" separator="," close=")">
+				       #{item}
+				 </foreach>
+			</if>
+			<if test="jslcArea1 != null and jslcArea1 != 'select'">
+				And jslcArea1 = #{jslcArea1}
+				<if test="jslcArea2 != null and jslcArea2 !='select'">
+					And jslcArea2 = #{jslcArea2}
+				</if>
+			</if>
+			<if test="jslcounseling != null and jslcounseling !='select'">
+				And jslcounseling = '0'
+			</if>
+			<if test="memName != null and memName != ''">
+				And memName = #{memName}
+			</if>
+			<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+				And jslipDatetime BETWEEN #{startDate} AND #{endDate}
+			</if>
+		</where>
+		
+	</select>
+	
 </mapper>
