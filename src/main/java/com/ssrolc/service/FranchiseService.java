@@ -106,6 +106,7 @@ public class FranchiseService {
 	 * */
 	public int getWaitCnt(String jslcArea1,String jslcArea2,String jslcType,
 			String startDate,String endDate,String jslcounseling,String memName) {
+		
 		Map<String,Object> map = new HashMap<>();
 		List<String> jslTypeList = null;
 		if(!Strings.isNullOrEmpty(jslcType)){

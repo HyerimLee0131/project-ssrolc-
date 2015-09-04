@@ -100,9 +100,12 @@
 					And jslcArea2 = #{jslcArea2}
 				</if>
 			</if>
-			<if test="jslcounseling != null and jslcounseling !='select'">
-				And jslcounseling = '0'
+			AND jslcounseling = '0'
+		
+			<if test="jslcounseling != null and jslcounseling != 'select' and jslcounseling !='0'">
+				And jslcounseling = #{ jslcounseling}
 			</if>
+			
 			<if test="memName != null and memName != ''">
 				And memName = #{memName}
 			</if>
@@ -110,7 +113,6 @@
 				And jslipDatetime BETWEEN #{startDate} AND #{endDate}
 			</if>
 		</where>
-		
 	</select>
 	
 </mapper>
