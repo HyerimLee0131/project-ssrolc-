@@ -84,13 +84,6 @@ $(function() {
 			}else{
 				$('#jslcSubject').attr('disabled','disabled');
 			}
-		},
-		numeric:function(str){
-			var pattern = /(^[0-9]+$)/;
-			if(!pattern.test(str)){
-			    return false;
-			}
-			return true;
 		}
 	});
 	

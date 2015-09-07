@@ -85,13 +85,6 @@ $(function() {
 		setAddr:function(formPost,mb_addr1){
 			$('#formPost').val(formPost);
 			$('#mb_addr1').val(mb_addr1);
-		},
-		numeric:function(str){
-			var pattern = /(^[0-9]+$)/;
-			if(!pattern.test(str)){
-			    return false;
-			}
-			return true;
 		}
 	});
 	

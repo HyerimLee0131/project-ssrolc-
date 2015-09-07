@@ -195,14 +195,6 @@ $(function() {
 			
 			//$('#frm2').submit();
 		},
-	
-		numeric:function(str){
-			var pattern = /(^[0-9]+$)/;
-			if(!pattern.test(str)){
-			    return false;
-			}
-			return true;
-		},
 		getSubArea:function(){
 			var jslcArea1 = $('#hopeArea01').val();
 			if(jslcArea1 == 'select'){
