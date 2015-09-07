@@ -29,7 +29,7 @@ public class CenterSearchController {
 	private CenterSearchService centerSearchService;
 
 	//리스트
-	@RequestMapping(value={"/ssrolcfront/centerSearch"},method = {RequestMethod.GET,RequestMethod.HEAD})
+	@RequestMapping(value={"/ssrolcfront/centersearch"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	public String centerSearchList(Model model){
 		logger.debug("====================================centerSearch List");
 
@@ -49,7 +49,7 @@ public class CenterSearchController {
 	}
 
 	//리스트 검색조건 추가
-	@RequestMapping(value={"/ssrolcfront/centerSearch/{doName}"},method = {RequestMethod.GET,RequestMethod.HEAD})
+	@RequestMapping(value={"/ssrolcfront/centersearch/{doName}"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> centerSearchListJson(@PathVariable String doName){
 		logger.debug("====================================centerSearch List area:"+doName);

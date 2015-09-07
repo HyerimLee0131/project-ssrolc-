@@ -16,7 +16,7 @@ $(function() {
 				});
 			}
 
-			var searchUrl = "/ssrolcfront/centerSearch/"+doName;
+			var searchUrl = "/ssrolcfront/centersearch/"+doName;
 			$.ajax({
 				url : searchUrl,
 				type : 'GET',

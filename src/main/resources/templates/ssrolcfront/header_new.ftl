@@ -28,16 +28,16 @@
 		<div class="header_wrap">
 			<div class="header" id="header">
 				<div class="logo">
-				<h1><a href="#">스스로러닝센터</a></h1>
+				<h1><a href="/">스스로러닝센터</a></h1>
 				</div>
 				<div class="main_nav">
 					<h2>메인메뉴</h2>
 					<ul class="clear clearfix">
-						<li><a href="prmedia_list.html">스스로러닝센터</a></li>
+						<li><a href="#">스스로러닝센터</a></li>
 						<li><a href="#">학습시스템</a></li>
-						<li><a href="franchiseSearch.html">가맹안내</a></li>
+						<li><a href="/ssrolcfront/franchise/search">가맹안내</a></li>
 						<li><a href="/ssrolcfront/boards/notice">커뮤니티</a></li>
-						<li><a href="#">로그인</a></li>
+						<li><a href="/ssrolcmanager/login">로그인</a></li>
 					</ul>
 				</div>
 			</div>

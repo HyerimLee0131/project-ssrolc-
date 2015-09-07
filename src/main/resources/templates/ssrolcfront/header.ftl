@@ -12,11 +12,12 @@
 		<link rel="stylesheet" type="text/css" href="/public/css/${css}.css" />
 	</#list>
 </#if>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/public/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="/public/js/jquery-ui.1.11.4.min.js"></script>
 <script type="text/javascript" src="/public/js/common.js"></script>
 <script type="text/javascript" src="/public/js/handlebars_3_0_3.min.js"></script>
 <script type='text/javascript' src='/public/js/modal-win.js'></script>
+<script type='text/javascript' src='/public/js/jeislccommon.js'></script>
 <#if headerScript?has_content>
 	<#list headerScript as script>
 		<script type="text/javascript" src="/public/js/${script}.js"></script>
@@ -35,44 +36,40 @@
 							<a href="/center">스스로러닝센터</a>
 							<div class="sub">
 								<dl>
-									<dd class="sub1"><a href="">스스로러닝센터소개</a></dd>
+									<dd class="sub1"><a href="#">스스로러닝센터소개</a></dd>
 									<dd class="sub2"><a href="/ssrolcfront/prmedias">홍보영상</a></dd>
-									<dd class="sub3"><a href="/centerSearch">우리동네 러닝센터 찾기</a></dd>
+									<dd class="sub3"><a href="/ssrolcfront/centersearch">우리동네 러닝센터 찾기</a></dd>
 								</dl>
 							</div>
 						</dd>
 						<dd class="gnb2 ">
-							<a href="/studysystem">학습시스템</a>
+							<a href="#">학습시스템</a>
 							<div class="sub">
 								<dl>
-									<dd class="sub1"><a href="">학습경쟁력</a></dd>
-									<dd class="sub2"><a href="">학습프로그램</a></dd>
+									<dd class="sub1"><a href="#">학습경쟁력</a></dd>
+									<dd class="sub2"><a href="#">학습프로그램</a></dd>
 								</dl>
 							</div>
 						</dd>
 						<dd class="gnb3 ">
-							<a href="">가맹안내</a>
+							<a href="#">가맹안내</a>
 							<div class="sub">
 								<dl>
-									<dd class="sub1"><a href="">스스로러닝센터경쟁력</a></dd>
-									<dd class="sub2"><a href="">가맹절차</a></dd>
-									<dd class="sub3"><a href="">가맹지사찾기</a></dd>
-									<dd class="sub4"><a href="">가맹문의</a></dd>
+									<dd class="sub1"><a href="#">스스로러닝센터경쟁력</a></dd>
+									<dd class="sub2"><a href="#">가맹절차</a></dd>
+									<dd class="sub3"><a href="/ssrolcfront/franchise/search">가맹지사찾기</a></dd>
+									<dd class="sub4"><a href="/ssrolcfront/franchise/faq">가맹문의</a></dd>
 								</dl>
 							</div>
 						</dd>
 						<dd class="gnb4 ">
-							<a href="/board/center">커뮤니티</a>
+							<a href="/ssrolcfront/boards/notice">커뮤니티</a>
 							<div class="sub">
 								<dl>
-									
-									<dd class="sub3"><a href="">우수러닝장소개</a></dd>
-
-									<dd class="sub4"><a href="">우수학생소개</a></dd>
-									
-									<dd class="sub1"><a href="">자주묻는질문</a></dd>
-									<dd class="sub2"><a href="">공지사항</a></dd>
-								
+									<dd class="sub3"><a href="/ssrolcfront/boards/center">우수러닝장소개</a></dd>
+									<dd class="sub4"><a href="/ssrolcfront/boards/student">우수학생소개</a></dd>
+									<dd class="sub1"><a href="/ssrolcfront/boards/faq">자주묻는질문</a></dd>
+									<dd class="sub2"><a href="/ssrolcfront/boards/notice">공지사항</a></dd>
 								</dl>
 							</div>
 						</dd>

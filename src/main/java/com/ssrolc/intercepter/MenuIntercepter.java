@@ -20,11 +20,15 @@ public class MenuIntercepter extends HandlerInterceptorAdapter {
 			request.setAttribute("currentMenu","disclosure");
 			
 			return true;
-		}else if(ant.match("/ssrolcmanager/franchise*/**",currentUrl)){
+		}else if(ant.match("/ssrolcmanager/franchise*/**",currentUrl) || ant.match("/ssrolcfront/franchise/search*/**",currentUrl)){
 			request.setAttribute("currentMenu","franchise");
 			
 			return true;
-		}else if(ant.match("/ssrolcmanager/center*/**",currentUrl)){
+		}else if(ant.match("/ssrolcfront/franchise/faq*/**",currentUrl)){
+			request.setAttribute("currentMenu","franchiseFaq");
+				
+			return true;
+		}else if(ant.match("/ssrolcmanager/center*/**",currentUrl) || ant.match("/ssrolcfront/centersearch/**",currentUrl)){
 			request.setAttribute("currentMenu","center");
 			
 			return true;
@@ -48,7 +52,7 @@ public class MenuIntercepter extends HandlerInterceptorAdapter {
 			request.setAttribute("currentMenu","popup");
 			
 			return true;
-		}else if(ant.match("/ssrolcmanager/prmedia*/**",currentUrl)){
+		}else if(ant.match("/ssrolcmanager/prmedia*/**",currentUrl) || ant.match("/ssrolcfront/prmedia*/**",currentUrl) ){
 			request.setAttribute("currentMenu","prmedia");
 			
 			return true;
