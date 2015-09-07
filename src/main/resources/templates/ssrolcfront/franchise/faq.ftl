@@ -4,7 +4,7 @@
 					<div class="path">
 						<span class="home"><a href="/">홈</a></span> &gt; <a href="#">가맹안내</a> &gt; <a href="/ssrolcfront/franchise/faq">가맹문의</a>
 					</div>
-					<form action="#" method="post" name="frm1">
+					<form action="#" method="post" id="fwrite" name="fwrite">
 					<div class="faq">
 						<h3>가맹문의</h3>
 						<h4>이메일상담(상담 신청 정보 입력)</h4>
@@ -25,21 +25,21 @@
 									<th scope="row"><label for="mb_zip1">주소</label></th>
 									<td>
 										<span class="input-wrap">
-										<input type="text" class="input-text w80" name="mb_zip1" id="mb_zip1" readonly='readonly' title="우편번호" />
-										<a href="javascript:openPopup('zip.html', 500, 400, 10,30);" class="btn_address_search">우편번호검색</a>
+										<input type="text" class="input-text w80" name="mb_zip1" id="formPost" readonly='readonly' title="우편번호" />
+										<a href="javascript:$.openPopup('/post','postSearch',400,500,10,30);" class="btn_address_search">우편번호검색</a>
 										</span>
 										<span class="input-wrap">
-										<input type="text" class="input-text w98p" name="mb_addr1" title="주소" />
+										<input type="text" class="input-text w98p" name="mb_addr1" id="addressDtl01" title="주소" readonly='readonly' />
 										</span>
 										<span class="input-wrap">
-										<input type="text" class="input-text w98p" name="mb_addr2" title="상세주소"/>
+										<input type="text" class="input-text w98p" name="mb_addr2" id="mb_addr2" title="상세주소"/>
 										</span>
 									</td>
 								</tr>
 								<tr>
 									<th scope="row"><label for="jslcCP1">휴대전화</label></th>
 									<td>
-										<select name="jslcCP1" id="jslcCP1" class="input-select w80" title="휴대전화 앞자리">
+										<select name="jslcCP1" id="pPhone01" class="input-select w80" title="휴대전화 앞자리">
 											<option value="010">010</option>
 											<option value="011">011</option>
 											<option value="016">016</option>
@@ -47,17 +47,17 @@
 											<option value="018">018</option>
 											<option value="019">019</option>
 										</select> - 
-										<input type="text" class="input-text w80" name="jslcCP2" title="휴대전화 가운데자리" maxlength="4" /> - 
-										<input type="text" class="input-text w80" name="jslcCP3" title="휴대전화 뒷자리" maxlength="4" />
+										<input type="text" class="input-text w80" name="jslcCP2" id="pPhone02" title="휴대전화 가운데자리" maxlength="4" /> - 
+										<input type="text" class="input-text w80" name="jslcCP3" id ="pPhone03" title="휴대전화 뒷자리" maxlength="4" />
 									</td>
 								</tr>
 								<tr>
 									<th scope="row">가맹교실유형</th>
 									<td>
 										<span class="radio-wrap">
-										<label><input type="radio" name="jslcType" value="공부방" checked /> 공부방</label>
-										<label><input type="radio" name="jslcType" value="학원" /> 학원</label>
-										<label><input type="radio" name="jslcType" value="교습소" /> 교습소</label>
+										<label><input type="radio" name="jslcType" onclick="$.checkDeptType();" value="공부방" checked /> 공부방</label>
+										<label><input type="radio" name="jslcType" onclick="$.checkDeptType();" value="학원" /> 학원</label>
+										<label><input type="radio" name="jslcType" onclick="$.checkDeptType();" value="교습소" /> 교습소</label>
 										</span>
 									</td>
 								</tr>
@@ -81,18 +81,19 @@
 								<tr>
 									<th scope="row">가맹희망지역</th>
 									<td>
-										<label for="jslcArea1">시/도 :</label>
+										<label for="hopeArea01">시/도 :</label>
 										<span class="select-wrap">
-										<select name="jslcArea1" id="jslcArea1" class="input-select">
+										<select name="jslcArea1" id="hopeArea01" class="input-select">
 											<option value=''>선택</option>
-											<option value="서울">서울</option>
+												<#list cityList as city>
+												<option value = "${city}">${city}</option>
+												</#list>
 										</select>
 										</span>
 										<span class="select-wrap">
 										<label for="jslcArea2">군/구 :</label>
-										<select name="jslcArea2" id="jslcArea2" class="input-select">
+										<select name="jslcArea2" id="hopeArea02" class="input-select">
 											<option value=''>선택</option>
-											<option value="강서구">강서구</option>
 										</select>
 										</span>
 									</td>
@@ -100,20 +101,20 @@
 								<tr>
 									<th scope="row"><label for="jslcDate">가맹희망일</label></th>
 									<td>
-										<input type="text" class="input-text w120" name="jslcDate" id="jslcDate" style="text-align:center" />
-										<a href="javascript:;" class="btn_calendal_open">달력보기</a>
+										<input type="text" class="input-text w120" name="jslcDate" id="joinHopeDate" style="text-align:center" />
+										<a href="" id="joinHopeDate" class="btn_calendal_open">달력보기</a>
 									</td>
 								</tr>
 								<tr>
 									<th scope="row"><label for="jslcTime1">희망상담시간</label></th>
 									<td>
 										<span class="select-wrap">
-										<select name="jslcTime1" id="jslcTime1" class="input-select w80" title="오전/오후">
+										<select name="jslcTime1" id="pTime01" class="input-select w80" title="오전/오후">
 											<option value=''>선택</option>
 											<option value="오전">오전</option>
 											<option value="오후" >오후</option>
 										</select>
-										<select name="jslcTime2" class="input-select w80" title="시간">
+										<select name="jslcTime2" id="pTime02" class="input-select w80" title="시간">
 											<option value=''>선택</option>
 											<option value="1">1시</option>
 											<option value="2">2시</option>
@@ -134,7 +135,7 @@
 								<tr>
 									<th scope="row"><label for="jslComments">상담내용작성</label></th>
 									<td>
-										<textarea name="jslComments" id="jslComments" class="faq_contents w98p"></textarea>
+										<textarea name="jslComments" id="pContents" class="faq_contents w98p"></textarea>
 									</td>
 								</tr>
 							</tbody>
@@ -176,8 +177,8 @@
 								</dl>
 							</div>
 							<div class="argree_chk">
-								<label><input type="radio" name="jslcRadio1" value="1" class="input-radio" /> 동의함</label>
-								<label><input type="radio" name="jslcRadio1" value="2" class="input-radio" checked /> 동의하지 않음</label>
+								<label><input type="radio" name="jslcRadio1" id="pCheck" value="1" class="input-radio" /> 동의함</label>
+								<label><input type="radio" name="jslcRadio1" id="pCheck" value="2" class="input-radio" checked /> 동의하지 않음</label>
 							</div>
 						</div>
 						<div class="faq_submit">

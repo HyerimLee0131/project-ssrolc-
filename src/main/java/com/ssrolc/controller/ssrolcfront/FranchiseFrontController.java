@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.base.Strings;
+import com.ssrolc.domain.franchise.Franchise;
 import com.ssrolc.service.CenterSearchService;
 import com.ssrolc.service.FranchiseService;
 
@@ -75,13 +79,25 @@ public class FranchiseFrontController {
 			List<String> cityList = franchiseService.getFranchiseCityList();
 			// 해더에 스크립트 추가
 			List<String> headerScript = new ArrayList<>();
-			headerScript.add("ssrolcmanager/franchise/view");
+			headerScript.add("ssrolcfront/franchise/view");
 			model.addAttribute("headerScript",headerScript);
 			model.addAttribute("cityList", cityList);
 			
 				return "ssrolcfront/franchise/faq";
+		}
+		//가맹문의등록 insert
+		@RequestMapping(value={"/ssrolcfront/franchise/faq"},method ={RequestMethod.POST})
+			public String insertFaq(HttpServletRequest req,Franchise franchise){	
+			
+				String jslIp = req.getHeader("X-FORWARDED-FOR");
+		        if (Strings.isNullOrEmpty(jslIp)) {
+		        	jslIp = req.getRemoteAddr();
+		        }
+		        franchise.setJslIp(jslIp);
+		        
+				franchiseService.insertFranchise(franchise);
+				return "redirect:/ssrolcfront/franchise/faq"; 
 			}
-	
 	
 	
 }
