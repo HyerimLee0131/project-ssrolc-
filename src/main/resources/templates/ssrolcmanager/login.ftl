@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="/public/css/common_admin.css" />
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="/public/js/jquery-1.11.3.min.js"></script>
 <title>${title?default('러닝센터')}</title>
 
 <#if error?default("") == "true" >
@@ -34,7 +34,7 @@ $(function(){
 	</div>
 	<div id="loginContainer">
 		<h2><img src="/public/img/admin/login/h2_login.gif" alt="로그인" /></h2>
-		<form name="loginFrm" id="loginFrm" method="post" action="${loginCheckUrl}">
+		<form name="loginFrm" id="loginFrm" method="post" action="/ssrolcmanager/loginCheck">
 			<div class="login-box">
 				<dl>
 					<dt><img src="/public/img/admin/login/tit_fc_login.gif" alt="재능스스로러닝센터 관리시스템" /></dt>

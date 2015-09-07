@@ -3,6 +3,7 @@ package com.ssrolc.auth;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -53,12 +54,16 @@ public class MyCustomAuthenticationSuccessHandler implements AuthenticationSucce
 	private void addAuthCookie(HttpServletResponse response,Authentication authentication){
 		User user = (User)authentication.getPrincipal();
 		
+		String encodeKey = UUID.randomUUID().toString().replaceAll("-","");
+		
+		authoritiesService.setUserEncodeKey(user.getUserId(), encodeKey);
+		
 		try {
 			Cookie cookie = new Cookie("SSROLC_ID",URLEncoder.encode(user.getUserId(),"utf-8"));
 			cookie.setPath("/");
 			response.addCookie(cookie);
 			
-			Cookie cookie1 = new Cookie("SSROLC_KEY",URLEncoder.encode(user.getUserEncodeKey(),"utf-8"));
+			Cookie cookie1 = new Cookie("SSROLC_KEY",URLEncoder.encode(encodeKey,"utf-8"));
 			cookie1.setPath("/");
 			response.addCookie(cookie1);
 			

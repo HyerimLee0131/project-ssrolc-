@@ -8,7 +8,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,9 +44,6 @@ public class LoginController {
 	@Autowired
 	private AuthoritiesService authoritiesService;
 	
-	@Value("${board.https.url}")
-	private String loginCheckUrl;
-	
 	/**
 	 * 로그인 페이지
 	 * @param returl : 로그인성공되면 리턴될 url
@@ -66,7 +62,6 @@ public class LoginController {
 		model.addAttribute("title", "로그인페이지");
 		model.addAttribute("returl",returl);
 		model.addAttribute("error",error);
-		model.addAttribute("loginCheckUrl",loginCheckUrl);
 	    return "ssrolcmanager/login";
 	}
 	

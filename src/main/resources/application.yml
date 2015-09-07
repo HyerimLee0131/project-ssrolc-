@@ -1,12 +1,5 @@
 mail:
     host: mail.jei.com
-    port: 587
-    username: sayhyerim
-    password: fladl1215!
-    
-board:
-    https:
-        url: https://devssl.ssro.com/jeislc/controller/loginchk_local.php
         
 multipart:
     maxFileSize: 2048KB
@@ -24,19 +17,13 @@ openapi:
     post:
         key: 0/zvGsrVGa3CSDZ5Qh5rgGpvKY9EhggvoF1kUpGYDhkrzRZqpHN02OSmtZ4USCEiWA1ciJKHUSj8ybpzzfobeQ==
         url: http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdSearchAllService/retrieveNewAdressAreaCdSearchAllService/getNewAddressListAreaCdSearchAll?ServiceKey={serviceKey}&countPerPage={pageBlockSize}&currentPage={pageNum}&srchwrd={srchwrd}
+
 ---
 spring.profiles: develop
 
 mail:
     host: mail.jei.com
-    port: 587
-    username: sayhyerim
-    password: fladl1215!
     
-board:
-    https:
-        url: https://devssl.ssro.com/jeislc/controller/loginchk_develop.php
-        
 multipart:
     maxFileSize: 2048KB
     maxRequestSize: 10240KB
@@ -58,14 +45,7 @@ spring.profiles: product
 
 mail:
     host: mail.jei.com
-    port: 587
-    username: sayhyerim
-    password: fladl1215!
     
-board:
-    https:
-        url: https://devssl.ssro.com/jeislc/controller/loginchk_product.php
-        
 multipart:
     maxFileSize: 2048KB
     maxRequestSize: 10240KB

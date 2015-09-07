@@ -18,4 +18,5 @@ public interface AuthoritiesRepository {
 
 	public void updateUserPassword(Map<String, Object> map);
 	
+	public void updateUserEncodeKey(Map<String, Object> map);
 }

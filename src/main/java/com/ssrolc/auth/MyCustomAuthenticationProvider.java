@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,9 +15,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Strings;
 import com.ssrolc.domain.common.User;
 import com.ssrolc.domain.common.UserRole;
 import com.ssrolc.service.AuthoritiesService;
@@ -27,9 +29,13 @@ import com.ssrolc.service.AuthoritiesService;
  */
 @Component
 public class MyCustomAuthenticationProvider implements AuthenticationProvider {
+	private static final Logger LOGGER = LoggerFactory.getLogger(MyCustomAuthenticationProvider.class);
 	
 	@Autowired
 	private AuthoritiesService authoritiesService;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
 	public Authentication authenticate(Authentication authentication)
@@ -41,8 +47,8 @@ public class MyCustomAuthenticationProvider implements AuthenticationProvider {
 			throw new UsernameNotFoundException(authToken.getName());
 		}
 		
-		if(!matchPassword(user.getUserEncodeKey(),authToken.getCredentials().toString())){
-			throw new BadCredentialsException("비밀키가 맞지않습니다.");
+		if(!passwordEncoder.matches(authToken.getCredentials().toString(),user.getUserPassword())){
+			throw new BadCredentialsException("비밀번호가 맞지않습니다.");
 		}
 		
 		List<GrantedAuthority> authorities = getAuthorities(user.getUserId());
@@ -62,14 +68,6 @@ public class MyCustomAuthenticationProvider implements AuthenticationProvider {
 			authorities.add(new SimpleGrantedAuthority(perm.getAuthority()));
 		}
 		return authorities;
-	}
-	
-	private boolean matchPassword(String memberPassword,String credentials) {
-		if(Strings.isNullOrEmpty(memberPassword) || Strings.isNullOrEmpty(credentials) ){
-			return false;
-		}else{
-			return memberPassword.equals(credentials);
-		}
 	}
 
 	@Override

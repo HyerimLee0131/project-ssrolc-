@@ -42,4 +42,12 @@ public class AuthoritiesService {
 		authoritiesRepository.updateUserPassword(map);
 	}
 	
+	public void setUserEncodeKey(String userId,String encodeKey){
+		Map<String,Object> map = new HashMap<>();
+		map.put("userId",userId);
+		map.put("encodeKey",encodeKey);
+		
+		authoritiesRepository.updateUserEncodeKey(map);
+	}
+	
 }
