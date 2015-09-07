@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.common.base.Strings;
 import com.ssrolc.domain.board.Article;
-import com.ssrolc.domain.common.User;
 import com.ssrolc.domain.disclosure.Disclosure;
 import com.ssrolc.domain.franchise.Franchise;
 import com.ssrolc.service.AuthoritiesService;
@@ -107,22 +105,7 @@ public class LoginController {
 			,@RequestParam String oldPass,@RequestParam String newPass,@RequestParam String newPassConfirm){
 		Map<String,Object> map = new HashMap<>();
 		
-		User user = authoritiesService.getUser(userId);
-		
-		if(!Strings.isNullOrEmpty(oldPass) && !Strings.isNullOrEmpty(newPass) && !Strings.isNullOrEmpty(newPassConfirm)){
-			if(oldPass.equals(user.getUserPassword())){
-				if(newPass.equals(newPassConfirm)){
-					
-					authoritiesService.setUserPassword(userId, oldPass, newPass);
-					
-					map.put("message","비밀번호가 변경되었습니다.");
-				}
-			}else{
-				map.put("message","기존 비밀번호가 맞지 않습니다.");
-			}
-		}else{
-			map.put("message","필수 입력 값들을 입력바랍니다.");
-		}
+		map.put("message",authoritiesService.setUserPassword(userId, oldPass, newPass, newPassConfirm));
 		
 		return ResponseEntity.ok(map);
 	}

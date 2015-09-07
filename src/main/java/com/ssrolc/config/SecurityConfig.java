@@ -88,7 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 					.httpBasic()
 				.and()
 					.requiresChannel()
-						.antMatchers("/ssrolcmanager/loginCheck","/ssrolcmanager/login","/ssrolcmanager").requiresSecure()
+						.antMatchers("/ssrolcmanager/loginCheck","/ssrolcmanager/login","/ssrolcmanager","/ssrolcmanager/edit").requiresSecure()
 						.anyRequest().requiresInsecure()
 				.and()
 					.exceptionHandling()
