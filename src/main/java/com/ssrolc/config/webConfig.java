@@ -17,6 +17,7 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mobile.device.DeviceHandlerMethodArgumentResolver;
 import org.springframework.mobile.device.DeviceResolverHandlerInterceptor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.filter.HttpPutFormContentFilter;
@@ -118,5 +119,10 @@ public class webConfig extends WebMvcAutoConfigurationAdapter {
 	        throw new IllegalStateException("can't access keystore: [" + "keystore"
 	                + "] or truststore: [" + "keystore" + "]", ex);
 	    }
+	}
+	
+	@Bean
+	public BCryptPasswordEncoder setBCryptPasswordEncoder(){
+		return new BCryptPasswordEncoder();
 	}
 }
