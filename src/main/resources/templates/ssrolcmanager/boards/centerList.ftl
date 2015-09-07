@@ -75,7 +75,7 @@
 			<td>
 				{{#each attachFileList}}
 					{{#if @first}}
-						{{#xIf convertFileName "!=" null}}<img src="/ssrolcmanager/thumbview/{{boardTable}}/{{convertFileName}}/{{fileSize}}">{{/xIf}}
+						{{#xIf convertFileName "!=" null}}<img src="/ssrolcmanager/thumbview/{{boardTable}}/{{convertFileName}}/{{fileSize}}" style="width:100px;">{{/xIf}}
 					{{/if}}
 				{{/each}}
 			</td>

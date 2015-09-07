@@ -107,8 +107,8 @@ style.css
 	.side_left ul li a{display:block;line-height:30px;text-decoration:none;}
 	.side_left ul li a:hover{background:#f4f4f4;padding-left:10px}
 	.path{text-align:right;font-size:11px}
-	.pagenavi{text-align:center;padding-top:20px;font-size:12px;clear:both;height:40px;}
-	.pagenavi a, .pagenavi strong{padding:6px;text-align:center;font-size:12px;color:#666666;vertical-align:top;}
+	.pageNavi{text-align:center;padding-top:20px;font-size:12px;clear:both;height:40px;}
+	.pageNavi a, .pageNavi strong{padding:6px;text-align:center;font-size:12px;color:#666666;vertical-align:top;}
 	
 	.board_search{width:400px;padding:10px;margin:0 auto}
 	.board_search .input-text{text-indent:5px}
@@ -275,3 +275,54 @@ style.css
 	.etc_info_btn{padding-top:20px}
 	.btn_read_fin{border:1px solid #ccc;background:#f4f4f4;line-height:50px;text-align:center;display:block;width:200px;margin:0 auto;font-weight:bold;}
 	.btn_pop_close{position:absolute;z-index:102;top:0;right:0;display:block;width:80px;height:50px;line-height:50px;text-align:center;font-weight:bold;color:#fff}
+	
+/* 우수센터장소개 */
+	.center_info{}
+	.good_center_list{float:left;width:300px;}
+	.good_center_list .good_center a{display:block;text-decoration:none;border:2px solid #f4f4f4;padding:1%;}
+	.good_center_list .good_center a:hover{border-color:#FF6F00}
+	.good_center_list .good_center a img{max-width:100%}
+	.good_center_list .good_center a .title{display:block;background:#f4f4f4;border:1px solid #eee;border-radius:5px;margin-top:5px;padding:5px}
+	.good_center_list .good_center a .title strong{display:block;font-size:18px;padding:5px 0;text-align:center;line-height:1.3em}
+	.good_center_list .good_center a .title em{display:block;font-size:14px;padding:2px 0;text-align:center;}
+	.center_list{float:right;width:470px;}
+	.center_list ul li{float:left;width:50%;margin-bottom:10px}
+	.center_list ul li a{border:2px solid #f4f4f4;padding:1%;display:block;width:96%;margin:0 auto;text-decoration:none;}
+	.center_list ul li a:hover{border-color:#FF6F00}
+	.center_list ul li a .img{display:block;height:150px;overflow:hidden;}
+	.center_list ul li a img{height:100%;width:100%}
+	.center_list ul li a .title{display:block;background:#f4f4f4;border:1px solid #eee;border-radius:5px;margin-top:5px;padding:5px}
+	.center_list ul li a .title strong{display:block;font-size:15px;padding:5px 0;text-align:center;line-height:1.3em}
+	.center_list ul li a .title em{display:block;font-size:14px;padding:2px 0;text-align:center;}
+
+	.center_view_table{border-top:2px solid #ccc;}
+	.center_view_table th{height:40px;background:#eee;border-bottom:1px solid #aaa}
+	.center_view_table td{padding-left:10px;border-bottom:1px solid #aaa}
+	.center_view_contents{padding:10px 0;}
+	.center_view_contents img{max-width:100%}
+	.center_view_btn{text-align:right;}
+	.center_view_btn a{line-height:30px}
+
+/* 우수학생소개 */
+	.student_info{}
+	.student_list ul li{margin-bottom:5px}
+	.student_list ul li .line{border:1px solid #e5e5e5;padding:25px 30px;}
+	.student_list ul li h4{font-size:25px;line-height:1.3em}
+	.student_list ul li p{font-size:21px;line-height:1.2em;}
+	.student_list ul li .info_wrap{padding-top:20px}
+	.student_list ul li .img_list{float:left;width:410px}
+	.student_list ul li .img_list span{display:block;width:190px;float:left;margin-right:10px;border:1px solid #4e4e4e}
+	.student_list ul li .img_list span img{width:100%;height:100%}
+	.student_list ul li .info_list{float:right;width:300px;padding-top:20px}
+	.student_list ul li .info_list ul li{padding-bottom:10px;font-size:14px}
+	.student_list ul li .link{padding-top:10px}
+	.student_list ul li .link a{display:block;width:200px;text-align:center;font-weight:bold;line-height:35px;background:#f4f4f4;border:1px solid #333}
+	.student_list ul li .link a:hover{background:#e4e4e4}
+
+	.student_view_table{border-top:2px solid #ccc;}
+	.student_view_table th{height:40px;background:#eee;border-bottom:1px solid #aaa}
+	.student_view_table td{padding-left:10px;border-bottom:1px solid #aaa}
+	.student_view_contents{padding:10px 0;}
+	.student_view_contents img{max-width:100%}
+	.student_view_btn{text-align:right;}
+	.student_view_btn a{line-height:30px}

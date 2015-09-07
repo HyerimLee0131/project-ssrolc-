@@ -109,12 +109,16 @@ public class BoardController {
 				
 				model.addAttribute("searchCategory",searchCategory);
 			}
-			
-			
+
+			//프론트 우수센터장소개일 경우 최근등록된 글 top 1 가져온다.
+			if("ssrolcfront".equals(ssrolcPrefix) && boardTable.equals("center")) {
+				model.addAttribute("topArticle", boardService.getTopArticle(boardTable));
+			}
+
 			//해더에 스크립트 추가
 			List<String> headerScript = new ArrayList<>();
 			headerScript.add(ssrolcPrefix+"/boards/"+boardTable+"List");
-			
+
 			model.addAttribute("headerScript",headerScript);
 			
 			return ssrolcPrefix+"/boards/"+boardTable+"List";
@@ -150,16 +154,35 @@ public class BoardController {
 				rowBlockSize = boardInfo.getManagerRowBlockSize();
 				pageBlockSize = boardInfo.getManagerPageBlockSize();
 			}
-			
-			int totalRowCnt = boardService.getArticleCnt(boardTable);
-			
-			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
-			
+
 			Map<String,Object> map = new HashMap<>();
-			map.put("pageInfo",pageUtil);
-	
-			map.put("articles", boardService.getArticleAndAttachFile(boardTable,null,pageUtil.getStartRow(),pageUtil.getEndRow(), null, null));
-			
+			int totalRowCnt = 0;
+
+			//프론트 우수센터장소개일 경우 최근등록된 글 top 1 제외
+			if("ssrolcfront".equals(ssrolcPrefix) && boardTable.equals("center")) {
+				if(boardService.getArticleCnt(boardTable) > 1) {
+					totalRowCnt = boardService.getArticleCnt(boardTable)-1;
+				} else {
+					totalRowCnt = boardService.getArticleCnt(boardTable);
+				}
+				
+				PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
+				map.put("pageInfo",pageUtil);
+				
+				if(boardService.getArticleCnt(boardTable) > 1) {
+					map.put("articles", boardService.getArticleAndAttachFile(boardTable,null,pageUtil.getStartRow()+1,pageUtil.getEndRow(), null, null));
+				} else {
+					map.put("articles", boardService.getArticleAndAttachFile(boardTable,null,pageUtil.getStartRow(),pageUtil.getEndRow(), null, null));
+				}
+			} else {
+				totalRowCnt = boardService.getArticleCnt(boardTable);
+				
+				PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
+				map.put("pageInfo",pageUtil);
+				
+				map.put("articles", boardService.getArticleAndAttachFile(boardTable,null,pageUtil.getStartRow(),pageUtil.getEndRow(), null, null));
+			}
+
 			return ResponseEntity.ok(map);
 		}
 	}
@@ -196,16 +219,35 @@ public class BoardController {
 				rowBlockSize = boardInfo.getManagerRowBlockSize();
 				pageBlockSize = boardInfo.getManagerPageBlockSize();
 			}
-			
-			int totalRowCnt = boardService.getArticleCnt(boardTable,searchField,searchValue);
-			
-			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
-			
+
 			Map<String,Object> map = new HashMap<>();
-			map.put("pageInfo",pageUtil);
-			
-			map.put("articles", boardService.getArticleAndAttachFile(boardTable,null,pageUtil.getStartRow(),pageUtil.getEndRow(), searchField,searchValue));
-			
+			int totalRowCnt = 0;
+
+			//프론트 우수센터장소개일 경우 최근등록된 글 top 1 제외
+			if("ssrolcfront".equals(ssrolcPrefix) && boardTable.equals("center")) {
+				if(boardService.getArticleCnt(boardTable) > 1) {
+					totalRowCnt = boardService.getArticleCnt(boardTable,searchField,searchValue)-1;
+				} else {
+					totalRowCnt = boardService.getArticleCnt(boardTable,searchField,searchValue);
+				}
+				
+				PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
+				map.put("pageInfo",pageUtil);
+				
+				if(boardService.getArticleCnt(boardTable,searchField,searchValue) > 1) {
+					map.put("articles", boardService.getArticleAndAttachFile(boardTable,null,pageUtil.getStartRow()+1,pageUtil.getEndRow(), searchField,searchValue));
+				} else {
+					map.put("articles", boardService.getArticleAndAttachFile(boardTable,null,pageUtil.getStartRow(),pageUtil.getEndRow(), searchField,searchValue));
+				}
+			} else {
+				totalRowCnt = boardService.getArticleCnt(boardTable,searchField,searchValue);
+				
+				PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
+				map.put("pageInfo",pageUtil);
+				
+				map.put("articles", boardService.getArticleAndAttachFile(boardTable,null,pageUtil.getStartRow(),pageUtil.getEndRow(), searchField,searchValue));
+			}
+
 			return ResponseEntity.ok(map);
 		}
 	}
@@ -233,16 +275,35 @@ public class BoardController {
 				rowBlockSize = boardInfo.getManagerRowBlockSize();
 				pageBlockSize = boardInfo.getManagerPageBlockSize();
 			}
-			
-			int totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode);
-			
-			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
-			
-			Map<String,Object> map = new HashMap<>();
-			map.put("pageInfo",pageUtil);
 
-			map.put("articles", boardService.getArticleAndAttachFile(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(), null,null));
-			
+			Map<String,Object> map = new HashMap<>();
+			int totalRowCnt = 0;
+
+			//프론트 우수센터장소개일 경우 최근등록된 글 top 1 제외
+			if("ssrolcfront".equals(ssrolcPrefix) && boardTable.equals("center")) {
+				if(boardService.getArticleCnt(boardTable,categoryCode) > 1) {
+					totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode)-1;
+				} else {
+					totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode);
+				}
+				
+				PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
+				map.put("pageInfo",pageUtil);
+				
+				if(boardService.getArticleCnt(boardTable,categoryCode) > 1) {
+					map.put("articles", boardService.getArticleAndAttachFile(boardTable,categoryCode,pageUtil.getStartRow()+1,pageUtil.getEndRow(), null,null));
+				} else {
+					map.put("articles", boardService.getArticleAndAttachFile(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(), null,null));
+				}
+			} else {
+				totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode);
+				
+				PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
+				map.put("pageInfo",pageUtil);
+				
+				map.put("articles", boardService.getArticleAndAttachFile(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(), null,null));
+			}
+
 			if(boardInfo.isBoardCategoryEnable()){
 				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
 				
@@ -285,16 +346,35 @@ public class BoardController {
 				rowBlockSize = boardInfo.getManagerRowBlockSize();
 				pageBlockSize = boardInfo.getManagerPageBlockSize();
 			}
-			
-			int totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode,searchField,searchValue);
-			
-			PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
-			
+
 			Map<String,Object> map = new HashMap<>();
-			map.put("pageInfo",pageUtil);
-			
-			map.put("articles", boardService.getArticleAndAttachFile(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
-			
+			int totalRowCnt = 0;
+
+			//프론트 우수센터장소개일 경우 최근등록된 글 top 1 제외
+			if("ssrolcfront".equals(ssrolcPrefix) && boardTable.equals("center")) {
+				if(boardService.getArticleCnt(boardTable,categoryCode,searchField,searchValue) > 1) {
+					totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode,searchField,searchValue)-1;
+				} else {
+					totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode,searchField,searchValue);
+				}
+
+				PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
+				map.put("pageInfo",pageUtil);
+
+				if(boardService.getArticleCnt(boardTable,categoryCode,searchField,searchValue) > 1) {
+					map.put("articles", boardService.getArticleAndAttachFile(boardTable,categoryCode,pageUtil.getStartRow()+1,pageUtil.getEndRow(),searchField,searchValue));
+				} else {
+					map.put("articles", boardService.getArticleAndAttachFile(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
+				}
+			} else {
+				totalRowCnt = boardService.getArticleCnt(boardTable,categoryCode,searchField,searchValue);
+
+				PageUtil pageUtil = new	PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
+				map.put("pageInfo",pageUtil);
+
+				map.put("articles", boardService.getArticleAndAttachFile(boardTable,categoryCode,pageUtil.getStartRow(),pageUtil.getEndRow(),searchField,searchValue));
+			}
+
 			if(boardInfo.isBoardCategoryEnable()){
 				List<BoardCategory> boardCategoryList = boardService.getBoardCategorys(boardTable);
 				
@@ -446,7 +526,7 @@ public class BoardController {
 				
 				boardService.setArticle(boardTable, articleNo, categoryCode
 						, title, content, etc1, etc2, etc3, etc4, useEnable, nowTime);
-				
+
 				String uploadPath = boardUploadPath+File.separator+boardTable;
 				
 				
