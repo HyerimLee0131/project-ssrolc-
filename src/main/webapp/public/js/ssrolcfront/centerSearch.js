@@ -5,6 +5,15 @@ $(function() {
 			var doName = $('#do').val();
 			if(doName == "") {
 				doName = "all";
+			} else {
+				$("#branchMap > area").each(function() {
+					if($(this).attr("data-sido") == doName) {
+						$($(this).attr('data-show')).show();
+						$("#branchAllMap").attr('src',$(this).attr('data-image-over'));
+
+						return false;
+					}
+				});
 			}
 
 			var searchUrl = "/ssrolcfront/centerSearch/"+doName;
@@ -16,10 +25,7 @@ $(function() {
 				dataType: "json",
 				success: function(jsonData, textStatus, XMLHttpRequest) {
 					//if(jsonData.result == "success" || doVal == "충남"){	//직영센터로 인해 충남 예외처리
-					if(!jsonData) {
-						$("#dataList").html($('#emptyList').text());
-						$('#emptyList').show();
-					} else { 
+					
 						if(jsonData.result == "success"){	//직영센터로 인해 충남 예외처리
 							var source = $("#centersTemplate").html();
 							var template = Handlebars.compile(source);
@@ -60,7 +66,7 @@ $(function() {
 							$("#dataList").empty();
 							$("#dataList").append(template(jsonData));
 						}
-					}
+				
 				},
 				error:function (xhr, ajaxOptions, thrownError){	
 					alert(thrownError);

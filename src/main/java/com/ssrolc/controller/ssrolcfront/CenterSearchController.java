@@ -26,7 +26,7 @@ public class CenterSearchController {
 	private static final Logger logger = LoggerFactory.getLogger(CenterSearchController.class);
 
 	@Autowired
-	private CenterSearchService ceterSearchService;
+	private CenterSearchService centerSearchService;
 
 	//리스트
 	@RequestMapping(value={"/ssrolcfront/centerSearch"},method = {RequestMethod.GET,RequestMethod.HEAD})
@@ -36,13 +36,14 @@ public class CenterSearchController {
 		model.addAttribute("title","재능스스로 러닝센터");
 
 		//시/도 셀렉트 박스 리스트
-		List<String> doList = ceterSearchService.getDos("","","","1");
+		List<String> doList = centerSearchService.getDos("","","","1");
 
 		//해더에 스크립트 추가
 		List<String> headerScript = new ArrayList<>();
 		headerScript.add("ssrolcfront/centerSearch");
 		model.addAttribute("headerScript",headerScript);
 		model.addAttribute("doList", doList);
+		
 
 		return "ssrolcfront/centerSearch/list";
 	}
@@ -68,7 +69,7 @@ public class CenterSearchController {
 
 		//리스트 받아오기
 		Map<String,Object> map = new HashMap<>();
-		map.put("centers1",ceterSearchService.getCenters(doName));
+		map.put("centers1",centerSearchService.getCenters(doName));
 
 		//직영센터 예외처리 입력
 		List<CenterSearch> exceptionList = new ArrayList<CenterSearch>();

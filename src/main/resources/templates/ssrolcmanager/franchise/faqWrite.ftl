@@ -13,6 +13,7 @@
 				 <p class="page-title">유선 상담(상담 신청 정보 입력)</p>
 				<div class="tbl-type-E">
 				<form name="fwrite" id="fwrite" action="/ssrolcmanager/franchise/faq" method="POST">
+					<input type="hidden" name="inType" value="유선">
 					<table width="100%" cellPadding="0" cellSpacing="0" summary="">
 						<colgroup>
 							<col width="14%">
