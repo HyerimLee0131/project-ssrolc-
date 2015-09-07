@@ -39,6 +39,10 @@ public interface DisclosureRepository {
 	 * */
 	public void insertMailAuth(Map<String,Object> map);
 	/*
+	 * 수신거부한 사람 등록하기
+	 * */
+	public void insertIgnoreEmail(Map<String, Object> map);
+	/*
 	 * 가맹희망자 등록
 	 * */
 	public void insertDisclosures(Disclosure disclosure);
@@ -52,6 +56,10 @@ public interface DisclosureRepository {
 	public Disclosure findDisclosureInfo(Map<String, Object> map);
 
 	public int countDisclosureEmailAuthYN(Map<String, Object> map);
+
+	public int countIgnoreEmailYN(String email);
+
+	
 
 	
 }

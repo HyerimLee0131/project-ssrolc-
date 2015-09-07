@@ -43,8 +43,10 @@ $(function() {
 				async: true,
 				dataType: "json",
 				success: function(jsonData, textStatus, XMLHttpRequest) {
-					if(jsonData.result=="MailSendOk"){ 
+					if(jsonData.result=="mailSend"){ 
 						alert('이메일이 발송되었습니다.');
+					}else if(jsonData.result=="mailIgnore"){
+						alert('수신거부된 이메일입니다.');
 					}
 				},
 				error:function (xhr, ajaxOptions, thrownError){
@@ -193,6 +195,7 @@ $(function() {
 			
 			//$('#frm2').submit();
 		},
+	
 		numeric:function(str){
 			var pattern = /(^[0-9]+$)/;
 			if(!pattern.test(str)){

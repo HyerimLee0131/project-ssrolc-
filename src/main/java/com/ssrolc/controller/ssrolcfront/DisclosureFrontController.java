@@ -15,10 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.base.Strings;
 import com.ssrolc.domain.disclosure.Disclosure;
+import com.ssrolc.domain.disclosure.IgnoreEmail;
 import com.ssrolc.service.DisclosureService;
 import com.ssrolc.service.FranchiseService;
 import com.ssrolc.service.MailService;
@@ -67,26 +69,48 @@ public class DisclosureFrontController {
 			
 			return ResponseEntity.ok(map); 
 		}
-	
+	/*
+	 * 수신거부 처리
+	 * */
+	@RequestMapping(value={"/ssrolcfront/disclosure/ignoreEmail"},method={RequestMethod.GET,RequestMethod.HEAD})
+	public String insert(Model model,HttpServletRequest req,IgnoreEmail ignoreEmail
+						,@RequestParam(value="email")String email){		
+		logger.debug("##########여긴 들어왓나..");
+		//ip넣기
+		String regIp = req.getHeader("X-FORWARDED-FOR");
+        if (Strings.isNullOrEmpty(regIp)){
+        	regIp = req.getRemoteAddr();
+        }	
+        ignoreEmail.setRegIp(regIp);
+        
+		String result = disclosureService.insertIgnoreEmail(email,ignoreEmail);
+		model.addAttribute("result",result);
+		
+		return "/ssrolcmanager/mail/ignoreEmail";
+	}
 	
 	//이메일 보내기
 	@RequestMapping(value={"/ssrolcfront/disclosure/email"},method =  { RequestMethod.POST})
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> main(HttpServletRequest request,String pMemName,String pEmailId, String pEmailAdd1){
-
 		String hostName = request.getServerName();
 
 		String jslIp = request.getHeader("X-FORWARDED-FOR");
         if (Strings.isNullOrEmpty(jslIp)){
         	jslIp = request.getRemoteAddr();
         }
-		String authKey = mailService.sendMail(pMemName,pEmailId,pEmailAdd1,hostName);
+		Map<String, Object> map  = mailService.sendMail(pMemName,pEmailId,pEmailAdd1,hostName);
 		String mailAddress = pEmailId + "@" + pEmailAdd1;
-		disclosureService.insertMailAuth(pMemName,mailAddress,authKey,jslIp);
+		if("mailIgnore".equals(map.get("result").toString())){
+			return ResponseEntity.ok(map);
+		}else{
+			disclosureService.insertMailAuth(pMemName,mailAddress,map.get("authKey").toString(),jslIp);
+			logger.debug("Mail Send : authKey = {}", map.get("authKey").toString());
+			
+			return ResponseEntity.ok(map); 
+		}
 		
-		Map<String, Object> map = new HashMap<>();
-		map.put("result","MailSendOk");
-		return ResponseEntity.ok(map); 
+		
 	}
 	//인증번호 체크
 	@RequestMapping(value={"/ssrolcfront/disclosure/email"},method =  { RequestMethod.GET,RequestMethod.HEAD})
