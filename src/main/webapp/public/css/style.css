@@ -257,7 +257,7 @@ style.css
 	.etc_agree_btn{text-align:center;}
 	.btn_info_read{border:1px solid #ccc;background:#f4f4f4;line-height:50px;text-align:center;display:block;width:200px;margin:0 auto;font-weight:bold;}
 
-/*정보공개서 열람 팝업*/
+/* 정보공개서 열람 팝업 */
 	.etc_info_table{}
 	.etc_info_table{border-top:2px solid #ccc;}
 	.etc_info_table th{height:40px;background:#eee;border-bottom:1px solid #aaa}
@@ -275,7 +275,7 @@ style.css
 	.etc_info_btn{padding-top:20px}
 	.btn_read_fin{border:1px solid #ccc;background:#f4f4f4;line-height:50px;text-align:center;display:block;width:200px;margin:0 auto;font-weight:bold;}
 	.btn_pop_close{position:absolute;z-index:102;top:0;right:0;display:block;width:80px;height:50px;line-height:50px;text-align:center;font-weight:bold;color:#fff}
-	
+
 /* 우수센터장소개 */
 	.center_info{}
 	.good_center_list{float:left;width:300px;}

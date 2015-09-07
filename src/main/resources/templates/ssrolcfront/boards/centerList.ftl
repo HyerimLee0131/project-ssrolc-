@@ -64,6 +64,5 @@
 					</a>
 				</li>
 			{{/each}}
-
 </script>
 	<#include "/ssrolcfront/footer_new.ftl">

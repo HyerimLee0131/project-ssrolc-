@@ -33,7 +33,7 @@
 				<div class="gnb_a">
 					<dl>
 						<dd class="gnb1 ">
-							<a href="/center">스스로러닝센터</a>
+							<a href="/ssrolcfront/centersearch">스스로러닝센터</a>
 							<div class="sub">
 								<dl>
 									<dd class="sub1"><a href="#">스스로러닝센터소개</a></dd>

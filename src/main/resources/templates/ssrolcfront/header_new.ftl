@@ -33,7 +33,7 @@
 				<div class="main_nav">
 					<h2>메인메뉴</h2>
 					<ul class="clear clearfix">
-						<li><a href="#">스스로러닝센터</a></li>
+						<li><a href="/ssrolcfront/centersearch">스스로러닝센터</a></li>
 						<li><a href="#">학습시스템</a></li>
 						<li><a href="/ssrolcfront/franchise/search">가맹안내</a></li>
 						<li><a href="/ssrolcfront/boards/notice">커뮤니티</a></li>

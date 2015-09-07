@@ -24,8 +24,6 @@ $(function() {
 				async: true,
 				dataType: "json",
 				success: function(jsonData, textStatus, XMLHttpRequest) {
-					//if(jsonData.result == "success" || doVal == "충남"){	//직영센터로 인해 충남 예외처리
-					
 						if(jsonData.result == "success"){	//직영센터로 인해 충남 예외처리
 							var source = $("#centersTemplate").html();
 							var template = Handlebars.compile(source);
@@ -66,7 +64,6 @@ $(function() {
 							$("#dataList").empty();
 							$("#dataList").append(template(jsonData));
 						}
-				
 				},
 				error:function (xhr, ajaxOptions, thrownError){	
 					alert(thrownError);
