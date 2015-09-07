@@ -4,8 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="/public/css/common_admin.css" />
 <script src="/public/js/jquery-1.11.3.min.js"></script>
+<script src="/public/js/common.js"></script>
 <title>${title?default('러닝센터')}</title>
-
 <#if error?default("") == "true" >
 <script type="text/javascript">
 	$(function(){
@@ -15,17 +15,6 @@
 	});
 </script>
 </#if>
-<script type="text/javascript">
-$(function(){
-	$('.fmTitle').click(function(e) {
-		var target = $(this).attr('href');
-		$(target).slideDown();
-		$(target).find('.btn-close').click(function() {
-			$(target).slideUp();
-		});
-	});
-});
-</script>
 </head>
 <body id="login">
 <div id="loginWrapper">
