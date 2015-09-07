@@ -29,7 +29,7 @@ targetCompatibility = 1.7
 
 repositories {
     mavenCentral()
-    mavenLocal()
+    //mavenLocal()
 }
 
 configurations {
