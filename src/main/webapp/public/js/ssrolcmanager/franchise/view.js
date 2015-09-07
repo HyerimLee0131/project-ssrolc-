@@ -10,10 +10,10 @@ $(function() {
 				return false;
 			}
 
-//			if($.trim($('#mb_zip1').val())==""){
-//				alert('우편번호를 입력해주세요.');
-//				return false;
-//			}
+			if($.trim($('#formPost').val())==""){
+				alert('우편번호를 입력해주세요.');
+				return false;
+			}
 			if($.trim($('#mb_addr2').val())==""){
 				alert('상세주소를 입력해주세요.');
 				return false;
@@ -71,6 +71,7 @@ $(function() {
 				alert('개인정보 항목 및 수집방법 설명 동의체크를 해주세요.');
 				return false;
 			}
+		
 			$('#fwrite').submit();
 		},
 		checkDeptType:function(){
@@ -80,6 +81,10 @@ $(function() {
 			}else{
 				$('#jslcSubject').attr('disabled','disabled');
 			}
+		},
+		setAddr:function(formPost,mb_addr1){
+			$('#formPost').val(formPost);
+			$('#mb_addr1').val(mb_addr1);
 		},
 		numeric:function(str){
 			var pattern = /(^[0-9]+$)/;

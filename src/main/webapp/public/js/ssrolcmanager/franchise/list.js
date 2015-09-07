@@ -34,7 +34,9 @@ $(function() {
 				success: function(jsonData, textStatus, XMLHttpRequest) {
 					var pageInfo = jsonData.pageInfo;
 					var totalRowCnt = pageInfo.totalRowCnt;
+					var waitCnt = jsonData.waitCnt;
 					$("#totalCnt").html(totalRowCnt);
+					$("#waitCnt").html(waitCnt);
 					$("#pageNavi").html($.pageUtil(pageInfo.pageNum,pageInfo.totalPageCnt, 
 							pageInfo.rowBlockSize,pageInfo.startPageNum,pageInfo.endPageNum));	
 					var source = $("#franchiseTemplate").html();

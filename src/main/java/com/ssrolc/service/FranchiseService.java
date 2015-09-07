@@ -49,6 +49,12 @@ public class FranchiseService {
 	 * 가맹문의 등록하기
 	 * */
 	public void insertFranchise(Franchise franchise){
+        String inType = "0";
+        if(inType.equals("0")){
+        	franchise.setInType("유선");
+        }else{
+        	franchise.setInType("사이트");
+        }
 		 franchiseRepository.insertFranchises(franchise);
 	}
 	/*
@@ -71,7 +77,7 @@ public class FranchiseService {
 		map.put("endDate", endDate);
 		map.put("jslcounseling", jslcounseling);
 		map.put("memName", memName);
-		
+	
 		return franchiseRepository.countSearchFranchises(map);
 	}
 	/*
@@ -100,5 +106,29 @@ public class FranchiseService {
 
 	public int getNewFranchiseWriteCnt(){
 		return franchiseRepository.countFranchiseWriteCurrent();
+	}
+	/*
+	 * 대기 건수
+	 * */
+	public int getWaitCnt(String jslcArea1,String jslcArea2,String jslcType,
+			String startDate,String endDate,String jslcounseling,String memName) {
+		
+		Map<String,Object> map = new HashMap<>();
+		List<String> jslTypeList = null;
+		if(!Strings.isNullOrEmpty(jslcType)){
+			String[] jslTypeArray = jslcType.split(",");
+			
+			jslTypeList = new ArrayList<>(Arrays.asList(jslTypeArray));
+		
+		}
+		map.put("jslTypeList", jslTypeList);
+		map.put("jslcArea1", jslcArea1);
+		map.put("jslcArea2", jslcArea2);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		map.put("jslcounseling", jslcounseling);
+		map.put("memName", memName);
+		
+		return franchiseRepository.countWaitCnt(map);
 	}
 }

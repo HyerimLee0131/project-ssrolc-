@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,7 +26,7 @@ import com.ssrolc.utils.PageUtil;
 
 @Controller
 public class FranchiseController {
-
+	private static final Logger logger = LoggerFactory.getLogger(FranchiseController.class);
 	@Autowired
 	private FranchiseService franchiseService;
 	
@@ -92,12 +94,16 @@ public class FranchiseController {
 		int rowBlockSize = 10;
 		int pageBlockSize = 10;
 		int totalRowCnt = franchiseService.getSearchDisclosureCnt(jslcArea1,jslcArea2,jslcType,startDate,endDate,jslcounseling,memName);
+		logger.debug("###########jslcArea1{}",jslcArea1);
+		int waitCnt = franchiseService.getWaitCnt(jslcArea1,jslcArea2,jslcType,startDate,endDate,jslcounseling,memName);
+		
 		
 		PageUtil pageUtil = new PageUtil(pageNum, totalRowCnt, rowBlockSize, pageBlockSize);
 
 		Map<String,Object> map = new HashMap<>();
 		map.put("pageInfo",pageUtil);
 		map.put("franchiseInfo", franchiseService.getSearchFranchises(jslcArea1,jslcArea2,jslcType,startDate,endDate,jslcounseling,memName,pageUtil.getStartRow(),pageUtil.getEndRow()));
+		map.put("waitCnt",waitCnt);
 		return ResponseEntity.ok(map);
 	}
 	
