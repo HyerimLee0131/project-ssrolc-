@@ -99,7 +99,7 @@ $(function() {
 	$.getPrmediaList();
 	
 	// paging 클릭
-	$(".paging").on("click","a.naviPage",function() {
+	$(".pageNavi").on("click","a.naviPage",function() {
 		var pageNum = $(this).attr('pageNo');	
 		$('#pageNum').val(pageNum);
 		$.getPrmediaList();
