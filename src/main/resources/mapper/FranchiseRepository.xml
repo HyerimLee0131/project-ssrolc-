@@ -75,8 +75,8 @@
 	</update>
 	
 	<insert id="insertFranchises" parameterType="com.ssrolc.domain.franchise.Franchise" useGeneratedKeys="true" keyProperty="jslcId">
-		INSERT INTO ssrolc.jeislc_write(jslctable,jslcName,jslcZip1,jslcZip2,jslcAddr1,jslcAddr2,jslcCP1,jslcCP2,jslcCP3,jslcType,jslcSubject,jslcArea1,jslcArea2,jslcDate,jslcTime1,jslcTime2,jslComments,jslIp,jslipDatetime,jslcounseling,inType) 
-		VALUES('jeislc',#{jslcName},#{jslcZip1},#{jslcZip2},#{jslcAddr1},#{jslcAddr2},#{jslcCP1},#{jslcCP2},#{jslcCP3},#{jslcType},#{jslcSubject},#{jslcArea1},#{jslcArea2},#{jslcDate},#{jslcTime1},#{jslcTime2},#{jslComments},#{jslIp},SYSDATE(),#{jslcounseling},'유선');
+		INSERT INTO ssrolc.jeislc_write(jslctable,jslcName,jslcZip,jslcAddr1,jslcAddr2,jslcCP1,jslcCP2,jslcCP3,jslcType,jslcSubject,jslcArea1,jslcArea2,jslcDate,jslcTime1,jslcTime2,jslComments,jslIp,jslipDatetime,jslcounseling,inType) 
+		VALUES('jeislc',#{jslcName},#{jslcZip},#{jslcAddr1},#{jslcAddr2},#{jslcCP1},#{jslcCP2},#{jslcCP3},#{jslcType},#{jslcSubject},#{jslcArea1},#{jslcArea2},#{jslcDate},#{jslcTime1},#{jslcTime2},#{jslComments},#{jslIp},SYSDATE(),#{jslcounseling},#{inType});
 	</insert>
 	
 	<select id="countFranchiseWriteCurrent" resultType="int">

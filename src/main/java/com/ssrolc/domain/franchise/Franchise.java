@@ -20,6 +20,7 @@ public class Franchise {
 	private String jslcName;
 	private String jslcZip1;
 	private String jslcZip2;
+	private String jslcZip;
 	private String jslcAddr1;
 	private String jslcAddr2;
 	private String jslcArea1;

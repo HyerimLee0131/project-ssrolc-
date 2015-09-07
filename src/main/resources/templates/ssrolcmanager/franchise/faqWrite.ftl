@@ -30,10 +30,10 @@
 								<td>
 									<div class="input-box">
 										<span>
-											<input name="jslcZip1" type="text" class="text zipcode" id="mb_zip1" title="" readonly='readonly' value="111" > - <input name="jslcZip2" type="text" class="text zipcode" id="mb_zip2" title="" readonly='readonly' value="111" >
-											<span class="button"><a onclick="">우편번호 검색</a></span>
+											<input name="jslcZip" type="text" class="text zipcode" id="formPost" title="" readonly='readonly' >
+											<span class="button"><a href="javascript:$.openPopup('/post','postSearch',400,500,10,30);" >우편번호 검색</a></span>
 										</span>
-										<span><input name="jslcAddr1"  type="text" class="text"  id="mb_addr1" title="" readonly='readonly' value="경북 포항시"></span>
+										<span><input name="jslcAddr1"  type="text" class="text"  id="mb_addr1" title="" readonly='readonly'></span>
 										<span><input name="jslcAddr2" type="text" class="text" id="mb_addr2" title=""></span>
 									</div>
 								</td>
@@ -131,6 +131,7 @@
 									<textarea id="pContents" name="jslComments" cols="130" rows="15"></textarea>
 								</td>
 							</tr>
+							
 						</tbody>
 					</table>
 					<div>

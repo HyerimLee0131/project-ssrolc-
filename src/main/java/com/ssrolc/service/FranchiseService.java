@@ -49,6 +49,12 @@ public class FranchiseService {
 	 * 가맹문의 등록하기
 	 * */
 	public void insertFranchise(Franchise franchise){
+        String inType = "0";
+        if(inType.equals("0")){
+        	franchise.setInType("유선");
+        }else{
+        	franchise.setInType("사이트");
+        }
 		 franchiseRepository.insertFranchises(franchise);
 	}
 	/*
