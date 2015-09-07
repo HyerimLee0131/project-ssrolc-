@@ -83,6 +83,8 @@ public class FranchiseFrontController {
 			model.addAttribute("headerScript",headerScript);
 			model.addAttribute("cityList", cityList);
 			
+			//Map<String, Object> map  = mailService.sendMail(pMemName,pEmailId,pEmailAdd1,hostName);
+			
 				return "ssrolcfront/franchise/faq";
 		}
 		//가맹문의등록 insert
@@ -94,6 +96,7 @@ public class FranchiseFrontController {
 		        	jslIp = req.getRemoteAddr();
 		        }
 		        franchise.setJslIp(jslIp);
+		        franchise.setJslcounseling("0");
 		        
 				franchiseService.insertFranchise(franchise);
 				return "redirect:/ssrolcfront/franchise/faq"; 

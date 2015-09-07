@@ -82,29 +82,6 @@ public class MailService implements RegistrationNotifier {
 		return map;
 	}
 
-	
-	/*private void sendMail2(Map model, String template,String mailAddress) {
-
-		try {
-			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper messageHelper = new MimeMessageHelper(message,
-					true, "utf-8");
-			messageHelper.setSubject(MailService.INFO_TITLE);
-			messageHelper.setFrom("mail@jei.com", "스스로러닝센터");
-       
-			String text = FreeMarkerTemplateUtils.processTemplateIntoString(
-					freemarkerConfiguration.getTemplate(template, "UTF-8"),
-					model);
-
-			message.setContent(text, "text/html; charset=utf-8");
-			messageHelper.setTo(new InternetAddress(mailAddress, "TEST"));
-			mailSender.send(message);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
-	
 
 	// 인증번호 생성함수
 	public String makeAuthKey() {

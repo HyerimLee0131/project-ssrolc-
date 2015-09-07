@@ -4,7 +4,7 @@
 					<div class="path">
 						<span class="home"><a href="/">홈</a></span> &gt; <a href="#">가맹안내</a> &gt; <a href="/ssrolcfront/franchise/faq">가맹문의</a>
 					</div>
-					<form action="#" method="post" id="fwrite" name="fwrite">
+					<form action="/ssrolcfront/franchise/faq" method="post" id="fwrite" name="fwrite">
 					<input type="hidden" name="inType" value="사이트">
 					<div class="faq">
 						<h3>가맹문의</h3>
@@ -23,17 +23,17 @@
 							</thead>
 							<tbody>
 								<tr>
-									<th scope="row"><label for="mb_zip1">주소</label></th>
+									<th scope="row"><label for="jslcZip">주소</label></th>
 									<td>
 										<span class="input-wrap">
-										<input type="text" class="input-text w80" name="mb_zip1" id="formPost" readonly='readonly' title="우편번호" />
+										<input type="text" class="input-text w80" name="jslcZip" id="formPost" readonly='readonly' title="우편번호" />
 										<a href="javascript:$.openPopup('/post','postSearch',400,500,10,30);" class="btn_address_search">우편번호검색</a>
 										</span>
 										<span class="input-wrap">
-										<input type="text" class="input-text w98p" name="mb_addr1" id="addressDtl01" title="주소" readonly='readonly' />
+										<input type="text" class="input-text w98p" name="jslcAddr1" id="addressDtl01" title="주소" readonly='readonly' />
 										</span>
 										<span class="input-wrap">
-										<input type="text" class="input-text w98p" name="mb_addr2" id="mb_addr2" title="상세주소"/>
+										<input type="text" class="input-text w98p" name="jslcAddr2" id="mb_addr2" title="상세주소"/>
 										</span>
 									</td>
 								</tr>
@@ -56,7 +56,7 @@
 									<th scope="row">가맹교실유형</th>
 									<td>
 										<span class="radio-wrap">
-										<label><input type="radio" name="jslcType" onclick="$.checkDeptType();" value="공부방" checked /> 공부방</label>
+										<label><input type="radio" name="jslcType" onclick="$.checkDeptType();" value="공부방" /> 공부방</label>
 										<label><input type="radio" name="jslcType" onclick="$.checkDeptType();" value="학원" /> 학원</label>
 										<label><input type="radio" name="jslcType" onclick="$.checkDeptType();" value="교습소" /> 교습소</label>
 										</span>
@@ -65,7 +65,7 @@
 								<tr>
 									<th scope="row"><label for="jslcSubject">희망과목</label></th>
 									<td>
-										<select name="jslcSubject" id="jslcSubject" class="input-select">
+										<select name="jslcSubject" disabled id="jslcSubject" class="input-select">
 											<option value=''>선택</option>
 											<option value='수학'>수학</option>
 											<option value='국어'>국어</option>
@@ -76,7 +76,8 @@
 											<option value='영어'>영어</option>
 											<option value='중국어'>중국어</option>
 											<option value='일본어'>일본어</option>
-										</select> 
+										</select>
+										<input name="jslcSubject" id="jslcSubject" type="hidden" value=""> 
 									</td>
 								</tr>
 								<tr>
@@ -101,10 +102,10 @@
 								</tr>
 								<tr>
 									<th scope="row"><label for="jslcDate">가맹희망일</label></th>
-									<td>
-										<input type="text" class="input-text w120" name="jslcDate" id="joinHopeDate" style="text-align:center" />
-										<a href="" id="joinHopeDate" class="btn_calendal_open">달력보기</a>
-									</td>
+										<td>
+										<input name="jslcDate" type="text" class="text datePicker" id="joinHopeDate" style="width: 80px;" title=""  readonly='readonly'>
+										<img src="/public/img/admin/common/icon_calendar.gif" alt="" id="joinHopeDate_img" style="cursor:pointer;">
+										</td>
 								</tr>
 								<tr>
 									<th scope="row"><label for="jslcTime1">희망상담시간</label></th>
@@ -178,12 +179,12 @@
 								</dl>
 							</div>
 							<div class="argree_chk">
-								<label><input type="radio" name="jslcRadio1" id="pCheck" value="1" class="input-radio" /> 동의함</label>
-								<label><input type="radio" name="jslcRadio1" id="pCheck" value="2" class="input-radio" checked /> 동의하지 않음</label>
+								<label><input type="radio" name="agreeChk"  value="1" class="input-radio" /> 동의함</label>
+								<label><input type="radio" name="agreeChk"  value="2" class="input-radio" checked /> 동의하지 않음</label>
 							</div>
 						</div>
 						<div class="faq_submit">
-							<a href="#" class="btn_faq_submit">상담신청서 제출</a>
+							<a href="javascript:$.joinWrite();" class="btn_faq_submit">상담신청서 제출</a>
 						</div>
 					</div>
 					</form>

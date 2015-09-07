@@ -10,7 +10,7 @@ $(function() {
 				return false;
 			}
 
-			if($.trim($('#mb_zip1').val())==""){
+			if($.trim($('#formPost').val())==""){
 				alert('우편번호를 입력해주세요.');
 				return false;
 			}
@@ -66,10 +66,10 @@ $(function() {
 				$('#pContents').focus();
 				return false;
 			}
-
-			if($('#pCheck').is(":checked")==false){
-				alert('개인정보 항목 및 수집방법 설명 동의체크를 해주세요.');
-				return false;
+			var agreeChk = $('input[name="agreeChk"]:checked').val();
+			if(agreeChk !="1"){
+				alert("상담약관 동의에 동의체크를 눌러주세요");
+				return;
 			}
 			$('#fwrite').submit();
 		},
@@ -90,7 +90,7 @@ $(function() {
 
 	//달력버튼
 	$("#joinHopeDate").on('click',function() {
-		$("#joinHopeDate").datepicker( "show" );
+		$("#joinHopeDate_img").datepicker( "show" );
 	});
 
 	$("#joinCheck").on('click',function(){
