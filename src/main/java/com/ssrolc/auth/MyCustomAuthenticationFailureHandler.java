@@ -30,8 +30,6 @@ public class MyCustomAuthenticationFailureHandler implements AuthenticationFailu
 			HttpServletResponse response, AuthenticationException exception)
 			throws IOException, ServletException {
 		
-		LOGGER.debug("============================================="+loginFormPath);
-		
 		if(Strings.isNullOrEmpty(loginFormPath)){
 			setLoginFormPath("/ssrolcmanager/login?error=true");
 		}
