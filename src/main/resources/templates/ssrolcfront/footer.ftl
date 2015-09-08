@@ -69,54 +69,6 @@
 							</map>
 			</div><!-- //footer_familysite -->
 		</div><!--//FooterArea -->
-		
-		
-		
-		<form name="fSubRight" method="post" style="margin:0px;">
-		<input name="cid" type="hidden" title="" value="">
-		<input name="saveType" type="hidden" title="" value="">
-		<input name="bo_table" type="hidden" title="" value="">
-		<input name="cate1" type="hidden" title="" value="">
-		<input name="bw_idx" type="hidden" title="" value="">
-		</form>
-		<script type="text/javascript" src="/public/js/wrest.js"></script>
-		<script type="text/javascript">
-			// 트위터
-			function go_twitter() {
-				var url = encodeURIComponent("");
-				var text = encodeURIComponent("");
-				window.open("http://twitter.com/share?url="+url+"&text="+text+"&new_post[tags]=","");
-			}
-			// 페이스 북
-			function go_facebook() {
-				var u = encodeURIComponent("");
-				var t = encodeURIComponent("");
-				window.open("http://www.facebook.com/sharer.php?u="+u+"&t="+t,"");
-			}
-			//게시글뷰
-			function fsubright_view_submit(bw_idx,bo_table,cate1,cid){
-				var f = document.fSubRight;
-				f.bw_idx.value	= bw_idx;
-				f.bo_table.value	= bo_table;
-				f.cate1.value	= cate1;
-				f.cid.value	= cid;
-				var strGoDir
-				if(bo_table=='momtalk'||bo_table=='edudata'||bo_table=='event'||bo_table=='win'){
-					strGoDir = "/momtalk/" ;
-				}else if(bo_table=='mom' || bo_table=='ccoma' || bo_table=='hana'|| bo_table=='ebook' || bo_table=='branch'){//딸 하나 아들하나 추가 
-					strGoDir = "/mom/" ;
-				}else if(bo_table=='thinkpizza' || bo_table=='momcounsel' || bo_table=='childvod'){ // 에듀 자료실 관련
-					strGoDir = "/edudataroom/" ;
-				}else if(bo_table=='contest'){
-					strGoDir = "/reader/" ;
-				}else if(bo_table=='notice'){
-					strGoDir = "/customer/" ;
-				}
-				f.action = strGoDir+"board_"+bo_table+"_view.asp";
-				f.submit();
-			}
-		</script>
-		
 		</div>
 	</div>
 	<!-- footer //-->
