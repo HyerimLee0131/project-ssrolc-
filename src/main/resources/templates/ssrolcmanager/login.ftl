@@ -3,7 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="/public/css/common_admin.css" />
+<link rel="stylesheet" type="text/css" href="/public/css/jquery-ui.1.11.4.min.css" />
 <script src="/public/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/public/js/jquery-ui.1.11.4.min.js"></script>
 <script src="/public/js/common.js"></script>
 <title>${title?default('러닝센터')}</title>
 <#if error?default("") == "true" >

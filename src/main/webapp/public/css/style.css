@@ -217,6 +217,9 @@ style.css
 	.notice_content > *{margin:0;padding:0}
 	.notice_view_btn{text-align:right;}
 	.notice_view_btn a{line-height:30px}
+	.notice_view_table{border-top:2px solid #ccc;}
+	.notice_view_table th{height:40px;background:#eee;border-bottom:1px solid #aaa}
+	.notice_view_table td{padding-left:10px;border-bottom:1px solid #aaa}
 
 /* 지도 */
 	.txtGray {font-size:12px; color:#999999;}
