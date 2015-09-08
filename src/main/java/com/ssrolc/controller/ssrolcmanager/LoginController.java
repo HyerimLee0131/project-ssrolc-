@@ -47,7 +47,7 @@ public class LoginController {
 	 * @param returl : 로그인성공되면 리턴될 url
 	 * @return
 	 */
-	@RequestMapping(value={"/ssrolcmanager/login","/ssrolcmanager"},method={RequestMethod.GET,RequestMethod.HEAD})
+	@RequestMapping(value={"/ssrolcmanager/login","/ssrolcmanager"})
 	public String login(Model model,@RequestParam(value="returl",required=false) String returl
 			,@RequestParam(value="error",required=false,defaultValue="") String error){
 //      로그찍을때
