@@ -34,6 +34,10 @@ public interface BoardRepository {
 	 */
 	public List<ArticleWithThumb> findArticlesWithThumb(Map<String,Object> map);
 	/*
+	 * 글 리스트 히트수 높은 탑게시물 하나 읽어오기
+	 */
+	public ArticleAndAttachFile findTopArticle(Map<String,Object> map);
+	/*
 	 * 글 읽어오기
 	 */
 	public Article findArticle(Map<String,Object> map);

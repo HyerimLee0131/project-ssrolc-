@@ -1,16 +1,25 @@
 package com.ssrolc.controller.ssrolcfront;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +34,7 @@ import com.ssrolc.utils.PageUtil;
 
 @Controller
 public class PrmediaFrontController {
-	private static final Logger logger = LoggerFactory.getLogger(PrmediaFrontController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PrmediaFrontController.class);
 	
 	@Autowired
 	private PrmediaService prmediaService;
@@ -35,8 +44,21 @@ public class PrmediaFrontController {
 	
 	//리스트
 	@RequestMapping(value={"/ssrolcfront/prmedias"},method = {RequestMethod.GET,RequestMethod.HEAD})
-	public String prmediaList(Model model){
+	public String prmediaList(Model model,Device device,HttpServletRequest request){
 		//logger.debug("prmedia List");
+		
+		//디바이스 알아보기
+		if(device.isNormal()){
+			LOGGER.debug("===============PC"+device.getDevicePlatform());
+		}else if(device.isTablet()){
+			LOGGER.debug("============테블릿:"+device.getDevicePlatform());
+		}else if(device.isMobile()){
+			LOGGER.debug("================모바일:"+device.getDevicePlatform());
+		}
+		
+		
+		String browser = getBrowser(request);
+		LOGGER.debug("browser"+ browser);
 		
 		model.addAttribute("title","러닝센터관리자 홍보영상관리");
 		
@@ -46,6 +68,7 @@ public class PrmediaFrontController {
 		model.addAttribute("headerScript",headerScript);
 		
 		model.addAttribute("prmediaUrl",prmediaService.getPrmediaFirst());
+		model.addAttribute("browser",browser);
 		return "/ssrolcfront/prmedia/list";
 	}
 	
@@ -58,7 +81,7 @@ public class PrmediaFrontController {
 		if(prmediaCnt == 0){
 			throw new PrmediaNotFoundException();
 		}else{
-			int rowBlockSize = 10;
+			int rowBlockSize = 5;
 			int pageBlockSize = 10;
 			int totalRowCnt = prmediaCnt;
 
@@ -76,7 +99,7 @@ public class PrmediaFrontController {
 	@RequestMapping(value={"/ssrolcfront/prmedias/{pageNum:[0-9]+}/{searchField}/{searchValue}"},method = {RequestMethod.GET,RequestMethod.HEAD})
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> prmediaSearchListJson(@PathVariable int pageNum,@PathVariable String searchField,@PathVariable String searchValue){
-		logger.debug("searchField:"+searchField+",searchValue:"+searchValue);
+		LOGGER.debug("searchField:"+searchField+",searchValue:"+searchValue);
 		
 		int prmediaCnt = prmediaService.getPrmediaCnt();
 		if(prmediaCnt == 0){
@@ -110,6 +133,35 @@ public class PrmediaFrontController {
 		
 		model.addAttribute("prmediaUrl",prmediaService.getPrmediaView(aidx));
 		return "/ssrolcfront/prmedia/list";
+	}
+	
+	
+	//파일정보 
+	@RequestMapping(value="/ssrolcfront/prmedias/thumbview/{thumnailRealName}/{thumnailSize}",method={RequestMethod.GET} ,produces={MediaType.IMAGE_GIF_VALUE,MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
+	@ResponseBody
+	public ResponseEntity<InputStreamResource> thumbStream(HttpServletResponse res ,@PathVariable String thumnailRealName,@PathVariable int thumnailSize) throws FileNotFoundException{
+		
+		String imageFilePath = prmediaUploadPath+File.separator+"thumb"+File.separator+thumnailRealName;
+
+		File imageFile = new File(imageFilePath);
+		
+		FileInputStream fis = new FileInputStream(imageFile);
+		
+		return ResponseEntity.ok()
+				.contentLength(thumnailSize)
+				.body(new InputStreamResource(fis));
+	}
+	
+	private String getBrowser(HttpServletRequest request) {
+        String header =request.getHeader("User-Agent");
+        if (header.contains("MSIE")||header.contains("Trident/7.0")) {
+               return "MSIE";
+        } else if(header.contains("Chrome")) {
+               return "Chrome";
+        } else if(header.contains("Opera")) {
+               return "Opera";
+        } 
+        return "Firefox";
 	}
 	
 }

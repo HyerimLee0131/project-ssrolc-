@@ -10,6 +10,7 @@
 			<h3>홍보영상</h3>
 			<!-- 플레이어 -->
 			<div class="tv_player" id="tv_player">
+		
 				<object width="564" height="409" classid="CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95" CODEBASE="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab" standby="Loading Microsoft?Windows? Media Player components..." type="application/x-oleobject">
 					<param name="fileName" id="fileName" value="${prmediaUrl}"> 
 					<param name="autoStart" value="true"> 
@@ -17,6 +18,9 @@
 					<embed id="mediaUrlId" name="mediaUrlId" width="564" height="409" type="application/x-mplayer2" pluginspage="http://www.microsoft.com/Windows/MediaPlayer/" src="${prmediaUrl}" autoStart="true" >
 					</embed>
 				</object>
+		
+			
+	
 			</div>
 			<!-- //플레이어 -->
 			<div class="board_total">
@@ -25,9 +29,11 @@
 			<div class="thumb_list">
 				<ul class="clear clearfix" id="dataList"></ul>
 			</div>
-			<div class="pagenavi" id="pagenavi">
-			</div>
+			
+			<div class="pageNavi" id="pageNavi"></div>
+			
 			<input name="pageNum" type="hidden" id="pageNum" title="" value="1">
+			
 			<div class="ad_search">
 				<fieldset>
 				<legend class="skip">검색</legend>
@@ -48,7 +54,7 @@
 	{{#each prmedia}}
 		<li class="adTv_con">
 			<a style="cursor:pointer;" onclick='$.playStart("{{aidx}}");' class="thumb">
-			<span class="img"><img src="/ssrolcmanager/prmedias/thumbview/{{thumnailRealName}}/{{thumnailSize}}"  alt="스스로 러닝센터 홍보영상" /></span>
+			<span class="img"><img src="/ssrolcfront/prmedias/thumbview/{{thumnailRealName}}/{{thumnailSize}}"  alt="스스로 러닝센터 홍보영상" /></span>
 			<span class="info"><strong class="txt">{{prTitle}}</strong><span class="date">{{prettifyDate regDate}}</span></span>
 			</a>
 		</li>
@@ -56,3 +62,4 @@
 		<li class="adTv_con">데이터가 없습니다.</li>
 	{{/each}}
 </script>
+

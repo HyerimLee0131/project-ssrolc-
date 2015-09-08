@@ -17,22 +17,6 @@
 				<div class="footer">
 				</div>
 		
-				<script type="text/javascript">
-
-		$("#footer_private").bind('click',function(){
-		window.open("/infomation/infomation_pop.htm", "", "width=550, height=480");
-		});
-
-		//패밀리사이트 보기
-		function footerFamilySiteLayer() {
-			if ($(".footer_familysite").css("display") == "block"){
-				$(".footer_familysite").hide();
-			}
-			else{
-				$(".footer_familysite").show();
-			}
-		}
-		</script>
 		<div class="familysite" style="position:absolute;top:25px;right:0;">
 			<a href="javascript:footerFamilySiteLayer();" style="position:absolute;top:0;right:0;"><img alt="패밀리사이트 열기" src="/public/img/img_inc/btn_footer_familysite.gif" style="border:0;"></a>
 			<div class="footer_familysite" style="display:none;position:absolute;top:0;right:0;"><img usemap="#footer_familysite" alt="패밀리사이트 전체 리스트" src="/public/img/img_inc/footer_familysite_06.gif" style="border:0;"></div>

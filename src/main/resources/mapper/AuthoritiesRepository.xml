@@ -24,7 +24,7 @@
 	
 	<update id="updateUserPassword" parameterType="hashMap">
 		UPDATE ssrolc.user SET userPassword = #{newPass}
-		WHERE userId = #{userId} AND userPassword = #{userPassword}
+		WHERE userId = #{userId}
 	</update>
 	
 	<update id="updateUserEncodeKey" parameterType="hashMap">

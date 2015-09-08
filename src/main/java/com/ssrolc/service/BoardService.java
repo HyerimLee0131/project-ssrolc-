@@ -67,10 +67,17 @@ public class BoardService {
 		Map<String,Object> map = new HashMap<>();
 		map.put("boardTable",boardTable);
 		map.put("articleNo",articleNo);
-		
+
 		return boardRepository.findArticle(map);
 	}
-	
+
+	public ArticleAndAttachFile getTopArticle(String boardTable){
+		Map<String,Object> map = new HashMap<>();
+		map.put("boardTable",boardTable);
+
+		return boardRepository.findTopArticle(map);
+	}
+
 	public int getArticleCnt(String boardTable){
 		Map<String,Object> map = new HashMap<>();
 		map.put("boardTable",boardTable);

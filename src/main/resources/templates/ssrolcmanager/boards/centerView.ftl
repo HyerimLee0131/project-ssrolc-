@@ -30,7 +30,7 @@
 							</tr>
 							<tr>
 								<th>활성</th>
-								<td colspan="3"><div class="td-left"><#if article.title == '0'>비활성<#else>활성</#if></div></td>
+								<td colspan="3"><div class="td-left"><#if article.useEnable = false>비활성<#else>활성</#if></div></td>
 							</tr>
 							<tr>
 								<th>센터명</th>

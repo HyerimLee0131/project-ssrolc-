@@ -29,7 +29,7 @@ targetCompatibility = 1.7
 
 repositories {
     mavenCentral()
-    mavenLocal()
+    //mavenLocal()
 }
 
 configurations {
@@ -47,12 +47,12 @@ dependencies {
     compile("com.sun.mail:javax.mail")
     compile("com.google.guava:guava:18.0")
     compile("org.projectlombok:lombok:1.16.4")
-    compile("org.springframework.data:spring-data-commons:1.10.2.RELEASE")
     compile("org.apache.tomcat:tomcat-dbcp:7.0.62")
     compile("org.springframework.mobile:spring-mobile-device:1.1.4.RELEASE")
     compile files('lib/sqljdbc4-4.1.jar')
     runtime("mysql:mysql-connector-java")
     //compile("com.microsoft.sqlserver:sqljdbc4:4.1")
+    
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile("org.springframework.boot:spring-boot-starter-test") 
 }
