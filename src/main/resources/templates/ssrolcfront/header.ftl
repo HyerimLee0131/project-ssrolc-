@@ -52,7 +52,7 @@
 							</div>
 						</dd>
 						<dd class="gnb3 ">
-							<a href="#">가맹안내</a>
+							<a href="/ssrolcfront/franchise/search">가맹안내</a>
 							<div class="sub">
 								<dl>
 									<dd class="sub1"><a href="#">스스로러닝센터경쟁력</a></dd>
