@@ -3,6 +3,7 @@ host:
 
 mail:
     host: mail.jei.com
+    faqadminmail: sayhyerim@jei.com
         
 multipart:
     maxFileSize: 2048KB

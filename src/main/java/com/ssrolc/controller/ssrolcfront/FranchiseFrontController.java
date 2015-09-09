@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import com.google.common.base.Strings;
 import com.ssrolc.domain.franchise.Franchise;
 import com.ssrolc.service.CenterSearchService;
 import com.ssrolc.service.FranchiseService;
+import com.ssrolc.service.MailService;
 
 @Controller
 public class FranchiseFrontController {
@@ -29,6 +31,12 @@ public class FranchiseFrontController {
 	
 	@Autowired
 	private CenterSearchService centerSearchService;
+	
+	@Autowired
+	private MailService mailService;
+	
+	@Value("${mail.faqadminmail}")
+	private String adminAddress;
 	
 	//가맹지사 메인페이지
 	@RequestMapping(value={"/ssrolcfront/franchise/search"} , method =  { RequestMethod.GET, RequestMethod.HEAD })
@@ -83,23 +91,23 @@ public class FranchiseFrontController {
 			model.addAttribute("headerScript",headerScript);
 			model.addAttribute("cityList", cityList);
 			
-			//Map<String, Object> map  = mailService.sendMail(pMemName,pEmailId,pEmailAdd1,hostName);
-			
 				return "ssrolcfront/franchise/faq";
 		}
 		//가맹문의등록 insert
 		@RequestMapping(value={"/ssrolcfront/franchise/faq"},method ={RequestMethod.POST})
-			public String insertFaq(HttpServletRequest req,Franchise franchise){	
-			
+			public ResponseEntity<Map<String, Object>> insertFaq(HttpServletRequest req,Franchise franchise){	
+
 				String jslIp = req.getHeader("X-FORWARDED-FOR");
 		        if (Strings.isNullOrEmpty(jslIp)) {
 		        	jslIp = req.getRemoteAddr();
 		        }
 		        franchise.setJslIp(jslIp);
 		        franchise.setJslcounseling("0");
+		        franchiseService.insertFranchise(franchise);
 		        
-				franchiseService.insertFranchise(franchise);
-				return "redirect:/ssrolcfront/franchise/faq"; 
+		        Map<String, Object> map  = mailService.sendApplicationFormMail(franchise,adminAddress);
+		        
+				return ResponseEntity.ok(map); 
 			}
 	
 	

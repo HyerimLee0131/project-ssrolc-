@@ -9,13 +9,14 @@ import org.springframework.mail.javamail.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.freemarker.*;
 
+import com.ssrolc.domain.franchise.Franchise;
 import com.ssrolc.repository.DisclosureRepository;
 import com.ssrolc.utils.mail.*;
 
 import freemarker.template.*;
 
 @Service
-public class MailService implements RegistrationNotifier {
+public class MailService{
 	
 //	private final static String name = "##NAME##";
 //	private final static String securityKey = "##SECURITY_KEY##";
@@ -38,8 +39,7 @@ public class MailService implements RegistrationNotifier {
 		this.mailSender = mailSender;
 	}
 
-	@Override
-	public Map<String, Object> sendMail(String pMemName,String pEmailId, String pEmailAdd1, String hostName) {
+	public Map<String, Object> sendAuthkeyMail(String pMemName,String pEmailId, String pEmailAdd1, String hostName) {
 		String name = pMemName;
 		String mailAddress = "";
 		String template = "/ssrolcmanager/mail/emailContent.ftl";
@@ -95,7 +95,38 @@ public class MailService implements RegistrationNotifier {
 		return sb.toString();
 	}
 	
+	public Map<String, Object> sendApplicationFormMail(Franchise franchise,String adminAddress) {
+		
+		String template = "/ssrolcmanager/mail/applicationForm.ftl";
 
-
+		Map<String, Object> map = new HashMap<>();
+		
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message,
+					true, "utf-8");
+			messageHelper.setSubject(MailService.INFO_TITLE);
+			messageHelper.setFrom("mail@jei.com", "스스로러닝센터");
+			HashMap<String, Object> model = new HashMap<String, Object>();
+			
+			model.put("franchise", franchise);
+			model.put("adminAddress", adminAddress);
+			
+			
+			String text = FreeMarkerTemplateUtils.processTemplateIntoString(
+					freemarkerConfiguration.getTemplate(template, "UTF-8"),
+					model);
+			message.setContent(text, "text/html; charset=utf-8");
+			messageHelper.setTo(new InternetAddress(adminAddress, "utf-8"));
+			
+			
+				mailSender.send(message);
+				map.put("result", "mailSend");
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
 
 }
