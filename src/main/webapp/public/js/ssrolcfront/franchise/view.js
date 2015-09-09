@@ -109,8 +109,8 @@ $(function() {
 	
 
 	//달력버튼
-	$("#joinHopeDate").on('click',function() {
-		$("#joinHopeDate_img").datepicker( "show" );
+	$("#joinHopeDate_img").on('click',function() {
+		$("#joinHopeDate").datepicker( "show" );
 	});
 
 	$("#joinCheck").on('click',function(){

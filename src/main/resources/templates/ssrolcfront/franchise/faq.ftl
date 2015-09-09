@@ -103,7 +103,7 @@
 								<tr>
 									<th scope="row"><label for="jslcDate">가맹희망일</label></th>
 										<td>
-										<input name="jslcDate" type="text" class="text datePicker" id="joinHopeDate" style="width: 80px;" title=""  readonly='readonly'>
+										<input name="jslcDate" type="text" class="text datePicker" id="joinHopeDate" style="width: 90px;" title=""  readonly='readonly'>
 										<img src="/public/img/admin/common/icon_calendar.gif" alt="" id="joinHopeDate_img" style="cursor:pointer;">
 										</td>
 								</tr>
