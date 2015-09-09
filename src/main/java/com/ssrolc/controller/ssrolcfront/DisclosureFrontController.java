@@ -75,7 +75,6 @@ public class DisclosureFrontController {
 	@RequestMapping(value={"/ssrolcfront/disclosure/ignoreEmail"},method={RequestMethod.GET,RequestMethod.HEAD})
 	public String insert(Model model,HttpServletRequest req,IgnoreEmail ignoreEmail
 						,@RequestParam(value="email")String email){		
-		logger.debug("##########여긴 들어왓나..");
 		//ip넣기
 		String regIp = req.getHeader("X-FORWARDED-FOR");
         if (Strings.isNullOrEmpty(regIp)){
@@ -99,7 +98,7 @@ public class DisclosureFrontController {
         if (Strings.isNullOrEmpty(jslIp)){
         	jslIp = request.getRemoteAddr();
         }
-		Map<String, Object> map  = mailService.sendMail(pMemName,pEmailId,pEmailAdd1,hostName);
+		Map<String, Object> map  = mailService.sendAuthkeyMail(pMemName,pEmailId,pEmailAdd1,hostName);
 		String mailAddress = pEmailId + "@" + pEmailAdd1;
 		if("mailIgnore".equals(map.get("result").toString())){
 			return ResponseEntity.ok(map);

@@ -4,13 +4,14 @@
 $(function() {
 	$.extend({
 		joinWrite:function(){
+			
 			if($.trim($('#jslcName').val())==""){
 				alert('이름을 입력해주세요.');
 				$('#jslcName').focus();
 				return false;
 			}
 
-			if($.trim($('#mb_zip1').val())==""){
+			if($.trim($('#formPost').val())==""){
 				alert('우편번호를 입력해주세요.');
 				return false;
 			}
@@ -66,12 +67,31 @@ $(function() {
 				$('#pContents').focus();
 				return false;
 			}
-
-			if($('#pCheck').is(":checked")==false){
-				alert('개인정보 항목 및 수집방법 설명 동의체크를 해주세요.');
-				return false;
+			var agreeChk = $('input[name="agreeChk"]:checked').val();
+			if(agreeChk !="1"){
+				alert("상담약관 동의에 동의체크를 눌러주세요");
+				return;
 			}
-			$('#fwrite').submit();
+			//$('#fwrite').submit();
+			var inputData = $('#fwrite').serialize();
+			
+			$.ajax({
+			type :"POST",
+			url  :"/ssrolcfront/franchise/faq",
+			data: inputData,
+			cache: false,
+			async: true,
+			dataType: "json",
+			success: function(jsonData, textStatus, XMLHttpRequest) {
+				if(jsonData.result=="mailSend"){ 
+					alert('이메일이 발송되었습니다.');
+					location.href="/";
+				}
+			},
+			error:function (xhr, ajaxOptions, thrownError){
+				alert(thrownError);
+			}
+		});
 		},
 		setAddr:function(formPost,addressDtl01){
 			$('#formPost').val(formPost);
@@ -90,7 +110,7 @@ $(function() {
 
 	//달력버튼
 	$("#joinHopeDate").on('click',function() {
-		$("#joinHopeDate").datepicker( "show" );
+		$("#joinHopeDate_img").datepicker( "show" );
 	});
 
 	$("#joinCheck").on('click',function(){
@@ -112,7 +132,7 @@ $(function() {
 			}
 		var inputData = {"jslcArea1":jslcArea1};
 		$.ajax({
-			url:"/ssrolcmanager/franchise/deptArea",
+			url:"/ssrolcfront/franchise/deptArea",
 			type:"GET",
 			cache: false,
 			async: true,
