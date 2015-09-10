@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Strings;
 import com.ssrolc.domain.common.User;
@@ -14,6 +15,7 @@ import com.ssrolc.domain.common.UserRole;
 import com.ssrolc.repository.AuthoritiesRepository;
 
 @Service
+@Transactional("primaryTransactionManager")
 public class AuthoritiesService {
 	
 	@Autowired
