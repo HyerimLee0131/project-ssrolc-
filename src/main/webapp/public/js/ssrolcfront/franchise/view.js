@@ -41,7 +41,7 @@ $(function() {
 				return false;
 			}else{
 				if(jslcType == "교습소"){
-					if($('#jslcSubject').val()=="select"){
+					if($('#jslcSubject').val()==""){
 						alert("희망과목을 선택해주세요.");
 						return false;
 					}
@@ -72,6 +72,7 @@ $(function() {
 				alert("상담약관 동의에 동의체크를 눌러주세요");
 				return;
 			}
+			
 			//$('#fwrite').submit();
 			var inputData = $('#fwrite').serialize();
 			
@@ -101,13 +102,17 @@ $(function() {
 			var jslcType = $('input[name="jslcType"]:checked').val();
 			if(jslcType == "교습소"){
 				$('#jslcSubject').removeAttr('disabled');
+				$('#jslcSubjectchk').val('');
 			}else{
 				$('#jslcSubject').attr('disabled','disabled');
 			}
 		}
 	});
 	
-
+	$('#jslcSubject').on('change',function(){
+		$('#jslcSubjectchk').val($(this).val());
+	});
+	
 	//달력버튼
 	$("#joinHopeDate").on('click',function() {
 		$("#joinHopeDate_img").datepicker( "show" );

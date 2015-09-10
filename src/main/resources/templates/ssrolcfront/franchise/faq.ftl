@@ -65,7 +65,7 @@
 								<tr>
 									<th scope="row"><label for="jslcSubject">희망과목</label></th>
 									<td>
-										<select name="jslcSubject" disabled id="jslcSubject" class="input-select">
+										<select disabled id="jslcSubject" class="input-select">
 											<option value=''>선택</option>
 											<option value='수학'>수학</option>
 											<option value='국어'>국어</option>
@@ -77,7 +77,7 @@
 											<option value='중국어'>중국어</option>
 											<option value='일본어'>일본어</option>
 										</select>
-										<input name="jslcSubject" id="jslcSubject" type="hidden" value=""> 
+										<input name="jslcSubject" id="jslcSubjectchk" type="hidden" value=""> 
 									</td>
 								</tr>
 								<tr>
